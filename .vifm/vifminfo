@@ -1,0 +1,1160 @@
+# You can edit this file by hand, but it's recommended not to do that.
+
+# Bookmarks:
+'b
+	/home/chen/bin/
+	../
+1486054214
+'c
+	/home/chen/.vifm
+	vimfiles
+1486053370
+'e
+	/home/chen/Builds
+	progit2/
+1486053392
+'h
+	/home/chen/
+	../
+1486054214
+'k
+	/home/chen
+	Music/
+1486740760
+'p
+	/home/chen/Projects
+	i2c-interface/
+1486053309
+'r
+	/
+	bin/
+1486053295
+'s
+	/home/chen/Scuola
+	TPS/
+1486053304
+'v
+	/home/chen/Data/Video
+	Full_Metal_Panic!/
+1486053336
+'w
+	/home/chen/Projects
+	i2c-interface/
+1486741221
+
+# TUI:
+al
+q1
+v2
+ov
+m-1
+l2
+r2
+
+# Left window history (oldest to newest):
+d/home/chen/.SpaceVim/autoload/SpaceVim/mapping
+	leader.vim
+3
+d/home/chen/.SpaceVim/autoload/SpaceVim
+	api/
+1
+d/home/chen/.SpaceVim/autoload/SpaceVim/api
+	unicode/
+2
+d/home/chen/.SpaceVim/autoload/SpaceVim
+	health/
+2
+d/home/chen/.SpaceVim/autoload/SpaceVim/health
+	python.vim
+4
+d/home/chen/.SpaceVim/autoload/SpaceVim
+	health/
+2
+d/home/chen/.SpaceVim/autoload
+	airline/
+2
+d/home/chen/.SpaceVim
+	config/
+4
+d/home/chen/.SpaceVim/config
+	plugins_before/
+2
+d/home/chen/.SpaceVim
+	config/
+4
+d/home/chen
+	.SpaceVim/
+4
+d/home/chen/.SpaceVim
+	doc/
+5
+d/home/chen/.SpaceVim/doc
+	tags
+2
+d/home/chen/.SpaceVim
+	docs/
+6
+d/home/chen/.SpaceVim/docs
+	autoload/
+4
+d/home/chen/.SpaceVim/docs/autoload
+	SpaceVim/
+1
+d/home/chen/.SpaceVim/docs/autoload/SpaceVim
+	layers/
+1
+d/home/chen/.SpaceVim/docs/autoload/SpaceVim/layers
+	lang/
+1
+d/home/chen/.SpaceVim/docs/autoload/SpaceVim/layers/lang
+	../
+0
+d/home/chen/.SpaceVim/docs/autoload/SpaceVim/layers
+	lang/
+1
+d/home/chen/.SpaceVim/docs/autoload/SpaceVim
+	layers/
+1
+d/home/chen/.SpaceVim/docs/autoload
+	SpaceVim/
+1
+d/home/chen/.SpaceVim/docs
+	config/
+5
+d/home/chen/.SpaceVim/docs/config
+	plugins/
+1
+d/home/chen/.SpaceVim/docs/config/plugins
+	../
+0
+d/home/chen/.SpaceVim/docs/config
+	plugins/
+1
+d/home/chen/.SpaceVim/docs/config/plugins
+	../
+0
+d/home/chen/.SpaceVim/docs/config
+	plugins/
+1
+d/home/chen/.SpaceVim/docs
+	development/
+6
+d/home/chen/.SpaceVim/docs/development
+	conventions.md
+1
+d/home/chen/.SpaceVim/docs
+	doc/
+7
+d/home/chen/.SpaceVim/docs/doc
+	../
+0
+d/home/chen/.SpaceVim/docs
+	img/
+8
+d/home/chen/.SpaceVim/docs/img
+	../
+0
+d/home/chen/.SpaceVim/docs
+	layers/
+9
+d/home/chen/.SpaceVim/docs/layers
+	../
+0
+d/home/chen/.SpaceVim/docs
+	layers/
+9
+d/home/chen/.SpaceVim
+	syntax/
+7
+d/home/chen/.SpaceVim/syntax
+	leaderGuide.vim
+1
+d/home/chen/.SpaceVim
+	syntax/
+7
+d/home/chen
+	.SpaceVim/
+4
+d/home
+	chen/
+1
+d/
+	dev/
+4
+d/home/chen/Books/Programming
+	Web/
+2
+d/home/chen/Books/Programming/Web
+	Front-end/
+2
+d/home/chen/Books/Programming/Web/Front-end
+	../
+0
+d/home/chen/Books/Programming/Web
+	Back-end/
+1
+d/home/chen/Books/Programming/Web/Back-end
+	../
+0
+d/home/chen/Books/Programming/Web
+	Front-end/
+2
+d/home/chen/Books/Programming/Web/Front-end
+	AngularJs/
+1
+d/home/chen/Books/Programming/Web
+	Front-end/
+2
+d/home/chen/Books/Programming/Web/Front-end
+	Bootstrap/
+2
+d/home/chen/Books/Programming/Web/Front-end/Bootstrap
+	../
+0
+d/home/chen/Books/Programming/Web/Front-end
+	AngularJs/
+1
+d/home/chen/Books/Programming/Web/Front-end/AngularJs
+	AngularJs2/
+2
+d/home/chen/Books/Programming/Web/Front-end
+	Learning_Web_Design.pdf
+2
+d/home/chen/Books/Programming/Web
+	Front-end/
+2
+d/home/chen/Books/Programming/Web/Front-end
+	AngularJs/
+1
+d/home/chen/Books/Programming/Web/Front-end/AngularJs
+	AngularJs2/
+2
+d/home/chen/Books/Programming/Web/Front-end
+	AngularJs/
+1
+d/home/chen/Books/Programming/Web
+	Front-end/
+2
+d/home/chen/Books/Programming/Web/Front-end
+	Bootstrap/
+2
+d/home/chen/Books/Programming/Web/Front-end/Bootstrap
+	../
+0
+d/home/chen/Books/Programming/Web/Front-end
+	AngularJs/
+1
+d/home/chen/Books/Programming/Web/Front-end/AngularJs
+	AngularJs/
+1
+d/home/chen/Books/Programming/Web/Front-end/AngularJs/AngularJs
+	../
+0
+d/home/chen/Books/Programming/Web/Front-end/AngularJs
+	AngularJs2/
+2
+d/home/chen/Books/Programming/Web/Front-end/AngularJs/AngularJs2
+	../
+0
+d/home/chen/Books/Programming/Web/Front-end/AngularJs
+	AngularJs2/
+2
+d/home/chen/Books/Programming/Web/Front-end
+	Learning-Web-Development-with-Bootstrap-and-AngularJS.pdf
+3
+d/home/chen
+	Books/
+1
+d/home/chen/Books
+	Electronics/
+1
+d/home/chen/Books/Electronics
+	../
+0
+d/home/chen/Books
+	Programming/
+2
+d/home/chen/Books/Programming
+	Web/
+2
+d/home/chen/Books/Programming/Web
+	Front-end/
+2
+d/home/chen/Books/Programming/Web/Front-end
+	Learning-Web-Development-with-Bootstrap-and-AngularJS.pdf
+3
+d/home/chen
+	Data/
+5
+d/home/chen/Data
+	../
+0
+d/home/chen
+	Code/
+4
+d/home/chen/Code
+	../
+0
+d/home/chen
+	Code/
+4
+d/home/chen/Books/Programming/Web
+	Front-end/
+2
+d/home/chen/Books/Programming/Web/Front-end
+	AngularJs/
+1
+d/home/chen/Books/Programming/Web/Front-end/AngularJs
+	AngularJs/
+1
+d/home/chen/Books/Programming/Web/Front-end/AngularJs/AngularJs
+	ng-book.pdf
+2
+d/home/chen
+	Code/
+4
+d/home/chen/Dropbox
+	Computer_Science/
+1
+d/home/chen/Dropbox/Computer_Science
+	Web/
+3
+d/home/chen/Dropbox/Computer_Science/Web
+	Learn_Web_development_with_Angular_and_Bootstrap/
+1
+d/home/chen/Dropbox/Computer_Science/Web/Learn_Web_development_with_Angular_and_Bootstrap
+	1-Chapter/
+1
+d/home/chen/Dropbox/Computer_Science/Web/Learn_Web_development_with_Angular_and_Bootstrap/1-Chapter
+	../
+0
+d/home/chen
+	Code/
+3
+d/home/chen/Dropbox
+	Computer_Science/
+1
+d/home/chen/Dropbox/Computer_Science
+	Web/
+3
+d/home/chen/Dropbox/Computer_Science/Web
+	Learn_Web_development_with_Angular_and_Bootstrap/
+1
+d/home/chen/Dropbox/Computer_Science/Web/Learn_Web_development_with_Angular_and_Bootstrap
+	1-Chapter/
+1
+d/home/chen/Dropbox/Computer_Science/Web/Learn_Web_development_with_Angular_and_Bootstrap/1-Chapter
+	../
+0
+d/home/chen/Dropbox/Computer_Science/Web/Learn_Web_development_with_Angular_and_Bootstrap
+	1-Chapter/
+1
+d/home/chen/.vifm
+	vifmrc
+6
+d
+
+# Right window history (oldest to newest):
+D/home/chen/Builds/progit2/book
+	05-distributed-git/
+5
+D/home/chen/Builds/progit2
+	book/
+2
+D/home/chen/Builds/progit2/book
+	05-distributed-git/
+5
+D/home/chen/Builds/progit2
+	book/
+2
+D/home/chen/Builds/progit2/book
+	05-distributed-git/
+5
+D/home/chen/Builds/progit2
+	book/
+2
+D/home/chen/Builds/progit2/book
+	05-distributed-git/
+5
+D/home/chen/Builds/progit2
+	book/
+2
+D/home/chen/Builds/progit2/book
+	03-git-branching/
+3
+D/home/chen/Builds/progit2/book/03-git-branching
+	../
+0
+D/home/chen/Builds/progit2/book
+	06-github/
+6
+D/home/chen/Builds/progit2/book/06-github
+	../
+0
+D/home/chen/Builds/progit2/book
+	05-distributed-git/
+5
+D/home/chen/Builds/progit2/book/05-distributed-git
+	sections/
+2
+D/home/chen/Builds/progit2/book/05-distributed-git/sections
+	../
+0
+D/home/chen/Builds/progit2/book/05-distributed-git
+	sections/
+2
+D/home/chen/Builds/progit2/book/05-distributed-git/sections
+	contributing.asc
+1
+D/home/chen/Builds/progit2/book/05-distributed-git
+	1-distributed-git.asc
+3
+D/home/chen/Builds/progit2/book
+	05-distributed-git/
+5
+D/home/chen/Builds/progit2/book/05-distributed-git
+	1-distributed-git.asc
+3
+D/home/chen
+	.vifm/
+28
+D/home/chen/Builds/progit2/book/05-distributed-git
+	1-distributed-git.asc
+3
+D/home/chen/Builds/progit2/book
+	05-distributed-git/
+5
+D/home/chen/Builds/progit2/book/05-distributed-git
+	1-distributed-git.asc
+3
+D/home/chen/Builds/progit2/book
+	05-distributed-git/
+5
+D/home/chen/Builds/progit2
+	book/
+2
+D/home/chen/Builds
+	progit2/
+3
+D/home/chen
+	Builds/
+36
+D/home/chen/.vim
+	snippets/
+5
+D/home/chen/.vim/snippets
+	asciidoc.snip
+1
+D/home/chen/.vim
+	snippets/
+5
+D/home/chen
+	../
+0
+D/home/chen/.vifm
+	vifmrc
+6
+D/home/chen/Repositories/vim
+	.vim/
+2
+D/home/chen/Repositories/vim/.vim
+	after/
+1
+D/home/chen/Repositories/vim/.vim/after
+	ftplugin/
+1
+D/home/chen/Repositories/vim/.vim/after/ftplugin
+	../
+0
+D/home/chen/Repositories/vim/.vim/after
+	ftplugin/
+1
+D/home/chen/Repositories/vim/.vim
+	snippets/
+6
+D/home/chen/Repositories/vim/.vim/snippets
+	asciidoc.snip
+1
+D/home/chen/Repositories/vim/.vim
+	spell/
+7
+D/home/chen/Repositories/vim/.vim/spell
+	en.utf-8.add
+1
+D/home/chen/Repositories/vim/.vim
+	tags/
+8
+D/home/chen/Repositories/vim/.vim/tags
+	../
+0
+D/home/chen/Repositories/vim/.vim
+	../
+0
+D/home/chen
+	.Designer/
+1
+D/home/chen/Books
+	Qt/
+2
+D/home/chen/Books/Qt
+	Qt_Books_Source/
+1
+D/home/chen/Books/Qt/Qt_Books_Source
+	../
+0
+D/home/chen/Books/Qt
+	Qt.pdf
+2
+D/home/chen
+	.Designer/
+1
+D/home/chen/Downloads
+	../
+0
+D/home/chen
+	.Designer/
+1
+D/home/chen/Scuola
+	Sistemi_e_reti/
+5
+D/home/chen/Scuola/Sistemi_e_reti
+	Dispensa/
+1
+D/home/chen/Scuola/Sistemi_e_reti/Dispensa
+	Packet_Tracer/
+1
+D/home/chen/Scuola/Sistemi_e_reti/Dispensa/Packet_Tracer
+	doc/
+1
+D/home/chen/Scuola/Sistemi_e_reti/Dispensa/Packet_Tracer/doc
+	../
+0
+D/home/chen/Scuola/Sistemi_e_reti/Dispensa/Packet_Tracer
+	doc/
+2
+D/home/chen/Scuola/Sistemi_e_reti/Dispensa
+	Packet_Tracer/
+1
+D/home/chen/Scuola/Sistemi_e_reti
+	Dispensa/
+1
+D/home/chen/Scuola
+	Sistemi_e_reti/
+5
+D/home/chen/Scuola/Sistemi_e_reti
+	Dispensa/
+1
+D/home/chen/Scuola
+	Sistemi_e_reti/
+5
+D/home/chen/Scuola/Sistemi_e_reti
+	Dispensa/
+1
+D/home/chen/Scuola/Sistemi_e_reti/Dispensa
+	Packet_Tracer/
+1
+D/home/chen/Scuola/Sistemi_e_reti/Dispensa/Packet_Tracer
+	doc/
+2
+D/home/chen/Scuola/Sistemi_e_reti/Dispensa
+	Pentamestre/
+2
+D/home/chen/Scuola/Sistemi_e_reti/Dispensa/Pentamestre
+	Makefile
+5
+D/home/chen/Scuola/Sistemi_e_reti/Dispensa
+	Pentamestre/
+2
+D/home/chen/Scuola/Sistemi_e_reti/Dispensa/Pentamestre
+	sistemi_e_reti.html
+7
+D/home/chen/Scuola/Sistemi_e_reti/Dispensa
+	Pentamestre/
+2
+D/home/chen/Scuola/Sistemi_e_reti
+	Dispensa/
+1
+D/home/chen/Scuola
+	TPS/
+7
+D/home/chen/Scuola/TPS
+	Dispensa/
+1
+D/home/chen/Scuola/TPS/Dispensa
+	TPS.pdf
+9
+D/home/chen/Scuola/TPS
+	Dispensa/
+1
+D/home/chen/Scuola
+	TPS/
+7
+D/home/chen
+	Scuola/
+38
+D/home
+	chen/
+1
+D/
+	data/
+3
+D/data
+	../
+0
+D/
+	home/
+6
+D/home
+	chen/
+1
+D/home/chen
+	Books/
+1
+D/home/chen/Books
+	Web/
+3
+D/home/chen/Books/Web
+	../
+0
+D/home/chen/Books
+	Web/
+3
+D/home/chen/Books/Web
+	../
+0
+D/home/chen/Books
+	Electronics/
+1
+D/home/chen/Books/Electronics
+	Elecronics-Kybett.pdf
+1
+D/home/chen/Books
+	Electronics/
+1
+D/home/chen/Books/Electronics
+	Practical_Electronics_for_Inventors.pdf
+2
+D/home/chen/Books
+	Qt/
+2
+D/home/chen/Books/Qt
+	Qt.pdf
+2
+D/home/chen/Books
+	Web/
+3
+D/home/chen/Books/Web
+	AngularJs/
+1
+D/home/chen/Books/Web/AngularJs
+	AngularJs/
+1
+D/home/chen/Books/Web/AngularJs/AngularJs
+	ng-book.pdf
+2
+D/home/chen/Books
+	../
+0
+D
+
+# Command line history (oldest to newest):
+:!sudo ./can
+:cd ~/Downloads/
+:!tar xvf vifm-0.8.2.tar.bz2
+:!./configure
+:!vimdiff ./tags ./std_tags
+:!mkdir classview
+:!vim introduction.asc
+:i
+:!vim index.asc
+:!vim preface.asc
+:cd ~/.vifm
+:?
+:mark ~
+:bmark config_dir
+:bmark 
+:bmark .
+:bmark . a
+:mark .
+:mark . a
+:mark ~/.vifm/ 
+:mark ~/.vifm/ a
+:mark vifm_config
+:mark a
+:mark vifmconfig
+:mark b
+:mark /home/chen/.vifm
+:mark /home/chen/.vifm a
+:vifm
+:mark x .
+:mark x /home/chen/.vifm
+:mark x
+:mark config_dir .
+:mark config_dir /home/chen/.vifm
+:mark configdir /home/chen/.vifm
+:mark con /home/chen/.vifm
+:mark c /home/chen/.vifm
+:bmark
+:j
+:mark r
+:mark r /
+:mark
+:markgs
+:marks
+:cd .vifm
+:e
+:touch
+:touch 
+:!vim 1-distributed-git.asc
+:cd  
+:rm *.pdf
+:!rm *.pdf
+:cd Valloric/
+:!mkdir Code
+:cd Code/
+:!make
+:!mkdir 1-Indirizzamento_classful
+:!mkdir 2-Indirizzamento_classless
+:!touch 1-indirizzamento-classful
+:!mkdir images
+:cd Builds/
+:cd Pro
+:mru
+:!mkdir Arabia
+:!zathura TTRG-elettronica-0.3.22.pdf
+:!mkdir Web
+:rename
+:!mkdir Angularjs
+:!mkdir AngularJs
+:cd -
+:echo expand("%f")
+:!zathura Qt.pdf
+:!evince Qt.pdf
+: 
+:cd 
+:!ls
+:sh
+:colorscheme Default
+:colorscheme Default.vifm
+:colorscheme astrell.vifm
+:colorscheme darkdesert.vifm
+:colorscheme desert.vifm
+:colorscheme g80.vifm
+:cd Music
+:cd ~/Repositories/vim/
+:!mkdir packe
+:cd Repositories/
+:cd Books/
+:cd Downloads/
+:cd P
+:cd ~
+:cd Scuola/
+:!mkdir doc
+:cd .vim
+:cd Dropbox/
+:source ./
+:Q
+:expand
+:help %
+:echo %
+:help
+:q
+
+# Search history (oldest to newest):
+/as
+/build
+/text
+/menu
+/seria
+/test
+/chen
+/Music
+/home/chen/
+/home
+/Q
+/Desk
+/run
+/mount
+/medi
+/me
+/widge
+/cd ~/.vifm
+/doc
+/serialport
+/widgets
+/lay
+/scro
+/quick
+/custo
+/wi
+/bu
+/teswt
+/t
+/grou
+/groub
+/Drop
+/serial
+/term
+/widg
+/main
+/.vifm
+/table
+/Qt
+/wid
+/group
+/como
+/box
+/item
+/spin
+/marks
+/sliders
+/i2c
+/pro
+/dialog
+/*.pro
+/model
+/widget
+/dele
+/thread
+/con
+/vifm
+/.pro
+/denite
+/a
+/.bashrc
+/user
+/bin
+
+# Prompt history (oldest to newest):
+p4-indirizzamento_classless.
+p3-indirizzamento_classless.
+p4-Esempio_subnetting_FLSM.
+p3-indirizzamento_classless.adocj
+p3-indirizzamento_classless.adoc
+p4-Esempio_subnetting_FLSM.adoc
+pItaliano-03.
+pItaliano-03.pdf
+pk
+pexamples.desktop
+pa.md
+ptodo.md
+plyrics1
+pi2c-interface
+pi2c-interface.pro
+pi2c-interface.pro.user
+pport_interfacing
+pCommandTable.cpp
+pCommandTable.h
+pCommandWindow.cpp
+pCommandPanel.cpp
+pCommandPanel.h
+pConsole.cpp
+pconsole.h
+pConsole.h
+pControlPanel.cpp
+pControlPanel.h
+pDeviceConfigurePanel.cpp
+pDeviceConfigurePanel.h
+pDeviceSetting.cpp
+pDeviceSetting.h
+pMainWindow.cpp
+pMainWindow.h
+pMonitoringPanel.cpp
+pMonitoringPanel.h
+pStartupConfigPanel.cpp
+pStartupConfigPanel.h
+pSwitchButton.h
+pdrivers
+pStoria07.pdf
+pStoria08.pdf
+pItaliano 02.
+pItaliano-02.pdf
+po
+ptest.pro
+p1-indirizzamento-classful.adoc
+pStoria09.pdf
+pr
+pa.svg
+pO
+pFullstack.The.Complete.Book.On.AngularJS.Dec.2013.ISBN.099134460X.pdf
+pVFullstack.The.Complete.Book.On.AngularJS.Dec.2013.ISBN.099134460X.pdf
+pAngularJs
+pAngularJs2
+ps
+
+# Local filter history (oldest to newest):
+
+# Registers:
+
+# Directory stack (oldest to newest):
+
+# Trash content:
+t/home/chen/.local/share/Trash/files/000_,
+	/home/chen/Projects/i2c-interface/src/,
+t/home/chen/.local/share/Trash/files/000_Underworld:_Evolution.en.srt
+	/media/chen/TOSHIBA EXT/Video/Underworld_series/Underworld:_Evolution.en.srt
+t/home/chen/.local/share/Trash/files/000_Underworld:_Evolution.mp4
+	/media/chen/TOSHIBA EXT/Video/Underworld_series/Underworld:_Evolution.mp4
+t/home/chen/.local/share/Trash/files/001_Underworld:_Evolution.en.srt
+	/media/chen/TOSHIBA EXT/Video/Underworld_series/Underworld:_Evolution.en.srt
+t/home/chen/.local/share/Trash/files/001_Underworld:_Evolution.mp4
+	/media/chen/TOSHIBA EXT/Video/Underworld_series/Underworld:_Evolution.mp4
+t/home/chen/.local/share/Trash/files/000_CommandPanel.o
+	/home/chen/Projects/i2c-interface/build/CommandPanel.o
+t/home/chen/.local/share/Trash/files/000_Makefile
+	/home/chen/Projects/i2c-interface/build/Makefile
+t/home/chen/.local/share/Trash/files/000_commandtable (Case Conflict).o
+	/home/chen/Projects/i2c-interface/build/commandtable (Case Conflict).o
+t/home/chen/.local/share/Trash/files/000_commandtable.o
+	/home/chen/Projects/i2c-interface/build/commandtable.o
+t/home/chen/.local/share/Trash/files/000_commandwindow.o
+	/home/chen/Projects/i2c-interface/build/commandwindow.o
+t/home/chen/.local/share/Trash/files/000_console (Case Conflict).o
+	/home/chen/Projects/i2c-interface/build/console (Case Conflict).o
+t/home/chen/.local/share/Trash/files/000_console.o
+	/home/chen/Projects/i2c-interface/build/console.o
+t/home/chen/.local/share/Trash/files/000_controlpanel (Case Conflict).o
+	/home/chen/Projects/i2c-interface/build/controlpanel (Case Conflict).o
+t/home/chen/.local/share/Trash/files/000_controlpanel.o
+	/home/chen/Projects/i2c-interface/build/controlpanel.o
+t/home/chen/.local/share/Trash/files/000_deviceconfigurepanel (Case Conflict).o
+	/home/chen/Projects/i2c-interface/build/deviceconfigurepanel (Case Conflict).o
+t/home/chen/.local/share/Trash/files/000_deviceconfigurepanel.o
+	/home/chen/Projects/i2c-interface/build/deviceconfigurepanel.o
+t/home/chen/.local/share/Trash/files/000_devicesetting.o
+	/home/chen/Projects/i2c-interface/build/devicesetting.o
+t/home/chen/.local/share/Trash/files/000_i2c-interface
+	/home/chen/Projects/i2c-interface/build/i2c-interface
+t/home/chen/.local/share/Trash/files/000_main.o
+	/home/chen/Projects/i2c-interface/build/main.o
+t/home/chen/.local/share/Trash/files/000_mainwindow (Case Conflict (1)).o
+	/home/chen/Projects/i2c-interface/build/mainwindow (Case Conflict (1)).o
+t/home/chen/.local/share/Trash/files/000_mainwindow (Case Conflict (2)).o
+	/home/chen/Projects/i2c-interface/build/mainwindow (Case Conflict (2)).o
+t/home/chen/.local/share/Trash/files/000_mainwindow (Case Conflict (3)).o
+	/home/chen/Projects/i2c-interface/build/mainwindow (Case Conflict (3)).o
+t/home/chen/.local/share/Trash/files/000_mainwindow (Case Conflict (4)).o
+	/home/chen/Projects/i2c-interface/build/mainwindow (Case Conflict (4)).o
+t/home/chen/.local/share/Trash/files/000_mainwindow (Case Conflict (5)).o
+	/home/chen/Projects/i2c-interface/build/mainwindow (Case Conflict (5)).o
+t/home/chen/.local/share/Trash/files/000_mainwindow (Case Conflict (6)).o
+	/home/chen/Projects/i2c-interface/build/mainwindow (Case Conflict (6)).o
+t/home/chen/.local/share/Trash/files/000_mainwindow (Case Conflict (7)).o
+	/home/chen/Projects/i2c-interface/build/mainwindow (Case Conflict (7)).o
+t/home/chen/.local/share/Trash/files/000_mainwindow (Case Conflict (8)).o
+	/home/chen/Projects/i2c-interface/build/mainwindow (Case Conflict (8)).o
+t/home/chen/.local/share/Trash/files/000_mainwindow (Case Conflict (9)).o
+	/home/chen/Projects/i2c-interface/build/mainwindow (Case Conflict (9)).o
+t/home/chen/.local/share/Trash/files/000_mainwindow (Case Conflict).o
+	/home/chen/Projects/i2c-interface/build/mainwindow (Case Conflict).o
+t/home/chen/.local/share/Trash/files/000_mainwindow.o
+	/home/chen/Projects/i2c-interface/build/mainwindow.o
+t/home/chen/.local/share/Trash/files/000_moc_mainwindow (Case Conflict).cpp
+	/home/chen/Projects/i2c-interface/build/moc_mainwindow (Case Conflict).cpp
+t/home/chen/.local/share/Trash/files/000_moc_mainwindow (Case Conflict).o
+	/home/chen/Projects/i2c-interface/build/moc_mainwindow (Case Conflict).o
+t/home/chen/.local/share/Trash/files/000_moc_mainwindow.cpp
+	/home/chen/Projects/i2c-interface/build/moc_mainwindow.cpp
+t/home/chen/.local/share/Trash/files/000_moc_mainwindow.o
+	/home/chen/Projects/i2c-interface/build/moc_mainwindow.o
+t/home/chen/.local/share/Trash/files/000_monitoringpanel (Case Conflict).o
+	/home/chen/Projects/i2c-interface/build/monitoringpanel (Case Conflict).o
+t/home/chen/.local/share/Trash/files/000_monitoringpanel.o
+	/home/chen/Projects/i2c-interface/build/monitoringpanel.o
+t/home/chen/.local/share/Trash/files/000_qrc_stylesheet.cpp
+	/home/chen/Projects/i2c-interface/build/qrc_stylesheet.cpp
+t/home/chen/.local/share/Trash/files/000_qrc_stylesheet.o
+	/home/chen/Projects/i2c-interface/build/qrc_stylesheet.o
+t/home/chen/.local/share/Trash/files/000_startupconfigpanel.o
+	/home/chen/Projects/i2c-interface/build/startupconfigpanel.o
+t/home/chen/.local/share/Trash/files/000_switchbutton (Case Conflict).o
+	/home/chen/Projects/i2c-interface/build/switchbutton (Case Conflict).o
+t/home/chen/.local/share/Trash/files/000_switchbutton.o
+	/home/chen/Projects/i2c-interface/build/switchbutton.o
+t/home/chen/.local/share/Trash/files/000_MCP2221 JNI
+	/home/chen/Downloads/MCP2221 JNI
+t/home/chen/.local/share/Trash/files/000_MCP2221 jni
+	/home/chen/Downloads/MCP2221 jni
+t/home/chen/.local/share/Trash/files/000_mcp2221_0_1
+	/home/chen/Downloads/mcp2221_0_1
+t/home/chen/.local/share/Trash/files/000_20005292B.pdf
+	/home/chen/Downloads/20005292B.pdf
+t/home/chen/.local/share/Trash/files/000_ADM00559-R3_Gerbers.zip
+	/home/chen/Downloads/ADM00559-R3_Gerbers.zip
+t/home/chen/.local/share/Trash/files/000_MCP2221 Java Native Interface.zip
+	/home/chen/Downloads/MCP2221 Java Native Interface.zip
+t/home/chen/.local/share/Trash/files/000_i2c.o
+	/home/chen/Projects/i2c-interface/build/i2c.o
+t/home/chen/.local/share/Trash/files/000_i2c (Case Conflict).o
+	/home/chen/Projects/i2c-interface/build/i2c (Case Conflict).o
+t/home/chen/.local/share/Trash/files/000_i2c (Case Conflict (1)).o
+	/home/chen/Projects/i2c-interface/build/i2c (Case Conflict (1)).o
+t/home/chen/.local/share/Trash/files/001_i2c-interface
+	/home/chen/Projects/i2c-interface/src/i2c-interface
+t/home/chen/.local/share/Trash/files/000_src
+	/home/chen/Scuola/Italiano/src
+t/home/chen/.local/share/Trash/files/000_Storia07.pdf
+	/home/chen/Transit/Storia07.pdf
+t/home/chen/.local/share/Trash/files/000_Per_Matteo.zip
+	/home/chen/Transit/Per_Matteo.zip
+t/home/chen/.local/share/Trash/files/000_libTextEditor.so
+	/home/chen/Qt5.7.0/Tools/QtCreator/lib/qtcreator/plugins/libTextEditor.so
+t/home/chen/.local/share/Trash/files/000_\
+	/home/chen/Projects/i2c-interface/src/\
+t/home/chen/.local/share/Trash/files/000_i2c-interface.pro
+	/home/chen/.vifm/i2c-interface.pro
+t/home/chen/.local/share/Trash/files/000_i2c-interface.pro.user
+	/home/chen/.vifm/i2c-interface.pro.user
+t/home/chen/.local/share/Trash/files/000_main.cpp
+	/home/chen/.vifm/main.cpp
+t/home/chen/.local/share/Trash/files/000_mainwindow.cpp
+	/home/chen/.vifm/mainwindow.cpp
+t/home/chen/.local/share/Trash/files/000_ctags
+	/home/chen/bin/ctags
+t/home/chen/.local/share/Trash/files/000_Aptana Rubles
+	/home/chen/Documents/Aptana Rubles
+t/home/chen/.local/share/Trash/files/000_Aptana Studio 3 Workspace
+	/home/chen/Documents/Aptana Studio 3 Workspace
+t/home/chen/.local/share/Trash/files/000_TopologiaReti
+	/home/chen/Scuola/Sistemi_e_reti/Dispensa/src/02-Topologia_di_rete/images/TopologiaReti
+t/home/chen/.local/share/Trash/files/001_src
+	/home/chen/Scuola/Sistemi_e_reti/Dispensa/Pentamestre/src/src
+t/home/chen/.local/share/Trash/files/000_denite.nvim
+	/home/chen/.vim/bundle/repos/github.com/Shougo/denite.nvim
+t/home/chen/.local/share/Trash/files/000_echodoc.vim
+	/home/chen/.vim/bundle/repos/github.com/Shougo/echodoc.vim
+t/home/chen/.local/share/Trash/files/000_neco-vim
+	/home/chen/.vim/bundle/repos/github.com/Shougo/neco-vim
+t/home/chen/.local/share/Trash/files/000_neocomplete.vim
+	/home/chen/.vim/bundle/repos/github.com/Shougo/neocomplete.vim
+t/home/chen/.local/share/Trash/files/000_neoinclude.vim
+	/home/chen/.vim/bundle/repos/github.com/Shougo/neoinclude.vim
+t/home/chen/.local/share/Trash/files/000_neopairs.vim
+	/home/chen/.vim/bundle/repos/github.com/Shougo/neopairs.vim
+t/home/chen/.local/share/Trash/files/000_neosnippet.vim
+	/home/chen/.vim/bundle/repos/github.com/Shougo/neosnippet.vim
+t/home/chen/.local/share/Trash/files/000_vimproc.vim
+	/home/chen/.vim/bundle/repos/github.com/Shougo/vimproc.vim
+t/home/chen/.local/share/Trash/files/000_Konfekt
+	/home/chen/.vim/bundle/repos/github.com/Konfekt
+t/home/chen/.local/share/Trash/files/000_SirVer
+	/home/chen/.vim/bundle/repos/github.com/SirVer
+t/home/chen/.local/share/Trash/files/000_Valloric
+	/home/chen/.vim/bundle/repos/github.com/Valloric
+t/home/chen/.local/share/Trash/files/000_alvan
+	/home/chen/.vim/bundle/repos/github.com/alvan
+t/home/chen/.local/share/Trash/files/000_bling
+	/home/chen/.vim/bundle/repos/github.com/bling
+t/home/chen/.local/share/Trash/files/000_ctrlpvim
+	/home/chen/.vim/bundle/repos/github.com/ctrlpvim
+t/home/chen/.local/share/Trash/files/000_easymotion
+	/home/chen/.vim/bundle/repos/github.com/easymotion
+t/home/chen/.local/share/Trash/files/000_embear
+	/home/chen/.vim/bundle/repos/github.com/embear
+t/home/chen/.local/share/Trash/files/000_ervandew
+	/home/chen/.vim/bundle/repos/github.com/ervandew
+t/home/chen/.local/share/Trash/files/000_istib
+	/home/chen/.vim/bundle/repos/github.com/istib
+t/home/chen/.local/share/Trash/files/000_jiangmiao
+	/home/chen/.vim/bundle/repos/github.com/jiangmiao
+t/home/chen/.local/share/Trash/files/000_justmao945
+	/home/chen/.vim/bundle/repos/github.com/justmao945
+t/home/chen/.local/share/Trash/files/000_ludovicchabant
+	/home/chen/.vim/bundle/repos/github.com/ludovicchabant
+t/home/chen/.local/share/Trash/files/000_majutsushi
+	/home/chen/.vim/bundle/repos/github.com/majutsushi
+t/home/chen/.local/share/Trash/files/000_miyakogi
+	/home/chen/.vim/bundle/repos/github.com/miyakogi
+t/home/chen/.local/share/Trash/files/000_octol
+	/home/chen/.vim/bundle/repos/github.com/octol
+t/home/chen/.local/share/Trash/files/000_osyo-manga
+	/home/chen/.vim/bundle/repos/github.com/osyo-manga
+t/home/chen/.local/share/Trash/files/000_othree
+	/home/chen/.vim/bundle/repos/github.com/othree
+t/home/chen/.local/share/Trash/files/000_richq
+	/home/chen/.vim/bundle/repos/github.com/richq
+t/home/chen/.local/share/Trash/files/000_romgrk
+	/home/chen/.vim/bundle/repos/github.com/romgrk
+t/home/chen/.local/share/Trash/files/000_scrooloose
+	/home/chen/.vim/bundle/repos/github.com/scrooloose
+t/home/chen/.local/share/Trash/files/000_terryma
+	/home/chen/.vim/bundle/repos/github.com/terryma
+t/home/chen/.local/share/Trash/files/000_tpope
+	/home/chen/.vim/bundle/repos/github.com/tpope
+t/home/chen/.local/share/Trash/files/000_vim-latex
+	/home/chen/.vim/bundle/repos/github.com/vim-latex
+t/home/chen/.local/share/Trash/files/000_vim-scripts
+	/home/chen/.vim/bundle/repos/github.com/vim-scripts
+t/home/chen/.local/share/Trash/files/000_vim-syntastic
+	/home/chen/.vim/bundle/repos/github.com/vim-syntastic
+t/home/chen/.local/share/Trash/files/000_w0rp
+	/home/chen/.vim/bundle/repos/github.com/w0rp
+t/home/chen/.local/share/Trash/files/000_wannesm
+	/home/chen/.vim/bundle/repos/github.com/wannesm
+t/home/chen/.local/share/Trash/files/000_CommandModel.cpp
+	/home/chen/Projects/i2c-interface/src/CommandModel.cpp
+t/home/chen/.local/share/Trash/files/000_CommandModel.cpp.bak
+	/home/chen/Projects/i2c-interface/src/CommandModel.cpp.bak
+t/home/chen/.local/share/Trash/files/000_CommandModel.h
+	/home/chen/Projects/i2c-interface/src/CommandModel.h
+t/home/chen/.local/share/Trash/files/000_CommandModel.h.bak
+	/home/chen/Projects/i2c-interface/src/CommandModel.h.bak
+t/home/chen/.local/share/Trash/files/000_DeviceData.cpp
+	/home/chen/Projects/i2c-interface/src/DeviceData.cpp
+t/home/chen/.local/share/Trash/files/000_DeviceData.h
+	/home/chen/Projects/i2c-interface/src/DeviceData.h
+t/home/chen/.local/share/Trash/files/000_DeviceSelectDialog.cpp.autosave.OF8544
+	/home/chen/Projects/i2c-interface/src/DeviceSelectDialog.cpp.autosave.OF8544
+t/home/chen/.local/share/Trash/files/000_DeviceSetting.cpp
+	/home/chen/Projects/i2c-interface/src/DeviceSetting.cpp
+t/home/chen/.local/share/Trash/files/000_DeviceSetting.h
+	/home/chen/Projects/i2c-interface/src/DeviceSetting.h
+t/home/chen/.local/share/Trash/files/000_FPGAData.cpp
+	/home/chen/Projects/i2c-interface/src/FPGAData.cpp
+t/home/chen/.local/share/Trash/files/000_FPGAData.h
+	/home/chen/Projects/i2c-interface/src/FPGAData.h
+t/home/chen/.local/share/Trash/files/000_slaveDevice.h (Case Conflict (1)).autosave
+	/home/chen/Projects/i2c-interface/src/slaveDevice.h (Case Conflict (1)).autosave
+t/home/chen/.local/share/Trash/files/000_slaveDevice.h (Case Conflict (2)).autosave
+	/home/chen/Projects/i2c-interface/src/slaveDevice.h (Case Conflict (2)).autosave
+t/home/chen/.local/share/Trash/files/000_slaveDevice.h (Case Conflict (3)).autosave
+	/home/chen/Projects/i2c-interface/src/slaveDevice.h (Case Conflict (3)).autosave
+t/home/chen/.local/share/Trash/files/000_slaveDevice.h (Case Conflict (4)).autosave
+	/home/chen/Projects/i2c-interface/src/slaveDevice.h (Case Conflict (4)).autosave
+t/home/chen/.local/share/Trash/files/000_slaveDevice.h (Case Conflict (5)).autosave
+	/home/chen/Projects/i2c-interface/src/slaveDevice.h (Case Conflict (5)).autosave
+t/home/chen/.local/share/Trash/files/000_slaveDevice.h (Case Conflict (6)).autosave
+	/home/chen/Projects/i2c-interface/src/slaveDevice.h (Case Conflict (6)).autosave
+t/home/chen/.local/share/Trash/files/000_slaveDevice.h (Case Conflict).autosave
+	/home/chen/Projects/i2c-interface/src/slaveDevice.h (Case Conflict).autosave
+t/home/chen/.local/share/Trash/files/000_slaveDevice.h.autosave
+	/home/chen/Projects/i2c-interface/src/slaveDevice.h.autosave
+t/home/chen/.local/share/Trash/files/000_i2c-interface.pro.user.685d1b4
+	/home/chen/Projects/i2c-interface/src/i2c-interface.pro.user.685d1b4
+t/home/chen/.local/share/Trash/files/000_i2c-interface.pro.user.801379a
+	/home/chen/Projects/i2c-interface/src/i2c-interface.pro.user.801379a
+t/home/chen/.local/share/Trash/files/000_i2c-interface.pro.user.am7412
+	/home/chen/Projects/i2c-interface/src/i2c-interface.pro.user.am7412
+t/home/chen/.local/share/Trash/files/000_stylesheet.qrc
+	/home/chen/Projects/i2c-interface/src/stylesheet.qrc
+t/home/chen/.local/share/Trash/files/000_a.qss
+	/home/chen/Projects/i2c-interface/src/a.qss
+t/home/chen/.local/share/Trash/files/000_a.qss.bak
+	/home/chen/Projects/i2c-interface/src/a.qss.bak
+t/home/chen/.local/share/Trash/files/001_i2c-interface.pro.user
+	/home/chen/Projects/i2c-interface/src/i2c-interface.pro.user
+t/home/chen/.local/share/Trash/files/000_1-Indirizzamento_classful
+	/home/chen/Dropbox/Scuola/Attuale/Sistemi_e_reti/Dispensa/Pentamestre/src/03-Indirizzamento_IPv4/1-Indirizzamento_classful
+t/home/chen/.local/share/Trash/files/000_2-Indirizzamento_classless
+	/home/chen/Dropbox/Scuola/Attuale/Sistemi_e_reti/Dispensa/Pentamestre/src/03-Indirizzamento_IPv4/2-Indirizzamento_classless
+
+# State:
+f
+i1
+[.1
+[F
+F
+I1
+].1
+]F
+s0
