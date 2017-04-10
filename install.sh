@@ -1,7 +1,7 @@
 #!/bin/bash
 
 # ignored files
-BLACK_LIST=("." ".." ".git" ".gitignore" ".gitmodules" ".gitconfig" ".backup" "install.sh" ".install_cache")
+BLACK_LIST=("." ".." "README.md" ".git" ".gitignore" ".gitmodules" ".gitconfig" ".backup" "install.sh" ".install_cache")
 # .config and vim directory will be handle aside
 BLACK_LIST+=(".config")
 BLACK_LIST+=("vim")
