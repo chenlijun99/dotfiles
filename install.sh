@@ -71,7 +71,9 @@ function uninstall()
 		if [[ -h "$HOME/$file" ]]; then
 			rm "$HOME/$file"
 		fi
-		mv -vi "$SCRIPT_DIR/$BACKUP_DIR/$file" "$HOME/$file"
+		if [[ -a "$SCRIPT_DIR/$BACKUP_DIR/$file" ]]; then
+			mv -vi "$SCRIPT_DIR/$BACKUP_DIR/$file" "$HOME/$file"
+		fi
 	done
 	echo > "$SCRIPT_DIR/.install_cache"
 
