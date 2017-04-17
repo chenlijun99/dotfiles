@@ -61,6 +61,10 @@ function install()
 
 	handle_config_dir
 
+	if [[ ! "$(ls -A vim)" ]]; then
+		git submodule init
+		git submodule update
+	fi
 	git submodule foreach git pull origin master
 	vim/install.sh
 }
