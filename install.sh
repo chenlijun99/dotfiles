@@ -61,6 +61,7 @@ function install()
 
 	handle_config_dir
 
+	git submodule foreach git pull origin master
 	vim/install.sh
 }
 
