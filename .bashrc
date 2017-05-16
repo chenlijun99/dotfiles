@@ -113,11 +113,14 @@ if ! shopt -oq posix; then
 fi
 
 
+
+export TERM=xterm-256color
 # free output should be human readable
 alias free='free -h'
-
 # alias move and copy to be verbose and to prompt before overwriting
 alias mv='mv -vi'
 alias cp='cp -rvi'
 
-export PS1="\[$(tput bold)\]\[\033[38;5;48m\]\u\[$(tput sgr0)\]\[$(tput sgr0)\]\[\033[38;5;15m\]:\[$(tput bold)\]\[$(tput sgr0)\]\[\033[38;5;11m\]\w\[$(tput sgr0)\]\[$(tput sgr0)\]\[\033[38;5;15m\]\\$ \[$(tput sgr0)\]"
+[ -f ~/.promptrc ] && source ~/.promptrc
+
+[ -f ~/.fzf.bash ] && source ~/.fzf.bash
