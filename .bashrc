@@ -114,6 +114,7 @@ fi
 
 
 
+
 export TERM=xterm-256color
 # free output should be human readable
 alias free='free -h'
@@ -124,3 +125,9 @@ alias cp='cp -rvi'
 [ -f ~/.promptrc ] && source ~/.promptrc
 
 [ -f ~/.fzf.bash ] && source ~/.fzf.bash
+
+command -v go >/dev/null
+if [[ $? -eq 0 ]] ; then
+	export GOPATH=$HOME/go
+	export PATH=$PATH:$GOROOT/bin:$GOPATH/bin
+fi
