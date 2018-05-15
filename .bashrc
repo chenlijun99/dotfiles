@@ -122,6 +122,8 @@ alias free='free -h'
 alias mv='mv -vi'
 alias cp='cp -rvi'
 
+alias cmake='cmake -DCMAKE_EXPORT_COMPILE_COMMANDS=1'
+
 [ -f ~/.promptrc ] && source ~/.promptrc
 
 [ -f ~/.fzf.bash ] && source ~/.fzf.bash

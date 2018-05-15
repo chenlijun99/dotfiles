@@ -1,3 +1,4 @@
 {
-	"esversion"     : 6         // {int} Specify the ECMAScript version to which the code must adhere.
+	"esnext": true,
+	"multistr": true
 }

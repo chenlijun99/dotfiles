@@ -27,6 +27,7 @@ nnoremap K :Help<cr>
 
 nnoremap ,b :Build<cr>
 nnoremap ,r :Run<cr>
+nnoremap <c-p> :Locate<cr>
 
 "nnoremap ,n :cnext<cr>
 "nnoremap ,p :cprevious<cr>
@@ -48,21 +49,7 @@ nnoremap mf :EasymotionSearchLine<cr>
 
 
 " Buffer and window
-nnoremap <c-p> :Locate<cr>
-nnoremap <c-h> <c-w>h
-nnoremap <c-l> <c-w>l
-nnoremap <c-j> <c-w>j
-nnoremap <c-k> <c-w>k
-nnoremap <c-p> <c-w>p
-nnoremap <c-left> <c-w>h
-nnoremap <c-right> <c-w>l
-nnoremap <c-up> <c-w>k
-nnoremap <c-down> <c-w>j
-
-"nnoremap <c-s-left> <c-w><
-"nnoremap <c-s-right> <c-w>>
-"nnoremap <c-s-up> <c-w>+
-"nnoremap <c-s-down> <c-w>-
+map <C-L> <PASS>
 "}}}
 
 " Folding
