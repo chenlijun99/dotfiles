@@ -1,69 +1,63 @@
 #!/bin/bash
 
-# ignored files
-BLACK_LIST=("." ".." "README.md" ".git" ".gitignore" ".gitmodules" ".backup" "install.sh" ".install_cache")
-# .config and vim directory will be handle aside
-BLACK_LIST+=(".config")
-BLACK_LIST+=("vim")
+SCRIPT_DIR="$( cd "$(dirname "$0" )" && pwd )"
+SRC_DIR="$SCRIPT_DIR/src/"
 
 # directory to which config files with the same name of the ones present in this repository,
 # if already present on system, will be moved
-BACKUP_DIR=".backup"
-SCRIPT_DIR="$( cd "$(dirname "$0" )" && pwd )"
+BACKUP_DIR="$SCRIPT_DIR/.bak/"
+mkdir -p "$BACKUP_DIR"
 
+# INSTALL_CACHE_FILE lists the dotfiles that have been properly "installed" 
+# (i.e. that symlinks have been properly created)
+# This file comes handy when uninstalling
+INSTALL_CACHE_FILENAME=".install_cache"
 
-function handle_config_dir()
+function install_config_dir()
 {
-	if [[ -d "$SCRIPT_DIR/.config" ]]; then
+	if [[ -d "$SRC_DIR/.config" ]]; then
 		# AFAIK configuration dirs in .config are without leading dot,
-		# thus plain ls should be enough to list all of them
-		for sub_dir in $(ls "$SCRIPT_DIR/.config")
+		# thus plain ls should be enough to list all them
+		for sub_dir in $(ls "$SRC_DIR/.config")
 		do
 			if [[ -d "$HOME/.config/$sub_dir" ]]; then
-				if [[ ! -d "$SCRIPT_DIR/$BACKUP_DIR/.config" ]]; then
-					mkdir "$SCRIPT_DIR/$BACKUP_DIR/.config"
-				fi
-				mv -vi "$HOME/.config/$sub_dir" "$SCRIPT_DIR/$BACKUP_DIR/.config"
+				mkdir -p "$BACKUP_DIR/.config"
+				mv -vi "$HOME/.config/$sub_dir" "$BACKUP_DIR/.config"
 			fi
-
-			ln -s "$SCRIPT_DIR/.config/$sub_dir" "$HOME/.config/$sub_dir"
-			echo ".config/$sub_dir" >> $SCRIPT_DIR/.install_cache
+			if [[ $? -eq 0 ]]; then
+				ln -vs "$SRC_DIR/.config/$sub_dir" "$HOME/.config/$sub_dir"
+				echo ".config/$sub_dir" >> "$SCRIPT_DIR/$INSTALL_CACHE_FILENAME"
+			fi
 		done
 	fi
 }
 
 function install()
 {
-	for file in $(ls -a1 $SCRIPT_DIR)
+	for file in $(ls -A1 "$SRC_DIR")
 	do
-		# check whether file is in BLACK_LIST. If true move directly to next iteration
-		for element in ${BLACK_LIST[@]}
-		do
-			if [[ "$element" == "$file" ]]; then
-				continue 2;
-			fi
-		done
-
-		# if this file already exists in $HOME, move the file in $HOME into the .backup directory
-		if [[ -a "$HOME/$file" ]]; then
-			if [[ ! -d "$SCRIPT_DIR/$BACKUP_DIR" ]]; then
-				mkdir "$SCRIPT_DIR/$BACKUP_DIR"
-			fi
-			mv -vi "$HOME/$file" "$SCRIPT_DIR/.backup"
+		# handle .config dir separately
+		if [[ $file == ".config" ]]; then
+			install_config_dir
+			continue
 		fi
 
-		# create system link to dotfiles in repository in $HOME
-		ln -s "$SCRIPT_DIR/$file" $HOME/$file
+		# if there is already a file with the same name in $HOME,
+		# move it into the .bak directory
+		if [[ -a "$HOME/$file" ]]; then
+			mv -vi "$HOME/$file" "$BACKUP_DIR" 
+		fi
 
-		# save a list of linked file, to ease the uninstalling
-		echo "$file" >> "$SCRIPT_DIR/.install_cache"
+		# if "mv" succeeded
+		# create system link of the dotfile in $HOME
+		if [[ $? -eq 0 ]]; then
+			ln -vs "$SRC_DIR/$file" $HOME/$file
+			echo "$file" >> "$SCRIPT_DIR/$INSTALL_CACHE_FILENAME"
+		fi
 	done
 
-	handle_config_dir
-
 	if [[ ! "$(ls -A vim)" ]]; then
-		git submodule init
-		git submodule update
+		git submodule update --init
 	fi
 	git submodule foreach git pull origin master
 	vim/install.sh
@@ -71,16 +65,20 @@ function install()
 
 function uninstall()
 {
-	for file in $(cat "$SCRIPT_DIR/.install_cache")
+	for file in $(cat "$SCRIPT_DIR/$INSTALL_CACHE_FILENAME")
 	do
+		# if is symlink, remove it
 		if [[ -h "$HOME/$file" ]]; then
 			rm "$HOME/$file"
 		fi
-		if [[ -a "$SCRIPT_DIR/$BACKUP_DIR/$file" ]]; then
-			mv -vi "$SCRIPT_DIR/$BACKUP_DIR/$file" "$HOME/$file"
+		# bring back the original file
+		if [[ -a "$BACKUP_DIR/$file" ]]; then
+			mv -vi "$BACKUP_DIR/$file" "$HOME/$file"
 		fi
 	done
-	echo > "$SCRIPT_DIR/.install_cache"
+	
+	# empty the file
+	echo > "$SCRIPT_DIR/$INSTALL_CACHE_FILENAME"
 
 	vim/install.sh --uninstall
 }

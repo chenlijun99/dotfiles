@@ -1,9 +1,9 @@
-.backup/
+.bak/
 .install_cache
 tags
 
 ## vifm ##
-.vifm/lastdir
-.vifm/vifminfo
-.vifm/vimfiles
-.vifm/Trash/
+**/.vifm/lastdir
+**/.vifm/vifminfo
+**/.vifm/vimfiles
+**/.vifm/Trash/
