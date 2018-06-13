@@ -209,6 +209,8 @@ fileviewer *.avi,*.mp4,*.wmv,*.dat,*.3gp,*.ogv,*.mkv,*.mpg,*.vob,*.flv,*.m2v,*.m
 
 " Web
 filextype *.html,*.htm
+        \ {Open with xdg-open}
+        \ xdg-open %f,
         \ {Open with chromium-browser}
         \ chromium-browser %f &,
         \ {Open with dwb}
