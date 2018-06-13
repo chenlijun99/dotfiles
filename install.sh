@@ -55,12 +55,6 @@ function install()
 			echo "$file" >> "$SCRIPT_DIR/$INSTALL_CACHE_FILENAME"
 		fi
 	done
-
-	if [[ ! "$(ls -A vim)" ]]; then
-		git submodule update --init
-	fi
-	git submodule foreach git pull origin master
-	vim/install.sh
 }
 
 function uninstall()
@@ -79,8 +73,6 @@ function uninstall()
 	
 	# empty the file
 	echo > "$SCRIPT_DIR/$INSTALL_CACHE_FILENAME"
-
-	vim/install.sh --uninstall
 }
 
 function main()
