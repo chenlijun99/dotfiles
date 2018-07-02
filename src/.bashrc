@@ -126,6 +126,8 @@ alias cmake='cmake -DCMAKE_EXPORT_COMPILE_COMMANDS=1'
 
 [ -f ~/.promptrc ] && source ~/.promptrc
 
+[ -f ~/.ls_colors ] && source ~/.ls_colors
+
 [ -f ~/.fzf.bash ] && source ~/.fzf.bash
 
 command -v go >/dev/null
