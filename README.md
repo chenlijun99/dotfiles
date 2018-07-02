@@ -13,3 +13,4 @@ Open a new shell.
 
 * [x] Move all dotfiles into a src directory. By doing so we remove the ambiguity between dotfiles and project related files.
 Thus, in the `install.sh` script, the blacklist won't be needed anymore.
+* [ ] Add logic in `install.sh` to handle new files (like incremental install)
