@@ -27,4 +27,6 @@ if [ -d "$HOME/Qt5.7.0/Tools/QtCreator/bin" ]; then
 	PATH="$HOME/Qt5.7.0/Tools/QtCreator/bin/:$PATH"
 fi
 
-
+if [[ -x "$(command -v auto-rclone)" ]]; then
+	auto-rclone
+fi
