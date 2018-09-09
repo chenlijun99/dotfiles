@@ -23,10 +23,10 @@ function install_config_dir()
 			if [[ -d "$HOME/.config/$sub_dir" ]]; then
 				mkdir -p "$BACKUP_DIR/.config"
 				mv -vi "$HOME/.config/$sub_dir" "$BACKUP_DIR/.config"
-			fi
-			if [[ $? -eq 0 ]]; then
-				ln -vs "$SRC_DIR/.config/$sub_dir" "$HOME/.config/$sub_dir"
-				echo ".config/$sub_dir" >> "$SCRIPT_DIR/$INSTALL_CACHE_FILENAME"
+				if [[ $? -eq 0 ]]; then
+					ln -vs "$SRC_DIR/.config/$sub_dir" "$HOME/.config/$sub_dir"
+					echo ".config/$sub_dir" >> "$SCRIPT_DIR/$INSTALL_CACHE_FILENAME"
+				fi
 			fi
 		done
 	fi
@@ -42,17 +42,16 @@ function install()
 			continue
 		fi
 
-		# if there is already a file with the same name in $HOME,
+		# if there is already a regular file with the same name in $HOME,
 		# move it into the .bak directory
-		if [[ -a "$HOME/$file" ]]; then
+		if [[ -f "$HOME/$file" ]]; then
 			mv -vi "$HOME/$file" "$BACKUP_DIR" 
-		fi
-
-		# if "mv" succeeded
-		# create system link of the dotfile in $HOME
-		if [[ $? -eq 0 ]]; then
-			ln -vs "$SRC_DIR/$file" $HOME/$file
-			echo "$file" >> "$SCRIPT_DIR/$INSTALL_CACHE_FILENAME"
+			# if "mv" succeeded
+			# create system link of the dotfile in $HOME
+			if [[ $? -eq 0 ]]; then
+				ln -vs "$SRC_DIR/$file" $HOME/$file
+				echo "$file" >> "$SCRIPT_DIR/$INSTALL_CACHE_FILENAME"
+			fi
 		fi
 	done
 }
@@ -70,7 +69,7 @@ function uninstall()
 			mv -vi "$BACKUP_DIR/$file" "$HOME/$file"
 		fi
 	done
-	
+
 	# empty the file
 	echo > "$SCRIPT_DIR/$INSTALL_CACHE_FILENAME"
 }
