@@ -308,6 +308,11 @@ filetype *.tudu tudu -f %c
 " Qt projects
 filextype *.pro qtcreator %f &
 
+" txt
+filetype *.txt
+        \ {View in vim}
+        \ vim %f &
+
 " Directories
 filextype */
         \ {View in thunar}
