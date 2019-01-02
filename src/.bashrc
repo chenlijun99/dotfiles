@@ -121,6 +121,7 @@ alias free='free -h'
 # alias move and copy to be verbose and to prompt before overwriting
 alias mv='mv -vi'
 alias cp='cp -rvi'
+alias vim='nvim'
 
 alias cmake='cmake -DCMAKE_EXPORT_COMPILE_COMMANDS=1'
 
