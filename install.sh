@@ -12,17 +12,17 @@ INSTALL_CACHE_FILENAME=".install_cache"
 
 function install_config_dir()
 {
-	if [[ -d "$SRC_DIR/.config" ]]; then
+	if [[ -d "$SRC_DIR/config" ]]; then
 		# AFAIK configuration dirs in .config are without leading dot,
 		# thus plain ls should be enough to list all them
-		for sub_dir in $(ls "$SRC_DIR/.config")
+		for sub_dir in $(ls "$SRC_DIR/config")
 		do
 			if [[ -d "$HOME/.config/$sub_dir" ]]; then
 				mkdir -p "$BACKUP_DIR/.config"
 				mv -vi "$HOME/.config/$sub_dir" "$BACKUP_DIR/.config"
 			fi
-			ln -vs "$SRC_DIR/.config/$sub_dir" "$HOME/.config/$sub_dir"
-			echo ".config/$sub_dir" >> "$SCRIPT_DIR/$INSTALL_CACHE_FILENAME"
+			ln -vs "$SRC_DIR/config/$sub_dir" "$HOME/.config/$sub_dir"
+			echo "config/$sub_dir" >> "$SCRIPT_DIR/$INSTALL_CACHE_FILENAME"
 		done
 	fi
 }
@@ -32,20 +32,20 @@ function install()
 	for file in $(ls -A1 "$SRC_DIR")
 	do
 		# handle .config dir separately
-		if [[ $file == ".config" ]]; then
+		if [[ $file == "config" ]]; then
 			install_config_dir
 			continue
 		fi
+		source="$SRC_DIR/$file"
+		target="$HOME/.$file"
 
 		# if there is already a regular file with the same name in $HOME,
 		# move it into the .bak directory
-		if [[ -f "$HOME/$file" || (-h "$HOME/$file" && $(realpath "$HOME/$file") != "$SRC_DIR/$file") ]]; then
-			mv -vi "$HOME/$file" "$BACKUP_DIR" 
+		if [[ -f "$target" || -d "$target" || (-h "$target" && $(realpath "$target") != "$source") ]]; then
+			mv -vi "$target" "$BACKUP_DIR/$file"
 		fi
 
-		ln -vs "$SRC_DIR/$file" $HOME/$file
-		# mark that the file has been successfully "installed"
-		echo "$file" >> "$SCRIPT_DIR/$INSTALL_CACHE_FILENAME"
+		ln -vs "$source" "$target"
 	done
 }
 

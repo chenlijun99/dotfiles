@@ -28,7 +28,7 @@ tags
 .install_cache
 
 ## vifm ##
-src/.vifm/lastdir
-src/.vifm/vifminfo
-src/.vifm/vimfiles
-src/.vifm/Trash/
+src/vifm/lastdir
+src/vifm/vifminfo
+src/vifm/vimfiles
+src/vifm/Trash/
