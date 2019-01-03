@@ -32,9 +32,19 @@
   bootstrap_after = "myspacevim#after"
   disabled_plugins = ['tagbar', 'vim-startify']
 
-# Enable autocomplete layer
+[[custom_plugins]]
+  name = "junegunn/vim-slash"
+
+[[custom_plugins]]
+  name = "junegunn/vim-easy-align"
+  on_cmd = ["EasyAlign"]
+
 [[layers]]
   name = 'core#tabline'
+  enable = false
+
+[[layers]]
+  name = 'checkers'
   enable = false
 
 [[layers]]
@@ -87,6 +97,9 @@
   name = 'lang#html'
 
 [[layers]]
+  name = 'lang#typescript'
+
+[[layers]]
   name = 'lang#asciidoc'
 
 [[layers]]
@@ -103,7 +116,8 @@
   filetypes = [
     'c',
     'cpp'
+    'typescript'
   ]
   [layers.override_cmd]
-    c = ["ccls", "--log-file=/tmp/ccls.log", "--init", "{\"cacheDirectory\": \"./.vscode/.ccls\"}"]
-    cpp = ["ccls", "--log-file=/tmp/ccls.log", "--init", "{\"cacheDirectory\": \"./.vscode/.ccls\"}"]
+    c = ['ccls', '--log-file=/tmp/ccls.log', '--init="{\"cacheDirectory\": \"./.vscode/.ccls\"}"']
+    cpp = ['ccls', '--log-file=/tmp/ccls.log', '--init="{\"cacheDirectory\": \"./.vscode/.ccls\"}"']
