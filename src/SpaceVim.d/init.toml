@@ -30,7 +30,7 @@
   expand_tab = 0
   bootstrap_before = "myspacevim#before"
   bootstrap_after = "myspacevim#after"
-  disabled_plugins = ['tagbar', 'vim-startify']
+  disabled_plugins = ['tagbar', 'vim-startify', 'Clamp']
 
 [[custom_plugins]]
   name = "junegunn/vim-slash"
