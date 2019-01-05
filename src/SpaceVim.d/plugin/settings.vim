@@ -1,7 +1,7 @@
 " set default clipboard as system clipboard
 set clipboard=unnamedplus
 " show a vertical line at the 80th column
-" set colorcolumn=80
+set colorcolumn=80
 
 " for vimdiff use vertical split
 set diffopt+=vertical
@@ -21,7 +21,8 @@ set list listchars=tab:\▸\
 " }}}
 
 " Gui {{{
-set guioptions=a
+set guioptions=am
+set guifont=Dejavu\ Sans\ Mono\ 12
 " }}}
 
 " Completion {{{

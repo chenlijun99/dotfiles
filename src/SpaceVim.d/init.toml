@@ -16,9 +16,7 @@
   # Disable guicolors in basic mode, many terminal do not support 24bit
   # true colors
   enable_guicolors = true
-  enable_vimfiler_welcome = 0
-  enable_vimfiler_filetypeicon = 0
-  enable_vimfiler_gitstatus = 1
+  filemanager = "nerdtree"
   # Disable statusline separator, if you want to use other value, please
   # install nerd fonts
   statusline_separator = 'arrow'
@@ -31,9 +29,6 @@
   bootstrap_before = "myspacevim#before"
   bootstrap_after = "myspacevim#after"
   disabled_plugins = ['tagbar', 'vim-startify', 'Clamp']
-
-[[custom_plugins]]
-  name = "junegunn/vim-slash"
 
 [[custom_plugins]]
   name = "junegunn/vim-easy-align"
@@ -119,5 +114,5 @@
     'typescript'
   ]
   [layers.override_cmd]
-    c = ['ccls', '--log-file=/tmp/ccls.log', '--init="{\"cacheDirectory\": \"./.vscode/.ccls\"}"']
-    cpp = ['ccls', '--log-file=/tmp/ccls.log', '--init="{\"cacheDirectory\": \"./.vscode/.ccls\"}"']
+    c = ['ccls', '--log-file=/tmp/ccls.log', '--init="{\"cacheDirectory\": \"/tmp/ccls\"}"']
+    cpp = ['ccls', '--log-file=/tmp/ccls.log', '--init="{\"cacheDirectory\": \"/tmp/ccls\"}"']
