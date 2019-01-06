@@ -62,6 +62,9 @@
   name = 'git'
 
 [[layers]]
+  name = 'github'
+
+[[layers]]
   name = 'tags'
 
 [[layers]]
@@ -114,5 +117,5 @@
     'typescript'
   ]
   [layers.override_cmd]
-    c = ['ccls', '--log-file=/tmp/ccls.log', '--init="{\"cacheDirectory\": \"/tmp/ccls\"}"']
-    cpp = ['ccls', '--log-file=/tmp/ccls.log', '--init="{\"cacheDirectory\": \"/tmp/ccls\"}"']
+    c = ['ccls', '--log-file=/tmp/ccls.log']
+	cpp = ['ccls', '--log-file=/tmp/ccls.log']
