@@ -3,4 +3,5 @@ func! myspacevim#before() abort
 	let g:spacevim_autocomplete_method = 'coc'
 endf
 func! myspacevim#after() abort
+	RainbowParentheses
 endf
