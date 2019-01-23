@@ -3,6 +3,8 @@ set clipboard=unnamedplus
 " show a vertical line at the 80th column
 set colorcolumn=80
 
+set updatetime=1000
+
 " for vimdiff use vertical split
 set diffopt+=vertical
 
