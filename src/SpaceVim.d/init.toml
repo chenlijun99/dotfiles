@@ -56,6 +56,9 @@
   name = 'fzf'
 
 [[layers]]
+  name = 'tools#zeal'
+
+[[layers]]
   name = 'VersionControl'
 
 [[layers]]
@@ -114,8 +117,7 @@
   filetypes = [
     'c',
     'cpp'
-    'typescript'
   ]
   [layers.override_cmd]
     c = ['ccls', '--log-file=/tmp/ccls.log']
-	cpp = ['ccls', '--log-file=/tmp/ccls.log']
+    cpp = ['ccls', '--log-file=/tmp/ccls.log']
