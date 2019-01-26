@@ -7,5 +7,13 @@ call coc#config('coc.preferences', {
 			\ "diagnostic.virtualText": 1,
 			\})
 
-autocmd CursorHold * silent call CocActionAsync('highlight')
-hi CocHighlightText cterm=bold ctermbg=241 gui=bold guibg=#665c54
+let s:coc_extensions = [
+			\ 'coc-dictionary',
+			\ 'coc-json',
+			\ 'coc-neosnippet',
+			\ 'coc-tag',
+			\]
+
+for extension in s:coc_extensions
+	call coc#add_extension(extension)
+endfor
