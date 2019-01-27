@@ -10,7 +10,7 @@ call coc#config('coc.preferences', {
 let s:coc_extensions = [
 			\ 'coc-dictionary',
 			\ 'coc-json',
-			\ 'coc-neosnippet',
+			\ 'coc-ultisnips',
 			\ 'coc-tag',
 			\]
 

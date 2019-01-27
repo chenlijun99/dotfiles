@@ -18,6 +18,7 @@
   enable_guicolors = true
   autocomplete_method = "coc"
   filemanager = "nerdtree"
+  snippet_engine = "ultisnips"
   # Disable statusline separator, if you want to use other value, please
   # install nerd fonts
   statusline_separator = 'arrow'
