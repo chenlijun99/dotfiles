@@ -36,6 +36,9 @@
   name = "junegunn/vim-easy-align"
   on_cmd = ["EasyAlign"]
 
+[[custom_plugins]]
+  name = "reisub0/hot-reload.vim"
+
 [[layers]]
   name = 'core#tabline'
   enable = false
@@ -55,7 +58,7 @@
   default_height = 30
 
 [[layers]]
-  name = 'fzf'
+  name = 'leaderf'
 
 [[layers]]
   name = 'tools#zeal'
@@ -71,6 +74,7 @@
 
 [[layers]]
   name = 'tags'
+  enable = false
 
 [[layers]]
   name = 'sudo'
@@ -100,7 +104,7 @@
   name = 'lang#html'
 
 [[layers]]
-  name = 'lang#typescript'
+  name = 'lang#dart'
 
 [[layers]]
   name = 'lang#asciidoc'
@@ -118,7 +122,8 @@
   name = 'lsp'
   filetypes = [
     'c',
-    'cpp'
+    'cpp',
+    'dart'
   ]
   [layers.override_cmd]
     c = ['ccls', '--log-file=/tmp/ccls.log']
