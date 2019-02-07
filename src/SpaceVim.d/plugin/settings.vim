@@ -27,6 +27,14 @@ set guioptions=am
 set guifont=Dejavu\ Sans\ Mono\ 12
 " }}}
 
+" Colors {{{ 
+if exists('+termguicolors')
+  let &t_8f = "\<Esc>[38;2;%lu;%lu;%lum"
+  let &t_8b = "\<Esc>[48;2;%lu;%lu;%lum"
+  set termguicolors
+endif
+" }}}
+
 " Completion {{{
 " show the completion as complete as possible
 set completeopt+=longest

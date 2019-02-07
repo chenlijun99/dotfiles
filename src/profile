@@ -27,28 +27,38 @@ if [ -d "$HOME/Qt5.7.0/Tools/QtCreator/bin" ]; then
 	PATH="$HOME/Qt5.7.0/Tools/QtCreator/bin/:$PATH"
 fi
 
-# OneDrive syncing with rclone
-mkdir -p "Remotes/OneDrive"
-mkdir -p "Remotes/OneDrive - KERR srl"
-rclone mount \
-	--daemon \
-	--allow-non-empty \
-	--syslog \
-	--max-read-ahead 200M \
-	--vfs-cache-mode full \
-	--vfs-cache-max-age 1000000h0m0s \
-	--exclude ".~lock.*#" \
-	--exclude "*.swp" \
-	--exclude ".database.kdbx.lock" \
-	"OneDrive - Kerr:/" "$HOME/Remotes/OneDrive - KERR srl" &
-rclone mount \
-	--daemon \
-	--allow-non-empty \
-	--syslog \
-	--max-read-ahead 200M \
-	--vfs-cache-mode full \
-	--vfs-cache-max-age 1000000h0m0s \
-	--exclude ".~lock.*#" \
-	--exclude "*.swp" \
-	--exclude ".database.kdbx.lock" \
-	"OneDrive:/" "$HOME/Remotes/OneDrive" &
+# Dart SDK
+if [ -d "/usr/lib/dart/bin" ]; then
+	PATH="/usr/lib/dart/bin:$PATH"
+fi
+if [ -d "$HOME/.pub-cache/bin" ]; then
+	PATH="$PATH":"$HOME/.pub-cache/bin"
+fi
+
+if [ ! -n "$TMUX" ]; then
+	# OneDrive syncing with rclone
+	mkdir -p "Remotes/OneDrive"
+	mkdir -p "Remotes/OneDrive - KERR srl"
+	rclone mount \
+		--daemon \
+		--allow-non-empty \
+		--syslog \
+		--max-read-ahead 200M \
+		--vfs-cache-mode full \
+		--vfs-cache-max-age 1000000h0m0s \
+		--exclude ".~lock.*#" \
+		--exclude "*.swp" \
+		--exclude ".database.kdbx.lock" \
+		"OneDrive - Kerr:/" "$HOME/Remotes/OneDrive - KERR srl" &
+			rclone mount \
+				--daemon \
+				--allow-non-empty \
+				--syslog \
+				--max-read-ahead 200M \
+				--vfs-cache-mode full \
+				--vfs-cache-max-age 1000000h0m0s \
+				--exclude ".~lock.*#" \
+				--exclude "*.swp" \
+				--exclude ".database.kdbx.lock" \
+				"OneDrive:/" "$HOME/Remotes/OneDrive" &
+						fi
