@@ -1,80 +1,104 @@
 #!/bin/bash
 
 SCRIPT_DIR="$( cd "$(dirname "$0" )" && pwd )"
-SRC_DIR="$SCRIPT_DIR/src"
-# directory in which config files with the same name of the ones present in this repository,
-# if already present, will be moved
 BACKUP_DIR="$SCRIPT_DIR/.bak"
-# INSTALL_CACHE_FILE lists the dotfiles that have been properly "installed" 
-# (i.e. symlinks have been properly created)
-# This file comes handy when uninstalling
-INSTALL_CACHE_FILENAME=".install_cache"
 
-function install_config_dir()
-{
-	if [[ -d "$SRC_DIR/config" ]]; then
-		# AFAIK configuration dirs in .config are without leading dot,
-		# thus plain ls should be enough to list all them
-		for sub_dir in $(ls "$SRC_DIR/config")
-		do
-			if [[ -d "$HOME/.config/$sub_dir" ]]; then
-				mkdir -p "$BACKUP_DIR/.config"
-				mv -vi "$HOME/.config/$sub_dir" "$BACKUP_DIR/.config"
-			fi
-			ln -vs "$SRC_DIR/config/$sub_dir" "$HOME/.config/$sub_dir"
-			echo "config/$sub_dir" >> "$SCRIPT_DIR/$INSTALL_CACHE_FILENAME"
-		done
-	fi
-}
+##
+# For each file in source_dir, create a symbolic link in destination_dir 
+# which points to it (if exists).
 
+# Globals:
+#	BACKUP_DIR: backup directory where already existing file will be copied, so as to
+#   allow symbolic to be created
+# Arguments:
+#	source_dir: the directory for which you want to create symbolic links to all it's files
+#	destination_dir: the directory in which the symbolic links will be created
+#	prepend: string that will be prepended to the symbolic link's name
+#	exclude: don't create symbolic link for files in source_dir matching the exclude regex
+# Returns:
+#	None
 function install()
 {
-	for file in $(ls -A1 "$SRC_DIR")
+	local source_dir="$1"
+	local destination_dir="$2"
+	local prepend="$3"
+	local exclude="$4"
+
+	for file in $(ls -A1 "$source_dir")
 	do
-		# handle .config dir separately
-		if [[ $file == "config" ]]; then
-			install_config_dir
+		if [[ (! -z $exclude) && $file =~ $exclude ]]; then
 			continue
 		fi
-		source="$SRC_DIR/$file"
-		target="$HOME/.$file"
 
-		# if there is already a regular file with the same name in $HOME,
-		# move it into the .bak directory
-		if [[ -f "$target" || -d "$target" || (-h "$target" && $(realpath "$target") != "$source") ]]; then
+		source="$source_dir/$file"
+		target="$destination_dir/$prepend$file"
+
+		if [[ ( ! -h "$target" && ( -f "$target" || -d "$target") ) || \
+			(-h "$target" && $(realpath "$target") != "$source") ]]; then
 			mv -vi "$target" "$BACKUP_DIR/$file"
+		fi
+
+		if [[ (-h "$target" && $(realpath "$target") == "$source") ]]; then
+			continue
 		fi
 
 		ln -vs "$source" "$target"
 	done
 }
 
+##
+# For each file in source_dir, remove the symbolic link in destination_dir 
+# which points to it (if exists).
+#
+# Globals:
+#	BACKUP_DIR: backup directory where already existing file have been copied, so as to
+#   allow symbolic to be created. They will be restored
+# Arguments:
+#	source_dir: the directory containg files referenced by symbolic links in destination_dir
+#	destination_dir: the directory in which the symbolic links have been created
+#	prepend: string have been prepended to the symbolic link's name
+#	exclude: don't remove symbolic link for files in source_dir matching the exclude regex
+# Returns:
+#	None
 function uninstall()
 {
-	for file in $(cat "$SCRIPT_DIR/$INSTALL_CACHE_FILENAME")
+	local source_dir="$1"
+	local destination_dir="$2"
+	local prepend="$3"
+	local exclude="$4"
+
+	for file in $(ls -A1 "$source_dir")
 	do
-		# if is symlink, remove it
-		if [[ -h "$HOME/$file" && $(realpath "$HOME/$file") == "$SRC_DIR/$file" ]]; then
-			rm -v "$HOME/$file"
+		if [[ (! -z $exclude) && $file =~ $exclude ]]; then
+			continue
 		fi
-		# bring back the original file
-		if [[ -a "$BACKUP_DIR/$file" ]]; then
-			mv -vi "$BACKUP_DIR/$file" "$HOME/$file"
+
+		source="$source_dir/$file"
+		target="$destination_dir/$prepend$file"
+		backup="$BACKUP_DIR/$prepend$file"
+
+		if [[ (-h "$target" && $(realpath "$target") == "$source") ]]; then
+			rm $target
+		fi
+
+		if [[ -a "$backup" ]]; then
+			mv "$backup" "$target"
 		fi
 	done
-
-	# empty the file
-	echo > "$SCRIPT_DIR/$INSTALL_CACHE_FILENAME"
 }
 
 function main()
 {
 	if [[ $1 == "--uninstall" ]]; then
-		uninstall
+		uninstall "$SCRIPT_DIR/src" "$HOME" "." "^config"
+		uninstall "$SCRIPT_DIR/src/config" "$HOME/.config"
 	elif [[ $# -eq 0 ]]; then
 		# ensure that $BACKUP_DIR exists
 		mkdir -p "$BACKUP_DIR"
-		install
+		install "$SCRIPT_DIR/src" "$HOME" "." "^config"
+		install "$SCRIPT_DIR/src/config" "$HOME/.config"
+	else
+		echo "Usage: ./install.sh [--uninstall]"
 	fi
 }
 
