@@ -77,6 +77,10 @@
   enable = false
 
 [[layers]]
+  name = "tmux"
+  tmux_navigator_modifier = "alt"
+
+[[layers]]
   name = 'sudo'
 
 [[layers]]
