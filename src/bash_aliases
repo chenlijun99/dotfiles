@@ -8,5 +8,12 @@ alias cp='cp -rvi'
 # CMake has to always export the COMPILE_COMMANDS
 alias cmake='cmake -DCMAKE_EXPORT_COMPILE_COMMANDS=1'
 
-# tmux: don't create session if there's already some session to attach on
-alias tmux='tmux attach || tmux new'
+function tmux
+{
+	local tmux_binary=$(which tmux)
+	if [[ $# -gt 0 ]]; then
+		$tmux_binary "$@"
+	else
+		$tmux_binary attach || $tmux_binary new
+	fi
+}
