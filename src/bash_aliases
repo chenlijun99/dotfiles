@@ -14,6 +14,6 @@ function tmux
 	if [[ $# -gt 0 ]]; then
 		$tmux_binary "$@"
 	else
-		$tmux_binary attach 2> /dev/null || $tmux_binary new
+		$tmux_binary attach 2> /dev/null || $tmux_binary new -s misc
 	fi
 }
