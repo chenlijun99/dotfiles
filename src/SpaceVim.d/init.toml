@@ -18,6 +18,7 @@
   enable_guicolors = true
   autocomplete_method = "coc"
   filemanager = "nerdtree"
+  sidebar_direction = "left"
   snippet_engine = "ultisnips"
   # Disable statusline separator, if you want to use other value, please
   # install nerd fonts
@@ -31,6 +32,7 @@
   bootstrap_before = "myspacevim#before"
   bootstrap_after = "myspacevim#after"
   disabled_plugins = ['tagbar', 'vim-startify', 'Clamp']
+  debug_level = 3
 
 [[custom_plugins]]
   name = "junegunn/vim-easy-align"
