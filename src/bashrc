@@ -125,3 +125,5 @@ if [[ $? -eq 0 ]] ; then
 	export GOPATH=$HOME/go
 	export PATH=$PATH:$GOROOT/bin:$GOPATH/bin
 fi
+
+[[ -z $TMUX ]] && exec tmux new-session -A -s misc
