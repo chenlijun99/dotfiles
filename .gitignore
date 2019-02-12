@@ -32,3 +32,5 @@ src/vifm/lastdir
 src/vifm/vifminfo
 src/vifm/vimfiles
 src/vifm/Trash/
+
+src/tmux/plugins
