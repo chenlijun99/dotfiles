@@ -1,9 +1,12 @@
 #!/usr/bin/env bash
 
+selected_windows=\
 `tmux list-windows -a -F "#{session_name}:#{window_name}:#{window_id}:#{pane_pid}" \
 | fzf -m --reverse \
 | awk -F ":" '{print $1 " " $2 " " $3 " " $4}'`
-| while read session_name window_name window_id pane_pid; do
+
+echo "$selected_windows" |\
+while read session_name window_name window_id pane_pid; do
 	if [[ -z $(pgrep -P "$pane_pid") ]]; then
 		tmux kill-window -t "$session_name:$window_id"
 	else
