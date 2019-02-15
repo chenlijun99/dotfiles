@@ -60,7 +60,7 @@
   default_height = 30
 
 [[layers]]
-  name = 'leaderf'
+  name = 'fzf'
 
 [[layers]]
   name = 'tools#zeal'
