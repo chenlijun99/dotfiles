@@ -41,6 +41,10 @@
 [[custom_plugins]]
   name = "reisub0/hot-reload.vim"
 
+[[custom_plugins]]
+  name = "liuchengxu/vista.vim"
+  on_cmd = ["Vista"]
+
 [[layers]]
   name = 'core#tabline'
   enable = false
@@ -70,6 +74,7 @@
 
 [[layers]]
   name = 'git'
+  git-plugin = 'fugitive'
 
 [[layers]]
   name = 'github'
