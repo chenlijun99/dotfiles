@@ -45,6 +45,10 @@
   name = "liuchengxu/vista.vim"
   on_cmd = ["Vista"]
 
+[[custom_plugins]]
+  name = "brooth/far.vim"
+  on_cmd = ["Far", "Farp", "Fardo", "Refar", "F"]
+
 [[layers]]
   name = 'core#tabline'
   enable = false
@@ -125,6 +129,9 @@
 
 [[layers]]
   name = 'lang#dockerfile'
+
+[[layers]]
+  name = 'lang#java'
 
 [[layers]]
   name = 'lang#extra'
