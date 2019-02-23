@@ -1,6 +1,6 @@
 augroup fmt
-	autocmd!
-	autocmd FileType c,cpp Neoformat
+    autocmd FileType c,cpp
+        \ autocmd! fmt BufWritePost <buffer> silent Neoformat
 augroup END
 
 " don't run clang-format when no .clang-format file is present
