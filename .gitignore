@@ -22,7 +22,7 @@ tags
 
 # End of https://www.gitignore.io/api/vim
 
-# Project specific #
+### Project specific ###
 
 .bak/
 .install_cache
@@ -33,4 +33,7 @@ src/vifm/vifminfo
 src/vifm/vimfiles
 src/vifm/Trash/
 
+## tmux ##
 src/tmux/plugins
+# tmux-resurrect cache
+src/tmux/resurrect
