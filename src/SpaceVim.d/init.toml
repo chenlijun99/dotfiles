@@ -85,7 +85,6 @@
 
 [[layers]]
   name = 'tags'
-  enable = false
 
 [[layers]]
   name = "tmux"
@@ -132,6 +131,9 @@
 
 [[layers]]
   name = 'lang#java'
+
+[[layers]]
+  name = 'lang#python'
 
 [[layers]]
   name = 'lang#extra'
