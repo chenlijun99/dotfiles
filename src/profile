@@ -50,15 +50,15 @@ if [ ! -n "$TMUX" ]; then
 		--exclude "*.swp" \
 		--exclude ".database.kdbx.lock" \
 		"OneDrive - Kerr:/" "$HOME/Remotes/OneDrive - KERR srl" &
-			rclone mount \
-				--daemon \
-				--allow-non-empty \
-				--syslog \
-				--max-read-ahead 200M \
-				--vfs-cache-mode full \
-				--vfs-cache-max-age 1000000h0m0s \
-				--exclude ".~lock.*#" \
-				--exclude "*.swp" \
-				--exclude ".database.kdbx.lock" \
-				"OneDrive:/" "$HOME/Remotes/OneDrive" &
-						fi
+	rclone mount \
+		--daemon \
+		--allow-non-empty \
+		--syslog \
+		--max-read-ahead 200M \
+		--vfs-cache-mode full \
+		--vfs-cache-max-age 1000000h0m0s \
+		--exclude ".~lock.*#" \
+		--exclude "*.swp" \
+		--exclude ".database.kdbx.lock" \
+		"OneDrive:/" "$HOME/Remotes/OneDrive" &
+fi
