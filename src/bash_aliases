@@ -9,7 +9,7 @@ alias cp='cp -rvi'
 alias cmake='cmake -DCMAKE_EXPORT_COMPILE_COMMANDS=1'
 
 # Most frequenly used configuration for picocom
-alias mypicocom='picocom -b 115200 --imap lfcrlf'
+alias mypicocom='picocom -b 115200 --imap lfcrlf --omap crlf'
 
 alias sudo='sudo '
 
