@@ -1,5 +1,3 @@
-let mapleader=","
-
 " enter normal mode by pressing keys of homerow
 inoremap jk <Esc>
 cnoremap jk <c-c>
@@ -24,31 +22,10 @@ vnoremap p "_dP
 nnoremap <c-]> g<c-]>
 vnoremap <c-]> g<c-]>
 
-" edit vimrc
-nnoremap <leader>ev :vsplit $MYVIMRC<cr>
-nnoremap <leader>sv :source $MYVIMRC<cr>
-
-" edit general settings
-nnoremap <leader>eV :vsplit ~/.vim/config/settings.vim<cr>
-nnoremap <leader>sV :source ~/.vim/config/settings.vim<cr>
-
-" edit keymapping
-nnoremap <leader>ek :vsplit ~/.vim/config/keymapping.vim<cr>
-nnoremap <leader>sk :source ~/.vim/config/keymapping.vim<cr>
-
-" edit ftplugin for current filetype
-nnoremap <leader>ef :execute printf("vsplit ~/.vim/after/ftplugin/%s.vim", &filetype)<cr>
-nnoremap <leader>sf :execute printf("source ~/.vim/after/ftplugin/%s.vim", &filetype)<cr>
-
-" edit snippets for current filetype
-nnoremap <leader>es :execute printf("vsplit ~/.vim/snippets/%s.snip", &filetype)<cr>
-nnoremap <leader>ss :execute printf("source ~/.vim/snippets/%s.snip", &filetype)<cr>
-
-" edit plugins
-nnoremap <leader>eP :execute printf("vsplit %s/%s.vim",g:pluginFilesDir, 'general')<cr>
-nnoremap <leader>sP :execute printf("vsplit %s/%s.vim",g:pluginFilesDir, 'general')<cr>
-nnoremap <leader>ep :execute printf("vsplit %s/%s.vim",g:languageSpecificPluginFilesDir, &filetype)<cr>
-nnoremap <leader>sp :execute printf("source %s/%s.vim",g:languageSpecificPluginFilesDir, &filetype)<cr>
+let g:which_key_map.m.c =  'configure vimrc'
+nnoremap <leader>mc :vsplit $MYVIMRC<cr>
+let g:which_key_map.m.C = 'update vimrc'
+nnoremap <leader>mC :source $MYVIMRC<cr>
 
 " sudo write
 command! W :w !sudo tee %

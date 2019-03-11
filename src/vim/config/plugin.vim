@@ -1,19 +1,24 @@
 call plug#begin('~/.vim/bundle')
 
-execute 'source' . pluginFilesDir . '/general.vim'
-execute 'source' . pluginFilesDir . '/language_services.vim'
-execute 'source' . pluginFilesDir . '/debug.vim'
+Plug 'liuchengxu/vim-which-key', { 'on': ['WhichKey', 'WhichKey!', 'WhichKeyVisual'] }
 
-let pluginFiles = split(globpath(languageSpecificPluginFilesDir, '*.vim'), '\n')
-for pluginFile in pluginFiles
-	execute 'source' pluginFile
+let g:mapleader = "\<Space>"
+let g:maplocalleader = ','
+let g:which_key_map =  {}
+let g:which_key_map.m = { 'name': '+misc' }
+
+autocmd! User vim-which-key call which_key#register('<Space>', 'g:which_key_map')
+
+nnoremap <silent> <leader>      :<c-u>WhichKey '<Space>'<CR>
+"nnoremap <silent> <localleader> :<c-u>WhichKey  ','<CR>
+vnoremap <silent> <leader>      :<c-u>WhichKeyVisual '<Space>'<CR>
+"vnoremap <silent> <localleader> :<c-u>WhichKeyVisual  ','<CR>
+
+for f in globpath(expand('<sfile>:p:h'), 'plugin/**/*.vim', 0, 1)
+    exe 'source' f
 endfor
-call plug#end()
 
-" required by plugin manager
-filetype plugin indent on
-" enables syntax highlighting
-syntax on
+call plug#end()
 
 " set modeline 
 " vim: foldlevel=0 foldmethod=marker
