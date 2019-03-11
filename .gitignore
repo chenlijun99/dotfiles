@@ -37,3 +37,7 @@ src/vifm/Trash/
 src/tmux/plugins
 # tmux-resurrect cache
 src/tmux/resurrect
+
+## vim ##
+src/vim/bundle
+src/vim/undo

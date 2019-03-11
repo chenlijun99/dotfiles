@@ -1,0 +1,130 @@
+snippet adoc
+    :icons: font
+    :source-highlighter: pygments
+
+    = ${1}
+    :doctype: book
+    :toc: left
+    :numbered:
+    ${0}
+
+snippet listing-block
+    ${1:#:.Optional title}
+ ----
+ ${0}
+ ----
+
+snippet source-block
+    ${1:#:.Optional title}
+ [source,${2:source language}]
+ ----
+ ${3:Source}
+ ----
+
+snippet source-inline
+    \`${0:source}\`
+
+snippet sidebar-block
+    ${1:#:.Optional title}
+ ****
+ ${0}
+ ****
+
+snippet example-block
+    ${1:#:.Optional title}
+ ====
+ ${0}
+ ====
+
+snippet passthrough-block
+    ${1:#:.Optional title}
+ ++++
+ ${0}
+ ++++
+
+snippet literal-block
+    ${1:#:.Optional title}
+ ++++
+ ${0}
+ ++++
+
+snippet quote-block
+    ${1:#:.Optional title}
+ [quote${2:, Author}${3:, Source}]
+ ____
+ ${0}
+ ____
+
+snippet Q&A
+    [qanda]
+    ${1:Domanda}::
+        ${0:Risposta}
+
+snippet include
+ include::${0:file path}[]
+
+snippet image-block
+    image::${1:image path}[title="${0}"]
+
+snippet image-embedded
+    image:${1:image path}[${0:Alt text}]
+
+snippet table
+    ${1:#:.Optional title}
+ |====
+    ${2:#:|Header 1|Header 2}
+
+    ${3:#:|Row1Col1|Row1Col2}
+ |====
+
+snippet rowspan
+    .${0:span}+^.^
+
+snippet colspan
+    ${0:span}+
+
+snippet cross-reference
+    <<${0:paragraphs}>>
+
+
+snippet definition
+    ${1:term}::
+    ${0:definition}
+
+snippet italic
+    _${0}_
+snippet bold
+    *${0}*
+
+snippet sub
+    ~${0}~
+
+snippet sup
+    ^${0}^
+
+snippet tip
+    TIP: ${0:Tip}
+
+snippet important
+    IMPORTANT: ${0:Message}
+
+snippet warning
+    WARNING: ${0:Warning}
+
+snippet caution
+    CAUTION: ${0:message}
+
+snippet note
+    [NOTE]
+    ====
+    ${0:Message}
+    ====
+
+snippet pagebreak
+    <<<
+
+snippet horizontal-rule
+    '''
+
+snippet link
+    link:${1:link}[${2:title}]

@@ -1,0 +1,73 @@
+snippet cpp
+	/* ${1} */
+	#include <iostream>
+	
+	int main()
+	{
+		${0}
+		return 0;
+	}
+snippet if
+	if (${1})
+	{
+		${0}
+	}
+snippet elif
+	else if (${1})
+	{
+		${0}
+	}
+snippet else
+	else
+	{
+		${0}
+	}
+snippet while
+	while (${1})
+	{
+		${0}
+	}
+snippet dowhile
+	do
+	{
+		${0}
+	}
+	while(${1});
+snippet for
+	for (${1}; ${2}; ${3})
+	{
+		${0}
+	}
+snippet fori
+	for (int i = ${1}; i < ${2}; ++i)
+	{
+		${0}
+	}
+snippet class
+	#ifndef ${1:CLASS}
+	#define $1
+	
+	class ${2:Name}
+	{
+		$2();
+		${0}
+	};
+
+	#endif
+snippet menu
+	char scelta
+	while (1)
+	{
+		std::cout << ${1:menu};
+		std::cin >> scelta;
+		
+		switch (scelta)
+		{
+			${2:actions}
+			default:
+				std::cout << "Opzione scelta inesistente" << std::endl;
+		}
+
+		std::cout << std::endl;
+	}
+
