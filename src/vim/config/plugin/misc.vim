@@ -41,6 +41,10 @@ Plug 'junegunn/rainbow_parentheses.vim'
 " junegunn/vim-easy-align {{{
 Plug 'junegunn/vim-easy-align', { 'on' : ['EasyAlign'] }
 " }}}
+" junegunn/vim-slash {{{
+Plug 'junegunn/vim-slash'
+noremap <plug>(slash-after) zz
+" }}}
 
 " sheerun/vim-polyglot {{{
 Plug 'sheerun/vim-polyglot'
@@ -55,11 +59,6 @@ let g:polyglot_disabled = ['latex']
 "'jiangmiao/auto-pairs' {{{
 Plug 'jiangmiao/auto-pairs'
 "}}}
-
-" timakro/vim-searchant {{{
-Plug 'timakro/vim-searchant'
-hi def link SearchCurrent IncSearch
-" }}}
 
 " rhysd/clever-f.vim {{{
 Plug 'rhysd/clever-f.vim'
