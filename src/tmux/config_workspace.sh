@@ -2,7 +2,7 @@
 
 # rename sesion according to current name
 
-session_name=$(basename `tmux run-shell "echo #{pane_current_path}"` |  sed -e 's/\.//g')
+session_name=$(basename "`tmux run-shell "echo #{pane_current_path}" |  sed -e 's/\.//g'`")
 tmux list-sessions -F "#{session_name}" | grep -w "$session_name" &> /dev/null
 if [[ $? -ne 0 ]]; then
 	tmux rename-session "$session_name"
