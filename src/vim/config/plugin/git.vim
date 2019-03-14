@@ -20,6 +20,7 @@ nnoremap <leader>gv :GV!<cr>
 
 " airblade/vim-gitgutter {{{
 Plug 'airblade/vim-gitgutter'
+let g:gitgutter_map_keys = 0
 " }}}
 
 " idanarye/vim-merginal {{{

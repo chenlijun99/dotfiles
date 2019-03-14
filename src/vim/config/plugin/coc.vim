@@ -2,17 +2,6 @@ let g:which_key_map.l = { 'name' : '+intellisense' }
 
 Plug 'neoclide/coc.nvim', {'tag': '*', 'do': { -> coc#util#install()}}
 
-" if hidden is not set, TextEdit might fail.
-set hidden
-" Better display for messages
-set cmdheight=2
-" Smaller updatetime for CursorHold & CursorHoldI
-set updatetime=300
-" don't give |ins-completion-menu| messages.
-set shortmess+=c
-" always show signcolumns
-set signcolumn=yes
-
 " Use tab for trigger completion with characters ahead and navigate.
 " Use command ':verbose imap <tab>' to make sure tab is not mapped by other plugin.
 inoremap <silent><expr> <TAB>
@@ -59,7 +48,7 @@ autocmd CursorHold * silent call CocActionAsync('highlight')
 
 " Remap for rename current word
 let g:which_key_map.l.rn = 'rename'
-nmap <leader>rn <Plug>(coc-rename)
+nmap <leader>lrn <Plug>(coc-rename)
 
 " Remap for format selected region
 let g:which_key_map.l.f = 'format'

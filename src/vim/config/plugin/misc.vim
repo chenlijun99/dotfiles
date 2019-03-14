@@ -56,41 +56,6 @@ let g:polyglot_disabled = ['latex']
 Plug 'jiangmiao/auto-pairs'
 "}}}
 
-"'KabbAmine/zeavim.vim' {{{
-Plug 'KabbAmine/zeavim.vim', {'on': [
-			\   'Zeavim', 'Docset',
-			\   '<Plug>Zeavim',
-			\   '<Plug>ZVVisSelection',
-			\   '<Plug>ZVKeyDocset',
-			\   '<Plug>ZVMotion'
-			\ ]}
-
-nnoremap K :Zeavim<cr>
-vnoremap K :Zeavim<cr>
-nnoremap <leader>K :Zeavim!<cr><cr>
-
-let g:zv_disable_mapping = 1
-let g:zv_file_types = {
-			\ 'cpp'				:	'cpp,qt',
-			\ 'cmake'			:	'cmake',
-			\ '(plain|tex)?tex'	:	'latex',
-			\ 'html'			:	'html,bootstrap',
-			\ 'css'				:	'css',
-			\ 'javascript'		:	'javascript,angularjs',
-			\ 'sh'				:	'bash'
-			\}
-
-let g:zv_get_docset_by = ['ft', 'ext']
-"}}}
-
-" machakann/vim-highlightedyank {{{
-Plug 'machakann/vim-highlightedyank'
-if !exists('##TextYankPost')
-	map y <Plug>(highlightedyank)
-endif
-hi def link HighlightedyankRegion PmenuSel
-" }}}
-
 " timakro/vim-searchant {{{
 Plug 'timakro/vim-searchant'
 hi def link SearchCurrent IncSearch

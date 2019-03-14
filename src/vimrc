@@ -7,7 +7,6 @@
 
 source ~/.vim/config/plugin.vim
 source ~/.vim/config/settings.vim
-source ~/.vim/config/keymapping.vim
 
 " set modeline 
 " vim: foldlevel=0 foldmethod=marker
