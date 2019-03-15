@@ -27,10 +27,20 @@ nmap <silent> [c <Plug>(coc-diagnostic-prev)
 nmap <silent> ]c <Plug>(coc-diagnostic-next)
 
 " Remap keys for gotos
+let g:which_key_map_g.d = 'Goto definition'
 nmap <silent> gd <Plug>(coc-definition)
+let g:which_key_map_g.y = 'Goto type definition'
 nmap <silent> gy <Plug>(coc-type-definition)
+let g:which_key_map_g.i = 'Goto implementation'
 nmap <silent> gi <Plug>(coc-implementation)
+let g:which_key_map_g.r = 'References'
 nmap <silent> gr <Plug>(coc-references)
+
+let g:which_key_map_g['#'] = 'which_key_ignore'
+let g:which_key_map_g['*'] = 'which_key_ignore'
+let g:which_key_map_g.D = 'which_key_ignore'
+let g:which_key_map_g['%'] = 'which_key_ignore'
+let g:which_key_map_g.x = 'which_key_ignore'
 
 " Use K for show documentation in preview window
 nnoremap <silent> K :call <SID>show_documentation()<CR>
