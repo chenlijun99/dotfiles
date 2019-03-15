@@ -41,11 +41,6 @@ Plug 'junegunn/rainbow_parentheses.vim'
 " junegunn/vim-easy-align {{{
 Plug 'junegunn/vim-easy-align', { 'on' : ['EasyAlign'] }
 " }}}
-" junegunn/vim-slash {{{
-Plug 'junegunn/vim-slash'
-noremap <plug>(slash-after) zz
-" }}}
-
 " sheerun/vim-polyglot {{{
 Plug 'sheerun/vim-polyglot'
 " workaround to issue #162

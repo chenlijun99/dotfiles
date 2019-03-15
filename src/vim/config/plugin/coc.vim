@@ -36,12 +36,6 @@ nmap <silent> gi <Plug>(coc-implementation)
 let g:which_key_map_g.r = 'References'
 nmap <silent> gr <Plug>(coc-references)
 
-let g:which_key_map_g['#'] = 'which_key_ignore'
-let g:which_key_map_g['*'] = 'which_key_ignore'
-let g:which_key_map_g.D = 'which_key_ignore'
-let g:which_key_map_g['%'] = 'which_key_ignore'
-let g:which_key_map_g.x = 'which_key_ignore'
-
 " Use K for show documentation in preview window
 nnoremap <silent> K :call <SID>show_documentation()<CR>
 
