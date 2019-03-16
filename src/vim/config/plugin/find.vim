@@ -4,17 +4,11 @@ let g:which_key_map.f = { 'name' : '+find' }
 Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
 Plug 'junegunn/fzf.vim'
 
-" Files command with preview window
-command! -bang -nargs=? -complete=dir Files
-			\ call fzf#vim#files(<q-args>, fzf#vim#with_preview(), <bang>0)
-command! -bang -nargs=? GFiles
-			\ call fzf#vim#files(<q-args>, fzf#vim#with_preview(), <bang>0)
-
 function! FzfMainMapping()
 	if exists('*fugitive#head') && !empty(fugitive#head())
-		return ':FzfGFiles'
+		return ':FzfGFiles --recurse-submodules'
 	else
-		return ':Files'
+		return ':FzfFiles'
 	endif
 endfunction
 
