@@ -1,0 +1,21 @@
+let g:markdown_fenced_languages = [
+			\ 'coffee',
+			\ 'cpp',
+			\ 'c',
+			\ 'java',
+			\ 'sh',
+			\ 'cmake',
+			\ 'rust',
+			\ 'r',
+			\ 'python',
+			\ 'sh',
+			\ 'css',
+			\ 'erb=eruby',
+			\ 'javascript',
+			\ 'js=javascript',
+			\ 'json=javascript',
+			\ 'ruby',
+			\ 'sass',
+			\ 'xml',
+			\ 'html'
+			\ ]
