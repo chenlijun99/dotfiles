@@ -1,4 +1,4 @@
-setlocal spell spelllang=en,it
+setlocal spell spelllang=en,it,cjk
 setlocal lazyredraw
 setlocal shiftwidth=4
 setlocal tabstop=4
