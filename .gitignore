@@ -41,3 +41,4 @@ src/tmux/resurrect
 ## vim ##
 src/vim/bundle
 src/vim/undo
+src/vim/spell/myspell.utf-8.add.spl

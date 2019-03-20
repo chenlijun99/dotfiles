@@ -114,6 +114,8 @@ set undofile
 " Terminal {{{
 " }}}
 
+set spellfile=$HOME/.vim/spell/myspell.utf-8.add
+
 set list listchars=tab:\▸\ 
 
 set fileencodings=ucs-bom,utf-8,default,latin,gb18030,gbk,gk2312
