@@ -112,20 +112,17 @@ nnoremap <silent> <leader>llk  :<C-u>CocPrev<CR>
 let g:which_key_map.l.l.p = 'resume'
 nnoremap <silent> <leader>llp  :<C-u>CocListResume<CR>
 
-let s:coc_extensions = [
+let g:coc_global_extensions = [
 			\ 'coc-dictionary',
 			\ 'coc-json',
 			\ 'coc-snippets',
 			\ 'coc-tag',
+			\ 'coc-html',
+			\ 'coc-css',
+			\ 'coc-vimtex',
+			\ 'coc-tsserver',
+			\ 'coc-yaml',
 			\]
-
-function! InstallCocExtensions()
-	for extension in s:coc_extensions
-		call coc#add_extension(extension)
-	endfor
-endfunction
-
-autocmd User CocNvimInit call InstallCocExtensions()
 
 " Use <C-l> to trigger snippet expand.
 imap <C-l> <Plug>(coc-snippets-expand)

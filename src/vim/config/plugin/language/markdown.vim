@@ -9,5 +9,3 @@ Plug 'iamcco/markdown-preview.nvim', {
 			\}
 
 let g:mkdp_auto_close = 0
-let g:which_key_map_local.p = 'Preview'
-nnoremap <localleader>p :MarkdownPreview<CR>
