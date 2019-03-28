@@ -23,9 +23,13 @@ nnoremap <c-]> g<c-]>
 vnoremap <c-]> g<c-]>
 
 let g:which_key_map.m.c =  'configure vimrc'
-nnoremap <leader>mc :vsplit $MYVIMRC<cr>
+nnoremap <silent> <leader>mc :vsplit $MYVIMRC<cr>
 let g:which_key_map.m.C = 'update vimrc'
-nnoremap <leader>mC :source $MYVIMRC<cr>
+nnoremap <silent> <leader>mC :source $MYVIMRC<cr>
+
+let g:which_key_map.m.u = { 'name': '+Utils' }
+let g:which_key_map.m.u.a = 'Anki'
+nnoremap <silent> <leader>mua :edit /home/chenlijun/.my-utils/Anki/scratchpad.tex<cr>
 
 " sudo write
 command! W :w !sudo tee %
