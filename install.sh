@@ -26,6 +26,7 @@ function install()
 
 	for file in $(ls -A1 "$source_dir")
 	do
+		# ignore if exclude regex is defined and file matches it.
 		if [[ (! -z $exclude) && $file =~ $exclude ]]; then
 			continue
 		fi
@@ -33,16 +34,19 @@ function install()
 		source="$source_dir/$file"
 		target="$destination_dir/$prepend$file"
 
+		# Move only if the target file is a normal file or directory
+		# or, if it's a system link, only if the link points to a different location
 		if [[ ( ! -h "$target" && ( -f "$target" || -d "$target") ) || \
-			(-h "$target" && $(realpath "$target") != "$source") ]]; then
+			(-h "$target" && $(realpath "$target") != $(realpath "$source")) ]]; then
 			mv -vi "$target" "$BACKUP_DIR/$file"
 		fi
 
-		if [[ (-h "$target" && $(realpath "$target") == "$source") ]]; then
-			continue
+		# If the target file doesn't exists, which means either that it's not
+		# present on the current system or that it has been properly backed up,
+		# proceed with link creation.
+		if [[ ! (-a "$target") ]]; then
+			ln -vs "$source" "$target"
 		fi
-
-		ln -vs "$source" "$target"
 	done
 }
 
@@ -77,7 +81,7 @@ function uninstall()
 		target="$destination_dir/$prepend$file"
 		backup="$BACKUP_DIR/$prepend$file"
 
-		if [[ (-h "$target" && $(realpath "$target") == "$source") ]]; then
+		if [[ (-h "$target" && $(realpath "$target") == $(realpath "$source")) ]]; then
 			rm $target
 		fi
 
@@ -90,13 +94,15 @@ function uninstall()
 function main()
 {
 	if [[ $1 == "--uninstall" ]]; then
-		uninstall "$SCRIPT_DIR/src" "$HOME" "." "^config"
+		uninstall "$SCRIPT_DIR/src" "$HOME" "." "^(config|local)"
 		uninstall "$SCRIPT_DIR/src/config" "$HOME/.config"
+		uninstall "$SCRIPT_DIR/src/local/share/" "$HOME/.local/share/"
 	elif [[ $# -eq 0 ]]; then
 		# ensure that $BACKUP_DIR exists
 		mkdir -p "$BACKUP_DIR"
-		install "$SCRIPT_DIR/src" "$HOME" "." "^config"
+		install "$SCRIPT_DIR/src" "$HOME" "." "^(config|local)"
 		install "$SCRIPT_DIR/src/config" "$HOME/.config"
+		install "$SCRIPT_DIR/src/local/share" "$HOME/.local/share"
 	else
 		echo "Usage: ./install.sh [--uninstall]"
 	fi
