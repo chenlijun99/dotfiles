@@ -17,13 +17,15 @@ nnoremap <leader>kK :Zeavim!<cr>
 
 let g:zv_disable_mapping = 1
 let g:zv_file_types = {
-			\ 'cpp'				:	'cpp,qt',
-			\ 'cmake'			:	'cmake',
-			\ '(plain|tex)?tex'	:	'latex',
-			\ 'html'			:	'html,bootstrap',
-			\ 'css'				:	'css',
-			\ 'javascript'		:	'javascript,angularjs',
-			\ 'sh'				:	'bash'
+			\ 'cpp'				: 'cpp,qt',
+			\ 'sass'			: 'css,sass',
+			\ 'scss'			: 'css,sass',
+			\ 'cmake'			: 'cmake',
+			\ '(plain|tex)?tex'	: 'latex',
+			\ 'html'			: 'html,bootstrap',
+			\ 'css'				: 'css',
+			\ 'javascript'		: 'javascript,angularjs',
+			\ 'sh'				: 'bash'
 			\}
 
 let g:zv_get_docset_by = ['ft', 'ext']

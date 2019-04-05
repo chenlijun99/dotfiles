@@ -2,7 +2,9 @@
 	"suggest.autoTrigger": "always",
 	"suggest.maxCompleteItemCount": 50,
 	"codeLens.enable": true,
-	"diagnostic.virtualTextLines": 3,
+	"diagnostic.virtualText": true,
+	"tsserver.log": "verbose",
+	"tsserver.trace.server": "verbose",
 	"languageserver": {
 		"ccls": {
 			"command": "ccls",
