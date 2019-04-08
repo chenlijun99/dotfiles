@@ -123,7 +123,6 @@ let g:coc_global_extensions = [
 			\ 'coc-tsserver',
 			\ 'coc-yaml',
 			\ 'coc-angular',
-			\ 'coc-tslint-plugin'
 			\]
 
 " Use <C-l> to trigger snippet expand.
