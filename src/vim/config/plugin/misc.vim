@@ -56,11 +56,6 @@ let g:polyglot_disabled = ['latex', 'markdown']
 Plug 'jiangmiao/auto-pairs'
 "}}}
 
-" rhysd/clever-f.vim {{{
-Plug 'rhysd/clever-f.vim'
-let g:clever_f_across_no_line=1
-" }}}
-
 " mhinz/vim-startify {{{
 Plug 'mhinz/vim-startify'
 " }}}
