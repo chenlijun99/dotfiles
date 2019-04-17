@@ -35,6 +35,8 @@ let g:which_key_map_g.i = 'Goto implementation'
 nmap <silent> gi <Plug>(coc-implementation)
 let g:which_key_map_g.r = 'References'
 nmap <silent> gr <Plug>(coc-references)
+let g:which_key_map_g.r = 'References'
+nmap <silent> gh <Plug>(coc-references)
 
 " Use K for show documentation in preview window
 nnoremap <silent> K :call <SID>show_documentation()<CR>
@@ -51,8 +53,8 @@ endfunction
 autocmd CursorHold * silent call CocActionAsync('highlight')
 
 " Remap for rename current word
-let g:which_key_map.l.rn = 'rename'
-nmap <leader>lrn <Plug>(coc-rename)
+let g:which_key_map.l.r = 'rename'
+nmap <leader>lr <Plug>(coc-rename)
 
 " Remap for format selected region
 let g:which_key_map.l.f = 'format'
@@ -68,15 +70,15 @@ augroup mygroup
 augroup end
 
 " Remap for do codeAction of selected region, ex: `<leader>aap` for current paragraph
-let g:which_key_map.l.la = 'codeaction'
+let g:which_key_map.l.a = 'codeaction'
 vmap <leader>la  <Plug>(coc-codeaction-selected)
 nmap <leader>la  <Plug>(coc-codeaction-selected)
 
 " Remap for do codeAction of current line
-let g:which_key_map.l.lac = 'codeaction (current line)'
+let g:which_key_map.l.ac = 'codeaction (current line)'
 nmap <leader>lac  <Plug>(coc-codeaction)
 " Fix autofix problem of current line
-let g:which_key_map.l.lqf = 'autofix (current line)'
+let g:which_key_map.l.qf = 'autofix (current line)'
 nmap <leader>lqf  <Plug>(coc-fix-current)
 
 " Use `:Format` for format current buffer
