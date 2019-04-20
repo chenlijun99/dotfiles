@@ -35,6 +35,10 @@ if [ -d "$HOME/.pub-cache/bin" ]; then
 	PATH="$PATH":"$HOME/.pub-cache/bin"
 fi
 
+if [ -d "$HOME/.npm/bin" ]; then
+	PATH="$HOME/.npm/bin:$PATH"
+fi
+
 if [ ! -n "$TMUX" ]; then
 	# OneDrive syncing with rclone
 	mkdir -p "Remotes/OneDrive"
