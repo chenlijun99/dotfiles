@@ -35,8 +35,8 @@ let g:which_key_map_g.i = 'Goto implementation'
 nmap <silent> gi <Plug>(coc-implementation)
 let g:which_key_map_g.r = 'References'
 nmap <silent> gr <Plug>(coc-references)
-let g:which_key_map_g.r = 'References'
-nmap <silent> gh <Plug>(coc-references)
+let g:which_key_map_g.h = 'Hover'
+nmap <silent> gh :call CocAction('doHover')<cr>
 
 " Use K for show documentation in preview window
 nnoremap <silent> K :call <SID>show_documentation()<CR>
