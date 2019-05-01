@@ -29,7 +29,7 @@ nnoremap <silent> <leader>mC :source $MYVIMRC<cr>
 
 let g:which_key_map.m.u = { 'name': '+Utils' }
 let g:which_key_map.m.u.a = 'Anki'
-nnoremap <silent> <leader>mua :edit /home/chenlijun/.my-utils/Anki/scratchpad.tex<cr>
+nnoremap <silent> <leader>mua :edit ~/.my-utils/Anki/scratchpad.tex<cr>
 
 " sudo write
 command! W :w !sudo tee %
