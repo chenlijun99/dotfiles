@@ -8,4 +8,5 @@ Plug 'iamcco/markdown-preview.nvim', {
 			\ 'for': 'markdown'
 			\}
 
+let g:mkdp_port = '28080'
 let g:mkdp_auto_close = 0
