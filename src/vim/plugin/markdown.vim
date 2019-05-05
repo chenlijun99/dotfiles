@@ -1,4 +1,5 @@
 let g:markdown_fenced_languages = [
+			\ 'asm',
 			\ 'coffee',
 			\ 'cpp',
 			\ 'c',
