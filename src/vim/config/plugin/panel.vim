@@ -12,7 +12,10 @@ Plug 'xuyuanp/nerdtree-git-plugin'
 
 " liuchengxu/vista.vim {{{
 let g:which_key_map.p.s = 'symbol explorer'
+let g:vista_default_executive = 'coc'
 Plug 'liuchengxu/vista.vim', { 'on': 'Vista' }
+nnoremap <silent> <leader>ps :Vista<cr>
+
 " }}}
 
 " {{{
