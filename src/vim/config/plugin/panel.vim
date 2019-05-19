@@ -1,13 +1,13 @@
 let g:which_key_map.p = { 'name' : '+panel' }
 
 " scrooloose/nerdtree {{{
-Plug 'scrooloose/nerdtree'
+Plug 'scrooloose/nerdtree', { 'on': 'NERDTreeFind' }
 let g:NERDTreeWinSize=30
 let g:which_key_map.p.f = 'filetree explorer'
 nnoremap <silent> <leader>pf :NERDTreeFind<cr>
 " }}}
 " xuyuanp/nerdtree-git-plugin {{{
-Plug 'xuyuanp/nerdtree-git-plugin'
+Plug 'xuyuanp/nerdtree-git-plugin', { 'on': 'NERDTreeFind' }
 " }}}
 
 " liuchengxu/vista.vim {{{
