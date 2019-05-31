@@ -18,6 +18,12 @@ let g:which_key_map.g.v =' file history'
 nnoremap <leader>gv :GV!<cr>
 " }}}
 
+" samoshkin/vim-mergetool {{{
+Plug 'samoshkin/vim-mergetool' , { 'on': ['MergetoolStart'] }
+let g:mergetool_layout = 'mr'
+let g:mergetool_prefer_revision = 'local'
+" }}}
+
 " airblade/vim-gitgutter {{{
 Plug 'airblade/vim-gitgutter'
 let g:gitgutter_map_keys = 0
