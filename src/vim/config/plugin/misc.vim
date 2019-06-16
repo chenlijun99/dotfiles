@@ -68,10 +68,6 @@ map m <Plug>(easymotion-prefix)
 map mm ms
 "}}}
 
-" {{{ cs/alternate-file.vim
-Plug 'cs/alternate-file.vim'
-" }}}
-
 "tpope/vim-dispatch {{{
 Plug 'tpope/vim-dispatch', { 'on': ['Dispatch', 'Make', 'Start'] }
 "}}}
@@ -89,7 +85,6 @@ xmap S <Plug>VSurround
 Plug 'tpope/vim-abolish',
 			\ { 'on': ['Abolish', 'Subvert'] }
 " }}}
-
 
 " set modeline
 " vim: foldlevel=0 foldmethod=marker
