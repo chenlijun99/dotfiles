@@ -99,6 +99,12 @@ let g:which_key_map.f.R = 'replace (Far)'
 nnoremap <leader>fR Far<Space>
 let g:which_key_map.f.R = 'replace (Far)'
 xnoremap <leader>fR :<C-u>call <SID>VSetSearch()<CR>:Far<Space><C-R>=@/<CR><Space>
+
+if executable('rg')
+	let g:far#source = 'rg'
+elseif executable('ag')
+	let g:far#source = 'ag'
+endif
 " }}}
 
 let g:which_key_map.f.r = 'replace'
