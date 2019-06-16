@@ -68,10 +68,6 @@ map m <Plug>(easymotion-prefix)
 map mm ms
 "}}}
 
-" Chiel92/vim-autoformat {{{
-Plug 'Chiel92/vim-autoformat' , { 'on' : 'Autoformat' }
-" }}}
-"
 " {{{ cs/alternate-file.vim
 Plug 'cs/alternate-file.vim'
 " }}}
@@ -93,6 +89,7 @@ xmap S <Plug>VSurround
 Plug 'tpope/vim-abolish',
 			\ { 'on': ['Abolish', 'Subvert'] }
 " }}}
+
 
 " set modeline
 " vim: foldlevel=0 foldmethod=marker
