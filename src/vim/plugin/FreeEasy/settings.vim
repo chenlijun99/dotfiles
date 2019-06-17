@@ -2,6 +2,13 @@
 set nocompatible
 
 set lazyredraw
+set updatetime=300
+
+set nobackup
+set nowritebackup
+
+" don't give |ins-completion-menu| messages.
+set shortmess+=c
 
 " set backspace behavior as we would normally expect
 set backspace=indent,eol,start
