@@ -49,7 +49,7 @@ let g:jsx_ext_required = 1
 
 " Don't use LaTeX-Box. I'm already using vimtex plugin for LaTeX
 " Don't use for markdown. The default supports fenced code blocks
-let g:polyglot_disabled = ['latex', 'markdown']
+let g:polyglot_disabled = ['latex', 'markdown', 'typescript']
 " }}}
 
 "'jiangmiao/auto-pairs' {{{
