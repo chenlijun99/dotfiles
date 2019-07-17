@@ -5,6 +5,7 @@
 	"diagnostic.virtualText": true,
 	"tsserver.log": "verbose",
 	"tsserver.trace.server": "verbose",
+	"typescript.format.insertSpaceAfterOpeningAndBeforeClosingNonemptyBraces": true,
 	"languageserver": {
 		"ccls": {
 			"command": "ccls",
