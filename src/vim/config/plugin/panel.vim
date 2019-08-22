@@ -10,7 +10,7 @@ nnoremap <silent> <leader>pf :NERDTreeFind<cr>
 Plug 'xuyuanp/nerdtree-git-plugin', { 'on': 'NERDTreeFind' }
 " }}}
 " arkgast/nerdtree-execute {{{
-Plug 'arkgast/nerdtree-execute', { 'on': 'NERDTreeFind' }
+Plug 'arkgast/nerdtree-execute', { 'branch': 'standard_linux_opener', 'on': 'NERDTreeFind' }
 " }}}
 
 " liuchengxu/vista.vim {{{
