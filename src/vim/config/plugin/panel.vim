@@ -9,6 +9,9 @@ nnoremap <silent> <leader>pf :NERDTreeFind<cr>
 " xuyuanp/nerdtree-git-plugin {{{
 Plug 'xuyuanp/nerdtree-git-plugin', { 'on': 'NERDTreeFind' }
 " }}}
+" arkgast/nerdtree-execute {{{
+Plug 'arkgast/nerdtree-execute', { 'on': 'NERDTreeFind' }
+" }}}
 
 " liuchengxu/vista.vim {{{
 let g:which_key_map.p.s = 'symbol explorer'
