@@ -303,7 +303,8 @@ src/vifm/vimfiles
 src/vifm/Trash/
 
 ## tmux ##
-src/tmux/plugins
+src/tmux/plugins/*
+!src/tmux/plugins/tpm
 # tmux-resurrect cache
 src/tmux/resurrect
 

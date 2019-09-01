@@ -3,7 +3,7 @@
 ## Installation
 
 ```sh
-git clone https://github.com/free-easy/dotfiles
+git clone https://github.com/free-easy/dotfiles --recursive
 cd dotfiles
 ./install.sh
 ```
