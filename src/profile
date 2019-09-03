@@ -39,6 +39,14 @@ if [ -d "$HOME/.npm/bin" ]; then
 	PATH="$HOME/.npm/bin:$PATH"
 fi
 
+if [ -d "$HOME/esp/xtensa-esp32-elf/bin" ]; then
+	PATH="$PATH:$HOME/esp/xtensa-esp32-elf/bin"
+fi
+if [ -d "$HOME/esp/esp-idf" ]; then
+	IDF_PATH="$HOME/esp/esp-idf"
+	PATH="$PATH:$IDF_PATH/tools"
+fi
+
 if [ ! -n "$TMUX" ]; then
 	# OneDrive syncing with rclone
 	mkdir -p "Remotes/OneDrive"
