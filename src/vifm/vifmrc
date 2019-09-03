@@ -310,8 +310,10 @@ filextype *.pro qtcreator %f &
 
 " txt
 filetype *.txt
+        \ {View in gvim}
+        \ gvim %f &,
         \ {View in vim}
-        \ vim %f &
+        \ vim %f,
 
 " Directories
 filextype */
