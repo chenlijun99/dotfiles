@@ -81,10 +81,6 @@ Plug 'tpope/vim-surround',
 			\ '<Plug>YSsurround', '<Plug>VSurround', '<Plug>VgSurround'] }
 xmap S <Plug>VSurround
 "}}}
-" tpope/vim-abolish {{{
-Plug 'tpope/vim-abolish',
-			\ { 'on': ['Abolish', 'Subvert'] }
-" }}}
 
 " set modeline
 " vim: foldlevel=0 foldmethod=marker

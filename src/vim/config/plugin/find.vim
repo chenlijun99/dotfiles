@@ -93,29 +93,27 @@ let g:fzf_colors =
 let g:fzf_history_dir = '~/.local/share/fzf-history'
 " }}} 
 
-" brooth/far.vim {{{
-Plug 'brooth/far.vim', { 'on': ['Far', 'Farp', 'Refar', 'F']  }
-let g:which_key_map.f.R = 'replace (Far)'
-nnoremap <leader>fR Far<Space>
-let g:which_key_map.f.R = 'replace (Far)'
-xnoremap <leader>fR :<C-u>call <SID>VSetSearch()<CR>:Far<Space><C-R>=@/<CR><Space>
-
-if executable('rg')
-	let g:far#source = 'rg'
-elseif executable('ag')
-	let g:far#source = 'ag'
-endif
+" CocSearch {{{
+let g:which_key_map.f.R = 'replace (CocSearch)'
+nnoremap <leader>fR :CocSearch<Space>
+let g:which_key_map.f.R = 'replace (CocSearch)'
+xnoremap <leader>fR :<C-u>call <SID>VSetSearch()<CR>:CocSearch<Space><C-R>=@/<CR><CR>
 " }}}
+
+" tpope/vim-abolish {{{
+Plug 'tpope/vim-abolish',
+			\ { 'on': ['Abolish', 'Subvert'] }
 
 let g:which_key_map.f.r = 'replace'
 " from SpaceVim
-xnoremap <leader>fr :<C-u>call <SID>VSetSearch()<CR>:,%s/<C-R>=@/<CR>//gc<left><left><left>
+xnoremap <leader>fr :<C-u>call <SID>VSetSearch()<CR>:%Subvert/<C-R>=@/<CR>//gc<left><left><left>
 function! s:VSetSearch() abort
 	let temp = @s
 	norm! gv"sy
 	let @/ = substitute(escape(@s, '/\'), '\n', '\\n', 'g')
 	let @s = temp
 endfunction
+" }}}
 
 " set modeline
 " vim: foldlevel=0 foldmethod=marker
