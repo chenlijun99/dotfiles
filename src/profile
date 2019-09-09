@@ -47,6 +47,12 @@ if [ -d "$HOME/esp/esp-idf" ]; then
 	PATH="$PATH:$IDF_PATH/tools"
 fi
 
+command -v go >/dev/null
+if [[ $? -eq 0 ]] ; then
+	export GOPATH=$HOME/go
+	export PATH=$PATH:$GOROOT/bin:$GOPATH/bin
+fi
+
 if [ ! -n "$TMUX" ]; then
 	# OneDrive syncing with rclone
 	mkdir -p "Remotes/OneDrive"

@@ -120,12 +120,6 @@ export TERM=xterm-256color
 
 [ -f ~/.fzf.bash ] && source ~/.fzf.bash
 
-command -v go >/dev/null
-if [[ $? -eq 0 ]] ; then
-	export GOPATH=$HOME/go
-	export PATH=$PATH:$GOROOT/bin:$GOPATH/bin
-fi
-
 command -v tmux > /dev/null
 if [[ $? -eq 0 ]]; then
 	[[ -z $TMUX ]] && exec tmux new-session -A -s misc
