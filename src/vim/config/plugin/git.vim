@@ -3,7 +3,8 @@ let g:which_key_map.g = { 'name' : '+git' }
 "tpope/vim-fugitive {{{
 Plug 'tpope/vim-fugitive'
 
-nnoremap <leader>gs :Gstatus<cr>
+let g:which_key_map.g.s = 'Git status'
+nnoremap <leader>gs :G<cr>
 nnoremap <leader>gd :Gdiff<cr>
 nnoremap <leader>ge :Gedit<cr>
 nnoremap <leader>gc :Gcommit<cr>
