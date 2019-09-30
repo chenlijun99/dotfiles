@@ -6,6 +6,13 @@
 	"tsserver.log": "verbose",
 	"tsserver.trace.server": "verbose",
 	"typescript.format.insertSpaceAfterOpeningAndBeforeClosingNonemptyBraces": true,
+	"eslint.filetypes": [
+		"javascript",
+		"javascriptreact",
+		"typescript",
+		"typescriptreact"
+	],
+	"eslint.autoFixOnSave": true,
 	"languageserver": {
 		"ccls": {
 			"command": "ccls",
