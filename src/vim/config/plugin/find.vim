@@ -30,7 +30,7 @@ Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
 Plug 'junegunn/fzf.vim'
 
 function! s:get_fzf_main_mapping()
-	if exists('*fugitive#head') && !empty(fugitive#head())
+	if exists('*FugitiveHead') && !empty(FugitiveHead())
 		return ':FzfGFiles'
 	else
 		return ':FzfFiles'
