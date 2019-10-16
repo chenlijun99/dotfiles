@@ -35,10 +35,6 @@ if [ -d "$HOME/.pub-cache/bin" ]; then
 	PATH="$PATH":"$HOME/.pub-cache/bin"
 fi
 
-if [ -d "$HOME/.npm/bin" ]; then
-	PATH="$HOME/.npm/bin:$PATH"
-fi
-
 if [ -d "$HOME/esp/xtensa-esp32-elf/bin" ]; then
 	PATH="$PATH:$HOME/esp/xtensa-esp32-elf/bin"
 fi
@@ -51,8 +47,19 @@ if [ -d "$HOME/.cargo/bin" ]; then
 	PATH="$HOME/.cargo/bin:$PATH"
 fi
 
+if [ -d "$HOME/.npm/bin" ]; then
+	PATH="$HOME/.npm/bin:$PATH"
+fi
+
+command -v npm >/dev/null
+if [[ $? -eq 0 ]] ; then
+	PATH="$(npm bin -g 2> /dev/null):$PATH"
+fi
+
 command -v go >/dev/null
 if [[ $? -eq 0 ]] ; then
 	export GOPATH=$HOME/go
-	export PATH=$PATH:$GOROOT/bin:$GOPATH/bin
+	PATH=$PATH:$GOROOT/bin:$GOPATH/bin
 fi
+
+export PATH
