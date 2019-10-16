@@ -56,19 +56,3 @@ if [[ $? -eq 0 ]] ; then
 	export GOPATH=$HOME/go
 	export PATH=$PATH:$GOROOT/bin:$GOPATH/bin
 fi
-
-if [ ! -n "$TMUX" ]; then
-	# OneDrive syncing with rclone
-	mkdir -p "Remotes/OneDrive"
-	rclone mount \
-		--daemon \
-		--allow-non-empty \
-		--syslog \
-		--max-read-ahead 200M \
-		--vfs-cache-mode full \
-		--vfs-cache-max-age 1000000h0m0s \
-		--exclude ".~lock.*#" \
-		--exclude "*.swp" \
-		--exclude ".database.kdbx.lock" \
-		"OneDrive:/" "$HOME/Remotes/OneDrive" &
-fi
