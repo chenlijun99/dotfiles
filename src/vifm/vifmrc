@@ -461,6 +461,8 @@ nnoremap q :q<cr>
 set trashdir=~/.local/share/Trash/files
 
 colorscheme ph.vifm
+" Enable screen mode, since we use TMUX
+screen
 "}}}
 
 " set modeline 
