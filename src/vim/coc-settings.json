@@ -23,6 +23,11 @@
 					"directory": "/tmp/ccls"
 				}
 			}
+		},
+		"dot-language-server": {
+			"command": "dot-language-server",
+			"filetypes": ["dot"],
+			"args": ["--stdio"]
 		}
 	}
 }
