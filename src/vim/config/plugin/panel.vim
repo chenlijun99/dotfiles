@@ -1,10 +1,15 @@
 let g:which_key_map.p = { 'name' : '+panel' }
 
 " scrooloose/nerdtree {{{
-Plug 'scrooloose/nerdtree', { 'on': 'NERDTreeFind' }
+Plug 'scrooloose/nerdtree', { 'on': ['NERDTreeFind', 'NERDTreeVCS', 'NERDTreeClose'] }
 let g:NERDTreeWinSize=30
 let g:which_key_map.p.f = 'filetree explorer'
 nnoremap <silent> <leader>pf :NERDTreeFind<cr>
+let g:which_key_map.p.F = { 'name' : '+filetree' }
+let g:which_key_map.p.F.x = "Close"
+nnoremap <silent> <leader>pFx :NERDTreeClose<cr>
+let g:which_key_map.p.F.g = "VCS"
+nnoremap <silent> <leader>pFg :NERDTreeVCS<cr>
 " }}}
 " xuyuanp/nerdtree-git-plugin {{{
 Plug 'xuyuanp/nerdtree-git-plugin', { 'on': 'NERDTreeFind' }
@@ -18,7 +23,16 @@ let g:which_key_map.p.s = 'symbol explorer'
 let g:vista_default_executive = 'coc'
 Plug 'liuchengxu/vista.vim', { 'on': 'Vista' }
 nnoremap <silent> <leader>ps :Vista<cr>
-
+let g:vista_default_executive = 'ctags'
+let g:vista_executive_for = {
+			\ 'c': 'coc',
+			\ 'cpp': 'coc',
+			\ 'typescript': 'coc',
+			\ 'markdown': 'toc',
+			\ }
+let g:which_key_map.p.S = { 'name' : '+symbol tree' }
+let g:which_key_map.p.S.x = "Close"
+nnoremap <silent> <leader>pSx :Vista!<cr>
 " }}}
 
 " {{{

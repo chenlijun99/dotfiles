@@ -3,7 +3,9 @@ Plug 'mzlogin/vim-markdown-toc' , { 'for' : 'markdown'}
 Plug 'dhruvasagar/vim-table-mode' , { 'for' : 'markdown' }
 let g:table_mode_corner='|'
 
+" plasticboy/vim-markdown {{{
 Plug 'plasticboy/vim-markdown', { 'for' : 'markdown' } 
+let g:vim_markdown_toc_autofit = 1
 let g:vim_markdown_math = 1
 let g:vim_markdown_frontmatter = 1
 let g:vim_markdown_strikethrough = 1
@@ -33,6 +35,7 @@ let g:vim_markdown_fenced_languages = [
 			\ 'xml',
 			\ 'html'
 			\ ]
+" }}}
 
 " iamcco/markdown-preview.nvim {{{
 " This causes plugin installation issues, as the function 
