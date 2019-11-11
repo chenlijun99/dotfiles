@@ -35,18 +35,13 @@ if [ -d "$HOME/.pub-cache/bin" ]; then
 	PATH="$PATH":"$HOME/.pub-cache/bin"
 fi
 
-if [ -d "$HOME/esp/xtensa-esp32-elf/bin" ]; then
-	PATH="$PATH:$HOME/esp/xtensa-esp32-elf/bin"
-fi
 if [ -d "$HOME/esp/esp-idf" ]; then
-	IDF_PATH="$HOME/esp/esp-idf"
-	PATH="$PATH:$IDF_PATH/tools"
+	. $HOME/esp/esp-idf/export.sh
 fi
 
 if [ -d "$HOME/.cargo/bin" ]; then
 	PATH="$HOME/.cargo/bin:$PATH"
 fi
-
 
 command -v npm >/dev/null
 if [[ $? -eq 0 ]] ; then
