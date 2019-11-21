@@ -1,5 +1,6 @@
 let g:which_key_map.k = { 'name' : '+documentation' }
 
+" KabbAmine/zeavim.vim {{{
 Plug 'KabbAmine/zeavim.vim', {'on': [
 			\   'Zeavim', 'Docset',
 			\   '<Plug>Zeavim',
@@ -29,3 +30,13 @@ let g:zv_file_types = {
 			\}
 
 let g:zv_get_docset_by = ['ft', 'ext']
+" }}}
+
+" kkoomen/vim-doge {{{
+Plug 'kkoomen/vim-doge', { 'on': ['DogeGenerate'] }
+nnoremap <leader>kg :DogeGenerate<cr>
+let g:which_key_map.k.g = 'Generate doc (doge)'
+" }}}
+
+" set modeline
+" vim: foldlevel=0 foldmethod=marker
