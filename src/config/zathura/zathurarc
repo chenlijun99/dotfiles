@@ -1,1 +1,3 @@
 set selection-clipboard clipboard
+set recolor-lightcolor \#282828
+map <C-l> feedkeys ":set recolor<Return>"
