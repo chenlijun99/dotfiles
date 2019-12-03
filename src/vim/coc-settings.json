@@ -49,5 +49,6 @@
 		"markdown": [
 			"markdownlint"
 		]
-	}
+	},
+	"python.jediEnabled": false
 }
