@@ -16,15 +16,15 @@ fi
 
 # create other windows if missing
 declare -a workspace_windows=(
-	"build"
-	"git"
-	"documentation"
 	"misc"
+	"documentation"
+	"git"
+	"build"
 )
 for window in "${workspace_windows[@]}"
 do
 	tmux list-windows -F "#{window_name}" | grep -w $window &> /dev/null
 	if [[ $? -ne 0 ]]; then
-		tmux new-window -k -d -c "#{pane_current_path}" -n $window
+		tmux new-window -akd -c "#{pane_current_path}" -n $window
 	fi
 done
