@@ -14,7 +14,8 @@ let g:rooter_patterns = [
 
 " embear/vim-localvimrc {{{
 Plug 'embear/vim-localvimrc'
-let g:localvimrc_ask=0
+let g:localvimrc_ask=1
+let g:localvimrc_persistent=1
 " }}}
 
 " set modeline
