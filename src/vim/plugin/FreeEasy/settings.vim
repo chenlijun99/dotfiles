@@ -1,6 +1,10 @@
 " enable vim features, which are not supported by vi
 set nocompatible
 
+if has('nvim')
+	set inccommand=split
+endif
+
 set lazyredraw
 set updatetime=300
 
