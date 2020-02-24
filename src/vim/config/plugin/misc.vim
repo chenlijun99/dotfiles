@@ -82,5 +82,9 @@ Plug 'tpope/vim-surround',
 xmap S <Plug>VSurround
 "}}}
 
+" camspiers/lens.vim {{{
+Plug 'camspiers/lens.vim'
+let g:lens#disabled_filetypes = ['nerdtree', 'fzf']
+"}}}
 " set modeline
 " vim: foldlevel=0 foldmethod=marker
