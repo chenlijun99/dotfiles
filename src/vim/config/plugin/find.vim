@@ -1,4 +1,5 @@
 let g:which_key_map.f = { 'name' : '+find' }
+let g:which_key_map.f.r = { 'name' : '+replace' }
 
 function! s:ignore_submodules(...)
 	if a:0 > 0
@@ -94,26 +95,29 @@ let g:fzf_history_dir = '~/.local/share/fzf-history'
 " }}} 
 
 " CocSearch {{{
-let g:which_key_map.f.R = 'replace (CocSearch)'
-nnoremap <leader>fR :CocSearch<Space>
-let g:which_key_map.f.R = 'replace (CocSearch)'
-xnoremap <leader>fR :<C-u>call <SID>VSetSearch()<CR>:CocSearch<Space><C-R>=@/<CR><CR>
+let g:which_key_map.f.r.c = '(CocSearch)'
+nnoremap <leader>frc :CocSearch<Space>
+let g:which_key_map.f.r.c = '(CocSearch)'
+xnoremap <leader>frc :<C-u>call <SID>VSetSearch()<CR>:CocSearch<Space><C-R>=@/<CR><CR>
 " }}}
 
 " tpope/vim-abolish {{{
 Plug 'tpope/vim-abolish',
 			\ { 'on': ['Abolish', 'Subvert'] }
 
-let g:which_key_map.f.r = 'replace'
+let g:which_key_map.f.r.s = 'Subvert'
+xnoremap <leader>frs :<C-u>call <SID>VSetSearch()<CR>:%Subvert/<C-R>=@/<CR>//gc<left><left><left>
+" }}}
+
+let g:which_key_map.f.r.r = 'built-in'
+xnoremap <leader>frr :<C-u>call <SID>VSetSearch()<CR>:%s/<C-R>=@/<CR>//gc<left><left><left>
 " from SpaceVim
-xnoremap <leader>fr :<C-u>call <SID>VSetSearch()<CR>:%Subvert/<C-R>=@/<CR>//gc<left><left><left>
 function! s:VSetSearch() abort
 	let temp = @s
 	norm! gv"sy
 	let @/ = substitute(escape(@s, '/\'), '\n', '\\n', 'g')
 	let @s = temp
 endfunction
-" }}}
 
 " set modeline
 " vim: foldlevel=0 foldmethod=marker
