@@ -20,7 +20,6 @@ Plug 'arkgast/nerdtree-execute', { 'branch': 'standard_linux_opener', 'on': 'NER
 
 " liuchengxu/vista.vim {{{
 let g:which_key_map.p.s = 'symbol explorer'
-let g:vista_default_executive = 'coc'
 Plug 'liuchengxu/vista.vim', { 'on': 'Vista' }
 nnoremap <silent> <leader>ps :Vista<cr>
 let g:vista_default_executive = 'ctags'
