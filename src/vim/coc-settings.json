@@ -1,10 +1,8 @@
 {
 	"suggest.autoTrigger": "always",
 	"suggest.maxCompleteItemCount": 50,
-	"codeLens.enable": true,
+	"codeLens.enable": false,
 	"diagnostic.virtualText": true,
-	"tsserver.log": "verbose",
-	"tsserver.trace.server": "verbose",
 	"typescript.format.insertSpaceAfterOpeningAndBeforeClosingNonemptyBraces": true,
 	"eslint.filetypes": [
 		"javascript",
@@ -12,13 +10,31 @@
 		"typescript",
 		"typescriptreact"
 	],
-	"eslint.autoFixOnSave": true,
+	"eslint.autoFixOnSave": false,
+	"eslint.autoFix": false,
+	"tslint.autoFixOnSave": false,
+	"tsserver.formatOnType": false,
 	"languageserver": {
-		"clangd": {
-			"command": "clangd",
-			"args": ["--background-index"],
-			"rootPatterns": ["compile_flags.txt", "compile_commands.json", ".vim/", ".git/", ".hg/"],
-			"filetypes": ["c", "cpp", "objc", "objcpp"]
+		"ccls": {
+			"command": "ccls",
+			"filetypes": [
+				"c",
+				"cpp",
+				"objc",
+				"objcpp"
+			],
+			"rootPatterns": [
+				".ccls",
+				"compile_commands.json",
+				".vim/",
+				".git/",
+				".hg/"
+			],
+			"initializationOptions": {
+				"cache": {
+					"directory": "/tmp/ccls"
+				}
+			}
 		},
 		"dot-language-server": {
 			"command": "dot-language-server",
