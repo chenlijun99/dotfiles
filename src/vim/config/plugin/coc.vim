@@ -1,3 +1,6 @@
+if !executable('ruby')
+	finish
+endif
 let g:which_key_map.l = { 'name' : '+intellisense' }
 
 Plug 'neoclide/coc.nvim', {'branch': 'release'}
