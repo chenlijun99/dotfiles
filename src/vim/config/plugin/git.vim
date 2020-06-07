@@ -3,6 +3,8 @@ let g:which_key_map.g = { 'name' : '+git' }
 "tpope/vim-fugitive {{{
 Plug 'tpope/vim-fugitive'
 Plug 'tpope/vim-rhubarb'
+Plug 'shumphrey/fugitive-gitlab.vim'
+let g:fugitive_gitlab_domains = ['http://gitlab.currymix']
 
 let g:which_key_map.g.s = 'Git status'
 nnoremap <leader>gs :G<cr>
