@@ -1,4 +1,4 @@
-if !executable('ruby')
+if !executable('node')
 	finish
 endif
 let g:which_key_map.l = { 'name' : '+intellisense' }
