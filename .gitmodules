@@ -1,3 +1,6 @@
 [submodule "src/tmux/plugins/tpm"]
 	path = src/tmux/plugins/tpm
 	url = https://github.com/tmux-plugins/tpm
+[submodule "src/vifm/vifm_devicons"]
+	path = src/vifm/vifm_devicons
+	url = https://github.com/cirala/vifm_devicons
