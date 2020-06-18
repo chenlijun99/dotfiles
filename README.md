@@ -8,3 +8,20 @@ cd dotfiles
 ./install.sh
 ```
 Open a new shell.
+
+## Dependencies
+
+### Nerd Font
+
+Install the patched Hack font
+
+```sh
+curl -o hack.zip https://github.com/ryanoasis/nerd-fonts/releases/download/latest/Hack.zip
+mkdir -p ~/.fonts
+unzip hack.zip -d ~/.fonts/
+rm -f hack.zip
+```
+
+### Alacritty
+
+See [installation guide](https://github.com/alacritty/alacritty#pop_os--ubuntu)
