@@ -52,7 +52,7 @@ let g:jsx_ext_required = 1
 let g:polyglot_disabled = ['latex', 'markdown']
 " }}}
 
-"'jiangmiao/auto-pairs' {{{
+" jiangmiao/auto-pairs {{{
 Plug 'jiangmiao/auto-pairs'
 "}}}
 
@@ -60,7 +60,7 @@ Plug 'jiangmiao/auto-pairs'
 Plug 'mhinz/vim-startify'
 " }}}
 
-"'easymotion/vim-easymotion' {{{
+" easymotion/vim-easymotion {{{
 Plug 'easymotion/vim-easymotion' , { 'on' : '<Plug>(easymotion-prefix)' }
 
 " m for move
@@ -80,6 +80,10 @@ Plug 'tpope/vim-surround',
 			\ '<Plug>Ysurround',  '<Plug>YSurround', '<Plug>Yssurround',
 			\ '<Plug>YSsurround', '<Plug>VSurround', '<Plug>VgSurround'] }
 xmap S <Plug>VSurround
+"}}}
+
+" ryanoasis/vim-devicons {{{
+Plug 'ryanoasis/vim-devicons'
 "}}}
 
 " set modeline
