@@ -466,5 +466,17 @@ screen
 " Enable devicons
 source ~/.vifm/vifm_devicons/SETUP
 
+""""""""""""""""""""""""""""""""""""""""
+" File types
+""""""""""""""""""""""""""""""""""""""""
+" Pdf
+filextype *.pdf
+		\ {View in evince}
+		\ evince %f &,
+		\ {View in zathura}
+		\ zathura %f &,
+		\ {Default}
+		\ xdg-open %f &,
+
 " set modeline 
 " vim: foldlevel=0 foldmethod=marker
