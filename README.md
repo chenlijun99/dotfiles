@@ -16,7 +16,7 @@ Open a new shell.
 Install the patched Hack font
 
 ```sh
-curl -o hack.zip https://github.com/ryanoasis/nerd-fonts/releases/download/latest/Hack.zip
+curl -Lo hack.zip https://github.com/ryanoasis/nerd-fonts/releases/latest/download/Hack.zip
 mkdir -p ~/.fonts
 unzip hack.zip -d ~/.fonts/
 rm -f hack.zip
