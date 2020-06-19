@@ -9,6 +9,7 @@ let g:rooter_patterns = [
 			\ '.git/',
 			\ 'package.json',
 			\ 'composer.json',
+			\ '.lvimrc',
 			\ ]
 " }}}
 
