@@ -1,0 +1,10 @@
+sequence default {
+	uncgi;
+	iso8859_1 {
+	};
+	safe;
+	wipeup {
+		remove_trailing;
+	};
+	lower;
+};
