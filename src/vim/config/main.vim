@@ -9,6 +9,7 @@ let g:which_key_map_local =  {}
 let g:which_key_map_g =  {}
 let g:which_key_use_floating_win = 0
 let g:which_key_map.m = { 'name': '+misc' }
+let g:which_key_map.b = { 'name': '+buffer' }
 autocmd! User vim-which-key call which_key#register('<Space>', 'g:which_key_map') |
 			\ call which_key#register(',', 'g:which_key_map_local') |
 			\ call which_key#register('g', 'g:which_key_map_g')
