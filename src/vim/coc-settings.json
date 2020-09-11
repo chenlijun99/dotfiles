@@ -30,5 +30,11 @@
 			"markdownlint"
 		]
 	},
-	"python.jediEnabled": false
+	"python.jediEnabled": false,
+	"python.venvFolders": [
+		".venv",
+		"envs",
+		".pyenv",
+		".direnv"
+	]
 }
