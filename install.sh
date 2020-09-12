@@ -94,15 +94,13 @@ function uninstall()
 function main()
 {
 	if [[ $1 == "--uninstall" ]]; then
-		uninstall "$SCRIPT_DIR/src" "$HOME" "." "^(config|local)"
+		uninstall "$SCRIPT_DIR/src" "$HOME" "." "^(config)"
 		uninstall "$SCRIPT_DIR/src/config" "$HOME/.config"
-		uninstall "$SCRIPT_DIR/src/local/share/" "$HOME/.local/share/"
 	elif [[ $# -eq 0 ]]; then
 		# ensure that $BACKUP_DIR exists
 		mkdir -p "$BACKUP_DIR"
-		install "$SCRIPT_DIR/src" "$HOME" "." "^(config|local)"
+		install "$SCRIPT_DIR/src" "$HOME" "." "^(config)"
 		install "$SCRIPT_DIR/src/config" "$HOME/.config"
-		install "$SCRIPT_DIR/src/local/share" "$HOME/.local/share"
 	else
 		echo "Usage: ./install.sh [--uninstall]"
 	fi
