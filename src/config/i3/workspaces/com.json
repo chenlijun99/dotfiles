@@ -1,0 +1,40 @@
+{
+    "border": "normal",
+    "floating": "auto_off",
+    "layout": "tabbed",
+    "percent": 1,
+    "type": "con",
+    "nodes": [
+        {
+            "border": "normal",
+            "swallows": [
+               {
+                   "class": "Thunderbird"
+               }
+            ],
+            "type": "con"
+        },
+        {
+            "border": "none",
+            "current_border_width": 2,
+            "floating": "auto_off",
+            "swallows": [
+               {
+                   "class": "Teams"
+               }
+            ],
+            "type": "con"
+        },
+        {
+            "border": "normal",
+            "current_border_width": 2,
+            "floating": "auto_off",
+            "swallows": [
+               {
+                   "class": "Telegram"
+               }
+            ],
+            "type": "con"
+        }
+    ]
+}
