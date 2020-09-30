@@ -34,7 +34,10 @@ bindsym XF86MonBrightnessDown exec --no-startup-id light -U 5%
 # Misc Key bindings {{{
 
 # app launcher dmenu
-bindsym $mod+d exec "~/.config/rofi/scripts/application_menu.sh"
+# bindsym $mod exec "~/.config/rofi/scripts/application_menu.sh"
+
+# bind Super key
+bindcode 133 --release exec "~/.config/rofi/scripts/application_menu.sh"
 
 # window switcher dmenu
 bindsym $mod+w exec "INITIAL_VIEW=window ~/.config/rofi/scripts/application_menu.sh"
@@ -81,12 +84,6 @@ bindsym $mod+Shift+Down move down
 bindsym $mod+Shift+Up move up
 bindsym $mod+Shift+Right move right
 
-# split in horizontal orientation
-#bindsym $mod+h split h
-
-# split in vertical orientation
-bindsym $mod+v split v
-
 # enter fullscreen mode for the focused container
 bindsym $mod+f fullscreen toggle
 
@@ -100,12 +97,6 @@ bindsym $mod+Shift+space floating toggle
 
 # change focus between tiling / floating windows
 bindsym $mod+space focus mode_toggle
-
-# focus the parent container
-bindsym $mod+a focus parent
-
-# focus the child container
-#bindsym $mod+d focus child
 # }}}
 
 # Monitors {{{
@@ -208,6 +199,63 @@ mode "resize" {
 
 # }}}
 
+# Move mode {{{
+bindsym $mod+m mode "move"
+mode "move" {
+	bindsym h focus left
+	bindsym j focus down
+	bindsym k focus up
+	bindsym l focus right
+
+	bindsym Shift+h move left
+	bindsym Shift+j move down
+	bindsym Shift+k move up
+	bindsym Shift+l move right
+
+	# split in horizontal orientation
+	bindsym o split h
+
+	# split in vertical orientation
+	bindsym v split v
+
+	# change container layout (stacked, tabbed, toggle split)
+	bindsym s layout stacking
+	bindsym t layout tabbed
+	bindsym e layout toggle split
+
+	# focus the parent container
+	bindsym p focus parent
+	# focus the child container
+	bindsym c focus child
+
+	bindsym 1 workspace $ws1
+	bindsym 2 workspace $ws2
+	bindsym 3 workspace $ws3
+	bindsym 4 workspace $ws4
+	bindsym 5 workspace $ws5
+	bindsym 6 workspace $ws6
+	bindsym 7 workspace $ws7
+	bindsym 8 workspace $ws8
+	bindsym 9 workspace $ws9
+	bindsym 0 workspace $ws10
+
+	bindsym Shift+1 move container to workspace $ws1
+	bindsym Shift+2 move container to workspace $ws2
+	bindsym Shift+3 move container to workspace $ws3
+	bindsym Shift+4 move container to workspace $ws4
+	bindsym Shift+5 move container to workspace $ws5
+	bindsym Shift+6 move container to workspace $ws6
+	bindsym Shift+7 move container to workspace $ws7
+	bindsym Shift+8 move container to workspace $ws8
+	bindsym Shift+9 move container to workspace $ws9
+	bindsym Shift+0 move container to workspace $ws10
+
+    # back to normal: Enter or Escape
+    bindsym Return mode "default"
+    bindsym Escape mode "default"
+}
+# }}}
+
 # Status bar {{{
 
 exec_always --no-startup-id $HOME/.config/polybar/launch.sh
@@ -245,10 +293,6 @@ for_window [class="keepass"] resize set width 1px height 1px
 for_window [class="conky"] border pixel 0
 # }}}
 
-# Alacritty {{{
-for_window [class="Alacritty"] border pixel 0
-# }}}
-
 # }}}
 
 # Wallpaper {{{
@@ -275,6 +319,23 @@ exec thunderbird
 exec teams
 exec telegram-desktop
 # }}}
+
+# Advanced customization {{{
+
+# Automatic master/slave documentation layout {{{
+bindsym $mod+d exec "i3-msg 'append_layout ~/.config/i3/workspaces/docs.json'"
+for_window [workspace="__focused__" class="Zathura"] move window to mark "Documents stack"
+for_window [workspace="__focused__" class="Evince"] move window to mark "Documents stack"
+for_window [workspace="__focused__" class="Okular"] move window to mark "Documents stack"
+# }}}
+
+# Alt+Tab {{{
+exec_always --no-startup-id ~/.config/i3/i3ipc-python/examples/i3-cycle-focus.py --history 2
+bindsym $alt+Tab exec --no-startup-id ~/.config/i3/i3ipc-python/examples/i3-cycle-focus.py --switch
+# }}}
+
+# }}}
+
 
 # set modeline
 # vim: foldlevel=0 foldmethod=marker

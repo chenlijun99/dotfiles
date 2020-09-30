@@ -17,7 +17,7 @@ Open a new shell.
 
 ```sh
 sudo apt install i3wm conky nitrogen rofi pavucontrol pulseaudio dunst fcitx fcitx-googlepinyin xrandr light redshift-gtk
-pip3 install autorandr
+pip3 install i3ipc autorandr
 ```
 
 -   Add the user to the video group to allow brightness control

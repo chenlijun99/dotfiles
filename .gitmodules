@@ -10,3 +10,6 @@
 [submodule "src/config/rofi/rofi"]
 	path = src/config/rofi/rofi
 	url = https://github.com/adi1090x/rofi.git
+[submodule "src/config/i3/i3ipc-python"]
+	path = src/config/i3/i3ipc-python
+	url = https://github.com/altdesktop/i3ipc-python.git
