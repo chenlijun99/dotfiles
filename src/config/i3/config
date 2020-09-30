@@ -116,18 +116,18 @@ bindsym $mod+p exec ~/.config/rofi/scripts/config_monitors/select_monitor_config
 # Workspace {{{
 # Define names for default workspaces for which we configure key bindings later on.
 # We use variables to avoid repeating the names in multiple places.
-set $ws1 "MAIN"
-set $ws2 "DOCS"
-set $ws3 "COM"
-set $ws4 "MUSIC"
-set $ws5 "SYS"
+set $ws1 "1:MAIN"
+set $ws2 "2:DOCS"
+set $ws3 "3:COM"
+set $ws4 "4:MUSIC"
+set $ws5 "5:SYS"
 set $ws6 "6"
 set $ws7 "7"
 set $ws8 "8"
 set $ws9 "9"
 set $ws10 "10"
 
-exec --no-startup-id "i3-msg 'workspace COM; append_layout ~/.config/i3/workspaces/com.json'"
+exec --no-startup-id "i3-msg 'workspace 3:COM; append_layout ~/.config/i3/workspaces/com.json'"
 
 workspace $ws1 output DP-2-3 eDP-1
 workspace $ws2 output eDP-1 DP-2-3

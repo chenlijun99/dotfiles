@@ -112,42 +112,44 @@ click-right = INITIAL_VIEW=window $HOME/.config/rofi/scripts/application_menu.sh
 
 ; module/workspaces {{{
 [module/workspaces]
-type = internal/xworkspaces
+type = internal/i3
 pin-workspaces = true
 enable-click = true
 format-padding = 0
+strip-wsnumbers = true
 
-icon-0 = MAIN;
-icon-1 = DOCS;
-icon-2 = COM;
-icon-3 = MUSIC;
-icon-4 = SYS;
-icon-5 = 6;
-icon-6 = 7;
-icon-7 = 8;
-icon-8 = 9;
-icon-9 = 10;
+ws-icon-0 = 1:MAIN;
+ws-icon-1 = 2:DOCS;
+ws-icon-2 = 3:COM;
+ws-icon-3 = 4:MUSIC;
+ws-icon-4 = 5:SYS;
+ws-icon-5 = 6;
+ws-icon-6 = 7;
+ws-icon-7 = 8;
+ws-icon-8 = 9;
+ws-icon-9 = 10;
 icon-default = 
 
 format = <label-state>
-label-active = "%icon%  %name%"
-label-occupied = "%icon%  %name%"
+
+label-focused = "%icon%  %name%"
+label-focused-padding = 2
+label-focused-foreground = ${color.acolor}
+label-focused-underline = ${color.acolor}
+
+label-visible = "%icon%  %name%"
+label-visible-padding = 2
+label-visible-foreground = ${color.coccupied}
+label-visible-underline = ${color.coccupied}
+
+label-unfocused = "%icon%  %name%"
+label-unfocused-padding = 2
+label-unfocused-foreground = ${color.fg}
+
 label-urgent = "%icon%  %name%"
-label-empty = "%icon%  %name%"
-
-label-occupied-padding = 2
-label-empty-padding = 2
 label-urgent-padding = 2
-label-active-padding = 2
-
-label-active-foreground = ${color.acolor}
 label-urgent-foreground = ${color.curgent}
-label-empty-foreground = ${color.fg}
-label-occupied-foreground = ${color.coccupied}
-
-label-active-underline = ${color.acolor}
 label-urgent-underline = ${color.curgent}
-label-occupied-underline = ${color.coccupied}
 ; }}}
 
 ; module/settings {{{
