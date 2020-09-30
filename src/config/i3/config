@@ -259,6 +259,9 @@ exec_always --no-startup-id nitrogen --restore &
 # Configure fcitx: input method enabled by default and initially set to US keyboard
 exec --no-startup-id fcitx-autostart && fcitx-remote -o && fcitx-remote -s fcitx-keyboard-us
 
+# redshift
+exec --no-startup-id redshift-gtk
+
 # picom
 exec --no-startup-id picom
 # NextCloud 
@@ -266,7 +269,7 @@ exec --no-startup-id nextcloud
 # Dropbox
 exec --no-startup-id dropbox start
 
-exec conky
+exec --no-startup-id conky
 exec chromium
 exec thunderbird
 exec teams
