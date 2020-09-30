@@ -235,6 +235,7 @@ exec_always --no-startup-id nitrogen --restore &
 # }}}
 
 # Auto start {{{
+exec --no-startup-id fcitx-autostart
 # picom
 exec --no-startup-id picom
 # NextCloud 

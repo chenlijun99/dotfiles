@@ -16,7 +16,7 @@ Open a new shell.
 ### i3wm
 
 ```sh
-sudo apt install i3wm nitrogen rofi pavucontrol pulseaudio dunst fcitx xrandr light
+sudo apt install i3wm nitrogen rofi pavucontrol pulseaudio dunst fcitx fcitx-googlepinyin xrandr light
 pip3 install autorandr
 ```
 
