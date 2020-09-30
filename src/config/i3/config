@@ -96,10 +96,10 @@ bindsym $mod+t layout tabbed
 bindsym $mod+e layout toggle split
 
 # toggle tiling / floating
-#bindsym $mod+Shift+space floating toggle
+bindsym $mod+Shift+space floating toggle
 
 # change focus between tiling / floating windows
-#bindsym $mod+space focus mode_toggle
+bindsym $mod+space focus mode_toggle
 
 # focus the parent container
 bindsym $mod+a focus parent
@@ -236,7 +236,9 @@ exec_always --no-startup-id nitrogen --restore &
 # }}}
 
 # Auto start {{{
-exec --no-startup-id fcitx-autostart
+# Configure fcitx: input method enabled by default and initially set to US keyboard
+exec --no-startup-id fcitx-autostart && fcitx-remote -o && fcitx-remote -s fcitx-keyboard-us
+
 # picom
 exec --no-startup-id picom
 # NextCloud 
