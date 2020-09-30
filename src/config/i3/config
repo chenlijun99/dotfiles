@@ -189,10 +189,10 @@ mode "resize" {
         # Pressing right will grow the window’s width.
         # Pressing up will shrink the window’s height.
         # Pressing down will grow the window’s height.
-        bindsym j resize shrink width 10 px or 10 ppt
-        bindsym k resize grow height 10 px or 10 ppt
-        bindsym l resize shrink height 10 px or 10 ppt
-        bindsym semicolon resize grow width 10 px or 10 ppt
+        bindsym h resize shrink width 10 px or 10 ppt
+        bindsym j resize grow height 10 px or 10 ppt
+        bindsym k resize shrink height 10 px or 10 ppt
+        bindsym l resize grow width 10 px or 10 ppt
 
         # same bindings, but for the arrow keys
         bindsym Left resize shrink width 10 px or 10 ppt
@@ -220,7 +220,9 @@ exec_always --no-startup-id $HOME/.config/polybar/launch.sh
 
 # }}}
 
-# Window style {{{
+# Window configuration {{{
+
+# Global style {{{
 title_align center
 client.focused          #4c7899 #03a9f4 #ffffff #2e9ef4 #285577
 client.focused_inactive #333333 #5f676a #ffffff #484e50 #5f676a
@@ -229,6 +231,24 @@ client.urgent           #2f343a #900000 #ffffff #900000 #900000
 client.placeholder      #000000 #0c0c0c #ffffff #000000 #0c0c0c
 
 client.background       #ffffff
+# }}}
+
+# Keepass {{{
+for_window [class="keepass"] floating enable
+for_window [class="keepass"] border pixel 0
+for_window [class="keepass"] move position center
+# Let the application decide the minimum
+for_window [class="keepass"] resize set width 1px height 1px
+# }}}
+
+# Conky {{{
+for_window [class="conky"] border pixel 0
+# }}}
+
+# Alacritty {{{
+for_window [class="Alacritty"] border pixel 0
+# }}}
+
 # }}}
 
 # Wallpaper {{{
