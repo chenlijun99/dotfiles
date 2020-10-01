@@ -97,6 +97,11 @@ bindsym $mod+Shift+space floating toggle
 
 # change focus between tiling / floating windows
 bindsym $mod+space focus mode_toggle
+
+# interactive screenshot by pressing printscreen
+bindsym Print exec flameshot gui
+# crop-area screenshot by pressing Mod + printscreen
+bindsym Shift+Print exec ~/.config/i3/scripts/multiscreenshot.sh
 # }}}
 
 # Monitors {{{

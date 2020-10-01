@@ -16,7 +16,19 @@ Open a new shell.
 ### i3wm
 
 ```sh
-sudo apt install i3wm conky nitrogen rofi pavucontrol pulseaudio dunst fcitx fcitx-googlepinyin xrandr light redshift-gtk
+sudo apt install 
+    i3wm \
+    imagemagick scrot \
+    conky \ 
+    nitrogen \ 
+    rofi \
+    pavucontrol pulseaudio \
+    dunst \
+    fcitx fcitx-googlepinyin \
+    xrandr \
+    light \
+    redshift-gtk \
+    flameshot xclip xinput
 pip3 install i3ipc autorandr
 ```
 
