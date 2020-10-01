@@ -2,12 +2,12 @@
 
 # Custom Rofi Script
 
-BORDER="#1F1F1F"
-SEPARATOR="#1F1F1F"
-FOREGROUND="#A9ABB0"
-BACKGROUND="#1F1F1F"
-BACKGROUND_ALT="#252525"
-HIGHLIGHT_BACKGROUND="#FF6F00"
+BORDER="#FFFFFF"
+SEPARATOR="#FFFFFF"
+FOREGROUND="#FFFFFF"
+BACKGROUND="#263238"
+BACKGROUND_ALT="#263238"
+HIGHLIGHT_BACKGROUND="#FFA000"
 HIGHLIGHT_FOREGROUND="#FFFFFF"
 
 BLACK="#000000"
@@ -33,22 +33,22 @@ DEEP_ORANGE="#f4511e"
 LIGHT_BLUE="#039be5"
 LIGHT_GREEN="#7cb342"
 
-view=${INITIAL_VIEW:-drun}
+view=${INITIAL_VIEW:-combi}
 
 # Launch Rofi
-rofi -no-lazy-grab -modi window,drun -show "$view" -sidebar-mode \
--display-drun "Applications" -drun-display-format "{name}" \
+rofi -no-lazy-grab -modi combi,window -combi-modi window,drun -show "$view" -sidebar-mode \
+-display-combi "Quick launch" -drun-display-format "{name}" \
+-display-drun "Apps" \
 -display-window "Windows" \
 -bw 0 \
--lines 10 \
--line-padding 10 \
--padding 20 \
--width 50 \
--xoffset 0 -yoffset 50 \
--location 1 \
+-lines 7 \
+-line-padding 15 \
+-padding 30 \
+-width 60 \
 -columns 2 \
 -show-icons -icon-theme "Papirus" \
--font "DejaVu Sans Mono 13" \
+-theme-str 'element-icon { size: 24px; margin: 0px 10px 0px 0px; }' \
+-font "Hack Nerd Font 14" \
 -color-enabled true \
 -color-window "$BACKGROUND,$BORDER,$SEPARATOR" \
 -color-normal "$BACKGROUND_ALT,$FOREGROUND,$BACKGROUND_ALT,$HIGHLIGHT_BACKGROUND,$HIGHLIGHT_FOREGROUND" \
