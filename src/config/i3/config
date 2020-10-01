@@ -61,6 +61,14 @@ bindsym $mod+Return exec i3-sensible-terminal
 bindsym $mod+Shift+q kill
 bindsym $alt+F4 kill
 
+# interactive screenshot by pressing printscreen
+bindsym Print exec flameshot gui
+# crop-area screenshot by pressing Mod + printscreen
+bindsym Shift+Print exec ~/.config/i3/scripts/multiscreenshot.sh
+# }}}
+
+# Window focus and layout key bindings {{{
+
 # vim like change focus
 bindsym $mod+h focus left
 bindsym $mod+j focus down
@@ -88,6 +96,12 @@ bindsym $mod+Shift+Right move right
 # enter fullscreen mode for the focused container
 bindsym $mod+f fullscreen toggle
 
+# create container of layout type (split horizontal, split vertical, stacked, tabbed)
+bindsym $mod+Shift+v split v
+bindsym $mod+Shift+o split h
+bindsym $mod+Shift+s split v; layout stacking;
+bindsym $mod+Shift+t split v; layout tabbed;
+
 # change container layout (stacked, tabbed, toggle split)
 bindsym $mod+s layout stacking
 bindsym $mod+t layout tabbed
@@ -99,10 +113,6 @@ bindsym $mod+Shift+space floating toggle
 # change focus between tiling / floating windows
 bindsym $mod+space focus mode_toggle
 
-# interactive screenshot by pressing printscreen
-bindsym Print exec flameshot gui
-# crop-area screenshot by pressing Mod + printscreen
-bindsym Shift+Print exec ~/.config/i3/scripts/multiscreenshot.sh
 # }}}
 
 # Monitors {{{
@@ -205,63 +215,6 @@ mode "resize" {
 
 # }}}
 
-# Move mode {{{
-bindsym $mod+m mode "move"
-mode "move" {
-	bindsym h focus left
-	bindsym j focus down
-	bindsym k focus up
-	bindsym l focus right
-
-	bindsym Shift+h move left
-	bindsym Shift+j move down
-	bindsym Shift+k move up
-	bindsym Shift+l move right
-
-	# split in horizontal orientation
-	bindsym o split h
-
-	# split in vertical orientation
-	bindsym v split v
-
-	# change container layout (stacked, tabbed, toggle split)
-	bindsym s layout stacking
-	bindsym t layout tabbed
-	bindsym e layout toggle split
-
-	# focus the parent container
-	bindsym p focus parent
-	# focus the child container
-	bindsym c focus child
-
-	bindsym 1 workspace $ws1
-	bindsym 2 workspace $ws2
-	bindsym 3 workspace $ws3
-	bindsym 4 workspace $ws4
-	bindsym 5 workspace $ws5
-	bindsym 6 workspace $ws6
-	bindsym 7 workspace $ws7
-	bindsym 8 workspace $ws8
-	bindsym 9 workspace $ws9
-	bindsym 0 workspace $ws10
-
-	bindsym Shift+1 move container to workspace $ws1
-	bindsym Shift+2 move container to workspace $ws2
-	bindsym Shift+3 move container to workspace $ws3
-	bindsym Shift+4 move container to workspace $ws4
-	bindsym Shift+5 move container to workspace $ws5
-	bindsym Shift+6 move container to workspace $ws6
-	bindsym Shift+7 move container to workspace $ws7
-	bindsym Shift+8 move container to workspace $ws8
-	bindsym Shift+9 move container to workspace $ws9
-	bindsym Shift+0 move container to workspace $ws10
-
-    # back to normal: Enter or Escape
-    bindsym Return mode "default"
-    bindsym Escape mode "default"
-}
-# }}}
-
 # Status bar {{{
 
 exec_always --no-startup-id $HOME/.config/polybar/launch.sh
@@ -327,13 +280,6 @@ exec telegram-desktop
 # }}}
 
 # Advanced customization {{{
-
-# Automatic master/slave documentation layout {{{
-bindsym $mod+d exec "i3-msg 'append_layout ~/.config/i3/workspaces/docs.json'"
-for_window [workspace="__focused__" class="Zathura"] move window to mark "Documents stack"
-for_window [workspace="__focused__" class="Evince"] move window to mark "Documents stack"
-for_window [workspace="__focused__" class="Okular"] move window to mark "Documents stack"
-# }}}
 
 # Alt+Tab {{{
 exec_always --no-startup-id ~/.config/i3/i3ipc-python/examples/i3-cycle-focus.py --history 2
