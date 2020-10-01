@@ -22,10 +22,10 @@ case $chosen in
 		systemctl reboot
 		;;
 	$lock)
-		i3lock -c 000000
+		~/.config/i3/scripts/lock.sh
 		;;
 	$suspend)
-		i3lock -c 000000; systemctl suspend
+		~/.config/i3/scripts/lock.sh; systemctl suspend
 		;;
 	$logout)
 		i3-msg exit
