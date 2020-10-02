@@ -16,16 +16,16 @@ Open a new shell.
 ### i3wm
 
 ```sh
-sudo apt install 
-    i3wm \
+sudo apt install \
+    i3 \
     imagemagick scrot \
-    conky \ 
-    nitrogen \ 
+    conky \
+    nitrogen \
     rofi \
     pavucontrol pulseaudio \
     dunst \
     fcitx fcitx-googlepinyin \
-    xrandr \
+    x11-xserver-utils \
     light \
     redshift-gtk \
     flameshot xclip xinput
@@ -43,8 +43,13 @@ pip3 install i3ipc autorandr
 Install or [build Rofi](https://github.com/davatorium/rofi/blob/next/INSTALL.md)
 
 ```sh
-sudo apt install librsvg2-dev libjpeg-dev libxkbcommon-dev libxkbcommon-x11-dev
-libstartup-notification0-dev flex bison
+sudo apt install librsvg2-dev \
+    libjpeg-dev \
+    libxkbcommon-dev \
+    libxkbcommon-x11-dev \
+    libstartup-notification0-dev \
+    flex \
+    bison
 ```
 
 #### Polybar
