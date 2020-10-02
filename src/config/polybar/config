@@ -91,7 +91,7 @@ tray-position = right
 tray-detached = false
 tray-padding = 5
 tray-scale = 1
-tray-maxsize = 16
+tray-maxsize = 18
 tray-background = ${color.bg}
 ; }}}
 
