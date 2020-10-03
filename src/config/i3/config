@@ -151,15 +151,6 @@ workspace $ws8 output eDP-1 DP-2-3
 workspace $ws9 output eDP-1 DP-2-3
 workspace $ws10 output eDP-1 DP-2-3
 
-assign [class="Chromium"] $ws2
-assign [class="Firefox"] $ws2
-assign [class="Zeal"] $ws2
-assign [class="Teams"] $ws3
-assign [class="Thunderbird"] $ws3
-assign [class="Telegram"] $ws3
-assign [class="youtube-music"] $ws4
-assign [class="conky"] $ws5
-
 # switch to workspace
 bindsym $mod+1 workspace $ws1
 bindsym $mod+2 workspace $ws2
@@ -233,6 +224,9 @@ exec_always --no-startup-id $HOME/.config/polybar/launch.sh
 
 # Window configuration {{{
 
+# When created -> focus
+for_window[class="."] focus
+
 # Global style {{{
 title_align center
 client.focused          #4c7899 #03a9f4 #ffffff #2e9ef4 #285577
@@ -263,6 +257,37 @@ for_window [title=$floating_titltes] resize set width 1px height 1px
 # Conky {{{
 for_window [class="conky"] border pixel 0
 # }}}
+
+# Browsers & Documentation {{{
+assign [class="Chromium"] $ws2
+assign [class="Firefox"] $ws2
+assign [class="Zeal"] $ws2
+# }}}
+
+# Communication {{{
+assign [class="Teams"] $ws3
+assign [class="Thunderbird"] $ws3
+assign [class="Telegram"] $ws3
+# }}}
+
+# Music {{{
+assign [class="youtube-music"] $ws4
+# }}}
+
+# System utilities {{{
+assign [class="conky"] $ws5
+# }}}
+
+# }}}
+
+# Quick launch {{{
+
+bindsym $mod+$alt+a exec python3 ~/.config/i3/scripts/focus_or_run.py Alacritty alacritty
+bindsym $mod+$alt+c exec python3 ~/.config/i3/scripts/focus_or_run.py Chromium chromium-browser
+bindsym $mod+$alt+k exec python3 ~/.config/i3/scripts/focus_or_run.py keepassx keepassx
+bindsym $mod+$alt+z exec python3 ~/.config/i3/scripts/focus_or_run.py Zeal zeal
+bindsym $mod+$alt+f exec python3 ~/.config/i3/scripts/focus_or_run.py Firefox firefox
+bindsym $mod+$alt+j exec python3 ~/.config/i3/scripts/focus_or_run.py Joplin ~/.joplin/Joplin.AppImage
 
 # }}}
 
