@@ -303,7 +303,7 @@ bindsym $alt+Tab exec --no-startup-id ~/.config/i3/i3ipc-python/examples/i3-cycl
 # Xorg/Keyboard configuration {{{
 
 # Set right Ctrl as compose key
-exec --no-startup-id setxkbmap -option compose:rctrl
+exec_always --no-startup-id setxkbmap -option compose:rctrl
 
 # }}}
 
