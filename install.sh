@@ -18,8 +18,9 @@ function main()
 		echo "Installing config files..."
 		# ensure that $BACKUP_DIR exists
 		mkdir -p "$BACKUP_DIR"
-		install "$SCRIPT_DIR/src" "$HOME" "." "^(config|system)"
+		install "$SCRIPT_DIR/src" "$HOME" "." "^(config|system|local)"
 		install "$SCRIPT_DIR/src/config" "$HOME/.config"
+		install "$SCRIPT_DIR/src/local/bin" "$HOME/.local/bin/"
 
 		echo "Done."
 	else
