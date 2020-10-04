@@ -1,11 +1,11 @@
 #!/usr/bin/env bash
 
-DIR="/tmp/chenlijun99/scripts/multiscreenshot/"
+DIR="/tmp/chenlijun99/scripts/multiscreenshot"
 
 function take_screenshots()
 {
 	mkdir -p "${DIR}"
-	rm -f "${DIR}/*"
+	rm -fv "${DIR}"/*
 
 	i=0
 
