@@ -281,6 +281,7 @@ assign [class="conky"] $ws5
 # Quick launch {{{
 
 bindsym $mod+$alt+a exec python3 ~/.config/i3/scripts/focus_or_run.py Alacritty alacritty
+bindsym $mod+$alt+shift+a exec python3 ~/.config/i3/scripts/focus_or_run.py Anki anki
 bindsym $mod+$alt+c exec python3 ~/.config/i3/scripts/focus_or_run.py Chromium chromium-browser
 bindsym $mod+$alt+k exec python3 ~/.config/i3/scripts/focus_or_run.py keepassx keepassx
 bindsym $mod+$alt+z exec python3 ~/.config/i3/scripts/focus_or_run.py Zeal zeal
