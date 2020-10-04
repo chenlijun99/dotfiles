@@ -18,6 +18,7 @@ Open a new shell.
 ```sh
 sudo apt install \
     i3 \
+    libnotify-bin \
     imagemagick scrot \
     conky \
     nitrogen \
@@ -28,7 +29,7 @@ sudo apt install \
     x11-xserver-utils \
     light \
     redshift-gtk \
-    flameshot xclip xinput
+    flameshot xclip xinput xdotool
 pip3 install i3ipc autorandr
 ```
 
