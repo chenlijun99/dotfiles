@@ -224,8 +224,7 @@ exec_always --no-startup-id $HOME/.config/polybar/launch.sh
 
 # Window configuration {{{
 
-# When created -> focus
-for_window[class="."] focus
+exec_always --no-startup-id ~/.config/i3/scripts/global_window_rules.py
 
 # Global style {{{
 title_align center
