@@ -130,7 +130,7 @@ bindsym $mod+p exec ~/.config/rofi/scripts/config_monitors/select_monitor_config
 set $ws1 "1:MAIN"
 set $ws2 "2:DOCS"
 set $ws3 "3:COM"
-set $ws4 "4:MUSIC"
+set $ws4 "4:ENT"
 set $ws5 "5:SYS"
 set $ws6 "6"
 set $ws7 "7"
