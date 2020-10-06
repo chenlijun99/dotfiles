@@ -67,6 +67,14 @@ bindsym Print exec flameshot gui
 bindsym Shift+Print exec ~/.config/i3/scripts/multiscreenshot.sh
 # }}}
 
+# Scratchpad {{{
+bindsym $mod+minus move scratchpad
+bindsym $mod+plus scratchpad show
+
+exec --no-startup-id alacritty -t "Scratchpad - Alacritty"
+for_window [title="Scratchpad - Alacritty"] move scratchpad 
+# }}}
+
 # Window focus and layout key bindings {{{
 
 # vim like change focus
