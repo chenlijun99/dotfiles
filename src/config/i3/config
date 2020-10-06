@@ -280,14 +280,17 @@ assign [class="conky"] $ws5
 
 # Quick launch {{{
 
-bindsym $mod+$alt+a exec python3 ~/.config/i3/scripts/focus_or_run.py Alacritty alacritty
-bindsym $mod+$alt+shift+a exec python3 ~/.config/i3/scripts/focus_or_run.py Anki anki
-bindsym $mod+$alt+c exec python3 ~/.config/i3/scripts/focus_or_run.py Chromium chromium-browser
-bindsym $mod+$alt+k exec python3 ~/.config/i3/scripts/focus_or_run.py keepassx keepassx
-bindsym $mod+$alt+z exec python3 ~/.config/i3/scripts/focus_or_run.py Zeal zeal
-bindsym $mod+$alt+f exec python3 ~/.config/i3/scripts/focus_or_run.py Firefox firefox
-bindsym $mod+$alt+j exec python3 ~/.config/i3/scripts/focus_or_run.py Joplin ~/.joplin/Joplin.AppImage
+bindsym $mod+$alt+1 exec python3 ~/.config/i3/scripts/focus_or_run.py VIFM "alacritty -e vifm"
+# f for filesystem
+bindsym $mod+$alt+f exec python3 ~/.config/i3/scripts/focus_or_run.py VIFM "alacritty -e vifm"
 
+bindsym $mod+$alt+2 exec python3 ~/.config/i3/scripts/focus_or_run.py Chromium chromium-browser
+# b for browser
+bindsym $mod+$alt+b exec python3 ~/.config/i3/scripts/focus_or_run.py Chromium chromium-browser
+
+bindsym $mod+$alt+3 exec python3 ~/.config/i3/scripts/focus_or_run.py Alacritty alacritty
+# t for terminal
+bindsym $mod+$alt+t exec python3 ~/.config/i3/scripts/focus_or_run.py Alacritty alacritty
 # }}}
 
 # Wallpaper {{{
