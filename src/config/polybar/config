@@ -71,9 +71,6 @@ cursor-click = pointer
 
 enable-ipc = true
 
-scroll-up = i3wm-wsnext
-scroll-down = i3wm-wsprev
-
 ;== Module Location ========================================================
 
 modules-center = date
