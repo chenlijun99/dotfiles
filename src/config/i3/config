@@ -234,7 +234,7 @@ exec_always --no-startup-id $HOME/.config/polybar/launch.sh
 
 exec_always --no-startup-id ~/.config/i3/scripts/global_window_rules.py
 
-for_window [class="^.*"] border pixel 1
+for_window [class="^.*"] border pixel 3
 
 title_align center
 client.focused          #4c7899 #03a9f4 #ffffff #2e9ef4 #ffb300
