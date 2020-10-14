@@ -328,11 +328,11 @@ exec --no-startup-id nextcloud
 # Dropbox
 exec --no-startup-id dropbox start
 
-exec --no-startup-id conky
-exec chromium
-exec thunderbird
-exec teams
-exec telegram-desktop
+exec --no-startup-id "sh -c 'sleep 2; exec conky'"
+exec "sh -c 'sleep 2; exec chromium'"
+exec "sh -c 'sleep 5; exec thunderbird'" 
+exec "sh -c 'sleep 8; exec telegram-desktop'"
+exec "sh -c 'sleep 10; exec teams'"
 # }}}
 
 # Advanced customization {{{
