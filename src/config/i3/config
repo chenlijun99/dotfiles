@@ -253,7 +253,7 @@ for_window [class=$floating_classes] move position center
 # Let the application decide the minimum
 for_window [class=$floating_classes] resize set width 1px height 1px
 
-set $floating_titltes "(Cryptomator)"
+set $floating_titltes "(^Cryptomator$)"
 for_window [title=$floating_titltes] floating enable
 for_window [title=$floating_titltes] border pixel 0
 for_window [title=$floating_titltes] move position center
