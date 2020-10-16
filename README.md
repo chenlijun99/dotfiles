@@ -18,6 +18,7 @@ Open a new shell.
 ```sh
 sudo apt install \
     i3 \
+    network-manager-gnome blueman \
     libnotify-bin \
     imagemagick scrot \
     conky \
