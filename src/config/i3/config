@@ -40,7 +40,7 @@ bindsym XF86MonBrightnessDown exec --no-startup-id light -U 5%
 # bindsym $mod exec "~/.config/rofi/scripts/application_menu.sh"
 
 # quick launch menu
-bindsym $mod+e exec "~/.config/rofi/scripts/application_menu.sh"
+bindsym $mod+o exec "~/.config/rofi/scripts/application_menu.sh"
 
 # window switcher dmenu
 bindsym $mod+w exec "INITIAL_VIEW=window ~/.config/rofi/scripts/application_menu.sh"
