@@ -101,7 +101,8 @@ bindsym $mod+Shift+Down move down
 bindsym $mod+Shift+Up move up
 bindsym $mod+Shift+Right move right
 
-# enter fullscreen mode for the focused container
+bindsym $mod+q exec --no-startup-id ~/.config/i3/scripts/wmfocus.sh
+# enter fullscreen mode for thefocused container
 bindsym $mod+f fullscreen toggle
 
 # create container of layout type (split horizontal, split vertical, stacked, tabbed)

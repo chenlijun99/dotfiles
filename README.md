@@ -80,6 +80,13 @@ sudo dpkg-reconfigure fontconfig
 
 [Build picom](https://github.com/yshui/picom#build)
 
+#### wmfocus
+
+```sh
+sudp apt install libxcb-keysyms1-dev
+cargo install --features i3 wmfocus
+```
+
 ### Nerd Font
 
 Install the patched Hack font
