@@ -1,0 +1,30 @@
+[PlasmaThemeExtended]
+outlineWidth=1
+
+[PlasmaTransientsConfig]
+PreloadWeight=0
+enableKWinEdges=true
+raiseOnActivityChange=false
+raiseOnDesktopChange=false
+timerHide=700
+timerShow=100
+
+[ScreenConnectors]
+10=DP-2-3
+11=eDP-1
+
+[UniversalSettings]
+badges3DStyle=false
+canDisableBorders=false
+currentLayout=Lijun - single monitor
+downloadWindowSize=800,550
+lastNonAssignedLayout=Lijun - single monitor
+launchers=applications:org.gnome.Nautilus.desktop,applications:chromium_chromium.desktop,applications:com.alacritty.Alacritty.desktop,applications:appimagekit-joplin.desktop
+layoutsColumnWidths=112,57,63,0
+layoutsWindowSize=700,591
+memoryUsage=0
+metaPressAndHoldEnabled=true
+mouseSensitivity=2
+screenTrackerInterval=2500
+showInfoWindow=true
+version=2

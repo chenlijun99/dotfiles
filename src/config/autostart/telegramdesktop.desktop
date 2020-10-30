@@ -1,0 +1,25 @@
+[Desktop Entry]
+Categories=Chat;Network;InstantMessaging;Qt;
+Comment[en_US]=Official desktop version of Telegram messaging app
+Comment=Official desktop version of Telegram messaging app
+Exec=telegram-desktop -- %u
+GenericName[en_US]=
+GenericName=
+Icon=telegram
+Keywords=tg;chat;im;messaging;messenger;sms;tdesktop;
+MimeType=
+Name[en_US]=Telegram Desktop
+Name=Telegram Desktop
+Path=
+StartupNotify=true
+StartupWMClass=TelegramDesktop
+Terminal=false
+TerminalOptions=
+TryExec=telegram-desktop
+Type=Application
+Version=1.0
+X-DBUS-ServiceName=
+X-DBUS-StartupType=
+X-GNOME-UsesNotifications=true
+X-KDE-SubstituteUID=false
+X-KDE-Username=
