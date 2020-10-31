@@ -20,6 +20,7 @@ function take_screenshots()
 
 	while read -r line;
 	do
+		notify-send "Press Ctrl to continue and Esc to terminate multiscreenshot.sh"
 		if [[ $line == *"detail"* ]]; then
 			key=$( echo $line | sed "s/[^0-9]*//g")
 

@@ -67,7 +67,7 @@ bindsym $alt+F4 kill
 # interactive screenshot by pressing printscreen
 bindsym Print exec flameshot gui
 # crop-area screenshot by pressing Mod + printscreen
-bindsym Shift+Print exec ~/.config/i3/scripts/multiscreenshot.sh
+bindsym Shift+Print exec multiscreenshot.sh
 # }}}
 
 # Scratchpad {{{
