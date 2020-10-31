@@ -1,13 +1,9 @@
+[PlasmaRunnerManager]
+LaunchCounts=1 services_kcm_kscreen.desktop
+pluginWhiteList=desktopsessions,services,places,PowerDevil,calculator,unitconverter,shell,bookmarks,recentdocuments,locations,baloosearch
+
 [PlasmaThemeExtended]
 outlineWidth=1
-
-[PlasmaTransientsConfig]
-PreloadWeight=0
-enableKWinEdges=true
-raiseOnActivityChange=false
-raiseOnDesktopChange=false
-timerHide=700
-timerShow=100
 
 [ScreenConnectors]
 10=DP-2-3
