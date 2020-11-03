@@ -1,6 +1,6 @@
 {
     "allow_postpone": false,
-    "break_interval": 15,
+    "break_interval": 30,
     "long_break_duration": 300,
     "long_breaks": [
         {
@@ -13,7 +13,7 @@
     "meta": {
         "config_version": "6.0.0"
     },
-    "no_of_short_breaks_per_long_break": 5,
+    "no_of_short_breaks_per_long_break": 4,
     "persist_state": false,
     "plugins": [
         {
@@ -33,7 +33,7 @@
             "version": "0.0.1"
         },
         {
-            "enabled": false,
+            "enabled": true,
             "id": "audiblealert",
             "settings": {
                 "pre_break_alert": false
@@ -93,7 +93,7 @@
     "postpone_duration": 5,
     "pre_break_warning_time": 10,
     "rpc_port": 7200,
-    "short_break_duration": 15,
+    "short_break_duration": 30,
     "short_breaks": [
         {
             "name": "Tightly close your eyes"
