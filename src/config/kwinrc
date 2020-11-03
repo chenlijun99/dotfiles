@@ -86,7 +86,7 @@ minimizeallEnabled=false
 slideEnabled=false
 synchronizeskipswitcherEnabled=false
 videowallEnabled=true
-virtual-desktops-only-on-primaryEnabled=true
+virtual-desktops-only-on-primaryEnabled=false
 windowgeometryEnabled=false
 
 [Script-krohnkite]
