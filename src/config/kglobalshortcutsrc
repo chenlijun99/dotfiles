@@ -30,7 +30,7 @@ _k_friendly_name=KDE Daemon
 {ab5c05f7-c0ae-4351-97d0-c40a9a37d501}=Meta+Shift+C,none,Reconfigure KWin
 {b18fe7ee-b35e-42b5-a4f9-62cf4278838e}=Print,none,Screenshot
 {d03619b6-9b3c-48cc-9d9c-a2aadb485550}=,none,Search
-{d9d82857-c09d-4949-a256-510366145ae1}=Meta+Shift+R,none,Reset KWin
+{d9d82857-c09d-4949-a256-510366145ae1}=Meta+Shift+R,none,Reset KDE desktop
 {e0250c66-8d6a-4842-ae6c-8c31dd8cdd01}=Meta+P,none,Switch Desktop
 
 [kmix]

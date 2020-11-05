@@ -897,14 +897,14 @@ Uuid={ab5c05f7-c0ae-4351-97d0-c40a9a37d501}
 [Data_4_2]
 Comment=Reset KWin
 Enabled=true
-Name=Reset KWin
+Name=Reset KDE desktop
 Type=SIMPLE_ACTION_DATA
 
 [Data_4_2Actions]
 ActionsCount=1
 
 [Data_4_2Actions0]
-CommandURL=kwin_x11 --replace
+CommandURL=~/.local/bin/reset_kde_desktop.sh
 Type=COMMAND_URL
 
 [Data_4_2Conditions]
