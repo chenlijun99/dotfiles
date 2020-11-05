@@ -1,5 +1,5 @@
 [PlasmaRunnerManager]
-LaunchCounts=1 services_kcm_kscreen.desktop
+LaunchCounts=5 services_keys.desktop,1 desktopsessions_1,1 services_kcm_kscreen.desktop
 pluginWhiteList=desktopsessions,services,places,PowerDevil,calculator,unitconverter,shell,bookmarks,recentdocuments,locations,baloosearch
 
 [PlasmaThemeExtended]

@@ -50,7 +50,7 @@ TopLeft=None
 TopRight=None
 
 [ModifierOnlyShortcuts]
-Meta=org.kde.lattedock,/Latte,org.kde.LatteDock,activateLauncherMenu
+Meta=org.kde.plasmashell,/PlasmaShell,org.kde.PlasmaShell,activateLauncherMenu
 
 [MouseBindings]
 CommandActiveTitlebar1=Raise

@@ -102,9 +102,6 @@ Word Completion Remove Tail=true
 LaunchCounts=1 services_kcm_colors.desktop,6 services_kcm_kscreen.desktop,3 services_kwinoptions.desktop,1 services_smbstatus.desktop,1 services_desktoppath.desktop,1 services_kcm_plasmasearch.desktop,1 services_plank.desktop,1 services_vifm.desktop,4 services_org.gnome.Nautilus.desktop,6 services_youtube-music-desktop-app_youtube-music-desktop-app.desktop,3 services_zotero.desktop,22 services_keys.desktop,3 services_anki.desktop,1 services_Zoom.desktop,24 services_systemsettings.desktop,1 services_org.gnome.Calculator.desktop,10 services_chromium_chromium.desktop,4 services_firefox.desktop,2 services_kcm_kwin_virtualdesktops.desktop,2 services_org.kde.latte-dock.desktop,2 services_okular_org.kde.okular.desktop,5 services_telegramdesktop.desktop,3 services_thunderbird.desktop,3 services_keepassx.desktop,3 services_kcm_bolt.desktop,3 services_vlc.desktop,5 services_teams.desktop,1 services_kwinrules.desktop,5 services_autostart.desktop,2 services_fcitx.desktop,1 services_simple-scan.desktop,1 services_org.remmina.Remmina.desktop,7 services_kwinscripts.desktop,2 services_appimagekit-joplin.desktop,11 services_com.alacritty.Alacritty.desktop
 pluginWhiteList=desktopsessions,services,places,PowerDevil,calculator,unitconverter,shell,bookmarks,recentdocuments,locations,baloosearch
 
-[PlasmaTransientsConfig]
-PreloadWeight=0
-
 [PlasmaViews][Panel 103][Defaults]
 thickness=36
 
@@ -113,6 +110,19 @@ thickness=36
 
 [PlasmaViews][Panel 103][Horizontal1920]
 thickness=36
+
+[PlasmaViews][Panel 120]
+alignment=1
+panelVisibility=2
+
+[PlasmaViews][Panel 120][Defaults]
+thickness=200
+
+[PlasmaViews][Panel 120][Horizontal1440]
+thickness=36
+
+[PlasmaViews][Panel 120][Vertical900]
+thickness=200
 
 [PlasmaViews][Panel 19][Defaults]
 thickness=27
@@ -195,11 +205,17 @@ panelVisibility=0
 [PlasmaViews][Panel 97][Defaults]
 maxLength=1440
 minLength=1440
-thickness=24
+thickness=28
+
+[PlasmaViews][Panel 97][Horizontal1280]
+thickness=28
 
 [PlasmaViews][Panel 97][Horizontal1440]
 maxLength=1440
 minLength=1440
+thickness=28
+
+[PlasmaViews][Panel 97][Horizontal1920]
 thickness=24
 
 [PlasmaViews][Panel 97][Vertical900]
