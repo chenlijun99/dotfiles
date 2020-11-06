@@ -1,21 +1,13 @@
 let g:which_key_map.p = { 'name' : '+panel' }
 
-" scrooloose/nerdtree {{{
-Plug 'scrooloose/nerdtree', { 'on': ['NERDTreeFind', 'NERDTreeVCS', 'NERDTreeClose'] }
-let g:NERDTreeWinSize=30
+" defx {{{
+
+Plug 'Shougo/defx.nvim', { 'do': ':UpdateRemotePlugins' }
+Plug 'kristijanhusak/defx-icons', { 'do': ':UpdateRemotePlugins' }
+Plug 'kristijanhusak/defx-git', { 'do': ':UpdateRemotePlugins' }
+
 let g:which_key_map.p.f = 'filetree explorer'
-nnoremap <silent> <leader>pf :NERDTreeFind<cr>
-let g:which_key_map.p.F = { 'name' : '+filetree' }
-let g:which_key_map.p.F.x = "Close"
-nnoremap <silent> <leader>pFx :NERDTreeClose<cr>
-let g:which_key_map.p.F.g = "VCS"
-nnoremap <silent> <leader>pFg :NERDTreeVCS<cr>
-" }}}
-" xuyuanp/nerdtree-git-plugin {{{
-Plug 'xuyuanp/nerdtree-git-plugin', { 'on': 'NERDTreeFind' }
-" }}}
-" arkgast/nerdtree-execute {{{
-Plug 'arkgast/nerdtree-execute', { 'branch': 'standard_linux_opener', 'on': 'NERDTreeFind' }
+nnoremap <silent> <leader>pf :Defx `getcwd()` -search=`expand('%:p')`<cr>
 " }}}
 
 " liuchengxu/vista.vim {{{
@@ -34,7 +26,7 @@ let g:which_key_map.p.S.x = "Close"
 nnoremap <silent> <leader>pSx :Vista!<cr>
 " }}}
 
-" {{{
+" Valloric/ListToggle {{{
 "Plug 'Valloric/ListToggle'
 "" set location list height
 "let g:lt_height=10
