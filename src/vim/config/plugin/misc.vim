@@ -58,6 +58,9 @@ Plug 'jiangmiao/auto-pairs'
 
 " mhinz/vim-startify {{{
 Plug 'mhinz/vim-startify'
+
+" Let vim-rooter do its work
+let g:startify_change_to_dir = 0
 " }}}
 
 " easymotion/vim-easymotion {{{
