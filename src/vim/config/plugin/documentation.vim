@@ -33,7 +33,7 @@ let g:zv_get_docset_by = ['ft', 'ext']
 " }}}
 
 " kkoomen/vim-doge {{{
-Plug 'kkoomen/vim-doge', { 'on': ['DogeGenerate'] }
+Plug 'kkoomen/vim-doge', { 'do': { -> doge#install() }, 'on': ['DogeGenerate'] }
 nnoremap <leader>kg :DogeGenerate<cr>
 let g:which_key_map.k.g = 'Generate doc (doge)'
 " }}}
