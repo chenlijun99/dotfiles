@@ -39,7 +39,7 @@ nmap <silent> gi <Plug>(coc-implementation)
 let g:which_key_map_g.r = 'References'
 nmap <silent> gr <Plug>(coc-references)
 let g:which_key_map_g.h = 'Hover'
-nmap <silent> gh :call CocAction('doHover')<cr>
+nmap <silent> gh :call CocActionAsync('doHover')<cr>
 
 " Use K for show documentation in preview window
 nnoremap <silent> K :call <SID>show_documentation()<CR>
@@ -48,7 +48,7 @@ function! s:show_documentation()
   if &filetype == 'vim'
     execute 'h '.expand('<cword>')
   else
-    call CocAction('doHover')
+    call CocActionAsync('doHover')
   endif
 endfunction
 
@@ -67,7 +67,7 @@ nmap <leader>lf  <Plug>(coc-format-selected)
 augroup mygroup
   autocmd!
   " Setup formatexpr specified filetype(s).
-  autocmd FileType typescript,json setl formatexpr=CocAction('formatSelected')
+  autocmd FileType typescript,json setl formatexpr=CocActionAsync('formatSelected')
   " Update signature help on jump placeholder
   autocmd User CocJumpPlaceholder call CocActionAsync('showSignatureHelp')
 augroup end
@@ -85,10 +85,10 @@ let g:which_key_map.l.qf = 'autofix (current line)'
 nmap <leader>lqf  <Plug>(coc-fix-current)
 
 " Use `:Format` for format current buffer
-command! -nargs=0 Format :call CocAction('format')
+command! -nargs=0 Format :call CocActionAsync('format')
 
 " Use `:Fold` for fold current buffer
-command! -nargs=? Fold :call CocAction('fold', <f-args>)
+command! -nargs=? Fold :call CocActionAsync('fold', <f-args>)
 
 " Using CocList
 " Show all diagnostics
