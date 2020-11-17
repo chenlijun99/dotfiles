@@ -1,4 +1,4 @@
-Plug 'mattn/emmet-vim', { 'for' : ['html','javascript','javascript.jsx','typescript.tsx','php','markdown'] }
+Plug 'mattn/emmet-vim', { 'for' : ['html','javascript','javascript.jsx','typescript.tsx', 'typescriptreact','php','markdown'] }
 let g:user_emmet_leader_key = ',e'
 
 autocmd! FileType html,javascript,php,markdown
