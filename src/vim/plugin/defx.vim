@@ -67,7 +67,7 @@ function! s:defx_my_settings() abort
 	nnoremap <silent><buffer><expr> cd
 				\ defx#do_action('change_vim_cwd')
 
-	nnoremap <silent><buffer><expr> s
+	nnoremap <silent><buffer><expr> t
 				\ defx#do_action('toggle_select')
 	nnoremap <silent><buffer><expr> *
 				\ defx#do_action('toggle_select_all')
