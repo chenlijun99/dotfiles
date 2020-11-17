@@ -2,13 +2,14 @@
 _k_friendly_name=Activity Manager
 switch-to-activity-4a605875-eabe-48b5-981d-5aef80add8c5=none,none,Switch to activity "Default"
 switch-to-activity-aaaf94aa-dce9-458b-8d0e-b66c2c028fb5=none,none,Switch to activity "Study"
+switch-to-activity-c698a685-f58f-40c4-9e6b-83605c5dc697=none,none,Switch to activity "Default"
 
 [KDE Keyboard Layout Switcher]
 Switch keyboard layout to English (US)=none,none,Switch keyboard layout to English (US)
 Switch keyboard layout to Hanyu Pinyin (altgr)=none,none,Switch keyboard layout to Hanyu Pinyin (altgr)
 Switch keyboard layout to Italian=none,none,Switch keyboard layout to Italian
 Switch to Next Keyboard Layout=none,none,Switch to Next Keyboard Layout
-_k_friendly_name=KDE Daemon
+_k_friendly_name=System Settings
 
 [kaccess]
 Toggle Screen Reader On and Off=Meta+Alt+S,Meta+Alt+S,Toggle Screen Reader On and Off
@@ -26,12 +27,13 @@ _k_friendly_name=KDE Daemon
 display=,Display\tMeta+P,Switch Display
 
 [khotkeys]
-_k_friendly_name=KDE Daemon
+_k_friendly_name=System Settings Module
 {ab5c05f7-c0ae-4351-97d0-c40a9a37d501}=Meta+Shift+C,none,Reconfigure KWin
 {b18fe7ee-b35e-42b5-a4f9-62cf4278838e}=Print,none,Screenshot
 {d03619b6-9b3c-48cc-9d9c-a2aadb485550}=,none,Search
 {d9d82857-c09d-4949-a256-510366145ae1}=Meta+Shift+R,none,Reset KDE desktop
 {e0250c66-8d6a-4842-ae6c-8c31dd8cdd01}=Meta+P,none,Switch Desktop
+{e5054855-2a5e-4f55-b599-b9ea1ad38393}=Ctrl+Alt+T,none,Launch Konsole
 
 [kmix]
 _k_friendly_name=Audio Volume
@@ -53,7 +55,7 @@ Lock Session=\tCtrl+Alt+L\tScreensaver,Meta+L\tCtrl+Alt+L\tScreensaver,Lock Sess
 Log Out=Alt+Shift+F4,none,Log Out
 Log Out Without Confirmation=none,none,Log Out Without Confirmation
 Reboot Without Confirmation=none,none,Reboot Without Confirmation
-_k_friendly_name=ksmserver
+_k_friendly_name=System Settings
 
 [kwin]
 Activate Window Demanding Attention=Ctrl+Alt+A,Ctrl+Alt+A,Activate Window Demanding Attention
@@ -160,7 +162,7 @@ Walk Through Windows of Current Application Alternative (Reverse)=none,none,Walk
 Window Above Other Windows=none,none,Keep Window Above Others
 Window Below Other Windows=none,none,Keep Window Below Others
 Window Close=Alt+F4,Alt+F4,Close Window
-Window Fullscreen=none,none,Make Window Fullscreen
+Window Fullscreen=F11,none,Make Window Fullscreen
 Window Grow Horizontal=none,none,Pack Grow Window Horizontally
 Window Grow Vertical=none,none,Pack Grow Window Vertically
 Window Lower=none,none,Lower Window
@@ -299,6 +301,14 @@ _launch=Meta+E,Meta+E,Dolphin
 _k_friendly_name=Emoji Selector
 _launch=Meta+.,Meta+.,Emoji Selector
 
+[org.kde.spectacle.desktop]
+ActiveWindowScreenShot=Meta+Print,Meta+Print,Capture Active Window
+CurrentMonitorScreenShot=,none,Capture Current Monitor
+FullScreenScreenShot=Shift+Print,Shift+Print,Capture Entire Desktop
+RectangularRegionScreenShot=Meta+Shift+Print,Meta+Shift+Print,Capture Rectangular Region
+_k_friendly_name=Spectacle
+_launch=,Print,Spectacle
+
 [org_kde_powerdevil]
 Decrease Keyboard Brightness=Keyboard Brightness Down,Keyboard Brightness Down,Decrease Keyboard Brightness
 Decrease Screen Brightness=Monitor Brightness Down,Monitor Brightness Down,Decrease Screen Brightness
@@ -312,7 +322,7 @@ Turn Off Screen=none,none,Turn Off Screen
 _k_friendly_name=Power Management
 
 [plasmashell]
-_k_friendly_name=Plasma
+_k_friendly_name=Activity switching
 activate task manager entry 1=Meta+!,Meta+1,Activate Task Manager Entry 1
 activate task manager entry 10=Meta+),Meta+0,Activate Task Manager Entry 10
 activate task manager entry 2=Meta+@,Meta+2,Activate Task Manager Entry 2
@@ -340,3 +350,14 @@ stop current activity=Meta+S,Meta+S,Stop Current Activity
 switch to next activity=none,none,Switch to Next Activity
 switch to previous activity=none,none,Switch to Previous Activity
 toggle do not disturb=none,none,Toggle do not disturb
+
+[wacomtablet]
+Map to fullscreen=Meta+Ctrl+F,Meta+Ctrl+F,Map to fullscreen
+Map to screen 1=,Meta+Ctrl+1,Map to screen 1
+Map to screen 2=,Meta+Ctrl+2,Map to screen 2
+Next Profile=,Meta+Ctrl+N,Next profile
+Previous Profile=Meta+Ctrl+P,Meta+Ctrl+P,Previous Profile
+Toggle screen map selection=,Meta+Ctrl+M,Toggle between all screens
+Toggle stylus mode=Meta+Ctrl+S,Meta+Ctrl+S,Toggle the Stylus Tool Relative/Absolute
+Toggle touch tool=Meta+Ctrl+T,Meta+Ctrl+T,Enable/Disable the Touch Tool
+_k_friendly_name=Wacom Tablet

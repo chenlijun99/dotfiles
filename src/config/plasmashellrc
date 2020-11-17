@@ -99,7 +99,7 @@ Word Completion Minimal Word Length=3
 Word Completion Remove Tail=true
 
 [PlasmaRunnerManager]
-LaunchCounts=1 services_kcm_colors.desktop,6 services_kcm_kscreen.desktop,3 services_kwinoptions.desktop,1 services_smbstatus.desktop,1 services_desktoppath.desktop,1 services_kcm_plasmasearch.desktop,1 services_plank.desktop,1 services_vifm.desktop,4 services_org.gnome.Nautilus.desktop,6 services_youtube-music-desktop-app_youtube-music-desktop-app.desktop,3 services_zotero.desktop,22 services_keys.desktop,3 services_anki.desktop,1 services_Zoom.desktop,24 services_systemsettings.desktop,1 services_org.gnome.Calculator.desktop,10 services_chromium_chromium.desktop,4 services_firefox.desktop,2 services_kcm_kwin_virtualdesktops.desktop,2 services_org.kde.latte-dock.desktop,2 services_okular_org.kde.okular.desktop,5 services_telegramdesktop.desktop,3 services_thunderbird.desktop,3 services_keepassx.desktop,3 services_kcm_bolt.desktop,3 services_vlc.desktop,5 services_teams.desktop,1 services_kwinrules.desktop,5 services_autostart.desktop,2 services_fcitx.desktop,1 services_simple-scan.desktop,1 services_org.remmina.Remmina.desktop,7 services_kwinscripts.desktop,2 services_appimagekit-joplin.desktop,11 services_com.alacritty.Alacritty.desktop
+LaunchCounts=23 services_keys.desktop,3 services_vlc.desktop,24 services_systemsettings.desktop,2 services_kcm_kwin_virtualdesktops.desktop,2 services_studio.desktop,1 services_desktoppath.desktop,1 services_simple-scan.desktop,5 services_kcm_bolt.desktop,1 services_kcm_plasmasearch.desktop,6 services_youtube-music-desktop-app_youtube-music-desktop-app.desktop,1 services_Zoom.desktop,1 services_plank.desktop,6 services_kcm_kscreen.desktop,5 services_autostart.desktop,1 services_kwinrules.desktop,7 services_kwinscripts.desktop,10 services_chromium_chromium.desktop,1 services_org.remmina.Remmina.desktop,3 services_zotero.desktop,1 services_smbstatus.desktop,4 services_firefox.desktop,2 services_Alacritty.desktop,1 services_kwintabbox.desktop,1 services_org.gnome.Calculator.desktop,6 services_telegramdesktop.desktop,3 services_kwinoptions.desktop,1 services_vifm.desktop,2 services_okular_org.kde.okular.desktop,3 services_anki.desktop,2 services_org.kde.latte-dock.desktop,1 services_dropbox.desktop,2 services_fcitx.desktop,3 services_keepassx.desktop,4 services_org.gnome.Nautilus.desktop,2 services_appimagekit-joplin.desktop,1 services_kcm_colors.desktop,4 services_thunderbird.desktop,11 services_com.alacritty.Alacritty.desktop,6 services_teams.desktop
 pluginWhiteList=desktopsessions,services,places,PowerDevil,calculator,unitconverter,shell,bookmarks,recentdocuments,locations,baloosearch
 
 [PlasmaViews][Panel 103][Defaults]
@@ -225,8 +225,8 @@ thickness=18
 
 [ScreenConnectors]
 0=DP-2-3
-1=:0.0
-2=eDP-1
+1=eDP-1
+2=:0.0
 
 [Updates]
 performed=/usr/share/plasma/shells/org.kde.plasma.desktop/contents/updates/unlock_widgets.js,/usr/share/plasma/shells/org.kde.plasma.desktop/contents/updates/obsolete_kickoffrc.js,/usr/share/plasma/shells/org.kde.plasma.desktop/contents/updates/move_desktop_layout_config.js
