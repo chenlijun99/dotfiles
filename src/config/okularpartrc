@@ -1,0 +1,8 @@
+[General]
+ttsEngine=flite
+
+[Main View]
+SplitterSizes=230,1123
+
+[Reviews]
+AnnotationTools=<tool type="highlight" name="Keywords" id="1"><engine type="TextSelector" color="#ffffff7f"><annotation type="Highlight" color="#ffffff7f"/></engine><shortcut>1</shortcut></tool>,<tool type="highlight" name="Important" id="2"><engine type="TextSelector" color="#ffbbefff"><annotation type="Highlight" color="#ffbbefff"/></engine><shortcut>2</shortcut></tool>,<tool type="highlight" name="Revisit" id="3"><engine type="TextSelector" color="#ffddbbff"><annotation type="Highlight" color="#ffddbbff"/></engine><shortcut>3</shortcut></tool>,<tool type="highlight" name="Disagree" id="4"><engine type="TextSelector" color="#ffff7777"><annotation type="Highlight" color="#ffff7777"/></engine><shortcut>4</shortcut></tool>,<tool type="highlight" name="Ignored" id="5"><engine type="TextSelector" color="#ff888888"><annotation type="Highlight" color="#ff888888"/></engine><shortcut>5</shortcut></tool>,<tool type="note-linked" name="Note" id="6"><engine type="PickPoint" hoverIcon="tool-note" color="#ffffff00"><annotation type="Text" color="#ffffff00" icon="Note"/></engine><shortcut>6</shortcut></tool>
