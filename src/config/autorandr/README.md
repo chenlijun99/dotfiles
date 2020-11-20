@@ -1,4 +1,4 @@
-# FAQ
+# Autorandr
 
 ## Why distinction between "normal" and "unplugged"?
 
