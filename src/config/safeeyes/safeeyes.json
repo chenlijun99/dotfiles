@@ -14,7 +14,7 @@
         "config_version": "6.0.0"
     },
     "no_of_short_breaks_per_long_break": 4,
-    "persist_state": false,
+    "persist_state": true,
     "plugins": [
         {
             "enabled": true,
@@ -87,11 +87,12 @@
         {
             "enabled": false,
             "id": "healthstats",
+            "settings": {},
             "version": "0.0.1"
         }
     ],
     "postpone_duration": 5,
-    "pre_break_warning_time": 10,
+    "pre_break_warning_time": 3,
     "rpc_port": 7200,
     "short_break_duration": 30,
     "short_breaks": [

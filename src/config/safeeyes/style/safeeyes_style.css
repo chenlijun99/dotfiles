@@ -21,10 +21,11 @@
 .window_main {
     background: black;
     opacity: 0.9;
+    border-color: transparent;
 }
 
 .btn_skip {
-	color: white;
+    color: white;
     font-size: 10pt;
     border-radius: 25px;
     padding-top: 10px;
@@ -42,8 +43,8 @@
     color: black;
 }
 
-.btn_postpone{
-	color: white;
+.btn_postpone {
+    color: white;
     font-size: 10pt;
     border-radius: 25px;
     padding-top: 10px;
@@ -77,8 +78,8 @@
     color: white;
 }
 
-.btn_properties {
-    border-radius: 15px;    
+.btn_circle {
+    border-radius: 25px;
 }
 
 .lbl_plugin_name {
@@ -92,4 +93,26 @@
 .info_bar_long_break {
     opacity: 0.9;
     border-radius: 5px;
+}
+
+.toolbar {
+    background: black;
+    opacity: 0.9;
+    border-color: transparent;
+}
+
+.btn_menu {
+    border-width: 0px;
+    border-radius: 0px;
+    border-image: None;
+    background: white;
+    border-color: transparent;
+}
+
+.btn_menu:hover {
+    border-width: 0px;
+    border-radius: 0px;
+    border-image: None;
+    background: whitesmoke;
+    border-color: transparent;
 }
