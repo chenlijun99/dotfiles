@@ -89,5 +89,11 @@ xmap S <Plug>VSurround
 Plug 'ryanoasis/vim-devicons'
 "}}}
 
+" mbbill/undotree {{{
+Plug 'mbbill/undotree', { 'on': ['UndotreeToggle'] }
+let g:which_key_map.g.u = 'Undotree'
+nnoremap <leader>u :UndotreeToggle<CR>
+" }}}
+
 " set modeline
 " vim: foldlevel=0 foldmethod=marker
