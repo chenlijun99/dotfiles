@@ -6,6 +6,7 @@ setlocal expandtab
 setlocal conceallevel=2
 setlocal textwidth=80
 setlocal formatoptions-=t
+setlocal wrap
 
 let g:which_key_map_local.p = 'Preview'
 nnoremap <buffer> <localleader>p :MarkdownPreview<CR>

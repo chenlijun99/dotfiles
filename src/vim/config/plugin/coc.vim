@@ -131,7 +131,6 @@ let g:coc_global_extensions = [
 			\ 'coc-java',
 			\ 'coc-eslint',
 			\ 'coc-diagnostic',
-			\ 'coc-tslint-plugin',
 			\ 'coc-python',
 			\]
 
