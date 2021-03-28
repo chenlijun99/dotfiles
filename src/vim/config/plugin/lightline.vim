@@ -6,7 +6,10 @@ let g:lightline = {
 			\ 'colorscheme': 'wombat',
 			\ 'active': {
 			\   'left': [ [ 'mode', 'paste' ],
-			\             [ 'cocstatus', 'fugitive', 'filename', 'gutentags' ] ]
+			\             [ 'cocstatus', 'fugitive', 'filename', 'gutentags' ] ],
+			\   'right': [ [ 'lineinfo' ],
+			\             [ 'percent' ],
+			\             [ 'fileformat', 'fileencoding', 'filetype', 'wordcount' ] ]
 			\ },
 			\ 'component_function': {
 			\   'fugitive': 'LightlineFugitive',
@@ -15,11 +18,16 @@ let g:lightline = {
 			\   'filename': 'LightlineFilename',
 			\   'gutentags': 'gutentags#statusline',
 			\   'language_server': 'LanguageClient#statusLine',
-			\   'cocstatus': 'coc#status'
+			\   'cocstatus': 'coc#status',
+			\   'wordcount': 'LightlineWordCount'
 			\ },
 			\ 'separator': { 'left': '|', 'right': '|' },
 			\ 'subseparator': { 'left': '-', 'right': '-' }
 			\ }
+
+function! LightlineWordCount()
+	return &filetype =~# '\v(markdown|latex|tex)' ? (string(wordcount().words) . " words") : ""
+endfunction
 
 function! LightlineModified()
 	if &filetype == "help"
