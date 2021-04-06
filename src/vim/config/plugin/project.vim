@@ -7,8 +7,9 @@ let g:rooter_resolve_links = 1
 let g:rooter_patterns = [
 			"\ Don't use monorepo single package as root
 			\ '!^packages', 
-			\ '.gitignore',
 			\ '.git/',
+			"\ Treat submodule root as project root
+			\ '.git',
 			\ 'package.json',
 			\ 'composer.json',
 			\ '.lvimrc',
