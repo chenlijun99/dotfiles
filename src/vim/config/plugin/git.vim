@@ -29,11 +29,6 @@ let g:mergetool_layout = 'mr'
 let g:mergetool_prefer_revision = 'local'
 " }}}
 
-" airblade/vim-gitgutter {{{
-Plug 'airblade/vim-gitgutter'
-let g:gitgutter_map_keys = 0
-" }}}
-
 " idanarye/vim-merginal {{{
 Plug 'idanarye/vim-merginal'
 " }}}
