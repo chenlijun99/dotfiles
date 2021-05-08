@@ -11,8 +11,8 @@ nnoremap <leader>gs :G<cr>
 nnoremap <leader>gb :GBrowse<cr>
 nnoremap <leader>gd :Gdiff<cr>
 nnoremap <leader>ge :Gedit<cr>
-nnoremap <leader>gc :Gcommit<cr>
-nnoremap <leader>gC :Gcommit --amend<cr>
+nnoremap <leader>gc :Git commit<cr>
+nnoremap <leader>gC :Git commit --amend<cr>
 "}}}
 
 " junegunn/gv.vim {{{
