@@ -35,10 +35,6 @@ if [ -d "$HOME/.pub-cache/bin" ]; then
 	PATH="$PATH":"$HOME/.pub-cache/bin"
 fi
 
-if [ -d "$HOME/esp/esp-idf" ]; then
-	alias get_idf='. $HOME/esp/esp-idf/export.sh'
-fi
-
 if [ -d "$HOME/.cargo/bin" ]; then
 	PATH="$HOME/.cargo/bin:$PATH"
 fi
