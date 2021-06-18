@@ -134,6 +134,12 @@ if [ -d "$HOME/esp/esp-idf" ]; then
 	alias get_idf='. $HOME/esp/esp-idf/export.sh'
 fi
 
+# Use Ninja as default CMake generator if available
+command -v ninja > /dev/null
+if [[ $? -eq 0 ]]; then
+	export CMAKE_GENERATOR="Ninja"
+fi
+
 command -v tmux > /dev/null
 if [[ $? -eq 0 ]]; then
 	# if the tmux command exists
