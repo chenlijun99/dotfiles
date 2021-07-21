@@ -94,11 +94,14 @@ let g:fzf_colors =
 let g:fzf_history_dir = '~/.local/share/fzf-history'
 " }}} 
 
-" CocSearch {{{
-let g:which_key_map.f.r.c = '(CocSearch)'
-nnoremap <leader>frc :CocSearch<Space>
-let g:which_key_map.f.r.c = '(CocSearch)'
-xnoremap <leader>frc :<C-u>call <SID>VSetSearch()<CR>:CocSearch<Space><C-R>=@/<CR><CR>
+" dyng/ctrlsf.vim {{{
+let g:which_key_map.f.r.c = '(CtrlSF)'
+nnoremap <leader>frc :CtrlSF<Space>
+let g:which_key_map.f.r.c = '(CtrlSF)'
+xnoremap <leader>frc :<C-u>call <SID>VSetSearch()<CR>:CtrlSF<Space><C-R>=@/<CR><CR>
+Plug 'dyng/ctrlsf.vim',
+			\ { 'on': ['CtrlSF'] }
+
 " }}}
 
 " tpope/vim-abolish {{{
