@@ -17,7 +17,9 @@ noremap L g_
 
 " when pasting in selection mode, don't overwrite register content with
 " selected text
-vnoremap p "_dP
+" Copied from https://vim.fandom.com/wiki/Replace_a_word_with_yanked_text#Alternative_mapping_for_paste
+xnoremap <silent> p p:let @+=@0<CR>:let @"=@0<CR>
+xnoremap <silent> P P:let @+=@0<CR>:let @"=@0<CR>
 
 nnoremap <c-]> g<c-]>
 vnoremap <c-]> g<c-]>
