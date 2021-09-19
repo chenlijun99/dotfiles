@@ -10,3 +10,6 @@ let g:vimtex_compiler_latexmk = {
     \   '-interaction=nonstopmode',
     \ ],
     \}
+" Disable this option since it's too slow
+" https://github.com/lervag/vimtex/issues/513
+let g:vimtex_matchparen_enabled = 0
