@@ -113,12 +113,13 @@ xnoremap <leader>frs :<C-u>call <SID>VSetSearch()<CR>:%Subvert/<C-R>=@/<CR>//gc<
 " }}}
 
 let g:which_key_map.f.r.r = 'built-in'
-xnoremap <leader>frr :<C-u>call <SID>VSetSearch()<CR>:%s/<C-R>=@/<CR>//gc<left><left><left>
 " from SpaceVim
+xnoremap <leader>frr :<C-u>call <SID>VSetSearch()<CR>:%s/<C-R>=@/<CR>//gc<left><left><left>
 function! s:VSetSearch() abort
 	let temp = @s
 	norm! gv"sy
-	let @/ = substitute(escape(@s, '/\'), '\n', '\\n', 'g')
+	" Escape expression '\\/.*$^~[]' is from https://superuser.com/a/320514
+	let @/ = substitute(escape(@s, '\\/.*$^~[]'), '\n', '\\n', 'g')
 	let @s = temp
 endfunction
 
