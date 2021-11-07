@@ -165,6 +165,8 @@ command! reload :write | restart
 
 " Pdf
 filextype *.pdf
+		\ {View in okular}
+		\ okular %f &,
 		\ {View in zathura}
 		\ zathura %f &,
 		\ {View in evince}
