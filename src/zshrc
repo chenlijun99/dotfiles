@@ -119,6 +119,9 @@ source $ZSH/oh-my-zsh.sh
 # Example aliases
 # alias zshconfig="mate ~/.zshrc"
 # alias ohmyzsh="mate ~/.oh-my-zsh"
+if [ -f ~/.shell_aliases ]; then
+    . ~/.shell_aliases
+fi
 
 if [ -d "$HOME/Android/Sdk" ]; then
 	# React-native environment variables
