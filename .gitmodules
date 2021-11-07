@@ -13,3 +13,9 @@
 [submodule "src/config/i3/i3ipc-python"]
 	path = src/config/i3/i3ipc-python
 	url = https://github.com/altdesktop/i3ipc-python.git
+[submodule "src/oh-my-zsh"]
+	path = src/oh-my-zsh
+	url = https://github.com/ohmyzsh/ohmyzsh
+[submodule "src/zsh_custom/themes/powerlevel10k"]
+	path = src/zsh_custom/themes/powerlevel10k
+	url = https://github.com/romkatv/powerlevel10k.git
