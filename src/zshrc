@@ -93,6 +93,8 @@ export ZSH_TMUX_FIXTERM=true
 plugins+=(tmux)
 
 source $ZSH/oh-my-zsh.sh
+# I'm not interested in the aliases from oh-my-zsh plugins
+unalias -m '*'
 
 # User configuration
 
