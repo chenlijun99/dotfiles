@@ -7,7 +7,7 @@ Plug 'kristijanhusak/defx-icons', { 'do': ':UpdateRemotePlugins' }
 Plug 'kristijanhusak/defx-git', { 'do': ':UpdateRemotePlugins' }
 
 let g:which_key_map.p.f = 'filetree explorer'
-nnoremap <silent> <leader>pf :Defx `getcwd()` -search=`expand('%:p')`<cr>
+nnoremap <silent> <leader>pf :Defx `getcwd()` -search_recursive=`expand('%:p')`<cr>
 " }}}
 
 " liuchengxu/vista.vim {{{
