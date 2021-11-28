@@ -36,9 +36,6 @@ set number
 " show the line number distance of each line relative to the current one
 set relativenumber
 
-" don't wrap even when a line is longer than the width of the window
-set nowrap
-
 " show a vertical line at the 80th column
 set colorcolumn=80
 
@@ -58,6 +55,18 @@ set signcolumn=yes
 
 " for vimdiff use vertical split
 set diffopt+=vertical
+
+" wrap {{{
+" don't wrap even when a line is longer than the width of the window
+set nowrap
+
+" `wrap` is enabled in ftplugin of some specific prose oriented languages
+" Options that I want when wrap is enabled
+
+" Break wrapped lines only in specific location (word boundaries)
+set linebreak
+set breakindent
+" }}}
 
 " completion {{{
 " show the completion as complete as possible
