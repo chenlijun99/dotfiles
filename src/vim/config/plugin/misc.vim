@@ -95,5 +95,9 @@ let g:which_key_map.g.u = 'Undotree'
 nnoremap <leader>u :UndotreeToggle<CR>
 " }}}
 
+" rickhowe/diffchar.vim {{{
+Plug 'rickhowe/diffchar.vim'
+" }}}
+
 " set modeline
 " vim: foldlevel=0 foldmethod=marker
