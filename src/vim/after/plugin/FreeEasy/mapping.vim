@@ -13,13 +13,8 @@ nnoremap <c-u> <c-u>zz
 " H jump to start-of-line
 " L jump to end-of-line
 " Should work even on wrappped lines
-noremap H g^
-" Since there is no version of `g_` that works on wrapped line,
-" I first jump to the end using g$ and then go back to the first non-blank
-" character using BE
-" The only case it doesn't work is when a word is chopped due to wrapping.
-" in which case we go at the end of the end, which is at the next line.
-noremap L g$BE
+noremap <silent><expr> H &l:wrap ? 'g^' : '^'
+noremap <silent><expr> L &l:wrap ? 'g$BE' : 'g_'
 
 " when pasting in selection mode, don't overwrite register content with
 " selected text
