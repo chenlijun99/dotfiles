@@ -456,6 +456,9 @@ nnoremap M :marks<cr>
 nnoremap m :marks<cr>
 nnoremap q :q<cr>
 
+" Open menu to select the program to use to open the selected file
+nnoremap L :file<cr>
+
 set trashdir=~/.local/share/Trash/files
 
 colorscheme gruvbox.vifm
