@@ -163,13 +163,6 @@ command! reload :write | restart
 " You can also add %CLEAR if you want to clear screen before running FUSE
 " program.
 
-" Pdf
-filextype *.pdf
-		\ {View in zathura}
-		\ zathura %f &,
-		\ {View in evince}
-		\ evince %f &,
-
 fileviewer *.pdf pdftotext -nopgbrk %c -
 
 " PostScript
