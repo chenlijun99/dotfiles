@@ -165,8 +165,6 @@ command! reload :write | restart
 
 " Pdf
 filextype *.pdf
-		\ {View in okular}
-		\ okular %f &,
 		\ {View in zathura}
 		\ zathura %f &,
 		\ {View in evince}
@@ -473,6 +471,8 @@ source ~/.vifm/vifm_devicons/SETUP
 """"""""""""""""""""""""""""""""""""""""
 " Pdf
 filextype *.pdf
+		\ {View in okular}
+		\ okular %f &,
 		\ {View in evince}
 		\ evince %f &,
 		\ {View in zathura}
