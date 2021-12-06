@@ -55,6 +55,9 @@ set signcolumn=yes
 
 " for vimdiff use vertical split
 set diffopt+=vertical
+if has('patch-8.2.2490') || has('nvim-0.5')
+	set diffopt+=followwrap
+endif
 
 " wrap {{{
 " don't wrap even when a line is longer than the width of the window
