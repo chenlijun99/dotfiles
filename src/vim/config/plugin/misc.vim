@@ -48,7 +48,7 @@ Plug 'sheerun/vim-polyglot'
 let g:jsx_ext_required = 1
 
 " Don't use LaTeX-Box. I'm already using vimtex plugin for LaTeX
-" Don't use for markdown. The default supports fenced code blocks
+" Don't use for markdown. Too laggy
 let g:polyglot_disabled = ['latex', 'markdown']
 " }}}
 
