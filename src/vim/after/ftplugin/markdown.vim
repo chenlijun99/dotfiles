@@ -4,7 +4,6 @@ setlocal shiftwidth=4
 setlocal tabstop=4
 setlocal expandtab
 setlocal conceallevel=2
-setlocal textwidth=80
 setlocal formatoptions-=t
 setlocal wrap
 
@@ -15,6 +14,8 @@ let g:which_key_map_local.t = 'Table of Contents'
 nnoremap <buffer> <localleader>t :Vista toc<CR>
 let g:which_key_map_local.T = 'Close Table of Contents'
 nnoremap <buffer> <localleader>T :Vista!<CR>
+let g:which_key_map_local.g = 'Toggle focus'
+nnoremap <buffer> <localleader>g :Goyo<cr>
 
 let s:path = fnamemodify(resolve(expand('<sfile>:p')), ':h')
 
