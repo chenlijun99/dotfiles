@@ -3,4 +3,8 @@
 #
 emulate sh
 . ~/.profile
+
+# See https://realjenius.com/2020/01/12/kde-neon-snap-apps-missing/
+emulate sh -c 'source /etc/profile'
+
 emulate zsh
