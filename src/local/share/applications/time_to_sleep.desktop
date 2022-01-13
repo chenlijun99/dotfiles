@@ -1,0 +1,12 @@
+#!/usr/bin/env xdg-open
+[Desktop Entry]
+Name=Time to sleep
+Comment=Scan and go to sleep
+TryExec=time_to_sleep.sh
+Exec=time_to_sleep.sh
+Terminal=true
+Type=Application
+Keywords=Health;Sleep
+Icon=sleep
+Categories=Utility;
+StartupNotify=false
