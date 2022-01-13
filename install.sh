@@ -21,6 +21,7 @@ function main()
 		install "$SCRIPT_DIR/src" "$HOME" "." "^(config|system|local)"
 		install "$SCRIPT_DIR/src/config" "$HOME/.config"
 		install "$SCRIPT_DIR/src/local/bin" "$HOME/.local/bin/"
+		install "$SCRIPT_DIR/src/local/share/applications" "$HOME/.local/share/applications/"
 
 		echo "Done."
 	else
