@@ -41,14 +41,14 @@ endfunction
 if executable('rg')
 	function! s:custom_find()
 		call fzf#vim#grep("rg --column --line-number --no-heading --color=always --smart-case "
-					\.s:ignore_submodules("-g '!", "'").shellescape(''), 1, 0)
+					\.s:ignore_submodules("-g '!", "'").shellescape(''), 1, fzf#vim#with_preview({'options': '--delimiter : --nth 4..'}), 0)
 	endfunction
 	let g:which_key_map.f.f = 'fuzzy find'
 	nnoremap <silent> <leader>ff :FzfRg<cr>
 elseif executable('ag')
 	function! s:custom_find()
 		call fzf#vim#grep("ag --nogroup --column --color "
-					\.s:ignore_submodules("--ignore '", "'").shellescape('^(?=.)'), 1, 0)
+					\.s:ignore_submodules("--ignore '", "'").shellescape('^(?=.)'), 1, fzf#vim#with_preview({'options': '--delimiter : --nth 4..'}), 0)
 	endfunction
 	let g:which_key_map.f.f = 'fuzzy find'
 	nnoremap <silent> <leader>ff :FzfAg<cr>
