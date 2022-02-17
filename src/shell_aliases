@@ -34,6 +34,9 @@ alias mypicocom='picocom -b 115200 --imap lfcrlf --omap crlf'
 
 alias sudo='sudo '
 
+# Make xclip copy to clipboard. See https://stackoverflow.com/a/4208191 
+alias xclip="xclip -selection c"
+
 function tmux
 {
 	local tmux_binary=$(which tmux)
