@@ -1,3 +1,32 @@
+
+local kind_icons = {
+	Text = "",
+	Method = "m",
+	Function = "",
+	Constructor = "",
+	Field = "",
+	Variable = "",
+	Class = "",
+	Interface = "",
+	Module = "",
+	Property = "",
+	Unit = "",
+	Value = "",
+	Enum = "",
+	Keyword = "",
+	Snippet = "",
+	Color = "",
+	File = "",
+	Reference = "",
+	Folder = "",
+	EnumMember = "",
+	Constant = "",
+	Struct = "",
+	Event = "",
+	Operator = "",
+	TypeParameter = "",
+}
+
 Plug("hrsh7th/cmp-nvim-lsp")
 Plug("hrsh7th/cmp-buffer")
 Plug("hrsh7th/cmp-path")
@@ -10,6 +39,28 @@ Plug("hrsh7th/nvim-cmp", {
 		local luasnip = require("luasnip")
 
 		cmp.setup({
+			snippet = {
+				expand = function(args)
+					luasnip.lsp_expand(args.body)
+				end,
+			},
+			formatting = {
+				fields = { "kind", "abbr", "menu" },
+				format = function(entry, vim_item)
+					vim_item.kind = string.format(
+						"%s",
+						kind_icons[vim_item.kind]
+					)
+					vim_item.menu = ({
+						buffer = "[buf]",
+						nvim_lsp = "[lsp]",
+						nvim_lua = "[api]",
+						luasnip = "[snip]",
+						path = "[path]",
+					})[entry.source.name]
+					return vim_item
+				end,
+			},
 			mapping = {
 				["<C-b>"] = cmp.mapping(
 					cmp.mapping.scroll_docs(-4),
@@ -57,6 +108,18 @@ Plug("hrsh7th/nvim-cmp", {
 			}, {
 				{ name = "buffer" },
 			}),
+			documentation = {
+				border = {
+					"╭",
+					"─",
+					"╮",
+					"│",
+					"╯",
+					"─",
+					"╰",
+					"│",
+				},
+			},
 		})
 
 		-- Set configuration for specific filetype.
