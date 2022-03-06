@@ -79,7 +79,6 @@ local meta = {
 					end
 					local load_cmd =
 						[[ autocmd! %s * ++once call plug#load("%s") ]]
-					print(load_cmd:format(autocmds, plugin))
 					vim.cmd(load_cmd:format(autocmds, plugin))
 				end
 
