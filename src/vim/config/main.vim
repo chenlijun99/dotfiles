@@ -1,6 +1,10 @@
 let g:mapleader = "\<Space>"
 let g:maplocalleader = ','
 
+if ! clj#core#enable_full_power()
+	echo "Incompatible with full power config! Consider upgrading Vim."
+endif
+
 " Source core config files
 for f in globpath(expand('<sfile>:p:h'), 'core/**/*.vim', 0, 1)
     exe 'source' f
@@ -15,7 +19,7 @@ for f in globpath(expand('<sfile>:p:h'), 'plugin/**/*.vim', 0, 1)
 endfor
 
 " Source all lua plugin config files
-if has('nvim-0.5.0')
+if clj#core#enable_full_power()
 	lua Plug = require 'vim_plug'
 	for f in globpath(expand('<sfile>:p:h'), 'plugin/**/*.lua', 0, 1)
 		exe 'luafile' f
@@ -25,7 +29,7 @@ endif
 call plug#end()
 
 " Handle lua plugins
-if has('nvim-0.5.0')
+if clj#core#enable_full_power()
 	lua Plug.after_plug_end()
 endif
 

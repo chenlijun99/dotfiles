@@ -6,7 +6,7 @@ let g:which_key_map_global_previous =  {}
 let g:which_key_map.m = { 'name': '+misc' }
 let g:which_key_map.b = { 'name': '+buffer' }
 
-if has('nvim-0.5.0')
+if clj#core#enable_full_power()
 	lua <<EOF
 	which_key_map =  {}
 	which_key_map_local =  {}
