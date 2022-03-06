@@ -29,8 +29,17 @@ vnoremap <silent> <localleader> :<c-u>WhichKeyVisual  ','<CR>
 for f in globpath(expand('<sfile>:p:h'), 'plugin/**/*.vim', 0, 1)
     exe 'source' f
 endfor
+if has('nvim-0.5.0')
+	lua Plug = require 'vim_plug'
+	for f in globpath(expand('<sfile>:p:h'), 'plugin/**/*.lua', 0, 1)
+		exe 'luafile' f
+	endfor
+endif
 
 call plug#end()
+if has('nvim-0.5.0')
+	lua Plug.after_plug_end()
+endif
 
 " set modeline 
 " vim: foldlevel=0 foldmethod=marker
