@@ -1,6 +1,16 @@
 --[[
 Vim plug wrapper to facilitate working with it in Luao
 Mostly copied from https://dev.to/vonheikemen/neovim-using-vim-plug-in-lua-3oom
+
+The exposes Plug can be used in the same way of the normal Plug command
+of vim-plug, with the following differences:
+
+* Modifed option keys:
+	* use `run` instead of `do`: do is a reserved keyword in lua
+	* use `ft` instead of `for`: for is a reserved keyword in lua
+* Added options:
+	* config (optional): lua function that will be executed on plugin load
+	* event (string or list, optional): lazy load plugin on autocmd trigger
 --]]
 
 local configs = {
@@ -46,16 +56,32 @@ local meta = {
 		opts["for"] = opts.ft
 		opts.ft = nil
 
+		if opts.event then
+			-- if event is defined, on must be empty
+			opts["on"] = {}
+		end
+
 		vim.call("plug#", repo, opts)
 
 		-- Add basic support to colocate plugin config
 		if type(opts.config) == "function" then
 			local plugin = opts.as or plug_name(repo)
 
-			if opts["for"] == nil and opts.on == nil then
+			if opts["for"] == nil and opts.on == nil and opts.event == nil then
 				configs.start[plugin] = opts.config
 			else
 				configs.lazy[plugin] = opts.config
+
+				if opts.event then
+					local autocmds = opts.event
+					if type(opts.event) == "table" then
+						autocmds = table.concat(opts.event, ",")
+					end
+					local load_cmd =
+						[[ autocmd! %s * ++once call plug#load("%s") ]]
+					print(load_cmd:format(autocmds, plugin))
+					vim.cmd(load_cmd:format(autocmds, plugin))
+				end
 
 				local user_cmd =
 					[[ autocmd! User %s ++once lua VimPlugApplyConfig('%s') ]]
