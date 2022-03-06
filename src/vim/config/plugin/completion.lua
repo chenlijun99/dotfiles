@@ -1,3 +1,11 @@
+Plug("rafamadriz/friendly-snippets")
+Plug("L3MON4D3/LuaSnip", {
+	config = function()
+		require("luasnip.loaders.from_vscode").lazy_load()
+		-- TODO our snipmate snippets don't work
+		require("luasnip.loaders.from_snipmate").load()
+	end,
+})
 
 local kind_icons = {
 	Text = "",
@@ -27,16 +35,25 @@ local kind_icons = {
 	TypeParameter = "",
 }
 
+Plug("saadparwaiz1/cmp_luasnip")
 Plug("hrsh7th/cmp-nvim-lsp")
 Plug("hrsh7th/cmp-buffer")
 Plug("hrsh7th/cmp-path")
 Plug("hrsh7th/cmp-cmdline")
-Plug("L3MON4D3/LuaSnip")
 Plug("hrsh7th/nvim-cmp", {
 	config = function()
 		-- Setup nvim-cmp.
 		local cmp = require("cmp")
 		local luasnip = require("luasnip")
+
+		local has_words_before = function()
+			local line, col = unpack(vim.api.nvim_win_get_cursor(0))
+			return col ~= 0
+				and vim.api.nvim_buf_get_lines(0, line - 1, line, true)[1]
+						:sub(col, col)
+						:match("%s")
+					== nil
+		end
 
 		cmp.setup({
 			snippet = {
@@ -105,9 +122,14 @@ Plug("hrsh7th/nvim-cmp", {
 			},
 			sources = cmp.config.sources({
 				{ name = "nvim_lsp" },
+				{ name = "luasnip" },
 			}, {
 				{ name = "buffer" },
 			}),
+			confirm_opts = {
+				behavior = cmp.ConfirmBehavior.Replace,
+				select = false,
+			},
 			documentation = {
 				border = {
 					"╭",
