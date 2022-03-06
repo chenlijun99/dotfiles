@@ -1,34 +1,20 @@
-call plug#begin('~/.vim/bundle')
-
-Plug 'liuchengxu/vim-which-key', { 'on': ['WhichKey', 'WhichKey!', 'WhichKeyVisual'] }
-
 let g:mapleader = "\<Space>"
 let g:maplocalleader = ','
-let g:which_key_map =  {}
-let g:which_key_map_local =  {}
-let g:which_key_map_g =  {}
-let g:which_key_map_global_next =  {}
-let g:which_key_map_global_previous =  {}
-let g:which_key_use_floating_win = 0
-let g:which_key_map.m = { 'name': '+misc' }
-let g:which_key_map.b = { 'name': '+buffer' }
-autocmd! User vim-which-key call which_key#register('<Space>', 'g:which_key_map') |
-			\ call which_key#register(',', 'g:which_key_map_local') |
-			\ call which_key#register(']', 'g:which_key_map_global_next') |
-			\ call which_key#register('[', 'g:which_key_map_global_previous') |
-			\ call which_key#register('g', 'g:which_key_map_g')
 
-nnoremap <silent> <leader>      :<c-u>WhichKey '<Space>'<CR>
-nnoremap <silent> g             :<c-u>WhichKey 'g'<CR>
-nnoremap <silent> ]             :<c-u>WhichKey ']'<CR>
-nnoremap <silent> [             :<c-u>WhichKey '['<CR>
-nnoremap <silent> <localleader> :<c-u>WhichKey  ','<CR>
-vnoremap <silent> <leader>      :<c-u>WhichKeyVisual '<Space>'<CR>
-vnoremap <silent> <localleader> :<c-u>WhichKeyVisual  ','<CR>
+" Source core config files
+for f in globpath(expand('<sfile>:p:h'), 'core/**/*.vim', 0, 1)
+    exe 'source' f
+endfor
 
+" Start plugin configuration
+call plug#begin('~/.vim/bundle')
+
+" Source all vim plugin config files
 for f in globpath(expand('<sfile>:p:h'), 'plugin/**/*.vim', 0, 1)
     exe 'source' f
 endfor
+
+" Source all lua plugin config files
 if has('nvim-0.5.0')
 	lua Plug = require 'vim_plug'
 	for f in globpath(expand('<sfile>:p:h'), 'plugin/**/*.lua', 0, 1)
@@ -37,6 +23,8 @@ if has('nvim-0.5.0')
 endif
 
 call plug#end()
+
+" Handle lua plugins
 if has('nvim-0.5.0')
 	lua Plug.after_plug_end()
 endif
