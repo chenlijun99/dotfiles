@@ -124,6 +124,7 @@ Plug("hrsh7th/nvim-cmp", {
 				{ name = "nvim_lsp" },
 				{ name = "luasnip" },
 			}, {
+				{ name = "path" },
 				{ name = "buffer" },
 			}),
 			confirm_opts = {
