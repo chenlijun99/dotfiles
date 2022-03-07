@@ -1,3 +1,8 @@
+if clj#core#enable_full_power()
+	" Lightline is used only as fallback
+	finish
+endif
+
 Plug 'itchyny/lightline.vim'
 
 set laststatus=2
@@ -60,3 +65,4 @@ function! LightlineFilename()
 				\ ('' != expand('%:t') ? expand('%:t') : '[No Name]') .
 				\ ('' != LightlineModified() ? ' ' . LightlineModified() : '')
 endfunction
+
