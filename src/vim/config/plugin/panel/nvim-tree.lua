@@ -141,8 +141,7 @@ Plug("kyazdani42/nvim-tree.lua", {
 			hijack_unnamed_buffer_when_opening = false,
 			update_cwd = true,
 			update_focused_file = {
-				enable = true,
-				update_cwd = false,
+				enable = false,
 			},
 			view = {
 				allow_resize = true,
