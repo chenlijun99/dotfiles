@@ -45,14 +45,37 @@ Plug("williamboman/nvim-lsp-installer", {
 	end,
 })
 
+Plug("ojroques/nvim-lspfuzzy", {
+	config = function()
+		local opts = { noremap = true }
+
+		which_key_map.l.d = "Show buffer diagnostics"
+		vim.api.nvim_set_keymap(
+			"n",
+			"<leader>ld",
+			"<cmd>LspDiagnostics 0<CR>",
+			opts
+		)
+
+		which_key_map.l.D = "Show all diagnostics"
+		vim.api.nvim_set_keymap(
+			"n",
+			"<leader>lD",
+			"<cmd>LspDiagnosticsAll<CR>",
+			opts
+		)
+
+		require("lspfuzzy").setup({})
+	end,
+})
 Plug("neovim/nvim-lspconfig", {
 	config = function()
 		local opts = { noremap = true }
 
-		which_key_map.l.d = "Diagnostics"
+		which_key_map_g.H = "Show diagnostics"
 		vim.api.nvim_set_keymap(
 			"n",
-			"<leader>ld",
+			"gH",
 			"<cmd>lua vim.diagnostic.open_float()<CR>",
 			opts
 		)
@@ -82,12 +105,7 @@ Plug("neovim/nvim-lspconfig", {
 		)
 
 		which_key_map.l.i = "Code action"
-		vim.api.nvim_set_keymap(
-			"n",
-			"<leader>li",
-			"<cmd>LspInfo<cr>",
-			opts
-		)
+		vim.api.nvim_set_keymap("n", "<leader>li", "<cmd>LspInfo<cr>", opts)
 
 		which_key_map_global_previous.d = "Previous lsp diagnostic"
 		vim.api.nvim_set_keymap(
