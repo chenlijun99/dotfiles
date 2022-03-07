@@ -109,13 +109,21 @@ Plug("hrsh7th/nvim-cmp", {
 						fallback()
 					end
 				end, { "i", "s" }),
-				["<S-Tab>"] = cmp.mapping(function(fallback)
+				["<S-Tab>"] = cmp.mapping(function()
 					if cmp.visible() then
 						cmp.select_prev_item()
 					elseif luasnip.jumpable(-1) then
 						luasnip.jump(-1)
 					else
-						fallback()
+						-- use this instead of fallback()
+						-- we want shift table's fallback to delete a tab
+						local key = vim.api.nvim_replace_termcodes(
+							"<c-h>",
+							true,
+							true,
+							true
+						)
+						vim.api.nvim_feedkeys(key, 'n', true)
 					end
 				end, { "i", "s" }),
 			},
