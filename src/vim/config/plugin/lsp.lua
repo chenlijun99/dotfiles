@@ -7,13 +7,20 @@ Furthermore, it takes care of setting up all the installed server.
 Plug("williamboman/nvim-lsp-installer", {
 	config = function()
 		local lsp_installer = require("nvim-lsp-installer")
+		local cmp_nvim_lsp = require("cmp_nvim_lsp")
 
 		-- Register a handler that will be called for each installed server when it's ready (i.e. when installation is finished
 		-- or if the server is already installed).
 		lsp_installer.on_server_ready(function(server)
+			-- Add also the lsp capabilities introduced by cmp_nvim_lsp
+			local capabilities = cmp_nvim_lsp.update_capabilities(
+				vim.lsp.protocol.make_client_capabilities()
+			)
+
 			local opts = {
 				-- This will be the default in neovim 0.7+
 				debounce_text_changes = 150,
+				capabilities = capabilities,
 			}
 
 			-- (optional) Customize the options passed to the server
