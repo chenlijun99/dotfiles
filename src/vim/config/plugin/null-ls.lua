@@ -26,7 +26,6 @@ Plug("jose-elias-alvarez/null-ls.nvim", {
 				-- hover
 				null_ls.builtins.hover.dictionary,
 				-- diagnostics
-				null_ls.builtins.diagnostics.codespell,
 				null_ls.builtins.diagnostics.cppcheck,
 				null_ls.builtins.diagnostics.eslint_d,
 				null_ls.builtins.diagnostics.luacheck,
