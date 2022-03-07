@@ -2,10 +2,18 @@ Plug("kyazdani42/nvim-web-devicons")
 Plug("kyazdani42/nvim-tree.lua", {
 	config = function()
 		which_key_map.p.f = "filetree explorer"
+		function NvimTreeOpenOrFindFile()
+			if vim.api.nvim_eval("expand('%:p') == ''") == 1 then
+				-- If file not saved in file system, open nvim tree normally
+				vim.cmd("NvimTreeOpen")
+			else
+				vim.cmd("NvimTreeFindFile")
+			end
+		end
 		vim.api.nvim_set_keymap(
 			"n",
 			"<leader>pf",
-			"<cmd>NvimTreeFindFile<CR>",
+			"<cmd>lua NvimTreeOpenOrFindFile()<CR>",
 			{ noremap = true }
 		)
 
