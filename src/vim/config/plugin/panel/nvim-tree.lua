@@ -120,7 +120,7 @@ Plug("kyazdani42/nvim-tree.lua", {
 			},
 		}
 
-		local default = {
+		require("nvim-tree").setup({
 			filters = {
 				dotfiles = false,
 			},
@@ -150,7 +150,6 @@ Plug("kyazdani42/nvim-tree.lua", {
 				enable = false,
 				ignore = false,
 			},
-		}
-		require("nvim-tree").setup({})
+		})
 	end,
 })
