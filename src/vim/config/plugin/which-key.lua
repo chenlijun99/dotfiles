@@ -12,7 +12,6 @@ Plug("folke/which-key.nvim", {
 			which_key_map,
 			vim.g.which_key_map
 		)
-		print(vim.inspect(global_normap_mappings))
 		wk.register(global_normap_mappings, { prefix = "<leader>" })
 
 		local global_normap_mappings_with_g_leader = vim.tbl_deep_extend(
