@@ -154,10 +154,6 @@ Plug("kyazdani42/nvim-tree.lua", {
 					list = mappings_list,
 				},
 			},
-			git = {
-				enable = false,
-				ignore = false,
-			},
 		})
 	end,
 })
