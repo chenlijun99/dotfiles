@@ -1,5 +1,6 @@
 {
   // Enable all markdownlint rules
+  // Check the rules at https://github.com/DavidAnson/markdownlint/blob/main/doc/Rules.md
   "default": true,
 
   // Set list indent level to 4 which Python-Markdown requires
@@ -13,4 +14,7 @@
 
   // Allow inline HTML
   "MD033": false
+
+  // First line doesn't need to be top-level heading
+  "MD041": false,
 }
