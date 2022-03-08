@@ -17,8 +17,6 @@ Plug("jose-elias-alvarez/null-ls.nvim", {
 				null_ls.builtins.formatting.stylelint,
 				null_ls.builtins.formatting.trim_newlines,
 				null_ls.builtins.formatting.trim_whitespace,
-				-- completion
-				null_ls.builtins.completion.spell,
 				-- code actions
 				null_ls.builtins.code_actions.eslint_d,
 				null_ls.builtins.code_actions.proselint,
@@ -34,7 +32,6 @@ Plug("jose-elias-alvarez/null-ls.nvim", {
 				null_ls.builtins.diagnostics.shellcheck,
 				null_ls.builtins.diagnostics.stylelint,
 				null_ls.builtins.diagnostics.tsc,
-				null_ls.builtins.diagnostics.write_good,
 				null_ls.builtins.diagnostics.yamllint,
 				null_ls.builtins.diagnostics.zsh,
 			},
