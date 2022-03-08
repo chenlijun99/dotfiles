@@ -123,7 +123,7 @@ Plug("hrsh7th/nvim-cmp", {
 							true,
 							true
 						)
-						vim.api.nvim_feedkeys(key, 'n', true)
+						vim.api.nvim_feedkeys(key, "n", true)
 					end
 				end, { "i", "s" }),
 			},
@@ -132,7 +132,13 @@ Plug("hrsh7th/nvim-cmp", {
 				{ name = "luasnip" },
 			}, {
 				{ name = "path" },
-				{ name = "buffer" },
+				{
+					name = "buffer",
+					option = {
+						-- So that accented characterers are also completed https://github.com/hrsh7th/cmp-buffer/issues/11
+						keyword_pattern = [[\k\+]],
+					},
+				},
 			}),
 			confirm_opts = {
 				behavior = cmp.ConfirmBehavior.Replace,
