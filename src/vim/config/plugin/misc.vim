@@ -88,10 +88,6 @@ Plug 'tpope/vim-surround',
 xmap S <Plug>VSurround
 "}}}
 
-" ryanoasis/vim-devicons {{{
-Plug 'ryanoasis/vim-devicons'
-"}}}
-
 " mbbill/undotree {{{
 Plug 'mbbill/undotree', { 'on': ['UndotreeToggle'] }
 let g:which_key_map.g.u = 'Undotree'
