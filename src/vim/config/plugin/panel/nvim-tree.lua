@@ -89,7 +89,7 @@ Plug("kyazdani42/nvim-tree.lua", {
 				key = "I",
 				action = "toggle_dotfiles",
 			},
-			{ key = "<ctrl-l>", action = "refresh" },
+			{ key = "<c-l>", action = "refresh" },
 			{ key = "ma", action = "create" },
 			{ key = "md", action = "remove" },
 			{ key = "mD", action = "trash" },
