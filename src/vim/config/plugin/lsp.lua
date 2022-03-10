@@ -21,6 +21,15 @@ Plug("williamboman/nvim-lsp-installer", {
 				-- This will be the default in neovim 0.7+
 				debounce_text_changes = 150,
 				capabilities = capabilities,
+				on_attach = function(client)
+					-- Disable formatting capabilities, as we use
+					-- null-ls.nvim to do that and we don't want
+					-- neovim to ask everytime which one we want
+					-- to use
+					client.resolved_capabilities.document_formatting = false
+					client.resolved_capabilities.document_range_formatting =
+						false
+				end,
 			}
 
 			-- (optional) Customize the options passed to the server

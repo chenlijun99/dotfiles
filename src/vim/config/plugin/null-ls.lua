@@ -12,7 +12,6 @@ Plug("jose-elias-alvarez/null-ls.nvim", {
 				null_ls.builtins.formatting.cmake_format,
 				null_ls.builtins.formatting.eslint_d,
 				null_ls.builtins.formatting.latexindent,
-				null_ls.builtins.formatting.lua_format,
 				null_ls.builtins.formatting.markdownlint,
 				null_ls.builtins.formatting.stylelint,
 				null_ls.builtins.formatting.trim_newlines,
