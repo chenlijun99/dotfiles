@@ -82,7 +82,7 @@ Plug("kyazdani42/nvim-tree.lua", {
 			},
 			{ key = "J", action = "last_sibling" },
 			{
-				key = "H",
+				key = "i",
 				action = "toggle_ignored",
 			},
 			{
