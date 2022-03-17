@@ -14,6 +14,7 @@ Plug("jose-elias-alvarez/null-ls.nvim", {
 				null_ls.builtins.formatting.latexindent,
 				null_ls.builtins.formatting.markdownlint,
 				null_ls.builtins.formatting.stylelint,
+				null_ls.builtins.formatting.black,
 				null_ls.builtins.formatting.trim_newlines,
 				null_ls.builtins.formatting.trim_whitespace,
 				-- code actions
