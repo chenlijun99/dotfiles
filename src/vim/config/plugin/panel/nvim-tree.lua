@@ -19,6 +19,7 @@ Plug("kyazdani42/nvim-tree.lua", {
 
 		local g = vim.g
 
+		g.nvim_tree_respect_buf_cwd = 1
 		g.nvim_tree_add_trailing = 0
 		g.nvim_tree_git_hl = 0
 		g.nvim_tree_highlight_opened_files = 0
@@ -141,7 +142,8 @@ Plug("kyazdani42/nvim-tree.lua", {
 			hijack_unnamed_buffer_when_opening = false,
 			update_cwd = true,
 			update_focused_file = {
-				enable = false,
+				enable = true,
+				update_cwd = false,
 			},
 			view = {
 				allow_resize = true,
