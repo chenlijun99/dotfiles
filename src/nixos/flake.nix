@@ -14,7 +14,10 @@
         modules =
           [
             ./configuration.nix
-            ./virtualbox.nix
+            ./modules/audio.nix
+            ./modules/desktop.nix
+            ./modules/users.nix
+            ./modules/boot.nix
           ];
       };
     };
