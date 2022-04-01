@@ -1,6 +1,9 @@
-{ pkgs, self, nixpkgs, ... }: 
+{ pkgs, self, nixpkgs, nixpkgs-unstable, ... }: 
 
+let unstable-pkgs = import nixpkgs-unstable {};
+in
 {
+  nixpkgs.config.allowUnfree = true;
   nix = {
     # From the docs:
     # This option specifies the Nix package instance to use throughout the system. 
@@ -43,14 +46,29 @@
   # List packages installed in system profile. To search, run:
   # \$ nix search wget
   environment.systemPackages = with pkgs; [
-    wget vim neovim git git-lfs tmux fzf
+    wget vim unstable-pkgs.neovim git git-lfs tmux fzf
+    gcc
+    latte-dock 
     # To support neovim clipboard
     xclip
     # For tmux-yank
     xsel
-    latte-dock alacritty 
-    zotero thunderbird  firefox chromium
-    #obsidian vscode
+    # Ripgrep. I use it in Vim and also on CLI
+    ripgrep ripgrep-all
+    # My terminal of choice
+    alacritty 
+    # Email client
+    thunderbird  
+    # Main browser
+    firefox
+    # A second browser is always useful
+    chromium
+    # Citation manager
+    zotero 
+    # Note taking app
+    obsidian
+    # I never use it, but it may be useful
+    vscode
   ];
 
   # Install fonts
