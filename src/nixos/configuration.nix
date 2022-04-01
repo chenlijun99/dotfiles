@@ -1,13 +1,23 @@
-{ pkgs, self, nixpkgs, nixpkgs-unstable, ... }: 
+{ pkgs, self, nixpkgs, nixpkgs-unstable, ... }:
 
-let unstable-pkgs = import nixpkgs-unstable {};
+let
+  unstable-pkgs = import nixpkgs-unstable {
+    overlays = [
+      (self: super: {
+        neovim = super.neovim.override {
+          viAlias = true;
+          vimAlias = true;
+        };
+      })
+    ];
+  };
 in
 {
   nixpkgs.config.allowUnfree = true;
   nix = {
     # From the docs:
-    # This option specifies the Nix package instance to use throughout the system. 
-    # 
+    # This option specifies the Nix package instance to use throughout the system.
+    #
     # So with this we control which version of nix (the package manager) we want to use
     #
     # pkgs.nixFlakes is an alias of a version of nix that supports flakes
@@ -46,9 +56,9 @@ in
   # List packages installed in system profile. To search, run:
   # \$ nix search wget
   environment.systemPackages = with pkgs; [
-    wget vim unstable-pkgs.neovim git git-lfs tmux fzf
+    wget git git-lfs tmux fzf
     gcc
-    latte-dock 
+    latte-dock
     # To support neovim clipboard
     xclip
     # For tmux-yank
@@ -56,20 +66,24 @@ in
     # Ripgrep. I use it in Vim and also on CLI
     ripgrep ripgrep-all
     # My terminal of choice
-    alacritty 
+    alacritty
     # Email client
-    thunderbird  
+    thunderbird
     # Main browser
     firefox
     # A second browser is always useful
     chromium
     # Citation manager
-    zotero 
+    zotero
     # Note taking app
     obsidian
     # I never use it, but it may be useful
     vscode
+  ] ++ [
+    # Get most recent release of Neovim from unstable-pkgs
+    unstable-pkgs.neovim
   ];
+  environment.variables.EDITOR = "nvim";
 
   # Install fonts
   fonts.fonts = with pkgs; [
