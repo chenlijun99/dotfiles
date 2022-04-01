@@ -52,6 +52,13 @@
     zotero thunderbird  firefox chromium
     #obsidian vscode
   ];
+
+  # Install fonts
+  fonts.fonts = with pkgs; [
+    # My Alacritty config uses NerdFont patched Hack
+    (nerdfonts.override { fonts = [ "Hack" ]; })
+  ];
+
   programs.zsh.enable = true;
   users.defaultUserShell = pkgs.zsh;
 
