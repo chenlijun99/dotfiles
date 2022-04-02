@@ -22,6 +22,11 @@
               inputs = inputs;
             };
           }
+          # This file is not tracked in Git. Rather, for each NixOS
+          # installation, hardware-configuration.nix should be generated using
+          # `nixos-generate-config` and linked into this directory (but
+          # not tracked into Git)
+          ./hardware-configuration.nix
           baseCfg
         ];
       };
@@ -29,6 +34,9 @@
     nixosConfigurations = {
       nixos = defFlakeSystem "x86_64-linux" {
         imports = [./machines/virtualbox-guest.nix];
+      };
+      "thinkpad-l390-yoga" = defFlakeSystem "x86_64-linux" {
+        imports = [./machines/thinkpad-l390-yoga.nix];
       };
     };
   };

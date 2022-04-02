@@ -1,16 +1,17 @@
 {...}: {
-  users.users.demo = {
-    isNormalUser = true;
-    description = "My default user account";
-    extraGroups = ["wheel"];
-    password = "demo";
-    uid = 1000;
+  users.users = {
+    lijun = {
+      isNormalUser = true;
+      description = "Lijun's user account";
+      extraGroups = ["wheel" "networkmanager"];
+      hashedPassword = "$6$SUUT8ZWKpI$3/0xAo2JFFOmtBPxSwGGzKdMgD5slbPaZgHWd9l53SELl8ohaMAVDeIiY6E15LXG0Lmqc1wDKSFjM7f/cMArQ.";
+    };
   };
 
   services.xserver.displayManager = {
     autoLogin = {
       enable = true;
-      user = "demo";
+      user = "lijun";
     };
     sddm.autoLogin.relogin = true;
   };
