@@ -8,7 +8,7 @@
     [ (modulesPath + "/installer/scan/not-detected.nix")
     ];
 
-  boot.initrd.availableKernelModules = [ "nvme" "usbhid" "rtsx_pci_sdmmc" ];
+  boot.initrd.availableKernelModules = [ "xhci_pci" "nvme" "usbhid" "rtsx_pci_sdmmc" ];
   boot.initrd.kernelModules = [ ];
   boot.kernelModules = [ "kvm-intel" ];
   boot.extraModulePackages = [ ];
@@ -23,19 +23,9 @@
       fsType = "vfat";
     };
 
-  swapDevices = [ ];
-
-  # The global useDHCP flag is deprecated, therefore explicitly set to false here.
-  # Per-interface useDHCP will be mandatory in the future, so this generated config
-  # replicates the default behaviour.
-  networking.useDHCP = lib.mkDefault false;
-  networking.interfaces.docker0.useDHCP = lib.mkDefault true;
-  networking.interfaces.docker_gwbridge.useDHCP = lib.mkDefault true;
-  networking.interfaces.enp0s31f6.useDHCP = lib.mkDefault true;
-  networking.interfaces.enx3ce1a1be79be.useDHCP = lib.mkDefault true;
-  networking.interfaces.virbr0.useDHCP = lib.mkDefault true;
-  networking.interfaces.virbr0-nic.useDHCP = lib.mkDefault true;
-  networking.interfaces.wlp2s0.useDHCP = lib.mkDefault true;
+  swapDevices =
+    [ { device = "/dev/disk/by-uuid/683e3671-bd7b-4585-9e48-3d9b9a6019bf"; }
+    ];
 
   powerManagement.cpuFreqGovernor = lib.mkDefault "powersave";
   hardware.cpu.intel.updateMicrocode = lib.mkDefault config.hardware.enableRedistributableFirmware;
