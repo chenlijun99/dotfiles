@@ -3,11 +3,14 @@
 #
 {...}: {
   imports = [
-    ../modules/common.nix
-    ../modules/dev.nix
-    ../modules/desktop.nix
-    ../modules/audio.nix
-    ../modules/users.nix
+    ./hardware-configuration.nix
+    ../../modules/common.nix
+    ../../modules/dev.nix
+    ../../modules/desktop.nix
+    ../../modules/audio.nix
+    ../../users/lijun
+    ../../users/lijun-test
+    ../../users/test
   ];
 
   boot.loader = {

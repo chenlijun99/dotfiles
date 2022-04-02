@@ -10,10 +10,4 @@
     };
     libinput.enable = true; # for touchpad support on many laptops
   };
-
-  environment.systemPackages = with pkgs; [
-    latte-dock
-    vim
-    latte-dock
-  ];
 }
