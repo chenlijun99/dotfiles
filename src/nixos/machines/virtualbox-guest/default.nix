@@ -3,11 +3,12 @@
 #
 {...}: {
   imports = [
-    ../modules/common.nix
-    ../modules/dev.nix
-    ../modules/desktop.nix
-    ../modules/audio.nix
-    ../modules/users.nix
+    ../../modules/common.nix
+    ../../modules/dev.nix
+    ../../modules/desktop.nix
+    ../../modules/audio.nix
+    ../../users/lijun-test
+    ../../users/test
   ];
 
   virtualisation.virtualbox.guest.enable = true;
