@@ -13,8 +13,14 @@
       git
       git-lfs
       tldr
+      cmake
+      ninja
+      gnumake
       # Always have a C/C++ compiler at hand :)
       gcc
+      # Languages runtimes
+      nodejs
+      python38
       # Email client
       thunderbird
       # Main browser
