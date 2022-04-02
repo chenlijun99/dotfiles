@@ -5,20 +5,30 @@
     nixpkgs-unstable.url = "github:NixOS/nixpkgs/nixos-unstable";
   };
 
-  outputs = { self, nixpkgs, ... }@attrs: {
+  outputs = {
+    self,
+    nixpkgs,
+    nixpkgs-unstable,
+    ...
+  } @ inputs: let
+    # Function to create defult (common) system config options
+    defFlakeSystem = systemArch: baseCfg:
+      nixpkgs.lib.nixosSystem {
+        system = "${systemArch}";
+        modules = [
+          {
+            # Introduce additional module parameters
+            _module.args = {
+              inputs = inputs;
+            };
+          }
+          baseCfg
+        ];
+      };
+  in {
     nixosConfigurations = {
-      nixos = nixpkgs.lib.nixosSystem {
-        system = "x86_64-linux";
-        # Use specialArgs to forward parameters to external configuration modules
-        specialArgs = attrs;
-        modules =
-          [
-            ./configuration.nix
-            ./modules/audio.nix
-            ./modules/desktop.nix
-            ./modules/users.nix
-            ./modules/boot.nix
-          ];
+      nixos = defFlakeSystem "x86_64-linux" {
+        imports = [./machines/virtualbox-guest.nix];
       };
     };
   };

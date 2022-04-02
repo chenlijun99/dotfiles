@@ -1,5 +1,7 @@
-{ ... }:
-{
+#
+# System-wide configuration related to desktop environment
+#
+{pkgs, ...}: {
   services.xserver = {
     enable = true;
     displayManager.sddm.enable = true;
@@ -9,6 +11,9 @@
     libinput.enable = true; # for touchpad support on many laptops
   };
 
-  # Enable sound in virtualbox appliances.
-  hardware.pulseaudio.enable = true;
+  environment.systemPackages = with pkgs; [
+    latte-dock
+    vim
+    latte-dock
+  ];
 }
