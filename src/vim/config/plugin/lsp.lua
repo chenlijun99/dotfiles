@@ -37,6 +37,18 @@ Plug("williamboman/nvim-lsp-installer", {
 			--     opts.root_dir = function() ... end
 			-- end
 
+			-- Workaround "warning: multiple different client offset_encodings
+			-- detected for buffer" Which is caused by the fact that Neovim
+			-- currently doesn't support multipe LSP offset_encodings settings in the same buffer.
+			-- But we use both clangd and null.ls (clang-format, cppcheck,
+			-- etc), but they have conflicting offset_encodings apparently.
+			-- See
+			-- * https://github.com/jose-elias-alvarez/null-ls.nvim/issues/428
+			-- * https://github.com/neovim/neovim/pull/16694#issuecomment-996947306: where I got the workaround
+			if server.name == "clangd" then
+				opts.capabilities.offsetEncoding = { "utf-16" }
+			end
+
 			-- This setup() function will take the provided server configuration and decorate it with the necessary properties
 			-- before passing it onwards to lspconfig.
 			-- Refer to https://github.com/neovim/nvim-lspconfig/blob/master/doc/server_configurations.md
