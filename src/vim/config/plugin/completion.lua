@@ -144,17 +144,9 @@ Plug("hrsh7th/nvim-cmp", {
 				behavior = cmp.ConfirmBehavior.Replace,
 				select = false,
 			},
-			documentation = {
-				border = {
-					"╭",
-					"─",
-					"╮",
-					"│",
-					"╯",
-					"─",
-					"╰",
-					"│",
-				},
+			window = {
+				--completion = cmp.config.window.bordered(),
+				documentation = cmp.config.window.bordered(),
 			},
 		})
 
