@@ -23,7 +23,6 @@ Plug("kyazdani42/nvim-tree.lua", {
 		g.nvim_tree_add_trailing = 0
 		g.nvim_tree_git_hl = 0
 		g.nvim_tree_highlight_opened_files = 0
-		g.nvim_tree_indent_markers = 1
 		g.nvim_tree_root_folder_modifier = table.concat({
 			":t:gs?$?/..",
 			string.rep(" ", 1000),
@@ -153,6 +152,11 @@ Plug("kyazdani42/nvim-tree.lua", {
 				mappings = {
 					custom_only = true,
 					list = mappings_list,
+				},
+			},
+			renderer = {
+				indent_markers = {
+					enable = true,
 				},
 			},
 		})
