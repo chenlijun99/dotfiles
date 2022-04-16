@@ -5,6 +5,7 @@
   imports = [
     ./hardware-configuration.nix
     ../../modules/common.nix
+    ../../modules/base.nix
     ../../modules/dev.nix
     ../../modules/desktop.nix
     ../../modules/audio.nix

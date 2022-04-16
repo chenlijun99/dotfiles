@@ -6,6 +6,7 @@
 }: {
   imports = [
     ../common/lijun-base/home.nix
+    ../common/kde-config/default.nix
   ];
   home = {
     username = "lijun-test";

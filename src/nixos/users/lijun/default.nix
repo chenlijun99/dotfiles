@@ -1,3 +1,4 @@
+# "lijun" is the user that I normally use, for everything.
 {...}: {
   users.users = {
     lijun = {
