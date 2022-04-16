@@ -25,16 +25,19 @@
               inputs = inputs;
             };
           }
+          # Include the home-manager NixOS module
           home-manager.nixosModules.home-manager
           {
+            # Pass flake inputs to home manager modules
             home-manager.extraSpecialArgs = {inherit inputs;};
           }
+          # Apply baseCfg
           baseCfg
         ];
       };
   in {
     nixosConfigurations = {
-      nixos = defFlakeSystem "x86_64-linux" {
+      "virtualbox-guest" = defFlakeSystem "x86_64-linux" {
         imports = [./machines/virtualbox-guest];
       };
       "thinkpad-l390-yoga" = defFlakeSystem "x86_64-linux" {

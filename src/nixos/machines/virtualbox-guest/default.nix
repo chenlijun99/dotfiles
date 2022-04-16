@@ -13,6 +13,9 @@
 
   virtualisation.virtualbox.guest.enable = true;
 
+  # Define your hostname.
+  networking.hostName = "lijun-virtualbox-guest";
+
   boot = {
     # The docs says: Whether to enable grow the root partition on boot.
     # Probably to allow the dynamically allocated disk size in VirtualBox
