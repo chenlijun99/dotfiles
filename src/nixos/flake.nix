@@ -35,6 +35,20 @@
           baseCfg
         ];
       };
+    # Function to create a Flake-based home configuration
+    defFlakeHome = system: username:
+    # Check https://github.com/nix-community/home-manager/blob/master/flake.nix
+    # for arguments of home-manager.lib.homeManagerConfiguration
+      home-manager.lib.homeManagerConfiguration {
+        inherit system username;
+        extraSpecialArgs = {inherit inputs;};
+        homeDirectory = "/home/${username}";
+        configuration = import ./users/${username}/home.nix;
+        # Update the state version as needed.
+        # See the changelog here:
+        # https://nix-community.github.io/home-manager/release-notes.html#sec-release-21.05
+        stateVersion = "21.11";
+      };
   in {
     nixosConfigurations = {
       "virtualbox-guest" = defFlakeSystem "x86_64-linux" {
@@ -43,6 +57,10 @@
       "thinkpad-l390-yoga" = defFlakeSystem "x86_64-linux" {
         imports = [./machines/thinkpad-l390-yoga];
       };
+    };
+    homeConfigurations = {
+      "lijun" = defFlakeHome "x86_64-linux" "lijun";
+      "lijun-test" = defFlakeHome "x86_64-linux" "lijun-test";
     };
   };
 }

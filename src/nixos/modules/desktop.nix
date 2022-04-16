@@ -10,4 +10,11 @@
     };
     libinput.enable = true; # for touchpad support on many laptops
   };
+
+  # Install fonts
+  # I use this font in terminal emulator
+  fonts.fonts = with pkgs; [
+    # My Alacritty config uses NerdFont patched Hack
+    (nerdfonts.override {fonts = ["Hack"];})
+  ];
 }

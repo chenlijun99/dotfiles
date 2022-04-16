@@ -21,6 +21,17 @@ To re-build the OS, run:
 $ nixos-rebuild switch  --flake ./src/nixos#<config name>
 ```
 
+### Home manager
+
+The provided NixOS configuration already integrates Home Manager. Every NixOS system selects which user to include (together with their home manager configuration).
+But Home Manager can also be use standalone. To activate an user home configuration manually.
+
+```sh
+$ home-manager switch --flake ./src/nixos#<user>
+```
+
+This is useful when debugging home-manager specific Nix expressions.
+
 ## Dependencies
 
 ### i3wm

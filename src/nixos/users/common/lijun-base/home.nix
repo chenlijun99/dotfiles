@@ -20,7 +20,6 @@
       # My terminal of choice
       alacritty
       fzf
-      latte-dock
       # I never use it, but it may be useful
       vscode
     ];

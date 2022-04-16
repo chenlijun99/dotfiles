@@ -1,3 +1,4 @@
+# "test" is a fresh user, with none of my customizations
 {...}: {
   users.users = {
     test = {

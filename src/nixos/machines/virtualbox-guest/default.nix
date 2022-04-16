@@ -4,9 +4,11 @@
 {...}: {
   imports = [
     ../../modules/common.nix
+    ../../modules/base.nix
     ../../modules/dev.nix
     ../../modules/desktop.nix
     ../../modules/audio.nix
+    ../../users/lijun
     ../../users/lijun-test
     ../../users/test
   ];
