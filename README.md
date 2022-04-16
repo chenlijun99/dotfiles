@@ -11,6 +11,16 @@ sudo ./install_system.sh
 
 Open a new shell.
 
+## NixOS
+
+[src/nixos](./src/nixos/) contains my flake-based NixOS configuration.
+
+To re-build the OS, run:
+
+```sh
+$ nixos-rebuild switch  --flake ./src/nixos#<config name>
+```
+
 ## Dependencies
 
 ### i3wm
