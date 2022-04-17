@@ -6,6 +6,10 @@
   inputs,
   ...
 }: {
+  imports = [
+    ./base.nix
+    ./overlays.nix
+  ];
   nix = {
     # From the docs:
     # This option specifies the Nix package instance to use throughout the system.
@@ -25,3 +29,4 @@
   # of this flake.
   system.configurationRevision = with inputs; nixpkgs.lib.mkIf (self ? rev) self.rev;
 }
+

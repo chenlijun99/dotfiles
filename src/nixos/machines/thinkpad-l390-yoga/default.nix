@@ -4,8 +4,6 @@
 {...}: {
   imports = [
     ./hardware-configuration.nix
-    ../../modules/common.nix
-    ../../modules/base.nix
     ../../modules/base-gui.nix
     ../../modules/dev.nix
     ../../modules/desktop.nix

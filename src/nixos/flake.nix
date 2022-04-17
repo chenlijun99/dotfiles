@@ -22,7 +22,7 @@
           {
             # Introduce additional module parameters
             _module.args = {
-              inputs = inputs;
+              inherit inputs;
             };
           }
           # Include the home-manager NixOS module
@@ -30,6 +30,11 @@
           {
             # Pass flake inputs to home manager modules
             home-manager.extraSpecialArgs = {inherit inputs;};
+          }
+          {
+            imports = [
+              ./modules/common
+            ];
           }
           # Apply baseCfg
           baseCfg
