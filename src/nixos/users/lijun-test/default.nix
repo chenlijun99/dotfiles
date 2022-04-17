@@ -1,5 +1,5 @@
 # "lijun-test" is a user that has the same development environment to which I
-# am used, but not all the other stuff (note taking, messaing, etc.).
+# am used, but not all the other stuff (note taking, messaging, etc.).
 {...}: {
   users.users = {
     lijun-test = {
