@@ -9,6 +9,8 @@
   nixpkgs.config.allowUnfree = true;
   environment.systemPackages = with pkgs; [
     gparted
+    # Main browser that all the users can use
+    firefox
   ];
 
   # Input method for chinese
