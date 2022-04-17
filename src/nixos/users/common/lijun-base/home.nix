@@ -34,6 +34,12 @@
       libsForQt5.filelight
       # Latex
       texlive.combined.scheme-medium
+      plantuml
+      graphviz
+      doxygen
+      drawio
+      pandoc
+      libreoffice
       ##
       # Dev tools (formatters, linters, etc)
       ##

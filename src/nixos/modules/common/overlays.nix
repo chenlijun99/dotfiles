@@ -25,6 +25,8 @@ in {
       alejandra = pkgs-unstable.alejandra;
       home-manager = pkgs-unstable.home-manager;
       flameshot = pkgs-unstable.flameshot;
+      drawio = pkgs-unstable.drawio;
+      zotero = pkgs-unstable.zotero;
     })
   ];
 }
