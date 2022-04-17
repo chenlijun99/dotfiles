@@ -40,6 +40,7 @@
       drawio
       pandoc
       libreoffice
+      vlc
       ##
       # Dev tools (formatters, linters, etc)
       ##
