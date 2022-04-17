@@ -335,6 +335,21 @@ in {
       wmclasscomplete = true;
       wmclassmatch = 2;
     };
+    "9" = {
+      Description = "Application settings for slack";
+      clientmachine = "localhost";
+      desktops = desktops.Id_2;
+      desktopsrule = 3;
+      wmclass = "slack";
+      wmclassmatch = 1;
+    };
+    "10" = {
+      Description = "Application settings for Obsidian";
+      desktops = desktops.Id_2;
+      desktopsrule = 3;
+      wmclass = "obsidian";
+      wmclassmatch = 1;
+    };
     General.count = 8;
   };
   kxkbrc = {
