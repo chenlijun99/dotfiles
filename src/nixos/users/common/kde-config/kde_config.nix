@@ -354,7 +354,7 @@ in {
   };
   kxkbrc = {
     Layout = {
-      LayoutList = "us,it,cn(altgr-pinyin)";
+      LayoutList = "us";
       Options = "compose:rctrl";
       SwitchMode = "Global";
       Use = true;
