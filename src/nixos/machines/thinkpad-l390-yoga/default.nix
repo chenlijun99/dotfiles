@@ -6,10 +6,13 @@
     ./hardware-configuration.nix
     ../../modules/common.nix
     ../../modules/base.nix
+    ../../modules/base-gui.nix
     ../../modules/dev.nix
     ../../modules/desktop.nix
     ../../modules/audio.nix
     ../../modules/bluetooth.nix
+    ../../modules/docker.nix
+    ../../modules/virtualbox.nix
     ../../users/lijun
     ../../users/lijun-test
     ../../users/test

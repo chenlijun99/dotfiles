@@ -1,5 +1,5 @@
 #
-# System-wide configuration related to audio
+# System-wide configuration related to bluetooth
 #
 {...}: {
   hardware.bluetooth.enable = true;

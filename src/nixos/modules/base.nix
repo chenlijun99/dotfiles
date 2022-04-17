@@ -13,6 +13,7 @@
       git
       git-lfs
       tldr
+      htop
     ]
     ++ (let
       pkgs-unstable = import inputs.nixpkgs-unstable {
