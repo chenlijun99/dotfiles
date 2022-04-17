@@ -28,6 +28,10 @@
           # Include the home-manager NixOS module
           home-manager.nixosModules.home-manager
           {
+            # See https://nix-community.github.io/home-manager/index.html
+            # why the following two options are useful
+            home-manager.useUserPackages = true;
+            home-manager.useGlobalPkgs = true;
             # Pass flake inputs to home manager modules
             home-manager.extraSpecialArgs = {inherit inputs;};
           }

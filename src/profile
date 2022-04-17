@@ -50,4 +50,15 @@ if [[ $? -eq 0 ]] ; then
 	PATH=$PATH:$GOROOT/bin:$GOPATH/bin
 fi
 
+
+# Since we're not using home-manager to manage our shell configuration
+# we need to source one of the following files
+#
+# See https://nix-community.github.io/home-manager/index.html
+if [[ -f "$HOME/.nix-profile/etc/profile.d/hm-session-vars.sh" ]] ; then
+	. "$HOME/.nix-profile/etc/profile.d/hm-session-vars.sh"
+elif [[ -f "/etc/profiles/per-user/${USER}/etc/profile.d/hm-session-vars.sh" ]]; then
+	. "/etc/profiles/per-user/$USER/etc/profile.d/hm-session-vars.sh"
+fi
+
 export PATH
