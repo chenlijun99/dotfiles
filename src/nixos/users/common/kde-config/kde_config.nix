@@ -331,17 +331,17 @@ in {
       clientmachinematch = 0;
       desktops = desktops.Id_2;
       desktopsrule = 3;
-      wmclass = "navigator firefox-default";
+      wmclass = "navigator firefox";
       wmclasscomplete = true;
       wmclassmatch = 2;
     };
     "9" = {
       Description = "Application settings for slack";
       clientmachine = "localhost";
-      desktops = desktops.Id_2;
+      desktops = desktops.Id_3;
       desktopsrule = 3;
       wmclass = "slack";
-      wmclassmatch = 1;
+      wmclassmatch = 2;
     };
     "10" = {
       Description = "Application settings for Obsidian";
