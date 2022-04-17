@@ -9,6 +9,7 @@
     ../../modules/dev.nix
     ../../modules/desktop.nix
     ../../modules/audio.nix
+    ../../modules/bluetooth.nix
     ../../users/lijun
     ../../users/lijun-test
     ../../users/test
