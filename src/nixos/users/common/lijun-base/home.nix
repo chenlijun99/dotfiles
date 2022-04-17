@@ -26,15 +26,21 @@
       vscode
       # Lightweight PDF reader
       zathura
-
-      gdb
-      clang_12
-      # C/C++ debugger based on LLVM
-      lldb
-
+      # For offline documentation 
+      zeal
+      # Screenshot tool
+      flameshot
+      # Disk usage statistics
+      libsForQt5.filelight
+      # Latex
+      texlive.combined.scheme-medium
       ##
       # Dev tools (formatters, linters, etc)
       ##
+      gdb
+      # C/C++ debugger based on LLVM
+      lldb
+      clang_12
       # Yaml linter
       yamllint
       # Lua formatter

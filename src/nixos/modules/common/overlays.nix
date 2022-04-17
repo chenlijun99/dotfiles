@@ -19,11 +19,12 @@
   };
 in {
   nixpkgs.overlays = [
-    (self: super: {
+    (final: prev: {
       neovim = pkgs-unstable.neovim;
       # Nix formatter
       alejandra = pkgs-unstable.alejandra;
       home-manager = pkgs-unstable.home-manager;
+      flameshot = pkgs-unstable.flameshot;
     })
   ];
 }
