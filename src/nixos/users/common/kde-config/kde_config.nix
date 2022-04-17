@@ -38,6 +38,12 @@ in {
       Placement = "Smart";
       TitlebarDoubleClickCommand = "Maximize";
     };
+    Plugins = {
+      # Use fade animation rather than slide animation when switching virtual
+      # desktop. The later is too distracting IMHO.
+      kwin4_effect_fadedesktopEnabled = true;
+      slideEnabled = false;
+    };
   };
   kdeglobals.KDE.SingleClick = false;
   #
