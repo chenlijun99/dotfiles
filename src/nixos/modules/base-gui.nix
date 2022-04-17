@@ -15,7 +15,7 @@
 
   # Input method for chinese
   i18n.inputMethod.enabled = "ibus";
-  i18n.inputMethod.ibus.engines = with pkgs.ibus-engines; [libpinyin];
+  i18n.inputMethod.ibus.engines = with pkgs.ibus-engines; [rime];
 
   # Install fonts
   # See https://nixos.wiki/wiki/Fonts
