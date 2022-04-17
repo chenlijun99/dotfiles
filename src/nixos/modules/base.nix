@@ -14,6 +14,7 @@
       git-lfs
       tldr
       htop
+      vifm
     ]
     ++ (let
       pkgs-unstable = import inputs.nixpkgs-unstable {

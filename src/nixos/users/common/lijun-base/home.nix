@@ -1,3 +1,5 @@
+# "lijun-base" contains everything that I normally use to work, excluding
+# stuff such as note taking, messaging, etc.
 {
   config,
   pkgs,
@@ -22,6 +24,8 @@
       fzf
       # I never use it, but it may be useful
       vscode
+      # Lightweight PDF reader
+      zathura
     ];
   };
 }
