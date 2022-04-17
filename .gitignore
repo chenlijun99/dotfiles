@@ -299,6 +299,7 @@ TSWLatexianTemp*
 ## vifm ##
 src/vifm/lastdir
 src/vifm/vifminfo
+src/vifm/vifminfo.json
 src/vifm/vimfiles
 src/vifm/Trash/
 
