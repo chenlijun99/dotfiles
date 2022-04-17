@@ -329,10 +329,10 @@ in {
       Description = "Application settings for firefox";
       clientmachine = "localhost";
       clientmachinematch = 0;
-      desktops = desktops.Id_3;
+      desktops = desktops.Id_2;
       desktopsrule = 3;
-      wmclass = "navigator firefox";
-      wmclasscomplete = false;
+      wmclass = "navigator firefox-default";
+      wmclasscomplete = true;
       wmclassmatch = 2;
     };
     General.count = 8;
