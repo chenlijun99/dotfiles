@@ -26,6 +26,28 @@
       vscode
       # Lightweight PDF reader
       zathura
+
+      gdb
+      clang_12
+      # C/C++ debugger based on LLVM
+      lldb
+
+      ##
+      # Dev tools (formatters, linters, etc)
+      ##
+      # Yaml linter
+      yamllint
+      # Lua formatter
+      stylua
+      # Language server, clang-format, clang-tidy
+      clang-tools
+      # Assembly formatter
+      asmfmt
+      cmake-format
+      shellcheck
+      cppcheck
+      lua53Packages.luacheck
+      black
     ];
   };
 }

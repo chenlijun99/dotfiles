@@ -18,8 +18,6 @@
     python38
     # Package manager from Rust
     cargo
-    # Main browser that all the users can use
-    firefox
   ];
 
   programs.zsh.enable = true;
