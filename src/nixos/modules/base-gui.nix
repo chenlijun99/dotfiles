@@ -10,7 +10,11 @@
   environment.systemPackages = with pkgs; [
     gparted
     # Main browser that all the users can use
-    firefox
+    # This is a prebuilt binary from Mozilla.
+    # NixOS provides also "firefox", which is built using Nix.
+    #
+    # NOTE: We use this because it doesn't cause problems with Latte-dock.
+    firefox-bin
   ];
 
   # Input method for chinese
