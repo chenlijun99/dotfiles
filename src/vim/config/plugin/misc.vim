@@ -74,6 +74,10 @@ Plug 'tpope/vim-surround',
 			\ '<Plug>YSsurround', '<Plug>VSurround', '<Plug>VgSurround'] }
 xmap S <Plug>VSurround
 "}}}
+" tpope/vim-sleuth {{{
+" Adjusts 'shiftwidth' and 'expandtab' heuristically based on the current file
+Plug 'tpope/vim-sleuth'
+"}}}
 
 " mbbill/undotree {{{
 Plug 'mbbill/undotree', { 'on': ['UndotreeToggle'] }
