@@ -41,6 +41,8 @@
       pandoc
       libreoffice
       vlc
+      # Protect my eyes
+      safeeyes
       ##
       # Dev tools (formatters, linters, etc)
       ##
