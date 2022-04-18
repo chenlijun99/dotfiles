@@ -15,10 +15,20 @@ Open a new shell.
 
 [src/nixos](./src/nixos/) contains my flake-based NixOS configuration.
 
-To re-build the OS, run:
+To build the OS, run:
 
 ```sh
 $ nixos-rebuild switch  --flake ./src/nixos#<config name>
+```
+
+To update one of the flake inputs, run:
+
+```sh
+$ cd ./src/nixos/ && nix flake lock --update-input <input>
+# Note that the --update-input can be also used with other `nix flake` commands.
+# So you can also run
+$ nixos-rebuild switch --flake ./src/nixos#<config name> --update-input <input>
+# This let's you update the flake and re-build the OS in one command
 ```
 
 ### Home manager
