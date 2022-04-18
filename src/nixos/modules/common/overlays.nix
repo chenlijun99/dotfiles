@@ -1,4 +1,4 @@
-# 
+#
 # This file centrally handles al the overlays
 #
 {
@@ -27,6 +27,8 @@ in {
       flameshot = pkgs-unstable.flameshot;
       drawio = pkgs-unstable.drawio;
       zotero = pkgs-unstable.zotero;
+      # Older version from pkgs doesn't support my vaults
+      cryptomator = pkgs-unstable.cryptomator;
     })
   ];
 }
