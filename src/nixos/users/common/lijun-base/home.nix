@@ -51,8 +51,11 @@
       # C/C++ debugger based on LLVM
       lldb
       clang_12
-      # Yaml linter
       yamllint
+      nodePackages.markdownlint-cli
+      nodePackages.stylelint
+      nodePackages.eslint_d
+      nodePackages.prettier
       # Lua formatter
       stylua
       # Language server, clang-format, clang-tidy
