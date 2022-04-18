@@ -16,6 +16,7 @@
     packages = with pkgs; [
       # Cloud drive
       pcloud
+      cryptomator
       # Citation manager
       zotero
       # Note taking app
