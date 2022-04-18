@@ -41,19 +41,6 @@ Plug 'junegunn/rainbow_parentheses.vim'
 " junegunn/vim-easy-align {{{
 Plug 'junegunn/vim-easy-align', { 'on' : ['EasyAlign'] }
 " }}}
-" sheerun/vim-polyglot {{{
-
-" See https://github.com/sheerun/vim-polyglot/issues/779 for why we freeze to
-" this commit. In short we use Neovim, which doesn't support Vimscript9
-Plug 'sheerun/vim-polyglot', { 'commit': '2c5af8f8' }
-" workaround to issue #162
-" I don't want all js files to be treated as jsx files
-let g:jsx_ext_required = 1
-
-" Don't use LaTeX-Box. I'm already using vimtex plugin for LaTeX
-" Don't use for markdown. Too laggy
-let g:polyglot_disabled = ['latex', 'markdown']
-" }}}
 
 " jiangmiao/auto-pairs {{{
 Plug 'jiangmiao/auto-pairs'
