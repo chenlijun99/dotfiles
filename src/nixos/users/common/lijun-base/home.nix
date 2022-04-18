@@ -26,7 +26,7 @@
       vscode
       # Lightweight PDF reader
       zathura
-      # For offline documentation 
+      # For offline documentation
       zeal
       # Screenshot tool
       flameshot
@@ -40,6 +40,7 @@
       drawio
       pandoc
       libreoffice
+      xournalpp
       vlc
       # Protect my eyes
       safeeyes
