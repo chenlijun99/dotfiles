@@ -1,6 +1,5 @@
 " enter normal mode by pressing keys of homerow
 inoremap jk <Esc>
-cnoremap jk <c-c>
 
 " in-line scrolling
 noremap j gj
