@@ -1,9 +1,9 @@
 " enter normal mode by pressing keys of homerow
 inoremap jk <Esc>
 
-" in-line scrolling
-noremap j gj
-noremap k gk
+" in-line scrolling, unless when doing <count>j or <count>k
+nnoremap <expr> j v:count ? 'j' : 'gj'
+nnoremap <expr> k v:count ? 'k' : 'gk'
 
 " when jumping always put cursor at center of screen
 nnoremap <c-d> <c-d>zz
