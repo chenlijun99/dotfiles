@@ -129,8 +129,8 @@ Plug("hrsh7th/nvim-cmp", {
 			},
 			sources = cmp.config.sources({
 				{ name = "nvim_lsp" },
-			}, {
 				{ name = "luasnip" },
+			}, {
 				{ name = "path" },
 				{
 					name = "buffer",
