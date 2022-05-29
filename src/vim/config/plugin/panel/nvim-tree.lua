@@ -17,46 +17,6 @@ Plug("kyazdani42/nvim-tree.lua", {
 			{ noremap = true }
 		)
 
-		local g = vim.g
-
-		g.nvim_tree_respect_buf_cwd = 1
-		g.nvim_tree_add_trailing = 0
-		g.nvim_tree_git_hl = 0
-		g.nvim_tree_highlight_opened_files = 0
-		g.nvim_tree_root_folder_modifier = table.concat({
-			":t:gs?$?/..",
-			string.rep(" ", 1000),
-			"?:gs?^??",
-		})
-
-		g.nvim_tree_show_icons = {
-			folders = 1,
-			files = 1,
-			git = 1,
-		}
-
-		g.nvim_tree_icons = {
-			default = "",
-			symlink = "",
-			git = {
-				deleted = "",
-				ignored = "◌",
-				renamed = "➜",
-				staged = "✓",
-				unmerged = "",
-				unstaged = "✗",
-				untracked = "★",
-			},
-			folder = {
-				default = "",
-				empty = "",
-				empty_open = "",
-				open = "",
-				symlink = "",
-				symlink_open = "",
-			},
-		}
-
 		local mappings_list = {
 			{ key = { "<CR>", "o", "<2-LeftMouse>" }, action = "edit" },
 			{
@@ -132,10 +92,10 @@ Plug("kyazdani42/nvim-tree.lua", {
 			filters = {
 				dotfiles = false,
 			},
+			respect_buf_cwd = true,
 			disable_netrw = false,
 			hijack_netrw = true,
 			ignore_ft_on_setup = { "dashboard" },
-			auto_close = false,
 			open_on_tab = false,
 			hijack_cursor = true,
 			hijack_unnamed_buffer_when_opening = false,
@@ -145,7 +105,6 @@ Plug("kyazdani42/nvim-tree.lua", {
 				update_cwd = false,
 			},
 			view = {
-				allow_resize = true,
 				side = "left",
 				width = 25,
 				hide_root_folder = true,
@@ -155,6 +114,21 @@ Plug("kyazdani42/nvim-tree.lua", {
 				},
 			},
 			renderer = {
+				add_trailing = false,
+				highlight_git = false,
+				highlight_opened_files = "none",
+				root_folder_modifier = table.concat({
+					":t:gs?$?/..",
+					string.rep(" ", 1000),
+					"?:gs?^??",
+				}),
+				icons = {
+					show = {
+						file = true,
+						folder = true,
+						folder_arrow = true,
+					}
+				},
 				indent_markers = {
 					enable = true,
 				},
