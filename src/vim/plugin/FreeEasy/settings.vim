@@ -126,7 +126,12 @@ set guioptions=a
 " }}}
 
 " Undo {{{
-let s:undo_dir = $HOME . "/.vim/undo"
+if has('nvim')
+	" Vim and Neovim have incompatible undo files
+	let s:undo_dir = $HOME . "/.vim/undo-nvim/"
+else
+	let s:undo_dir = $HOME . "/.vim/undo"
+endif
 if !isdirectory(s:undo_dir)
 	call system("mkdir " . s:undo_dir)
 endif
