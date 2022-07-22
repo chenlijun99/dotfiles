@@ -124,6 +124,12 @@ Plug("neovim/nvim-lspconfig", {
 			"<cmd>lua vim.lsp.buf.formatting()<CR>",
 			opts
 		)
+		vim.api.nvim_set_keymap(
+			"v",
+			"<leader>lf",
+			"<cmd>lua vim.lsp.buf.range_formatting()<CR>",
+			opts
+		)
 
 		which_key_map.l.i = "Code action"
 		vim.api.nvim_set_keymap("n", "<leader>li", "<cmd>LspInfo<cr>", opts)
