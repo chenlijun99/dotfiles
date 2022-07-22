@@ -89,6 +89,8 @@ Plug("kyazdani42/nvim-tree.lua", {
 		}
 
 		require("nvim-tree").setup({
+			-- Disable auto refresh on save, since it introduces lags
+			auto_reload_on_write = false,
 			filters = {
 				dotfiles = false,
 			},
@@ -127,7 +129,7 @@ Plug("kyazdani42/nvim-tree.lua", {
 						file = true,
 						folder = true,
 						folder_arrow = true,
-					}
+					},
 				},
 				indent_markers = {
 					enable = true,
