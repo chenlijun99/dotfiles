@@ -59,6 +59,17 @@ if has('patch-8.2.2490') || has('nvim-0.5')
 	set diffopt+=followwrap
 endif
 
+" While the performance problems that I suffered don't seem to be related to
+" shell setting, it seems that to many this setting indeed causes performance
+" problem. See
+" 
+" * Fugitive: https://github.com/tpope/vim-fugitive/issues/1492
+" * nvim-tree: https://github.com/kyazdani42/nvim-tree.lua#performance-issues
+"
+" So let's take the suggetion and set bash as shell.
+"
+let &shell="/usr/bin/env bash"
+
 " wrap {{{
 " don't wrap even when a line is longer than the width of the window
 set nowrap
