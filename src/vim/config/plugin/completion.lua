@@ -39,6 +39,7 @@ Plug("hrsh7th/cmp-nvim-lsp")
 Plug("hrsh7th/cmp-buffer")
 Plug("hrsh7th/cmp-path")
 Plug("hrsh7th/cmp-cmdline")
+Plug("hrsh7th/cmp-nvim-lsp-signature-help")
 Plug("hrsh7th/nvim-cmp", {
 	config = function()
 		-- Setup nvim-cmp.
@@ -129,6 +130,7 @@ Plug("hrsh7th/nvim-cmp", {
 			},
 			sources = cmp.config.sources({
 				{ name = "nvim_lsp" },
+				{ name = 'nvim_lsp_signature_help' },
 				{ name = "luasnip" },
 			}, {
 				{ name = "path" },
