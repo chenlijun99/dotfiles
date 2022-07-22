@@ -3,7 +3,6 @@ setlocal lazyredraw
 setlocal shiftwidth=4
 setlocal tabstop=4
 setlocal expandtab
-setlocal conceallevel=2
 setlocal formatoptions-=t
 setlocal wrap
 
