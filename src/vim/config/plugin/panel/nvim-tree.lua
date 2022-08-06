@@ -103,7 +103,8 @@ Plug("kyazdani42/nvim-tree.lua", {
 			hijack_unnamed_buffer_when_opening = false,
 			update_cwd = true,
 			update_focused_file = {
-				enable = true,
+				-- Doesn't work well with nvim-hop multi-window jump
+				enable = false,
 				update_cwd = false,
 			},
 			view = {

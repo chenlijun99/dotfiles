@@ -53,14 +53,6 @@ Plug 'mhinz/vim-startify'
 let g:startify_change_to_dir = 0
 " }}}
 
-" easymotion/vim-easymotion {{{
-Plug 'easymotion/vim-easymotion' , { 'on' : '<Plug>(easymotion-prefix)' }
-
-" m for move
-map m <Plug>(easymotion-prefix)
-map mm ms
-"}}}
-
 "tpope/vim-dispatch {{{
 Plug 'tpope/vim-dispatch', { 'on': ['Dispatch', 'Make', 'Start'] }
 "}}}
