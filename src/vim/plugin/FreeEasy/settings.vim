@@ -148,6 +148,9 @@ if !isdirectory(s:undo_dir)
 endif
 let &undodir=s:undo_dir
 set undofile
+
+" Disable undo persistence for ApprovalTests.cpp files
+autocmd BufReadPre *.approved.txt setlocal noundofile
 " }}}
 
 " Terminal {{{
