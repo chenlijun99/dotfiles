@@ -4,7 +4,7 @@ Plug("phaazon/hop.nvim", {
 
 		which_key_map.j = "Jump"
 		local opts = { noremap = true, silent = true }
-		vim.api.nvim_set_keymap("", "f", "<cmd>HopChar1<CR>", opts)
-		vim.api.nvim_set_keymap("n", "f", "<cmd>HopChar1MW<CR>", opts)
+		vim.api.nvim_set_keymap("", "<leader>j", "<cmd>HopChar1<CR>", opts)
+		vim.api.nvim_set_keymap("n", "<leader>j", "<cmd>HopChar1MW<CR>", opts)
 	end,
 })

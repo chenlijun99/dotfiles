@@ -8,5 +8,5 @@ endif
 Plug 'easymotion/vim-easymotion'
 
 let g:which_key_map.j = 'Jump'
-map  f <Plug>(easymotion-bd-f)
-nmap f <Plug>(easymotion-overwin-f)
+map  <leader>j <Plug>(easymotion-bd-f)
+nmap <leader>j <Plug>(easymotion-overwin-f)
