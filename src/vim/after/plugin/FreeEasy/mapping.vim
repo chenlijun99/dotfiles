@@ -24,6 +24,12 @@ xnoremap <silent> P P:let @+=@0<CR>:let @"=@0<CR>
 nnoremap <c-]> g<c-]>
 vnoremap <c-]> g<c-]>
 
+let g:which_key_map.w =  'Save all'
+nnoremap <silent> <leader>w :wa<cr>
+" Fix compulsive saving habit
+ca w smile
+ca wa smile
+
 let g:which_key_map.m.c =  'configure vimrc'
 nnoremap <silent> <leader>mc :vsplit $MYVIMRC<cr>
 let g:which_key_map.m.C = 'update vimrc'
