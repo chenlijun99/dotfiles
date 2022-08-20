@@ -81,5 +81,9 @@ nnoremap <leader>u :UndotreeToggle<CR>
 Plug 'rickhowe/diffchar.vim'
 " }}}
 
+" romainl/vim-cool {{{
+Plug 'romainl/vim-cool'
+" }}}
+
 " set modeline
 " vim: foldlevel=0 foldmethod=marker
