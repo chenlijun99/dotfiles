@@ -30,6 +30,22 @@ nnoremap <silent> <leader>w :wa<cr>
 ca w smile
 ca wa smile
 
+let g:which_key_map.s = { 'name': '+Split' }
+let g:which_key_map.s.v = "Vertical"
+nnoremap <silent> <leader>sv :vsplit<cr>
+let g:which_key_map.s.h = "Horizontal"
+nnoremap <silent> <leader>sh :split<cr>
+
+let g:which_key_map.t = { 'name': '+Tab' }
+let g:which_key_map.t.n = "New"
+nnoremap <silent> <leader>to :tabnew<cr>
+let g:which_key_map.t.c = "Close"
+nnoremap <silent> <leader>tc :tabclose<cr>
+let g:which_key_map.t.v = "Next"
+nnoremap <silent> <leader>tn :tabnext<cr>
+let g:which_key_map.t.h = "Previous"
+nnoremap <silent> <leader>tN :tabprevious<cr>
+
 let g:which_key_map.m.c =  'configure vimrc'
 nnoremap <silent> <leader>mc :vsplit $MYVIMRC<cr>
 let g:which_key_map.m.C = 'update vimrc'
