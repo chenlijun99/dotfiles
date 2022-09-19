@@ -117,6 +117,21 @@ Plug("neovim/nvim-lspconfig", {
 			opts
 		)
 
+		which_key_map.l.s = "Document symbols"
+		vim.api.nvim_set_keymap(
+			"n",
+			"<leader>ls",
+			"<cmd>lua vim.lsp.buf.document_symbol()<CR>",
+			opts
+		)
+		which_key_map.l.S = "Workspace symbols"
+		vim.api.nvim_set_keymap(
+			"n",
+			"<leader>lS",
+			"<cmd>lua vim.lsp.buf.workspace_symbol()<CR>",
+			opts
+		)
+
 		which_key_map.l.f = "Format"
 		vim.api.nvim_set_keymap(
 			"n",
