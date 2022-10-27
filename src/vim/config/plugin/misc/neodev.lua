@@ -1,9 +1,9 @@
 -- Provides more intellisense when editing neovim lua config files
-Plug("folke/lua-dev.nvim", {
+Plug("folke/neodev.nvim", {
 	config = function()
-		local luadev = require("lua-dev").setup({})
+		local neodev = require("neodev").setup({})
 
 		local lspconfig = require("lspconfig")
-		lspconfig.sumneko_lua.setup(luadev)
+		lspconfig.sumneko_lua.setup(neodev)
 	end,
 })
