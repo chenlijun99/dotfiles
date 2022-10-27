@@ -13,9 +13,7 @@ Plug("williamboman/nvim-lsp-installer", {
 		-- or if the server is already installed).
 		lsp_installer.on_server_ready(function(server)
 			-- Add also the lsp capabilities introduced by cmp_nvim_lsp
-			local capabilities = cmp_nvim_lsp.update_capabilities(
-				vim.lsp.protocol.make_client_capabilities()
-			)
+			local capabilities = cmp_nvim_lsp.default_capabilities()
 
 			local opts = {
 				-- This will be the default in neovim 0.7+
@@ -26,8 +24,9 @@ Plug("williamboman/nvim-lsp-installer", {
 					-- null-ls.nvim to do that and we don't want
 					-- neovim to ask everytime which one we want
 					-- to use
-					client.resolved_capabilities.document_formatting = false
-					client.resolved_capabilities.document_range_formatting =
+					client.server_capabilities.documentFormattingProvider =
+						false
+					client.server_capabilities.documentRangeFormattingProvider =
 						false
 				end,
 			}
@@ -136,7 +135,7 @@ Plug("neovim/nvim-lspconfig", {
 		vim.api.nvim_set_keymap(
 			"n",
 			"<leader>lf",
-			"<cmd>lua vim.lsp.buf.formatting()<CR>",
+			"<cmd>lua vim.lsp.buf.format{ async = true }<CR>",
 			opts
 		)
 		vim.api.nvim_set_keymap(
