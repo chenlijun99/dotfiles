@@ -48,6 +48,13 @@ Plug("williamboman/nvim-lsp-installer", {
 				opts.capabilities.offsetEncoding = { "utf-16" }
 			end
 
+			if server.name == "tsserver" then
+				--- Use only .git as root pattern, to avoid one tsserver to be 
+				--- spawned for each package.json in a monorepo.
+				--- See https://neovim.discourse.group/t/slow-lsp-on-large-ts-monorepo-project-caching/2668
+				opts.root_dir = require('lspconfig.util').root_pattern('.git')
+			end
+
 			-- This setup() function will take the provided server configuration and decorate it with the necessary properties
 			-- before passing it onwards to lspconfig.
 			-- Refer to https://github.com/neovim/nvim-lspconfig/blob/master/doc/server_configurations.md
