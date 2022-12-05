@@ -81,7 +81,14 @@ plugins+=(vi-mode my-zsh-vi)
 # Because we have a tmux plugin that relies on fzf and assumes that fzf
 # is in PATH. The fzf plugin (from zsh) takes care of adding fzf to PATH.
 plugins+=(fzf)
-export ZSH_TMUX_AUTOSTART=true
+
+# Autostart tmux unless DISABLE_TMUX_AUTOSTART is true
+# I set DISABLE_TMUX_AUTOSTART in Konsole terminal, so that when I open
+# Konsole inside Dolphin, that terminal doesn't have Tmux.
+if [ "$DISABLE_TMUX_AUTOSTART" != "true" ]
+then
+    export ZSH_TMUX_AUTOSTART=true
+fi
 export ZSH_TMUX_FIXTERM=true
 plugins+=(tmux)
 
@@ -155,4 +162,28 @@ setopt share_history
 
 # To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
 [[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
+
+export PATH="$HOME/.yarn/bin:$HOME/.config/yarn/global/node_modules/.bin:$PATH"
+
+[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
+
+if [ -e /home/lijun/.nix-profile/etc/profile.d/nix.sh ]; then . /home/lijun/.nix-profile/etc/profile.d/nix.sh; fi # added by Nix installer
 eval "$(direnv hook zsh)"
+
+function enable_conda
+{
+    # >>> conda initialize >>>
+    # !! Contents within this block are managed by 'conda init' !!
+    __conda_setup="$('/home/lijun/anaconda3/bin/conda' 'shell.zsh' 'hook' 2> /dev/null)"
+    if [ $? -eq 0 ]; then
+	eval "$__conda_setup"
+    else
+	if [ -f "/home/lijun/anaconda3/etc/profile.d/conda.sh" ]; then
+	    . "/home/lijun/anaconda3/etc/profile.d/conda.sh"
+	else
+	    export PATH="/home/lijun/anaconda3/bin:$PATH"
+	fi
+    fi
+    unset __conda_setup
+    # <<< conda initialize <<<
+}
