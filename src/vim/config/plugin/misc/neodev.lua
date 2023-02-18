@@ -4,6 +4,6 @@ Plug("folke/neodev.nvim", {
 		local neodev = require("neodev").setup({})
 
 		local lspconfig = require("lspconfig")
-		lspconfig.sumneko_lua.setup(neodev)
+		lspconfig.lua_ls.setup(neodev)
 	end,
 })
