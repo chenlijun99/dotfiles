@@ -2,3 +2,23 @@ snippet table
      ${1:First Header}   | ${2:First Header}
      --------------------|--------------------
      $0                  | 
+snippet Anki-cloze
+    \`\`\`autoanki
+    note_type: Cloze
+    fields:
+        Text: $0
+        Extra:
+    \`\`\`
+snippet Anki-basic
+    \`\`\`autoanki
+    note_type: Basic
+    fields:
+        Front: $0
+        Back:
+    \`\`\`
+snippet Anki
+    \`\`\`autoanki
+    note_type: ${1:Note type}
+    fields:
+        ${0:Field}
+    \`\`\`
