@@ -57,6 +57,7 @@ endif
 nnoremap <expr> <c-p> <SID>get_fzf_main_mapping()
 nnoremap <silent> <c-f> :call <SID>custom_find()<cr>
 
+nnoremap <silent> <c-b> :FzfBuffers<cr>
 let g:which_key_map.f.P = 'fuzzy files'
 nnoremap <silent> <leader>fP :FzfFiles<cr>
 let g:which_key_map.f.p = 'fuzzy git (+submodules)'
