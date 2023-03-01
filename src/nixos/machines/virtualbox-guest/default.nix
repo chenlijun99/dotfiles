@@ -4,6 +4,7 @@
 {...}: {
   imports = [
     ../../modules/dev.nix
+    ../../modules/base-gui.nix
     ../../modules/desktop.nix
     ../../modules/audio.nix
     ../../users/lijun
