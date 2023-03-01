@@ -1,49 +1,48 @@
 {
   description = "NixOS configuration of Lijun Chen";
   inputs = {
-    nixpkgs.url = "github:NixOS/nixpkgs/nixos-21.11";
+    nixpkgs.url = "github:NixOS/nixpkgs/nixos-22.11";
     nixpkgs-unstable.url = "github:NixOS/nixpkgs/nixos-unstable";
-    home-manager.url = "github:nix-community/home-manager";
-    home-manager.inputs.nixpkgs.follows = "nixpkgs";
+    home-manage = {
+      url = "github:nix-community/home-manager";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+    nixos-generators = {
+      url = "github:nix-community/nixos-generators";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
   };
-
   outputs = {
     self,
     nixpkgs,
     nixpkgs-unstable,
     home-manager,
+    nixos-generators,
     ...
   } @ inputs: let
-    # Function to create defult (common) system config options
-    defFlakeSystem = systemArch: baseCfg:
-      nixpkgs.lib.nixosSystem {
-        system = "${systemArch}";
-        modules = [
-          {
-            # Introduce additional module parameters
-            _module.args = {
-              inherit inputs;
-            };
-          }
-          # Include the home-manager NixOS module
-          home-manager.nixosModules.home-manager
-          {
-            # See https://nix-community.github.io/home-manager/index.html
-            # why the following two options are useful
-            home-manager.useUserPackages = true;
-            home-manager.useGlobalPkgs = true;
-            # Pass flake inputs to home manager modules
-            home-manager.extraSpecialArgs = {inherit inputs;};
-          }
-          {
-            imports = [
-              ./modules/common
-            ];
-          }
-          # Apply baseCfg
-          baseCfg
+    commonModules = [
+      {
+        # Introduce additional module parameters
+        _module.args = {
+          inherit inputs;
+        };
+      }
+      # Include the home-manager NixOS module
+      home-manager.nixosModules.home-manager
+      {
+        # See https://nix-community.github.io/home-manager/index.html
+        # why the following two options are useful
+        home-manager.useUserPackages = true;
+        home-manager.useGlobalPkgs = true;
+        # Pass flake inputs to home manager modules
+        home-manager.extraSpecialArgs = {inherit inputs;};
+      }
+      {
+        imports = [
+          ./modules/common
         ];
-      };
+      }
+    ];
     # Function to create a Flake-based home configuration
     defFlakeHome = system: username:
     # Check https://github.com/nix-community/home-manager/blob/master/flake.nix
@@ -60,11 +59,41 @@
       };
   in {
     nixosConfigurations = {
-      "virtualbox-guest" = defFlakeSystem "x86_64-linux" {
-        imports = [./machines/virtualbox-guest];
+      "thinkpad-l390-yoga" = nixpkgs.lib.nixosSystem {
+        system = "x86_64-linux";
+        modules =
+          commonModules
+          ++ [
+            {
+              imports = [./machines/thinkpad-l390-yoga];
+            }
+          ];
       };
-      "thinkpad-l390-yoga" = defFlakeSystem "x86_64-linux" {
-        imports = [./machines/thinkpad-l390-yoga];
+      "virtualbox-guest" = nixpkgs.lib.nixosSystem {
+        system = "x86_64-linux";
+        modules =
+          commonModules
+          ++ [
+            {
+              imports = [./machines/virtualbox-guest];
+            }
+          ];
+      };
+    };
+    packages = {
+      "x86_64-linux" = {
+        # Package used by nixos-generators to generate my virtualbox image
+        "virtualbox-guest" = nixos-generators.nixosGenerate {
+          system = "x86_64-linux";
+          modules =
+            commonModules
+            ++ [
+              {
+                imports = [./machines/virtualbox-guest];
+              }
+            ];
+          format = "virtualbox";
+        };
       };
     };
     homeConfigurations = {

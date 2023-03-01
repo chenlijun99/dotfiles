@@ -39,4 +39,6 @@
       size = 2048;
     }
   ];
+
+  system.stateVersion = "22.11";
 }

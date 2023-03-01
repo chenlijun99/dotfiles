@@ -42,6 +42,14 @@ $ home-manager switch --flake ./src/nixos#<user>
 
 This is useful when debugging home-manager specific Nix expressions.
 
+### Build custom NixOS image
+
+```sh
+$ nix build ./src/nixos#<config name>
+# E.g. build my VirtualBox
+$ nix build ./src/nixos#virtualbox-guest
+```
+
 ## Dependencies
 
 ### i3wm
