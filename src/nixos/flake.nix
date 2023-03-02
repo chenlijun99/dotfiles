@@ -48,14 +48,11 @@
     # Check https://github.com/nix-community/home-manager/blob/master/flake.nix
     # for arguments of home-manager.lib.homeManagerConfiguration
       home-manager.lib.homeManagerConfiguration {
-        inherit system username;
+        pkgs = nixpkgs.legacyPackages.${system};
         extraSpecialArgs = {inherit inputs;};
-        homeDirectory = "/home/${username}";
-        configuration = import ./users/${username}/home.nix;
-        # Update the state version as needed.
-        # See the changelog here:
-        # https://nix-community.github.io/home-manager/release-notes.html#sec-release-21.05
-        stateVersion = "21.11";
+        modules = [
+          ./users/${username}/home.nix
+        ];
       };
   in {
     nixosConfigurations = {
