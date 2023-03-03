@@ -4,15 +4,6 @@
 [submodule "src/vifm/vifm_devicons"]
 	path = src/vifm/vifm_devicons
 	url = https://github.com/cirala/vifm_devicons
-[submodule "src/config/polybar/polybar-pulseaudio-control"]
-	path = src/config/polybar/polybar-pulseaudio-control
-	url = https://github.com/marioortizmanero/polybar-pulseaudio-control.git
-[submodule "src/config/rofi/rofi"]
-	path = src/config/rofi/rofi
-	url = https://github.com/adi1090x/rofi.git
-[submodule "src/config/i3/i3ipc-python"]
-	path = src/config/i3/i3ipc-python
-	url = https://github.com/altdesktop/i3ipc-python.git
 [submodule "src/oh-my-zsh"]
 	path = src/oh-my-zsh
 	url = https://github.com/ohmyzsh/ohmyzsh

@@ -122,45 +122,17 @@
       source = ../../../../config/alacritty;
       target = "alacritty";
     };
-    "conky" = {
-      source = ../../../../config/conky;
-      target = "conky";
-    };
     "Dharkael" = {
       source = ../../../../config/Dharkael;
       target = "Dharkael";
-    };
-    "dunst" = {
-      source = ../../../../config/dunst;
-      target = "dunst";
     };
     "flameshot" = {
       source = ../../../../config/flameshot;
       target = "flameshot";
     };
-    "i3" = {
-      source = ../../../../config/i3;
-      target = "i3";
-    };
     "ibus" = {
       source = ../../../../config/ibus;
       target = "ibus";
-    };
-    "picom" = {
-      source = ../../../../config/picom;
-      target = "picom";
-    };
-    "polybar" = {
-      source = ../../../../config/polybar;
-      target = "polybar";
-    };
-    "redshift" = {
-      source = ../../../../config/redshift;
-      target = "redshift";
-    };
-    "rofi" = {
-      source = ../../../../config/rofi;
-      target = "rofi";
     };
     "safeeyes" = {
       source = ../../../../config/safeeyes;
