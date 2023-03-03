@@ -7,7 +7,17 @@
   ...
 }: {
   nixpkgs.config.allowUnfree = true;
+  # Some IMHO essential packages that can be useful on any machine, to all users
   environment.systemPackages = with pkgs; [
+    ############################################################################
+    # Nix related
+    ############################################################################
+    # Nix formatter
+    alejandra
+    home-manager
+    # Fast nix documentation
+    manix
+
     wget
     git
     git-lfs
@@ -19,9 +29,6 @@
     # Required for some neovim tree-sitter parsers
     tree-sitter
     neovim
-    # Nix formatter
-    alejandra
-    home-manager
   ];
   environment.variables.EDITOR = "nvim";
 
