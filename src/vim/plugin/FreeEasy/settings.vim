@@ -137,16 +137,16 @@ set guioptions=a
 " }}}
 
 " Undo {{{
-if has('nvim')
-	" Vim and Neovim have incompatible undo files
-	let s:undo_dir = $HOME . "/.vim/undo-nvim/"
-else
-	let s:undo_dir = $HOME . "/.vim/undo"
+" Neovim's default undo dir is "$XDG_DATA_HOME/nvim/undo/", which is OK.
+" Vim's default undo dir is relative to CWD, which I don't want.
+" Need to keep undo files from Vim and Neovim separate because they are incompatible.
+if !has('nvim')
+	let s:undo_dir = $HOME . "/.local/share/nvim/undo-vim" 
+	if !isdirectory(s:undo_dir)
+		call system("mkdir " . s:undo_dir)
+	endif
+	let &undodir=s:undo_dir
 endif
-if !isdirectory(s:undo_dir)
-	call system("mkdir " . s:undo_dir)
-endif
-let &undodir=s:undo_dir
 set undofile
 
 " Disable undo persistence for ApprovalTests.cpp files
