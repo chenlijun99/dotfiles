@@ -24,11 +24,17 @@
     tldr
     htop
     vifm
-    # To support neovim clipboard
-    xclip
+
+
+    ############################################################################
+    # Neovim
+    ############################################################################
+    neovim
     # Required for some neovim tree-sitter parsers
     tree-sitter
-    neovim
+    # To support neovim clipboard
+    xclip
+    wl-clipboard
   ];
   environment.variables.EDITOR = "nvim";
 
