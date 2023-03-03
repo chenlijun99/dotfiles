@@ -11,7 +11,7 @@ for f in globpath(expand('<sfile>:p:h'), 'core/**/*.vim', 0, 1)
 endfor
 
 " Start plugin configuration
-call plug#begin('~/.vim/bundle')
+call plug#begin('~/.local/share/nvim/plugins')
 
 " Source all vim plugin config files
 for f in globpath(expand('<sfile>:p:h'), 'plugin/**/*.vim', 0, 1)
