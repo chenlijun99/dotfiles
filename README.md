@@ -8,12 +8,6 @@ Getting started:
 $ git clone https://github.com/chenlijun99/dotfiles --recursive
 ```
 
-## To be improvement
-
-* Make `?submodules=1` no more necessary.
-    * Basically we need `?submodules=1` so that `nix` also fetches the submodules of our flake.
-    * See more on [nix flakes: add support for git submodules - GitHub](https://github.com/NixOS/nix/issues/4423)
-
 ## NixOS
 
 [src/nixos](./src/nixos/) contains my flake-based NixOS configuration.
@@ -52,6 +46,34 @@ $ nix build ./src/nixos#<config name>
 # E.g. build my VirtualBox
 $ nix build ./src/nixos#virtualbox-guest
 ```
+
+### Space optimization
+
+```sh
+# Delete all the old generations of all profiles and then perform GC.
+# NOTE: "sudo" is necessary to delete NixOS generations
+# Otherwise only unused packages, home-manager generations will be deleted.
+$ sudo nix-collect-garbage -d
+# Similar to the previous command, but deles only generations older than the given period
+$ sudo nix-collect-garbage --delete-older-than <period>
+```
+
+See also:
+
+* [Storage optimization - NixOS Wiki](https://nixos.wiki/wiki/Storage_optimization)
+
+### Hardware (machine) config
+
+```sh
+# Generate or update machine-specific configuration
+$ nixos-generate-config --dir src/nixos/machines/<machine name>
+```
+
+### To be improvement
+
+* Make `?submodules=1` no more necessary.
+    * Basically we need `?submodules=1` so that `nix` also fetches the submodules of our flake.
+    * See more on [nix flakes: add support for git submodules - GitHub](https://github.com/NixOS/nix/issues/4423)
 
 ## Legacy
 
