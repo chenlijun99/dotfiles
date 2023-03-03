@@ -48,7 +48,10 @@
     # Check https://github.com/nix-community/home-manager/blob/master/flake.nix
     # for arguments of home-manager.lib.homeManagerConfiguration
       home-manager.lib.homeManagerConfiguration {
-        pkgs = nixpkgs.legacyPackages.${system};
+        pkgs = import nixpkgs {
+          inherit system;
+          config.allowUnfree = true;
+        };
         extraSpecialArgs = {inherit inputs;};
         modules = [
           ./users/${username}/home.nix
