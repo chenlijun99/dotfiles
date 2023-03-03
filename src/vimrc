@@ -5,7 +5,7 @@
 " \______  /___|  /\___  >___|  /          /\ \_/ |__|__|_|  /__|    \___  >
 "        \/     \/     \/     \/           \/              \/            \/ 
 
-source ~/.vim/config/main.vim
+source ~/.vim/init.vim
 
 " set modeline 
 " vim: foldlevel=0 foldmethod=marker

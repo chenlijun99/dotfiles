@@ -1,1 +1,1 @@
-../vimrc
+runtime ./config/main.vim
