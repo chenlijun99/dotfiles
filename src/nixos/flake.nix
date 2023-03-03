@@ -20,11 +20,23 @@
     nixos-generators,
     ...
   } @ inputs: let
-    commonModules = [
+    # If using nixpkgs-unstable to build the system, then nixpkgs is also nixpkgs-unstable.
+    actual_inputs = unstable:
+      if unstable
+      then (inputs // {nixpkgs = nixpkgs-unstable;})
+      else inputs;
+
+    /*
+    Get the common configuration for a NixOS system.
+
+    Params:
+      unstable: whether the system should use nixpkgs-unstable
+    */
+    getNixosSystemModules = unstable: [
       {
         # Introduce additional module parameters
         _module.args = {
-          inherit inputs;
+          inputs = actual_inputs unstable;
         };
       }
       # Include the home-manager NixOS module
@@ -35,7 +47,9 @@
         home-manager.useUserPackages = true;
         home-manager.useGlobalPkgs = true;
         # Pass flake inputs to home manager modules
-        home-manager.extraSpecialArgs = {inherit inputs;};
+        home-manager.extraSpecialArgs = {
+          inputs = actual_inputs unstable;
+        };
         # On activation move existing files by appending the given file extension rather than exiting with an error.
         # See more on https://rycee.gitlab.io/home-manager/nixos-options.html
         home-manager.backupFileExtension = "bak";
@@ -46,39 +60,43 @@
         ];
       }
     ];
-    # Function to create a Flake-based home configuration
-    defFlakeHome = system: username:
+    /*
+    Function to create a Flake-based standalone home-manager configuration
+
+    Params:
+      system (string): the architecture
+      username (string): username, must be one in ./users/, except "common"
+      unstable: whether the system should use nixpkgs-unstable
+    */
+    defFlakeHome = system: username: unstable:
     # Check https://github.com/nix-community/home-manager/blob/master/flake.nix
     # for arguments of home-manager.lib.homeManagerConfiguration
       home-manager.lib.homeManagerConfiguration {
-        pkgs = import nixpkgs {
-          inherit system;
-          config.allowUnfree = true;
+        pkgs =
+          import (
+            if unstable
+            then nixpkgs-unstable
+            else nixpkgs
+          ) {
+            inherit system;
+            config.allowUnfree = true;
+          };
+        extraSpecialArgs = {
+          inputs = actual_inputs unstable;
         };
-        extraSpecialArgs = {inherit inputs;};
         modules = [
           ./users/${username}/home.nix
         ];
       };
   in {
     nixosConfigurations = {
-      "thinkpad-l390-yoga" = nixpkgs.lib.nixosSystem {
+      "thinkpad-l390-yoga" = nixpkgs-unstable.lib.nixosSystem {
         system = "x86_64-linux";
         modules =
-          commonModules
+          getNixosSystemModules true
           ++ [
             {
               imports = [./machines/thinkpad-l390-yoga];
-            }
-          ];
-      };
-      "virtualbox-guest" = nixpkgs.lib.nixosSystem {
-        system = "x86_64-linux";
-        modules =
-          commonModules
-          ++ [
-            {
-              imports = [./machines/virtualbox-guest];
             }
           ];
       };
@@ -89,7 +107,7 @@
         "virtualbox-guest" = nixos-generators.nixosGenerate {
           system = "x86_64-linux";
           modules =
-            commonModules
+            getNixosSystemModules true
             ++ [
               {
                 imports = [./machines/virtualbox-guest];
@@ -100,8 +118,8 @@
       };
     };
     homeConfigurations = {
-      "lijun" = defFlakeHome "x86_64-linux" "lijun";
-      "lijun-test" = defFlakeHome "x86_64-linux" "lijun-test";
+      "lijun" = defFlakeHome "x86_64-linux" "lijun" true;
+      "lijun-test" = defFlakeHome "x86_64-linux" "lijun-test" true;
     };
   };
 }
