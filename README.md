@@ -12,7 +12,7 @@ $ git clone https://github.com/chenlijun99/dotfiles --recursive
 
 * Make `?submodules=1` no more necessary.
     * Basically we need `?submodules=1` so that `nix` also fetches the submodules of our flake.
-    * See more on [nix flakes: add support for git submodules - GitHub](https://github.com/NixOS/nix/issues/4423.)
+    * See more on [nix flakes: add support for git submodules - GitHub](https://github.com/NixOS/nix/issues/4423)
 
 ## NixOS
 

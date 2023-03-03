@@ -16,15 +16,21 @@
     packages = with pkgs; [
       # Cloud drive
       pcloud
+      nextcloud-client
       cryptomator
+
       # Citation manager
       zotero
+
       # Note taking app
       obsidian
+
       # Email client
       thunderbird
+
       # A second browser is always useful
       chromium
+
       # Password manager
       keepassxc
 
@@ -34,7 +40,8 @@
       zoom-us
       tdesktop
 
-      nextcloud-client
+      # Multimedia
+      strawberry
     ];
   };
 }
