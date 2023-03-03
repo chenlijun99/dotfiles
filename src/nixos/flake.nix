@@ -36,6 +36,9 @@
         home-manager.useGlobalPkgs = true;
         # Pass flake inputs to home manager modules
         home-manager.extraSpecialArgs = {inherit inputs;};
+        # On activation move existing files by appending the given file extension rather than exiting with an error.
+        # See more on https://rycee.gitlab.io/home-manager/nixos-options.html
+        home-manager.backupFileExtension = "bak";
       }
       {
         imports = [
