@@ -25,6 +25,7 @@
   # See https://nixos.wiki/wiki/Fonts
   fonts.fonts = with pkgs; [
     noto-fonts-cjk
+    noto-fonts-emoji
     # I use this font in terminal emulator
     # My Alacritty config uses NerdFont patched Hack
     (nerdfonts.override {fonts = ["Hack"];})
