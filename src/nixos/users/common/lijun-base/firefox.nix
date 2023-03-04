@@ -12,6 +12,9 @@
       settings = {
         "browser.tabs.closeWindowWithLastTab" = false;
       };
+      # Enforce the search engine configuration configured using home-manager
+      # Will lose the existing configuration from Firefox, but I don't care.
+      search.force = true;
       search.engines = {
         "Google".metaData.alias = "g";
         "Bing".metaData.alias = "b";
