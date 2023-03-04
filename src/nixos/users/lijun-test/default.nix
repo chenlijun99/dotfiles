@@ -7,7 +7,7 @@
       isNormalUser = true;
       description = "Lijun Chen Test";
       extraGroups = ["networkmanager"];
-      # No password for this user
+      # Initial empty password
       hashedPassword = "";
     };
   };

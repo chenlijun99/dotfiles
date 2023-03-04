@@ -5,7 +5,7 @@
       isNormalUser = true;
       description = "Test account";
       extraGroups = ["networkmanager"];
-      # No password for this user
+      # Initial empty password
       hashedPassword = "";
     };
   };
