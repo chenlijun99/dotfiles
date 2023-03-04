@@ -13,6 +13,7 @@
     ./tmux.nix
     ./vim.nix
     ./shell.nix
+    ./firefox.nix
   ];
   home = {
     # See https://nix-community.github.io/home-manager/options.html#opt-home.stateVersion
