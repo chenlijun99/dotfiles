@@ -131,8 +131,14 @@
       target = "flameshot";
     };
     "ibus" = {
-      source = ../../../../config/ibus;
-      target = "ibus";
+      /*
+      NOTE: don't let home-manager handle the whole `config/ibus` folder,
+      since it would cause the `config/ibus` folder to be read-only.
+      The `config/ibus` folder also contains stateful data that the ibus-daemon
+      needs to write.
+      */
+      source = ../../../../config/ibus/rime/default.custom.yaml;
+      target = "ibus/rime/default.custom.yaml";
     };
     "safeeyes" = {
       source = ../../../../config/safeeyes;
