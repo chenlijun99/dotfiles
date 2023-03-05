@@ -1,30 +1,31 @@
 {
   description = "NixOS configuration of Lijun Chen";
   inputs = {
-    nixpkgs.url = "github:NixOS/nixpkgs/nixos-22.11";
+    nixpkgs-stable.url = "github:NixOS/nixpkgs/nixos-22.11";
     nixpkgs-unstable.url = "github:NixOS/nixpkgs/nixos-unstable";
     home-manager = {
       url = "github:nix-community/home-manager";
-      inputs.nixpkgs.follows = "nixpkgs";
+      inputs.nixpkgs.follows = "nixpkgs-unstable";
     };
     nixos-generators = {
       url = "github:nix-community/nixos-generators";
-      inputs.nixpkgs.follows = "nixpkgs";
+      inputs.nixpkgs.follows = "nixpkgs-unstable";
     };
   };
   outputs = {
     self,
-    nixpkgs,
+    nixpkgs-stable,
     nixpkgs-unstable,
     home-manager,
     nixos-generators,
     ...
   } @ inputs: let
+    # If using nixpkgs-stable to build the system, then nixpkgs is also nixpkgs-stable.
     # If using nixpkgs-unstable to build the system, then nixpkgs is also nixpkgs-unstable.
     actual_inputs = unstable:
       if unstable
       then (inputs // {nixpkgs = nixpkgs-unstable;})
-      else inputs;
+      else (inputs // {nixpkgs = nixpkgs-stable;});
 
     /*
     Get the common configuration for a NixOS system.
@@ -68,21 +69,18 @@
       username (string): username, must be one in ./users/, except "common"
       unstable: whether the system should use nixpkgs-unstable
     */
-    defFlakeHome = system: username: unstable:
-    # Check https://github.com/nix-community/home-manager/blob/master/flake.nix
-    # for arguments of home-manager.lib.homeManagerConfiguration
+    defFlakeHome = system: username: unstable: let
+      actual_inputs_ = actual_inputs unstable;
+    in
+      # Check https://github.com/nix-community/home-manager/blob/master/flake.nix
+      # for arguments of home-manager.lib.homeManagerConfiguration
       home-manager.lib.homeManagerConfiguration {
-        pkgs =
-          import (
-            if unstable
-            then nixpkgs-unstable
-            else nixpkgs
-          ) {
-            inherit system;
-            config.allowUnfree = true;
-          };
+        pkgs = import actual_inputs_.nixpkgs {
+          inherit system;
+          config.allowUnfree = true;
+        };
         extraSpecialArgs = {
-          inputs = actual_inputs unstable;
+          inputs = actual_inputs_;
         };
         modules = [
           ./users/${username}/home.nix
