@@ -14,6 +14,7 @@
     ./vim.nix
     ./shell.nix
     ./firefox.nix
+    ./alacritty.nix
     # My custom scripts
     ./../../../../local/bin/scripts.nix
   ];
@@ -24,8 +25,6 @@
       # Ripgrep. I use it in Vim and also on CLI
       ripgrep
       ripgrep-all
-      # My terminal of choice
-      alacritty
       fzf
       # I never use it, but it may be useful
       vscode
@@ -121,10 +120,6 @@
   # Enable management of XDG base directories using home-manager
   xdg.enable = true;
   xdg.configFile = {
-    "alacritty" = {
-      source = ../../../../config/alacritty;
-      target = "alacritty";
-    };
     "Dharkael" = {
       source = ../../../../config/Dharkael;
       target = "Dharkael";

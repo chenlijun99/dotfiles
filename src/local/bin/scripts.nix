@@ -25,11 +25,14 @@
       clj_time_to_sleep = clj_script "clj_time_to_sleep" {
         runtimeInputs = with pkgs; [qrencode];
       };
+      clj_switch_theme =
+        clj_script "clj_switch_theme" {};
     in [
       clj_alacritty
       clj_multiscreenshot
       clj_reset_kde_desktop
       clj_time_to_sleep
+      clj_switch_theme
     ];
   };
 }
