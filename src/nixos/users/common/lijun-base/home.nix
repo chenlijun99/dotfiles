@@ -14,6 +14,8 @@
     ./vim.nix
     ./shell.nix
     ./firefox.nix
+    # My custom scripts
+    ./../../../../local/bin/scripts.nix
   ];
   home = {
     # See https://nix-community.github.io/home-manager/options.html#opt-home.stateVersion
