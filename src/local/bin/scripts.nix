@@ -17,7 +17,15 @@
         runtimeInputs = with pkgs; [alacritty];
       };
       clj_multiscreenshot = clj_script "clj_multiscreenshot" {
-        runtimeInputs = with pkgs; [alacritty];
+        runtimeInputs = with pkgs; [
+          libnotify
+          flameshot
+          xdotool
+          xorg.xinput
+          wl-clipboard-x11
+          wl-clipboard
+          imagemagick
+        ];
       };
       clj_reset_kde_desktop = clj_script "clj_reset_kde_desktop" {
         runtimeInputs = with pkgs; [alacritty];

@@ -15,6 +15,7 @@
     ./shell.nix
     ./firefox.nix
     ./alacritty.nix
+    ./flameshot.nix
     # My custom scripts
     ./../../../../local/bin/scripts.nix
   ];
@@ -32,8 +33,6 @@
       zathura
       # For offline documentation
       zeal
-      # Screenshot tool
-      flameshot
       # Disk usage statistics
       libsForQt5.filelight
       # Latex
@@ -120,14 +119,6 @@
   # Enable management of XDG base directories using home-manager
   xdg.enable = true;
   xdg.configFile = {
-    "Dharkael" = {
-      source = ../../../../config/Dharkael;
-      target = "Dharkael";
-    };
-    "flameshot" = {
-      source = ../../../../config/flameshot;
-      target = "flameshot";
-    };
     "ibus" = {
       /*
       NOTE: don't let home-manager handle the whole `config/ibus` folder,

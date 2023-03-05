@@ -63,11 +63,11 @@ function main()
 		fi
 	done
 
-	flameshot config -t true
+	flameshot config --trayicon true
 
 	take_screenshots
 
-	flameshot config -t false
+	flameshot config --trayicon false
 }
 
 main "$@"
