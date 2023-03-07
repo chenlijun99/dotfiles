@@ -13,27 +13,27 @@ let s:default_position = 'bottom'
 let s:default_height = 30
 let s:shell_cached_br = {}
 
-func! FreeEasy#shell#terminal() abort
+func! clj#shell#terminal() abort
 	let line = getline('$')
 	if isdirectory(line[:-2])
 		return "exit\<CR>"
 	endif
 	return "\<C-d>"
 endf
-func! FreeEasy#shell#ctrl_u() abort
+func! clj#shell#ctrl_u() abort
 	let line = getline('$')
 	let prompt = getcwd() . '>'
 	return repeat("\<BS>", len(line) - len(prompt) + 2)
 endfunction
 
-func! FreeEasy#shell#ctrl_r() abort
+func! clj#shell#ctrl_r() abort
 	let reg = getchar()
 	if reg == 43
 		return @+
 	endif
 endfunction
 
-func! FreeEasy#shell#ctrl_w() abort
+func! clj#shell#ctrl_w() abort
 	let cursorpos = term_getcursor(s:term_buf_nr)
 	let line = getline(cursorpos[0])[:cursorpos[1]-1]
 	let str = matchstr(line, '[^ ]*\s*$')
@@ -42,7 +42,7 @@ endfunction
 
 let s:open_terminals_buffers = []
 " shell windows shoud be toggleable, and can be hide.
-function! FreeEasy#shell#open_default_shell(open_with_file_cwd) abort
+function! clj#shell#open_default_shell(open_with_file_cwd) abort
 	if a:open_with_file_cwd
 		if getwinvar(winnr(), '&buftype') ==# 'terminal'
 			let path = getbufvar(winbufnr(winnr()), '_spacevim_shell_cwd', getcwd())

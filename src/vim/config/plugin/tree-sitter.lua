@@ -1,7 +1,24 @@
-Plug("nvim-treesitter/nvim-treesitter", {
-	run = ":TSUpdate",
-	config = function()
-		require("nvim-treesitter.configs").setup({
+return {
+	{
+		"nvim-treesitter/nvim-treesitter",
+		version = false, -- last release is way too old and doesn't work on Windows
+		build = ":TSUpdate",
+		event = { "BufReadPost", "BufNewFile" },
+		dependencies = {
+			{
+				{
+					"nvim-treesitter/playground",
+					config = function(_, opts)
+						require("nvim-treesitter.configs").setup(opts)
+					end,
+				},
+			},
+		},
+		---@type TSConfig
+		opts = {
+			highlight = { enable = true },
+			indent = { enable = true, disable = { "python" } },
+			context_commentstring = { enable = true, enable_autocmd = false },
 			ensure_installed = {
 				"bash",
 				"bibtex",
@@ -47,54 +64,10 @@ Plug("nvim-treesitter/nvim-treesitter", {
 				"vue",
 				"yaml",
 			},
-			highlight = {
-				enable = true,
-				disable = {
-					"vim",
-					-- typescript is very slow with treesitter
-					"typescript",
-					"tsx",
-					"tex",
-					"cmake",
-				},
-			},
-			indent = {
-				enable = true,
-				disable = {
-					"vim",
-					-- typescript is very slow with treesitter
-					"typescript",
-					"tsx",
-					"tex",
-					"cmake",
-				},
-			},
-		})
-	end,
-})
-Plug("nvim-treesitter/playground", {
-	config = function()
-		require("nvim-treesitter.configs").setup({
-			playground = {
-				enable = true,
-				disable = {},
-				-- Debounced time for highlighting nodes in the playground from source code
-				updatetime = 25,
-				-- Whether the query persists across vim sessions
-				persist_queries = false,
-				keybindings = {
-					toggle_query_editor = "o",
-					toggle_hl_groups = "i",
-					toggle_injected_languages = "t",
-					toggle_anonymous_nodes = "a",
-					toggle_language_display = "I",
-					focus_language = "f",
-					unfocus_language = "F",
-					update = "R",
-					goto_node = "<cr>",
-					show_help = "?",
-				},
-			},
-		})
-	end,
-})
+		},
+		---@param opts TSConfig
+		config = function(_, opts)
+			require("nvim-treesitter.configs").setup(opts)
+		end,
+	},
+}

@@ -73,7 +73,7 @@ Plug 'tpope/vim-sleuth'
 
 " mbbill/undotree {{{
 Plug 'mbbill/undotree', { 'on': ['UndotreeToggle'] }
-let g:which_key_map.g.u = 'Undotree'
+let g:which_key_map.u = 'Undotree'
 nnoremap <leader>u :UndotreeToggle<CR>
 " }}}
 

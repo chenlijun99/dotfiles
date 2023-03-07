@@ -1,2 +1,4 @@
 -- Fix CursorHold performance problems
-Plug("antoinemadec/FixCursorHold.nvim")
+return {
+	"antoinemadec/FixCursorHold.nvim",
+}
