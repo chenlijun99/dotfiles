@@ -9,6 +9,7 @@
   nixpkgs.config.allowUnfree = true;
   environment.systemPackages = with pkgs; [
     gparted
+    gnome.gnome-disk-utility
     # Main browser that all the users can use
     # This is a prebuilt binary from Mozilla.
     # NixOS provides also "firefox", which is built using Nix.
