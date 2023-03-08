@@ -16,8 +16,25 @@
       # Will lose the existing configuration from Firefox, but I don't care.
       search.force = true;
       search.engines = {
-        "Google".metaData.alias = "g";
         "Bing".metaData.alias = "b";
+
+        "Google".metaData.alias = "g";
+        "Google scholar" = {
+          urls = [
+            {
+              template = "https://scholar.google.com/scholar?q={searchTerms}";
+            }
+          ];
+          definedAliases = ["gs"];
+        };
+        "Google translate" = {
+          urls = [
+            {
+              template = "https://translate.google.com/?sl=auto&tl=en&text={searchTerms}&op=translate";
+            }
+          ];
+          definedAliases = ["gt" "lg"];
+        };
 
         # NixOS related
         "Nix Packages" = {
@@ -52,14 +69,6 @@
           # every day
           updateInterval = 24 * 60 * 60 * 1000;
           definedAliases = ["lw"];
-        };
-        "Google translate" = {
-          urls = [
-            {
-              template = "https://translate.google.com/?sl=auto&tl=en&text={searchTerms}&op=translate";
-            }
-          ];
-          definedAliases = ["lg"];
         };
       };
     };
