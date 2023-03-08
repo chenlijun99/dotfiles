@@ -2,7 +2,6 @@ which_key_map.l = { name = "+lsp" }
 
 local nvim_lspfuzzy = {
 	"ojroques/nvim-lspfuzzy",
-
 	config = function()
 		local opts = { noremap = true }
 
@@ -37,7 +36,6 @@ return {
 			},
 			nvim_lspfuzzy,
 		},
-		---@class PluginLspOpts
 		opts = {
 			-- options for vim.diagnostic.config()
 			diagnostics = {
@@ -46,40 +44,71 @@ return {
 				virtual_text = { spacing = 4, prefix = "●" },
 				severity_sort = true,
 			},
-			autoformat = false,
+			-- Automatically format on save
+			autoformat = true,
+			-- options for vim.lsp.buf.format
+			-- `bufnr` and `filter` is handled by the LazyVim formatter,
+			-- but can be also overridden when specified
+			format = {
+				formatting_options = nil,
+				timeout_ms = nil,
+			},
 			-- LSP Server Settings
 			---@type lspconfig.options
 			servers = {
-				jsonls = {},
-				lua_ls = {
-					-- mason = false, -- set to false if you don't want this server to be installed with mason
-					settings = {
-						Lua = {
-							workspace = {
-								checkThirdParty = false,
-							},
-							completion = {
-								callSnippet = "Replace",
-							},
-						},
+				lua_ls = {},
+				clangd = {
+					-- Workaround "warning: multiple different client offset_encodings
+					-- detected for buffer" Which is caused by the fact that Neovim
+					-- currently doesn't support multipe LSP offset_encodings settings in the same buffer.
+					-- But we use both clangd and null.ls (clang-format, cppcheck,
+					-- etc), but they have conflicting offset_encodings apparently.
+					-- See
+					-- * https://github.com/jose-elias-alvarez/null-ls.nvim/issues/428
+					-- * https://github.com/neovim/neovim/pull/16694#issuecomment-996947306: where I got the workaround
+					capabilities = {
+						offsetEncoding = { "utf-16" },
 					},
 				},
+				cmake = {},
+				pyright = {},
+				tsserver = {},
 			},
-			-- you can do any additional lsp server setup here
-			-- return true if you don't want this server to be setup with lspconfig
-			---@type table<string, fun(server:string, opts:_.lspconfig.options):boolean?>
-			setup = {
-				-- example to setup with typescript.nvim
-				-- tsserver = function(_, opts)
-				--   require("typescript").setup({ server = opts })
-				--   return true
-				-- end,
-				-- Specify * to use this function as a fallback for any server
-				-- ["*"] = function(server, opts) end,
-			},
+			setup = {},
 		},
-		---@param opts PluginLspOpts
-		config = function()
+		config = function(_, opts)
+			local lspconfig = require("lspconfig")
+
+			local cmp_nvim_lsp_capabilities =
+				require("cmp_nvim_lsp").default_capabilities(
+					vim.lsp.protocol.make_client_capabilities()
+				)
+
+			local servers = opts.servers
+
+			local function setup(server)
+				local server_opts = vim.tbl_deep_extend("force", {
+					capabilities = vim.deepcopy(capabilities),
+				}, servers[server] or {})
+
+				if opts.setup[server] then
+					if opts.setup[server](server, server_opts) then
+						return
+					end
+				elseif opts.setup["*"] then
+					if opts.setup["*"](server, server_opts) then
+						return
+					end
+				end
+				require("lspconfig")[server].setup(server_opts)
+			end
+
+			for server, server_opts in pairs(servers) do
+				if server_opts then
+					setup(server)
+				end
+			end
+
 			local opts = { noremap = true }
 
 			which_key_map_g.H = "Show diagnostics"

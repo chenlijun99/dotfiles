@@ -27,21 +27,39 @@ in {
       # Dev tools (formatters, linters, etc) that I use inside Neovim
       ##########################################################################
       yamllint
-      nodePackages.markdownlint-cli
-      nodePackages.stylelint
+      # LSP based on tsserver
+      nodePackages_latest.typescript-language-server
       nodePackages.eslint_d
       nodePackages.prettier
+      nodePackages.stylelint
+      nodePackages.markdownlint-cli
+
       # Lua formatter
       stylua
-      # Language server, clang-format, clang-tidy
+      # Lua LSP
+      lua-language-server
+      # Lua linter
+      lua53Packages.luacheck
+
+      # clangd, clang-format, clang-tidy
       clang-tools
+      cppcheck
+
+      # CMake formatter
+      cmake-format
+      # CMake language server
+      cmake-language-server
+
+      # Nix LSP
+      rnix-lsp
+
+      # Python LSP
+      nodePackages_latest.pyright
+      black
+
       # Assembly formatter
       asmfmt
-      cmake-format
       shellcheck
-      cppcheck
-      lua53Packages.luacheck
-      black
     ];
     file = {
       ".vim" = {
