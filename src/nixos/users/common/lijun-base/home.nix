@@ -16,6 +16,7 @@
     ./firefox.nix
     ./alacritty.nix
     ./flameshot.nix
+    ./this.nix
     # My custom scripts
     ./../../../../local/bin/scripts.nix
   ];

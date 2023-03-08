@@ -3,22 +3,21 @@
   pkgs,
   inputs,
   ...
-}: {
+} @ args: let
+  utils = import ./utils.nix args;
+in {
   xdg.configFile = {
     "nvim" = {
-      source = ../../../../vim;
-      target = "nvim";
+      source = utils.mkOutOfStoreRelativeThisRepoSymLink "./src/vim/";
     };
   };
   home = {
     file = {
-      "vim" = {
-        source = ../../../../vim;
-        target = ".vim";
+      ".vim" = {
+        source = utils.mkOutOfStoreRelativeThisRepoSymLink "./src/vim/";
       };
-      "vimrc" = {
-        source = ../../../../vimrc;
-        target = ".vimrc";
+      ".vimrc" = {
+        source = utils.mkOutOfStoreRelativeThisRepoSymLink "./src/vimrc";
       };
     };
   };
