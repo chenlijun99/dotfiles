@@ -1,3 +1,4 @@
+-- Fetch lazy.nvim (Lua plugin manager) if not available
 local lazypath = vim.fn.stdpath("data") .. "/lazy/lazy.nvim"
 if not vim.loop.fs_stat(lazypath) then
 	vim.fn.system({
@@ -11,6 +12,7 @@ if not vim.loop.fs_stat(lazypath) then
 end
 vim.opt.rtp:prepend(lazypath)
 
+-- Load all the Lua plugins in lua/clj/plugin/
 require("lazy").setup("clj.plugin", {
 	performance = {
 		rtp = {
