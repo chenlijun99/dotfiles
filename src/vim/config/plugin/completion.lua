@@ -55,7 +55,7 @@ return {
 			"hrsh7th/cmp-nvim-lsp-signature-help",
 			LuaSnip,
 		},
-		opts = function()
+		config = function()
 			local cmp = require("cmp")
 
 			local has_words_before = function()
@@ -69,7 +69,7 @@ return {
 			end
 
 			local luasnip = require("luasnip")
-			return {
+			cmp.setup({
 				snippet = {
 					expand = function(args)
 						luasnip.lsp_expand(args.body)
@@ -167,10 +167,8 @@ return {
 						hl_group = "LspCodeLens",
 					},
 				},
-			}
-		end,
-		config = function()
-			local cmp = require("cmp")
+			})
+
 			-- Set configuration for specific filetype.
 			cmp.setup.filetype("gitcommit", {
 				sources = cmp.config.sources({
