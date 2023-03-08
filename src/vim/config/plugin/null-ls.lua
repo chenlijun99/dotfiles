@@ -11,7 +11,7 @@ return {
 
 			local FORMATTING = methods.internal.FORMATTING
 
-			alejandra = h.make_builtin({
+			local alejandra = h.make_builtin({
 				name = "alejandra",
 				meta = {
 					url = "https://github.com/kamadorueda/alejandra",

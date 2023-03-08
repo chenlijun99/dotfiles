@@ -48,29 +48,12 @@
       vlc
       # Protect my eyes
       safeeyes
-      ##
-      # Dev tools (formatters, linters, etc)
-      ##
+      ##########################################################################
+      # Dev tools
+      ##########################################################################
+      # C/C++ debuggers
       gdb
-      # C/C++ debugger based on LLVM
       lldb
-      clang_12
-      yamllint
-      nodePackages.markdownlint-cli
-      nodePackages.stylelint
-      nodePackages.eslint_d
-      nodePackages.prettier
-      # Lua formatter
-      stylua
-      # Language server, clang-format, clang-tidy
-      clang-tools
-      # Assembly formatter
-      asmfmt
-      cmake-format
-      shellcheck
-      cppcheck
-      lua53Packages.luacheck
-      black
     ];
     file = {
       "vifm" = {

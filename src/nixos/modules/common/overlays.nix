@@ -8,14 +8,6 @@
 }: let
   pkgs-unstable = import inputs.nixpkgs-unstable {
     system = pkgs.system;
-    overlays = [
-      (final: prev: {
-        neovim = prev.neovim.override {
-          viAlias = true;
-          vimAlias = true;
-        };
-      })
-    ];
   };
 in {
   nixpkgs.overlays = [

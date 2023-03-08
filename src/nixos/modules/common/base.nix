@@ -29,9 +29,7 @@
     ############################################################################
     # Neovim
     ############################################################################
-    neovim
-    # Required for some neovim tree-sitter parsers
-    tree-sitter
+    vim
     # To support neovim clipboard
     xclip
     wl-clipboard
