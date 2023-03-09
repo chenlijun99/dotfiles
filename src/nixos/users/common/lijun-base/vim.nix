@@ -59,6 +59,9 @@ in {
 
       # Assembly formatter
       asmfmt
+
+      # Shell formatter and checker
+      shfmt
       shellcheck
     ];
     file = {
