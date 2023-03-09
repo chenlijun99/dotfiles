@@ -3,7 +3,9 @@
   pkgs,
   inputs,
   ...
-}: {
+} @ args: let
+  utils = import ./utils.nix args;
+in {
   home = {
     packages = with pkgs; [
       tmux
@@ -11,13 +13,11 @@
       xsel
     ];
     file = {
-      "tmux" = {
-        source = ../../../../tmux;
-        target = ".tmux";
+      ".tmux" = {
+        source = utils.mkOutOfStoreRelativeThisRepoSymLink "./src/tmux";
       };
-      "tmux.conf" = {
-        source = ../../../../tmux.conf;
-        target = ".tmux.conf";
+      ".tmux.conf" = {
+        source = utils.mkOutOfStoreRelativeThisRepoSymLink "./src/tmux.conf";
       };
     };
   };

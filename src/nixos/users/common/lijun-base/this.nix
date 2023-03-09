@@ -20,7 +20,7 @@ in {
       thisRepository = lib.hm.dag.entryBefore ["writeBoundary"] ''
         if ! [ -d ${utils.THIS_REPO_PATH} ]
         then
-          $DRY_RUN_CMD git clone https://github.com/chenlijun99/dotfiles ${utils.THIS_REPO_PATH}
+          $DRY_RUN_CMD git clone --recursive https://github.com/chenlijun99/dotfiles ${utils.THIS_REPO_PATH}
         fi
       '';
     };

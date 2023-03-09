@@ -4,7 +4,9 @@
   pkgs,
   inputs,
   ...
-}: {
+} @ args: let
+  utils = import ./utils.nix args;
+in {
   programs.direnv = {
     enable = true;
     nix-direnv.enable = true;
@@ -15,52 +17,44 @@
       bash
     ];
     file = {
-      "profile" = {
-        source = ../../../../profile;
-        target = ".profile";
+      ".profile" = {
+        source = utils.mkOutOfStoreRelativeThisRepoSymLink "./src/profile";
       };
-      "shell_aliases" = {
-        source = ../../../../shell_aliases;
-        target = ".shell_aliases";
+      ".shell_aliases" = {
+        source = utils.mkOutOfStoreRelativeThisRepoSymLink "./src/shell_aliases";
       };
       ##########################################################################
       # Zsh
       ##########################################################################
-      "zprofile" = {
-        source = ../../../../zprofile;
-        target = ".zprofile";
+      ".zprofile" = {
+        source = utils.mkOutOfStoreRelativeThisRepoSymLink "./src/zprofile";
       };
-      "zshrc" = {
-        source = ../../../../zshrc;
-        target = ".zshrc";
+      ".zshrc" = {
+        source = utils.mkOutOfStoreRelativeThisRepoSymLink "./src/zshrc";
       };
-      "on-my-zsh" = {
-        source = ../../../../oh-my-zsh;
+      ".on-my-zsh" = {
+        source = utils.mkOutOfStoreRelativeThisRepoSymLink "./src/oh-my-zsh";
+        # Dunno why, but for ".oh-my-zsh" we need to set target
         target = ".oh-my-zsh";
       };
-      "zsh_custom" = {
-        source = ../../../../zsh_custom;
-        target = ".zsh_custom";
+      ".zsh_custom" = {
+        source = utils.mkOutOfStoreRelativeThisRepoSymLink "./src/zsh_custom";
       };
       # Blazing fast prompt for Zsh
-      "p10k.zsh" = {
-        source = ../../../../p10k.zsh;
-        target = ".p10k.zsh";
+      ".p10k.zsh" = {
+        source = utils.mkOutOfStoreRelativeThisRepoSymLink "./src/p10k.zsh";
       };
       ##########################################################################
       # Bash (legacy stuff that I don't use anymore, since I use Zsh)
       ##########################################################################
-      "bashrc" = {
-        source = ../../../../bashrc;
-        target = ".bashrc";
+      ".bashrc" = {
+        source = utils.mkOutOfStoreRelativeThisRepoSymLink "./src/bashrc";
       };
-      "promptrc" = {
-        source = ../../../../promptrc;
-        target = ".promptrc";
+      ".promptrc" = {
+        source = utils.mkOutOfStoreRelativeThisRepoSymLink "./src/promptrc";
       };
-      "git-prompt" = {
-        source = ../../../../git-prompt.sh;
-        target = ".git-prompt.sh";
+      ".git-prompt.sh" = {
+        source = utils.mkOutOfStoreRelativeThisRepoSymLink "./src/git-prompt.sh";
       };
     };
   };
