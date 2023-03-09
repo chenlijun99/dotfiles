@@ -84,10 +84,6 @@
         source = ../../../../markdownlintrc;
         target = ".markdownlintrc";
       };
-      "npmrc" = {
-        source = ../../../../npmrc;
-        target = ".npmrc";
-      };
       "xbindkeysrc" = {
         source = ../../../../xbindkeysrc;
         target = ".xbindkeysrc";
