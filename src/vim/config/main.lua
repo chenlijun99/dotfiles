@@ -24,3 +24,6 @@ require("lazy").setup("clj.plugin", {
 		},
 	},
 })
+
+-- Load my own Lua modules
+require("clj.colorscheme")
