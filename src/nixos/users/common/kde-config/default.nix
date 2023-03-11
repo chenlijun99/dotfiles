@@ -2,7 +2,9 @@
   pkgs,
   lib,
   ...
-}: {
+} @ args: let
+  utils = import ./utils.nix args;
+in {
   home = {
     packages = with pkgs; [
       latte-dock
@@ -25,13 +27,13 @@
           else if builtins.isInt v
           then builtins.toString v
           else builtins.abort ("Unknown value type: " ++ builtins.toString v);
-        configs = import ./kde_config.nix;
+        configs = import ./kde_config.nix args;
 
         /*
-         * Like `mapAttrsToList', but instead of providing the first level
-         * attribute name, it recursively enters the set and passes the whole
-         * path to the value
-         */
+        * Like `mapAttrsToList', but instead of providing the first level
+        * attribute name, it recursively enters the set and passes the whole
+        * path to the value
+        */
         #map (name: f name attrs.${name}) (attrNames attrs);
         mapAttrsToListRecursive = f: set: let
           recurse = path: let

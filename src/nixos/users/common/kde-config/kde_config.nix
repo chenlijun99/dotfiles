@@ -1,4 +1,8 @@
-let
+{
+  pkgs,
+  lib,
+  ...
+}: let
   desktops = {
     Id_1 = "32bc0aea-5ba8-4902-ad74-0c5ca0ae5852";
     Id_2 = "91d6cb74-a3bb-4f33-a18d-6489ad9a1371";
@@ -487,13 +491,20 @@ in {
       # Note that some launchers may behave strangely (e.g. firefox), i.e.
       # duplicate launchers entries.
       # Related to https://github.com/NixOS/nixpkgs/issues/38987
-      # The only workaround is far is to oopen the programs and pin them.
+      # The only workaround is far is to open the programs and pin them.
       #
       # After all, KDE configs are a mess and this home-manager based config is
       # not intended to be an exact reflection of the working config.
       # It's more a good base on which I can arrive at the desired config in as
       # few steps as possible.
-      launchers = "applications:org.kde.dolphin.desktop,applications:firefox.desktop,applications:Alacritty.desktop,applications:org.keepassxc.KeePassXC.desktop,applications:obsidian.desktop,applications:zotero-5.0.96.3.desktop";
+      launchers = lib.concatMapStringsSep "," (app: "applications:" + app) [
+        "org.kde.dolphin.desktop"
+        "firefox.desktop"
+        "Alacritty.desktop"
+        "org.keepassxc.KeePassXC.desktop"
+        "obsidian.desktop"
+        "zotero-${pkgs.zotero.version}.desktop"
+      ];
       memoryUsage = 0;
       metaPressAndHoldEnabled = true;
       mouseSensitivity = 2;
