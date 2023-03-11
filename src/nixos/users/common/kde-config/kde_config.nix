@@ -207,7 +207,7 @@ in {
       ActionsCount = "1";
     };
     Data_4_2Actions0 = {
-      CommandURL = "~/.local/bin/reset_kde_desktop.sh";
+      CommandURL = "clj_reset_kde_desktop";
       Type = "COMMAND_URL";
     };
     Data_4_2Conditions = {
@@ -233,7 +233,7 @@ in {
       ActionsCount = 1;
     };
     Data_4_3Actions0 = {
-      CommandURL = "multiscreenshot.sh";
+      CommandURL = "clj_multiscreenshot";
       Type = "COMMAND_URL";
     };
     Data_4_3Conditions = {
