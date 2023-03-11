@@ -1,0 +1,7 @@
+[Desktop Entry]
+Exec=clj_de_autostart
+Icon=dialog-scripts
+Name=clj_de_autostart
+Path=
+Type=Application
+X-KDE-AutostartScript=true

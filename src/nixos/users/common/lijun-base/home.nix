@@ -17,6 +17,7 @@
     ./alacritty.nix
     ./flameshot.nix
     ./this.nix
+    ./autostart.nix
     # My custom scripts
     ./../../../../local/bin/scripts.nix
   ];
