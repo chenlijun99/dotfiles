@@ -4,6 +4,7 @@
 {...}: {
   imports = [
     ./hardware-configuration.nix
+    ./tlp.nix
     ../../modules/base-gui.nix
     ../../modules/dev.nix
     ../../modules/desktop.nix
