@@ -2,8 +2,8 @@
 [Desktop Entry]
 Name=Time to sleep
 Comment=Scan and go to sleep
-TryExec=time_to_sleep.sh
-Exec=time_to_sleep.sh
+TryExec=clj_time_to_sleep
+Exec=clj_time_to_sleep
 Terminal=true
 Type=Application
 Keywords=Health;Sleep

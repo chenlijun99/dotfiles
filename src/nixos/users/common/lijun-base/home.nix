@@ -18,6 +18,7 @@
     ./flameshot.nix
     ./this.nix
     ./autostart.nix
+    ./desktop.nix
     # My custom scripts
     ./../../../../local/bin/scripts.nix
   ];
