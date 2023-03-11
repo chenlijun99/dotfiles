@@ -17,14 +17,19 @@
     home-manager
     # Fast nix documentation
     manix
+    # Needed for pkgs.breakpointhook
+    # https://nixos.org/manual/nixpkgs/stable/#breakpointhook
+    cntr
 
     wget
+    file
     git
     git-lfs
     tldr
     htop
     vifm
 
+    lm_sensors
 
     ############################################################################
     # Neovim
