@@ -135,20 +135,6 @@ if [ -f ~/.shell_aliases ]; then
     . ~/.shell_aliases
 fi
 
-if [ -d "$HOME/Android/Sdk" ]; then
-	# React-native environment variables
-	# See https://reactnative.dev/docs/environment-setup
-	export ANDROID_HOME=$HOME/Android/Sdk
-	export PATH=$PATH:$ANDROID_HOME/emulator
-	export PATH=$PATH:$ANDROID_HOME/tools
-	export PATH=$PATH:$ANDROID_HOME/tools/bin
-	export PATH=$PATH:$ANDROID_HOME/platform-tools
-fi
-
-if [ -d "$HOME/esp/esp-idf" ]; then
-	alias get_idf='. $HOME/esp/esp-idf/export.sh'
-fi
-
 # Use Ninja as default CMake generator if available
 command -v ninja > /dev/null
 if [[ $? -eq 0 ]]; then

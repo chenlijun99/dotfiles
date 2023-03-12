@@ -19,38 +19,6 @@ fi
 # set PATH so it includes user's private bin directories
 PATH="$HOME/bin:$HOME/.local/bin:$PATH"
 
-# set PATH to include Qt binaries
-if [ -d "$HOME/Qt5.7.0/5.7/gcc_64/bin" ]; then
-	PATH="$HOME/Qt5.7.0/5.7/gcc_64/bin:$PATH"
-fi
-if [ -d "$HOME/Qt5.7.0/Tools/QtCreator/bin" ]; then
-	PATH="$HOME/Qt5.7.0/Tools/QtCreator/bin/:$PATH"
-fi
-
-# Dart SDK
-if [ -d "/usr/lib/dart/bin" ]; then
-	PATH="/usr/lib/dart/bin:$PATH"
-fi
-if [ -d "$HOME/.pub-cache/bin" ]; then
-	PATH="$PATH":"$HOME/.pub-cache/bin"
-fi
-
-if [ -d "$HOME/.cargo/bin" ]; then
-	PATH="$HOME/.cargo/bin:$PATH"
-fi
-
-command -v npm >/dev/null
-if [[ $? -eq 0 ]] ; then
-	PATH="$(npm bin -g 2> /dev/null):$PATH"
-fi
-
-command -v go >/dev/null
-if [[ $? -eq 0 ]] ; then
-	export GOPATH=$HOME/go
-	PATH=$PATH:$GOROOT/bin:$GOPATH/bin
-fi
-
-
 # Since we're not using home-manager to manage our shell configuration
 # we need to source one of the following files
 #
