@@ -1,6 +1,7 @@
 local uv = vim.loop
 
-local colorscheme_file = vim.fn.stdpath("data") .. "/clj/colorscheme.vim"
+local colorscheme_file_dir = vim.fn.stdpath("data") .. "/clj"
+local colorscheme_file = colorscheme_file_dir .. "/colorscheme.vim"
 
 local function file_exists(path)
 	local stat = uv.fs_stat(path)
@@ -24,6 +25,16 @@ local function start_monitoring_file()
 	source_colorscheme_file_if_exists()
 
 	if not file_exists(colorscheme_file) then
+		local success, err = uv.fs_mkdir(colorscheme_file_dir, 511)
+		if not success then
+			print(
+				"Failed to create directory ",
+				colorscheme_file_dir,
+				": ",
+				err
+			)
+		end
+
 		local file, err = io.open(colorscheme_file, "w")
 		if not file then
 			print("Failed to open file:", err)
