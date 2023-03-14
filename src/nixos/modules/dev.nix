@@ -16,6 +16,7 @@
     # Languages runtimes
     nodejs
     python38
+    lua
     # Package manager from Rust
     cargo
   ];
