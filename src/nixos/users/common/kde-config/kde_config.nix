@@ -1,6 +1,7 @@
 {
   pkgs,
   lib,
+  config,
   ...
 }: let
   desktops = {
@@ -497,14 +498,15 @@ in {
       # not intended to be an exact reflection of the working config.
       # It's more a good base on which I can arrive at the desired config in as
       # few steps as possible.
-      launchers = lib.concatMapStringsSep "," (app: "applications:" + app) [
-        "org.kde.dolphin.desktop"
-        "firefox.desktop"
-        "Alacritty.desktop"
-        "org.keepassxc.KeePassXC.desktop"
-        "obsidian.desktop"
-        "zotero-${pkgs.zotero.version}.desktop"
-      ];
+      launchers = lib.concatMapStringsSep "," (app: "applications:" + app) (
+        ["org.kde.dolphin.desktop" "firefox.desktop" "Alacritty.desktop"]
+        ++ lib.optionals (builtins.elem pkgs.keepassxc config.home.packages)
+        ["org.keepassxc.KeePassXC.desktop"]
+        ++ lib.optionals (builtins.elem pkgs.obsidian config.home.packages)
+        ["obsidian.desktop"]
+        ++ lib.optionals (builtins.elem pkgs.zotero config.home.packages)
+        ["zotero-${pkgs.zotero.version}.desktop"]
+      );
       memoryUsage = 0;
       metaPressAndHoldEnabled = true;
       mouseSensitivity = 2;
