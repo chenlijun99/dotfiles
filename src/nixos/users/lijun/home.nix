@@ -46,8 +46,6 @@
 
       # Multimedia
       strawberry
-
-      xdg-utils
     ];
   };
 }

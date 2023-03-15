@@ -10,4 +10,11 @@
     };
     libinput.enable = true; # for touchpad support on many laptops
   };
+
+  # Fixes https://github.com/NixOS/nixpkgs/issues/145354
+  # I need to this open Zotero links
+  xdg.portal = {
+    xdgOpenUsePortal = true;
+    enable = true;
+  };
 }
