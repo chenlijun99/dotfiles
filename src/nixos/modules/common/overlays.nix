@@ -12,6 +12,8 @@
 in {
   nixpkgs.overlays = [
     (final: prev: {
+      # My custom Anki
+      anki-bin = pkgs.callPackage ./anki {};
       # My custom okular
       okular = import ./okular args;
       # My custom zotero
