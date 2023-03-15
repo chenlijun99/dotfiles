@@ -2,6 +2,7 @@ return {
 	{
 		"kyazdani42/nvim-tree.lua",
 		dependencies = { "kyazdani42/nvim-web-devicons" },
+		keys = { "<leader>pf" },
 		config = function()
 			which_key_map.p.f = "filetree explorer"
 			function NvimTreeOpenOrFindFile()
@@ -12,6 +13,7 @@ return {
 					vim.cmd("NvimTreeFindFile")
 				end
 			end
+
 			vim.api.nvim_set_keymap(
 				"n",
 				"<leader>pf",
@@ -29,20 +31,32 @@ return {
 					key = { "O" },
 					action = "edit_no_picker",
 				},
-				{ key = { "<2-RightMouse>", "<C-]>" }, action = "cd" },
-				{ key = "<C-v>", action = "vsplit" },
-				{ key = "<C-x>", action = "split" },
-				{ key = "<C-t>", action = "tabnew" },
-				{ key = "<", action = "prev_sibling" },
-				{ key = ">", action = "next_sibling" },
-				{ key = "P", action = "parent_node" },
-				{ key = "x", action = "close_node" },
+				{ key = { "<2-RightMouse>", "<C-]>" },    action = "cd" },
+				{ key = "<C-v>",                          action = "vsplit" },
+				{ key = "<C-x>",                          action = "split" },
+				{ key = "<C-t>",                          action = "tabnew" },
+				{
+					key = "<",
+					action = "prev_sibling",
+				},
+				{
+					key = ">",
+					action = "next_sibling",
+				},
+				{
+					key = "P",
+					action = "parent_node",
+				},
+				{
+					key = "x",
+					action = "close_node",
+				},
 				{ key = "<Tab>", action = "preview" },
 				{
 					key = "K",
 					action = "first_sibling",
 				},
-				{ key = "J", action = "last_sibling" },
+				{ key = "J",     action = "last_sibling" },
 				{
 					key = "i",
 					action = "toggle_ignored",
@@ -52,17 +66,17 @@ return {
 					action = "toggle_dotfiles",
 				},
 				{ key = "<c-l>", action = "refresh" },
-				{ key = "ma", action = "create" },
-				{ key = "md", action = "remove" },
-				{ key = "mD", action = "trash" },
-				{ key = "mr", action = "rename" },
-				{ key = "mR", action = "full_rename" },
-				{ key = "mx", action = "system_open" },
-				{ key = "mm", action = "cut" },
-				{ key = "mc", action = "copy" },
-				{ key = "mp", action = "paste" },
-				{ key = "y", action = "copy_name" },
-				{ key = "Y", action = "copy_path" },
+				{ key = "ma",    action = "create" },
+				{ key = "md",    action = "remove" },
+				{ key = "mD",    action = "trash" },
+				{ key = "mr",    action = "rename" },
+				{ key = "mR",    action = "full_rename" },
+				{ key = "mx",    action = "system_open" },
+				{ key = "mm",    action = "cut" },
+				{ key = "mc",    action = "copy" },
+				{ key = "mp",    action = "paste" },
+				{ key = "y",     action = "copy_name" },
+				{ key = "Y",     action = "copy_path" },
 				{
 					key = "gy",
 					action = "copy_absolute_path",
@@ -75,11 +89,11 @@ return {
 					key = "]c",
 					action = "next_git_item",
 				},
-				{ key = "-", action = "dir_up" },
-				{ key = "q", action = "close" },
+				{ key = "-",  action = "dir_up" },
+				{ key = "q",  action = "close" },
 				{ key = "g?", action = "toggle_help" },
-				{ key = "W", action = "collapse_all" },
-				{ key = "S", action = "search_node" },
+				{ key = "W",  action = "collapse_all" },
+				{ key = "S",  action = "search_node" },
 				{
 					key = "<C-k>",
 					action = "toggle_file_info",

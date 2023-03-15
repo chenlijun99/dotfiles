@@ -1,7 +1,7 @@
 return {
 	{
 		"folke/which-key.nvim",
-		event = "VeryLazy",
+		keys = { "<leader>", "g", "[", "]" },
 		opts = {
 			plugins = { spelling = true },
 		},

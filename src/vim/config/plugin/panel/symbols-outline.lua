@@ -1,14 +1,14 @@
 return {
 	{
 		"simrat39/symbols-outline.nvim",
-		config = function()
-			which_key_map.p.s = "Symbols outline"
-			vim.api.nvim_set_keymap(
-				"n",
+		keys = {
+			{
 				"<leader>ps",
 				"<cmd>SymbolsOutlineOpen<CR>",
-				{ noremap = true }
-			)
+				desc = "Symbols outline",
+			},
+		},
+		config = function()
 			require("symbols-outline").setup()
 		end,
 	},

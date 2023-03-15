@@ -113,11 +113,14 @@ set noexpandtab
 "}}}
 
 " Colorscheme & Font {{{
+" NOTE: first set background and then set the colorscheme.
+" If the order is inverted, the colorscheme will be sourced twice.
+set background=dark
 colorscheme gruvbox
+
 set t_Co=256
 let &t_Cs = "\e[4:3m"
 let &t_Ce = "\e[4:0m"
-set background=dark
 set termguicolors
 set guifont=Monospace\ 13
 "}}}

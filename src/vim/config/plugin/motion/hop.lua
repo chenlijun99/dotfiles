@@ -1,6 +1,7 @@
 return {
 	{
 		"phaazon/hop.nvim",
+		keys = { "<leader>j" },
 		config = function()
 			require("hop").setup()
 

@@ -20,6 +20,12 @@ local function on_file_changed()
 	end, 0)
 end
 
+local function generate_set_background_vimscript(desired_theme)
+	return ("if &background != '" .. desired_theme .. "'\n")
+		.. ("set background=" .. desired_theme .. "\n")
+		.. "endif"
+end
+
 -- Define the function to start monitoring the file
 local function start_monitoring_file()
 	source_colorscheme_file_if_exists()
@@ -40,7 +46,8 @@ local function start_monitoring_file()
 			print("Failed to open file:", err)
 		else
 			-- Default to dark
-			local success, err = file:write("set background=dark")
+			local success, err =
+				file:write(generate_set_background_vimscript("dark"))
 			if not success then
 				print("Failed to write to file:", err)
 			end
