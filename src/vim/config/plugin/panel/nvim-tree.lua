@@ -1,26 +1,29 @@
+function NvimTreeOpenOrFindFile()
+	if vim.api.nvim_eval("expand('%:p') == ''") == 1 then
+		-- If file not saved in file system, open nvim tree normally
+		vim.cmd("NvimTreeOpen")
+	else
+		local api = require("nvim-tree.api")
+		api.tree.find_file({
+			open = true,
+			focus = true,
+			update_root = true,
+		})
+	end
+end
+
 return {
 	{
 		"kyazdani42/nvim-tree.lua",
 		dependencies = { "kyazdani42/nvim-web-devicons" },
-		keys = { "<leader>pf" },
-		config = function()
-			which_key_map.p.f = "filetree explorer"
-			function NvimTreeOpenOrFindFile()
-				if vim.api.nvim_eval("expand('%:p') == ''") == 1 then
-					-- If file not saved in file system, open nvim tree normally
-					vim.cmd("NvimTreeOpen")
-				else
-					vim.cmd("NvimTreeFindFile")
-				end
-			end
-
-			vim.api.nvim_set_keymap(
-				"n",
+		keys = {
+			{
 				"<leader>pf",
 				"<cmd>lua NvimTreeOpenOrFindFile()<CR>",
-				{ noremap = true }
-			)
-
+				desc = "Filetree explorer",
+			},
+		},
+		config = function()
 			local mappings_list = {
 				{ key = { "<CR>", "o", "<2-LeftMouse>" }, action = "edit" },
 				{
