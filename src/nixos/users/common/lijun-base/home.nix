@@ -5,7 +5,9 @@
   pkgs,
   inputs,
   ...
-}: {
+} @ args: let
+  utils = import ./utils.nix args;
+in {
   # Let Home Manager install and manage itself.
   programs.home-manager.enable = true;
   nixpkgs.config.allowUnfree = true;
@@ -58,43 +60,34 @@
       lldb
     ];
     file = {
-      "vifm" = {
-        source = ../../../../vifm;
-        target = ".vifm";
+      ".vifm" = {
+        source = utils.mkOutOfStoreRelativeThisRepoSymLink "./src/vifm";
       };
-      "ctags" = {
-        source = ../../../../ctags;
-        target = ".ctags";
+      ".ctags" = {
+        source = utils.mkOutOfStoreRelativeThisRepoSymLink "./src/ctags";
       };
-      "detoxrc" = {
-        source = ../../../../detoxrc;
-        target = ".detoxrc";
+      ".detoxrc" = {
+        source = utils.mkOutOfStoreRelativeThisRepoSymLink "./src/detoxrc";
       };
-      "gdbinit" = {
-        source = ../../../../gdbinit;
-        target = ".gdbinit";
+      ".gdbinit" = {
+        source = utils.mkOutOfStoreRelativeThisRepoSymLink "./src/gdbinit";
       };
-      "gitconfig" = {
-        source = ../../../../gitconfig;
-        target = ".gitconfig";
+      ".gitconfig" = {
+        source = utils.mkOutOfStoreRelativeThisRepoSymLink "./src/gitconfig";
       };
-      "ls_colors" = {
-        source = ../../../../ls_colors;
-        target = ".ls_colors";
+      ".ls_colors" = {
+        source = utils.mkOutOfStoreRelativeThisRepoSymLink "./src/ls_colors";
       };
-      "markdownlintrc" = {
-        source = ../../../../markdownlintrc;
-        target = ".markdownlintrc";
+      ".markdownlintrc" = {
+        source = utils.mkOutOfStoreRelativeThisRepoSymLink "./src/markdownlintrc";
       };
-      "xbindkeysrc" = {
-        source = ../../../../xbindkeysrc;
-        target = ".xbindkeysrc";
+      ".xbindkeysrc" = {
+        source = utils.mkOutOfStoreRelativeThisRepoSymLink "./src/xbindkeysrc";
       };
       # GNU readline config
       # Mostly for Vim keybindings
-      "inputrc" = {
-        source = ../../../../inputrc;
-        target = ".inputrc";
+      ".inputrc" = {
+        source = utils.mkOutOfStoreRelativeThisRepoSymLink "./src/inputrc";
       };
     };
   };
@@ -112,12 +105,10 @@
       target = "ibus/rime/default.custom.yaml";
     };
     "safeeyes" = {
-      source = ../../../../config/safeeyes;
-      target = "safeeyes";
+      source = utils.mkOutOfStoreRelativeThisRepoSymLink "./src/config/safeeyes";
     };
     "zathura" = {
-      source = ../../../../config/zathura;
-      target = "zathura";
+      source = utils.mkOutOfStoreRelativeThisRepoSymLink "./src/config/zathura";
     };
   };
 }
