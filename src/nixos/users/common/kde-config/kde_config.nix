@@ -574,4 +574,10 @@ in {
       };
     };
   };
+  dolphinrc = {
+    General = {
+      # Don't remember tabs from a previously closed Dolphin.
+      RememberOpenedTabs = false;
+    };
+  };
 }
