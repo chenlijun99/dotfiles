@@ -51,5 +51,9 @@ nnoremap <silent> <leader>mc :vsplit $MYVIMRC<cr>
 let g:which_key_map.m.C = 'update vimrc'
 nnoremap <silent> <leader>mC :source $MYVIMRC<cr>
 
+" Source https://stackoverflow.com/a/42071865
+let g:which_key_map.b.c = 'Close all other buffers'
+nnoremap <silent> <leader>bc :%bd \|e#<CR>
+
 " sudo write
 command! W :w !sudo tee %
