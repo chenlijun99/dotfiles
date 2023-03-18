@@ -19,6 +19,12 @@ in {
       # My custom zotero
       zotero = import ./zotero (args // {zotero = prev.zotero;});
 
+      # See https://github.com/NixOS/nixpkgs/issues/160923#issuecomment-1474989176
+      # why this is necessary.
+      xdg-desktop-portal-kde = pkgs-unstable.xdg-desktop-portal-kde.overrideAttrs (oldAttrs: rec {
+        buildInputs = oldAttrs.buildInputs ++ [pkgs-unstable.plasma-workspace];
+      });
+
       neovim = pkgs-unstable.neovim;
       # Nix formatter
       alejandra = pkgs-unstable.alejandra;
