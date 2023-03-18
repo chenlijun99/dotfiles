@@ -32,8 +32,9 @@
       # Email client
       thunderbird
 
-      # A second browser is always useful
+      # A few additional browsers are always useful
       chromium
+      microsoft-edge
 
       # Password manager
       keepassxc
