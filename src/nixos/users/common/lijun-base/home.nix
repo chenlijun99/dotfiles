@@ -58,6 +58,13 @@ in {
       # C/C++ debuggers
       gdb
       lldb
+
+      # terminal emulators that I use to interface with serial port
+      picocom
+      gtkterm
+
+      # Count lines of code
+      scc
     ];
     file = {
       ".vifm" = {
