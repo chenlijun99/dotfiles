@@ -483,5 +483,12 @@ filextype *.eml
 		\ {View in thunderbird}
 		\ thunderbird %f,
 
+" Office
+filextype *.odt,*.doc,*.docx,*.xls,*.xlsx,*.odp,*.pptx,*.ods 
+                \ {View in LibreOffice}
+                \ libreoffice %f &,
+                \ {Use xdg-open}
+                \ xdg-open %f,
+
 " set modeline 
 " vim: foldlevel=0 foldmethod=marker
