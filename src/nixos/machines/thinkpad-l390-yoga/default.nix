@@ -12,6 +12,7 @@
     ../../modules/bluetooth.nix
     ../../modules/docker.nix
     ../../modules/virtualbox.nix
+    ../../modules/printing.nix
     ../../users/lijun
     ../../users/lijun-test
     ../../users/test
