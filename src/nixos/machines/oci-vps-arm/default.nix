@@ -4,6 +4,7 @@
     ../../modules/dev.nix
     ../../modules/docker.nix
     ../../modules/ssh-server.nix
+    ../../users/lijun-cli
     ../../users/test
   ];
 

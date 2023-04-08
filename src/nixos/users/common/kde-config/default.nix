@@ -3,7 +3,7 @@
   lib,
   ...
 } @ args: let
-  utils = import ./utils.nix args;
+  utils = import ../utils.nix args;
 in {
   home = {
     packages = with pkgs; [

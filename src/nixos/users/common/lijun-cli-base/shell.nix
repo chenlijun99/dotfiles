@@ -5,7 +5,7 @@
   inputs,
   ...
 } @ args: let
-  utils = import ./utils.nix args;
+  utils = import ../utils.nix args;
 in {
   programs.direnv = {
     enable = true;

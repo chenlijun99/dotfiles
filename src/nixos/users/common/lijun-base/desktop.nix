@@ -4,7 +4,7 @@
   inputs,
   ...
 } @ args: let
-  utils = import ./utils.nix args;
+  utils = import ../utils.nix args;
 in {
   home.file = {
     ".local/share/applications/clj_time_to_sleep.desktop" = {
