@@ -98,6 +98,16 @@
             }
           ];
       };
+      "oci-vps-arm" = nixpkgs-unstable.lib.nixosSystem {
+        system = "aarch64-linux";
+        modules =
+          getNixosSystemModules true
+          ++ [
+            {
+              imports = [./machines/oci-vps-arm];
+            }
+          ];
+      };
     };
     packages = {
       "x86_64-linux" = {
