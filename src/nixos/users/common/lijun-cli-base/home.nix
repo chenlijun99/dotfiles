@@ -17,6 +17,7 @@ in {
     ../this.nix
     # My custom scripts
     ./../../../../local/bin/scripts.nix
+    ../networking/cli.nix
   ];
   home = {
     # See https://nix-community.github.io/home-manager/options.html#opt-home.stateVersion
