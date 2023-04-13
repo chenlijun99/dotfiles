@@ -128,13 +128,13 @@ return {
 				view = {
 					side = "left",
 					width = 25,
-					hide_root_folder = true,
 					mappings = {
 						custom_only = true,
 						list = mappings_list,
 					},
 				},
 				renderer = {
+					root_folder_label = false,
 					add_trailing = false,
 					highlight_git = false,
 					highlight_opened_files = "none",
