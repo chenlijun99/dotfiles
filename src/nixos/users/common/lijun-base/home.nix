@@ -20,6 +20,7 @@ in {
     ./autostart.nix
     ./desktop.nix
     ../networking/gui.nix
+    ../vim/gui.nix
   ];
   home = {
     # See https://nix-community.github.io/home-manager/options.html#opt-home.stateVersion

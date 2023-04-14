@@ -32,15 +32,10 @@
 
     lm_sensors
 
-    ############################################################################
-    # Neovim
-    ############################################################################
+    # Every system deserves a vim
     vim
-    # To support neovim clipboard
-    xclip
-    wl-clipboard
   ];
-  environment.variables.EDITOR = "nvim";
+  environment.variables.EDITOR = "vim";
 
   programs.zsh.enable = true;
   users.defaultUserShell = pkgs.zsh;

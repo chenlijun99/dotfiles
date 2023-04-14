@@ -12,12 +12,12 @@ in {
   nixpkgs.config.allowUnfree = true;
   imports = [
     ./tmux.nix
-    ./vim.nix
     ./shell.nix
     ../this.nix
+    ../vim/cli.nix
+    ../networking/cli.nix
     # My custom scripts
     ./../../../../local/bin/scripts.nix
-    ../networking/cli.nix
   ];
   home = {
     # See https://nix-community.github.io/home-manager/options.html#opt-home.stateVersion

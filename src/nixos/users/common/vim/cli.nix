@@ -1,3 +1,4 @@
+# This module contains every CLI tool that I need for Neovim
 {
   config,
   pkgs,
