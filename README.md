@@ -12,10 +12,28 @@ $ git clone https://github.com/chenlijun99/dotfiles --recursive
 
 [src/nixos](./src/nixos/) contains my flake-based NixOS configuration.
 
-To build the OS, run:
+To build the OS and switch to the new generation, run:
 
 ```sh
 $ nixos-rebuild switch  --flake ./src/nixos#<config name>
+```
+
+To get list of available NixOS system generations, run:
+
+```sh
+$ nix-env --list-generations -p /nix/var/nix/profiles/system
+```
+
+To rollback to the previous generation, run
+
+```sh
+$ nixos-rebuild switch --rollback 
+```
+
+To revert to a specific system generation, run
+
+```sh
+$ nix-env --list-generations -p /nix/var/nix/profiles/system
 ```
 
 To update one of the flake inputs, run:
