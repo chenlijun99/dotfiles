@@ -1,6 +1,5 @@
 {...}: {
   imports = [
-    ./hardware-configuration.nix
     ../../modules/dev.nix
     ../../modules/docker.nix
     ../../modules/ssh-server.nix

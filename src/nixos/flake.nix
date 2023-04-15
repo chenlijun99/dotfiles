@@ -123,6 +123,24 @@
             ];
           format = "virtualbox";
         };
+        "oci-vps-arm" =
+          (nixpkgs-unstable.lib.nixosSystem {
+            system = "aarch64-linux";
+            modules =
+              getNixosSystemModules true
+              ++ [
+                {
+                  boot.binfmt.emulatedSystems = ["aarch64-linux"];
+                  nixpkgs.crossSystem.system = "aarch64-linux";
+                  nixpkgs.localSystem.system = "x86_64-linux";
+                  imports = [./machines/oci-vps-arm ./modules/oci/oci-image.nix];
+                }
+              ];
+          })
+          .config
+          .system
+          .build
+          .OCIImage;
       };
     };
     homeConfigurations = {
