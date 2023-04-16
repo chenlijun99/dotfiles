@@ -20,3 +20,6 @@ run_if_available thunderbird
 # If slack is autostarted too early, it requires re-authentication for all the
 # workspaces
 run_if_available slack
+# If syncthingtray is autostarted too early, it complains that no systemtray
+# is available yet.
+run_if_available syncthingtray

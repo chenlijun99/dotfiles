@@ -47,6 +47,9 @@
 
       # Multimedia
       strawberry
+
+      syncthing
+      syncthingtray
     ];
   };
 }
