@@ -70,6 +70,12 @@ endif
 "
 let &shell="/usr/bin/env bash"
 
+if has('nvim-0.9')
+	" Since Neovim 0.9, we have a more secure implementation of exrc
+	" So we can really use it if we're using Neovim >=0.9.
+	set exrc
+endif
+
 " wrap {{{
 " don't wrap even when a line is longer than the width of the window
 set nowrap
