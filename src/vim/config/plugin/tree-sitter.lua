@@ -63,6 +63,7 @@ return {
 				"vim",
 				"vue",
 				"yaml",
+				"kotlin",
 			},
 		},
 		---@param opts TSConfig
