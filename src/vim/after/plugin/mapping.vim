@@ -35,6 +35,17 @@ let g:which_key_map.s.v = "Vertical"
 nnoremap <silent> <leader>sv :vsplit<cr>
 let g:which_key_map.s.h = "Horizontal"
 nnoremap <silent> <leader>sh :split<cr>
+let g:which_key_map.s.v = "Vertical new"
+nnoremap <silent> <leader>sV :vnew<cr>
+let g:which_key_map.s.h = "Horizontal new"
+nnoremap <silent> <leader>sH :new<cr>
+
+" Source https://vi.stackexchange.com/a/38170
+let g:which_key_map.m.h = "Diff windows"
+nnoremap <silent> <leader>md :windo diffthis<cr>
+let g:which_key_map.m.h = "Diff off"
+nnoremap <silent> <leader>mD :diffoff!<cr>
+
 
 let g:which_key_map.t = { 'name': '+Tab' }
 let g:which_key_map.t.n = "New"
