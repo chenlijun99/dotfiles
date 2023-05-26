@@ -9,6 +9,12 @@
   pkgs-unstable = import inputs.nixpkgs-unstable {
     system = pkgs.system;
   };
+  pkgs-pcloud-ok = import inputs.nixpkgs-unstable-pcloud-ok {
+    system = pkgs.system;
+    config = {
+      allowUnfree = true;
+    };
+  };
 in {
   nixpkgs.overlays = [
     (final: prev: {
@@ -27,6 +33,8 @@ in {
       drawio = pkgs-unstable.drawio;
       # Older version from pkgs doesn't support my vaults
       cryptomator = pkgs-unstable.cryptomator;
+
+      pcloud = pkgs-pcloud-ok.pcloud;
     })
   ];
 }

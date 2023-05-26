@@ -505,7 +505,7 @@ in {
         ++ lib.optionals (builtins.elem pkgs.obsidian config.home.packages)
         ["obsidian.desktop"]
         ++ lib.optionals (builtins.elem pkgs.zotero config.home.packages)
-        ["zotero-${pkgs.zotero.version}.desktop"]
+        ["zotero.desktop"]
       );
       memoryUsage = 0;
       metaPressAndHoldEnabled = true;
