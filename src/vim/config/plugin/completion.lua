@@ -8,7 +8,8 @@ local LuaSnip = {
 		end,
 	},
 	opts = {
-		history = true,
+		-- For me it's very bothersome and unintuitive when LuaSnip enters into old, already expanded snippets.
+		history = false,
 		delete_check_events = "TextChanged",
 	},
 }
