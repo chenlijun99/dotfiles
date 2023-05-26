@@ -44,6 +44,8 @@ in {
 
       # clangd, clang-format, clang-tidy
       clang-tools
+      # Another language server for C/C++
+      ccls
       cppcheck
 
       # CMake formatter
