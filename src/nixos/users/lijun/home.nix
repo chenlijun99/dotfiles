@@ -47,9 +47,13 @@
 
       # Multimedia
       strawberry
+      ffmpeg
 
       syncthing
       syncthingtray
+
+      # Misc
+      scrcpy
     ];
   };
 }
