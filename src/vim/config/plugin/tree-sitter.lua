@@ -41,7 +41,6 @@ return {
 				"jsdoc",
 				"json",
 				"json5",
-				"latex",
 				"llvm",
 				"lua",
 				"make",
@@ -64,6 +63,8 @@ return {
 				"vue",
 				"yaml",
 				"kotlin",
+				-- VimTex provides better highlighting
+				--"latex",
 			},
 		},
 		---@param opts TSConfig
