@@ -433,8 +433,6 @@ nnoremap <f8> :delete<cr>
 " Block particular shortcut
 "
 " nnoremap <left> <nop>
-
-source expand('%:p:h/my_vifmrc')
 "}}}
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
