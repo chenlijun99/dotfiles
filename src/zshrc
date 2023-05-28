@@ -75,6 +75,11 @@ ZSH_CUSTOM="$HOME/.zsh_custom/"
 # Otherwise the vi-mode plugin seems to override the key bindings (Ctrl+R,
 # Ctrl+T) for fzf.
 plugins+=(vi-mode my-zsh-vi)
+
+# The default `FZF_DEFAULT_COMMAND` that the ohmyzsh-fzf plugin uses
+# does not have the '--no-ignore' option, which means that fzf by default
+# respects .gitignore. We don't want that.
+export FZF_DEFAULT_COMMAND='rg --files --hidden --no-ignore --glob "!.git/*"'
 # Note that the fzf plugin must precede tmux plugin.
 # Because we have a tmux plugin that relies on fzf and assumes that fzf
 # is in PATH. The fzf plugin (from zsh) takes care of adding fzf to PATH.
