@@ -37,6 +37,11 @@
         clj_script "clj_switch_theme" {};
       clj_de_autostart =
         clj_script "clj_de_autostart" {};
+      # See [Basic flake: run existing (python, bash) script](https://discourse.nixos.org/t/basic-flake-run-existing-python-bash-script/19886/2)
+      clj_stay_focused = pkgs.writeScriptBin "clj_stay_focused" ''
+        export PATH=${pkgs.lib.makeBinPath [pkgs.wmctrl pkgs.libnotify]}:$PATH
+        ${./clj_stay_focused.py}
+      '';
     in [
       clj_alacritty
       clj_multiscreenshot
@@ -44,6 +49,7 @@
       clj_time_to_sleep
       clj_switch_theme
       clj_de_autostart
+      clj_stay_focused
     ];
   };
 }

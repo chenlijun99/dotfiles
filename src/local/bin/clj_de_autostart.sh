@@ -1,7 +1,9 @@
 #!/usr/bin/env bash
 #
 # This script is invoked as DE login script.
-# Its purpose is to autostart some applications after some delay.
+# Its purpose include
+#
+# * autostart some applications after some delay.
 #
 
 # Delay some time... Otherwise the following programs don't function well.
@@ -23,3 +25,6 @@ run_if_available slack
 # If syncthingtray is autostarted too early, it complains that no systemtray
 # is available yet.
 run_if_available syncthingtray
+
+# Start running in background
+clj_stay_focused &
