@@ -31,10 +31,11 @@ in {
       home-manager = pkgs-unstable.home-manager;
       flameshot = pkgs-unstable.flameshot;
       drawio = pkgs-unstable.drawio;
-      # Older version from pkgs doesn't support my vaults
-      cryptomator = pkgs-unstable.cryptomator;
 
       pcloud = pkgs-pcloud-ok.pcloud;
+      # Cryptomator 1.8 doesn't work.
+      # FUSE mount doesn't work.
+      cryptomator = pkgs-pcloud-ok.cryptomator;
     })
   ];
 }
