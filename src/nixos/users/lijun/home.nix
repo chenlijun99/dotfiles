@@ -45,6 +45,7 @@
       teams
       zoom-us
       tdesktop
+      discord
 
       # Multimedia
       strawberry
