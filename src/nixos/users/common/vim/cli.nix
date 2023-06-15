@@ -23,6 +23,9 @@ in {
       tree-sitter
       # Required to build some plugins (e.g. tree-sitter parsers)
       gcc
+      # Required to install some Vim plugins that have helper programs written
+      # in Node.js
+      yarn
 
       ##########################################################################
       # Dev tools (formatters, linters, etc) that I use inside Neovim
