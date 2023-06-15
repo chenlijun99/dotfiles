@@ -7,6 +7,18 @@ return {
 			"arkav/lualine-lsp-progress",
 		},
 		config = function()
+			local function getWords()
+				if
+					vim.bo.filetype == "markdown"
+					or vim.bo.filetype == "txt"
+					or vim.bo.filetype == "latex"
+				then
+					return tostring(vim.fn.wordcount().words) .. " words"
+				else
+					return ""
+				end
+			end
+
 			require("lualine").setup({
 				options = {
 					icons_enabled = true,
@@ -25,7 +37,12 @@ return {
 						"lsp_progress",
 					},
 					lualine_c = { "filename" },
-					lualine_x = { "encoding", "fileformat", "filetype" },
+					lualine_x = {
+						getWords,
+						"encoding",
+						"fileformat",
+						"filetype",
+					},
 					lualine_y = { "progress" },
 					lualine_z = { "location" },
 				},
