@@ -13,6 +13,7 @@
     ../../modules/docker.nix
     ../../modules/virtualbox.nix
     ../../modules/printing.nix
+    ../../modules/vm.nix
     ../../users/lijun
     ../../users/lijun-test
     ../../users/test
