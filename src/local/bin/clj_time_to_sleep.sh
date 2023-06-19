@@ -6,9 +6,9 @@
 # Let this serve as gentle nudge for me to go to sleep early.
 #
 
-# Ignore SIGINT so that it is harder for myself to cheat.
-
+# Ignore SIGINT and SIGHUP so that it is harder for myself to cheat.
 trap '' SIGINT
+trap '' SIGHUP
 qrencode -t utf8 "TIME TO SLEEP BOY!"
 sleep 17
 systemctl suspend
