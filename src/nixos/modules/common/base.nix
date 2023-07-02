@@ -29,6 +29,7 @@
     htop
     vifm
     unzip
+    zip
 
     lm_sensors
 
