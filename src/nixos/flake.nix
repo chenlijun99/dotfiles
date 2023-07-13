@@ -101,6 +101,16 @@
             }
           ];
       };
+      "hp" = nixpkgs-unstable.lib.nixosSystem {
+        system = "x86_64-linux";
+        modules =
+          getNixosSystemModules true
+          ++ [
+            {
+              imports = [./machines/hp];
+            }
+          ];
+      };
       "oci-vps-arm" = nixpkgs-unstable.lib.nixosSystem {
         system = "aarch64-linux";
         modules =
