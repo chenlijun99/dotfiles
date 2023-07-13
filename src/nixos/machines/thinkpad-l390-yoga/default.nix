@@ -4,7 +4,6 @@
 {...}: {
   imports = [
     ./hardware-configuration.nix
-    ./tlp.nix
     ../../modules/base-gui.nix
     ../../modules/dev.nix
     ../../modules/desktop.nix
@@ -14,6 +13,7 @@
     ../../modules/virtualbox.nix
     ../../modules/printing.nix
     ../../modules/vm.nix
+    ../../modules/tlp.nix
     ../../users/lijun
     ../../users/lijun-test
     ../../users/test

@@ -14,6 +14,7 @@
     ../../modules/printing.nix
     ../../modules/vm.nix
     ../../modules/ssh-server.nix
+    ../../modules/tlp.nix
     ../../users/lijun
     ../../users/lijun-test
     ../../users/test
