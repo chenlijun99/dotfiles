@@ -13,6 +13,7 @@
       # To my interest, includes "ping", "traceroute"
       traceroute
       netcat-openbsd
+      nmap
     ];
   };
 }
