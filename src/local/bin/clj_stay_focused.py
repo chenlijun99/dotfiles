@@ -53,14 +53,18 @@ class BlocklistProgram:
                 for window in new_opened_windows:
                     print(f"Closing {self.program_window_name} window {window}")
                     subprocess.check_output(["wmctrl", "-i", "-c", window])
-                    subprocess.check_output(
-                        [
-                            "notify-send",
-                            "--icon=anki",
-                            "--app-name=Revise Anki!",
-                            "Hey, stay focused!",
-                        ]
-                    )
+                    try:
+                        subprocess.check_output(
+                            [
+                                "notify-send",
+                                "--icon=anki",
+                                "--app-name=Revise Anki!",
+                                "Hey, stay focused!",
+                            ]
+                        )
+                    except Exception as e:
+                        print(e)
+
                     subprocess.Popen("anki", start_new_session=True)
 
 
