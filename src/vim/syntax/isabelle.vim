@@ -643,6 +643,8 @@ syn match IsabelleSpecial /\\<four>/ conceal cchar=𝟰
 syn match IsabelleSpecial /\\<open>/ conceal cchar=‹ transparent
 syn match IsabelleSpecial /\\<close>/ conceal cchar=› transparent
 syn match IsabelleSpecial /\\<comment>/ conceal cchar=— transparent
+syn match IsabelleSpecial /\\<^sub>/ conceal cchar=_ transparent
+syn match IsabelleSpecial /\\<^sup>/ conceal cchar=^ transparent
 
 syn cluster IsabelleInnerStuff contains=IsabelleSpecial,IsabelleComment
 
