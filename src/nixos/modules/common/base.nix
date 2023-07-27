@@ -30,8 +30,10 @@
     vifm
     unzip
     zip
+    tree
 
     lm_sensors
+    usbutils
 
     # Every system deserves a vim
     vim

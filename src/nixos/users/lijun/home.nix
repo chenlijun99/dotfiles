@@ -56,6 +56,8 @@
 
       # Misc
       scrcpy
+      # Screen stream&recording
+      obs-studio
     ];
   };
 }
