@@ -85,5 +85,7 @@ Plug 'rickhowe/diffchar.vim'
 Plug 'romainl/vim-cool'
 " }}}
 
+Plug 'powerman/vim-plugin-AnsiEsc' , { 'on' : ['AnsiEsc', 'AnsiEsc!'] }
+
 " set modeline
 " vim: foldlevel=0 foldmethod=marker
