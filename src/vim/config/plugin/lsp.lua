@@ -1,30 +1,5 @@
 which_key_map.l = { name = "+lsp" }
 
-local nvim_lspfuzzy = {
-	"ojroques/nvim-lspfuzzy",
-	config = function()
-		local opts = { noremap = true }
-
-		which_key_map.l.d = "Show buffer diagnostics"
-		vim.api.nvim_set_keymap(
-			"n",
-			"<leader>ld",
-			"<cmd>LspDiagnostics 0<CR>",
-			opts
-		)
-
-		which_key_map.l.D = "Show all diagnostics"
-		vim.api.nvim_set_keymap(
-			"n",
-			"<leader>lD",
-			"<cmd>LspDiagnosticsAll<CR>",
-			opts
-		)
-
-		require("lspfuzzy").setup({})
-	end,
-}
-
 return {
 	{
 		"neovim/nvim-lspconfig",
@@ -34,7 +9,6 @@ return {
 				"folke/neodev.nvim",
 				opts = { experimental = { pathStrict = true } },
 			},
-			nvim_lspfuzzy,
 		},
 		opts = {
 			-- options for vim.diagnostic.config()
@@ -166,6 +140,22 @@ return {
 
 			which_key_map.l.i = "Code action"
 			vim.api.nvim_set_keymap("n", "<leader>li", "<cmd>LspInfo<cr>", opts)
+
+			which_key_map.l.d = "Show buffer diagnostics"
+			vim.api.nvim_set_keymap(
+				"n",
+				"<leader>ld",
+				"<cmd>lua vim.diagnostic.setloclist()<CR>",
+				opts
+			)
+
+			which_key_map.l.D = "Show all diagnostics"
+			vim.api.nvim_set_keymap(
+				"n",
+				"<leader>lD",
+				"<cmd>lua vim.diagnostic.setqflist()<CR>",
+				opts
+			)
 
 			which_key_map_global_previous.d = "Previous lsp diagnostic"
 			vim.api.nvim_set_keymap(
