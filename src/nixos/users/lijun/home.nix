@@ -56,6 +56,7 @@
 
       # Misc
       scrcpy
+      digikam
       # Screen stream&recording
       obs-studio
     ];

@@ -37,6 +37,8 @@ in {
       # C/C++ debuggers
       gdb
       lldb
+      # I need `ts` from this package.
+      moreutils
     ];
     file = {
       ".vifm" = {
