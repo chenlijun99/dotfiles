@@ -107,9 +107,6 @@ return {
 				view = {
 					side = "left",
 					width = 25,
-					mappings = {
-						custom_only = true,
-					},
 				},
 				renderer = {
 					root_folder_label = false,
