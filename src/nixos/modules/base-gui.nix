@@ -25,7 +25,7 @@
 
   # Install fonts
   # See https://nixos.wiki/wiki/Fonts
-  fonts.fonts = with pkgs; [
+  fonts.packages = with pkgs; [
     noto-fonts-cjk
     noto-fonts-emoji
     # I use this font in terminal emulator

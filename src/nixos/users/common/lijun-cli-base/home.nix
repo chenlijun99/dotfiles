@@ -25,7 +25,11 @@ in {
     packages = with pkgs; [
       # Ripgrep. I use it in Vim and also on CLI
       ripgrep
-      ripgrep-all
+      # Temporarily disable doInstallCheck, which fails due to newest pandoc removing support for a flag
+      # See https://discourse.nixos.org/t/ripgrep-all-build-error-on-latest-unstable/31907/3
+      (ripgrep-all.overrideAttrs (old: {
+        doInstallCheck = false;
+      }))
       fzf
       ##########################################################################
       # Dev tools
