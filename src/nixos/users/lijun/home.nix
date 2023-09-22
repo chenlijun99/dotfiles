@@ -40,6 +40,7 @@
       keepassxc
 
       # Communication
+      wechat
       slack
       signal-desktop
       teams

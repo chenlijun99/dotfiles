@@ -14,6 +14,7 @@
       url = "github:nix-community/nixos-generators";
       inputs.nixpkgs.follows = "nixpkgs-unstable";
     };
+    nur.url = "github:nix-community/NUR";
   };
   outputs = {
     self,
@@ -21,6 +22,7 @@
     nixpkgs-unstable,
     home-manager,
     nixos-generators,
+    nur,
     ...
   } @ inputs: let
     # If using nixpkgs-stable to build the system, then nixpkgs is also nixpkgs-stable.
@@ -63,6 +65,7 @@
           ./modules/common
         ];
       }
+      nur.nixosModules.nur
     ];
     /*
     Function to create a Flake-based standalone home-manager configuration
