@@ -70,7 +70,10 @@ local function on_attach(bufnr)
   vim.keymap.set('n', 'S', api.tree.search_node, opts('Search'))
   vim.keymap.set('n', '<C-k>', api.node.show_info_popup, opts('Info'))
   vim.keymap.set('n', '.', api.node.run.cmd, opts('Run Command'))
-
+  -- Override default window width resize mapping with NvimTreeResize.
+  -- This way window resizes are persisted even if NvimTree is resized.
+  vim.keymap.set("n", "<c-w>>", "<cmd>execute \"NvimTreeResize +\" . (v:count1)<cr>")
+  vim.keymap.set("n", "<c-w><", "<cmd>execute \"NvimTreeResize -\" . (v:count1)<cr>")
 end
 
 return {
