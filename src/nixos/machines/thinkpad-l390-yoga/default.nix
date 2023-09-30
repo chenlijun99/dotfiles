@@ -14,6 +14,7 @@
     ../../modules/printing.nix
     ../../modules/vm.nix
     ../../modules/tlp.nix
+    ../../modules/flatpak.nix
     ../../users/lijun
     ../../users/lijun-test
     ../../users/test
