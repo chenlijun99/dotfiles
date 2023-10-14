@@ -37,6 +37,8 @@ in {
       # C/C++ debuggers
       gdb
       lldb
+      # GDB on steroids. I am something of a hacker myself :).
+      pwndbg
       # I need `ts` from this package.
       moreutils
     ];
