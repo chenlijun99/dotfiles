@@ -314,6 +314,8 @@ filetype *.txt
 
 " Directories
 filextype */
+        \ {View in dolphin}
+        \ dolphin %f &,
         \ {View in thunar}
         \ Thunar %f &,
 fileviewer .*/,*/ tree -L 2 %f
