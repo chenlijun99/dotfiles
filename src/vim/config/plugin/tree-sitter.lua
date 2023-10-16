@@ -16,8 +16,23 @@ return {
 		},
 		---@type TSConfig
 		opts = {
-			highlight = { enable = true },
-			indent = { enable = true, disable = { "python" } },
+			highlight = {
+				enable = true,
+				disable = function(lang, bufnr)
+					-- Disable tree-sitter hilight on large files
+					return vim.api.nvim_buf_line_count(bufnr) > 5000
+				end,
+			},
+			indent = {
+				enable = true,
+				disable = function(lang, bufnr)
+					-- Disable tree-sitter indent on large files
+					-- I actually most often just use external auto-formatter.
+					-- So I may consider to disable tree-sitter indent entirely
+					return lang == "python"
+						or vim.api.nvim_buf_line_count(bufnr) > 5000
+				end,
+			},
 			context_commentstring = { enable = true, enable_autocmd = false },
 			ensure_installed = {
 				"bash",
