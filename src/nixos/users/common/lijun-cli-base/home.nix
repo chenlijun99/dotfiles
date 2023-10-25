@@ -41,6 +41,8 @@ in {
       pwndbg
       # I need `ts` from this package.
       moreutils
+      # Useful for working with JSON on the commandline
+      jq
     ];
     file = {
       ".vifm" = {
