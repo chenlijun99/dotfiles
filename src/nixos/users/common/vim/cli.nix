@@ -16,7 +16,7 @@ in {
     packages = with pkgs; [
       (neovim.override {
         # I use only Neovim
-        viAlias = true;
+        viAlias = false;
         vimAlias = true;
       })
       # Required for some neovim tree-sitter parsers
