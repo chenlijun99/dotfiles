@@ -15,7 +15,7 @@
     gcc
     # Languages runtimes
     nodejs
-    python3Full
+    python3Full poetry
     lua
     # Package manager from Rust
     cargo
