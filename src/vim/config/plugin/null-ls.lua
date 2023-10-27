@@ -48,7 +48,7 @@ return {
 					null_ls.builtins.code_actions.eslint_d,
 					null_ls.builtins.code_actions.shellcheck,
 					-- diagnostics
-					null_ls.builtins.diagnostics.cppcheck,
+					-- null_ls.builtins.diagnostics.cppcheck,
 					null_ls.builtins.diagnostics.eslint_d,
 					null_ls.builtins.diagnostics.luacheck,
 					null_ls.builtins.diagnostics.markdownlint,
