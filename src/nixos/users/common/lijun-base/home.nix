@@ -35,7 +35,7 @@ in {
       # Disk usage statistics
       libsForQt5.filelight
       # Latex
-      texlive.combined.scheme-medium
+      texlive.combined.scheme-full
       plantuml
       graphviz
       doxygen
