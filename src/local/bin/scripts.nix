@@ -22,6 +22,7 @@
           flameshot
           xdotool
           xorg.xinput
+          xclip
           wl-clipboard-x11
           wl-clipboard
           imagemagick

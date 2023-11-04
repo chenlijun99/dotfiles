@@ -24,7 +24,7 @@ function take_screenshots()
 
 	while read -r line;
 	do
-		notify-send "Press Ctrl to continue and Esc to terminate multiscreenshot.sh"
+		notify-send "multiscreenshot.sh" "Press Ctrl to continue and Esc to terminate multiscreenshot.sh" || true
 		if [[ $line == *"detail"* ]]; then
 			# shellcheck disable=2001
 			key=$( echo "$line" | sed "s/[^0-9]*//g")
@@ -46,10 +46,10 @@ function take_screenshots()
 				break
 			fi
 		fi
-	done < <(xinput test-xi2 --root 3 | grep -A2 --line-buffered RawKeyRelease)
+	done < <(xinput test-xi2 --root 3 | grep -A3 --line-buffered RawKeyRelease)
 
 	convert "${DIR}/*.png" -append png:- | xclip -selection clipboard -t image/png
-	notify-send "multiscreenshot.sh" "Concatenated screenshot saved to clipboard"
+	notify-send "multiscreenshot.sh" "Concatenated screenshot saved to clipboard" || true
 }
 
 function main()
@@ -58,7 +58,7 @@ function main()
 	for tool in "${tools[@]}"
 	do
 		if ! command -v "$tool" > /dev/null; then
-			notify-send "multiscreenshot.sh" "${tool} is not installed"
+			notify-send "multiscreenshot.sh" "${tool} is not installed" || true
 			exit
 		fi
 	done
