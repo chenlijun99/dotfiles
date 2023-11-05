@@ -75,4 +75,9 @@ in {
       source = utils.mkOutOfStoreRelativeThisRepoSymLink "./src/config/zathura";
     };
   };
+  home.file = {
+    ".XCompose" = {
+      source = utils.mkOutOfStoreRelativeThisRepoSymLink "./src/XCompose";
+    };
+  };
 }
