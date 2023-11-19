@@ -48,3 +48,33 @@ include "%L"
 <Multi_key> <g> <P> <s> <i> : "Ψ"
 <Multi_key> <g> <o> <m> <e> : "ω"
 <Multi_key> <g> <O> <m> <e> : "Ω"
+
+<Multi_key> <backslash> <f> <o> <r> <a> <l> <l> : "∀"  # latex \forall
+<Multi_key> <backslash> <e> <x> <i> <s> <t> <s> : "∃"  # latex \exists
+<Multi_key> <backslash> <t> <o> <p> : "⊤" # latex \top
+<Multi_key> <backslash> <b> <o> <t> : "⊥" # latex \bot
+<Multi_key> <backslash> <i> <n> <space> : "∈ " # latex \in
+<Multi_key> <backslash> <n> <i> : "∋"  # latex \ni
+<Multi_key> <backslash> <n> <o> <t> <i> <n> : "∉" #latex \notin
+<Multi_key> <backslash> <e> <m> <p> <t> <y> : "∅"  # latex \empty
+<Multi_key> <backslash> <l> <e> : "≤"  # latex \le
+<Multi_key> <backslash> <g> <e> : "≥ "  # latex \ge
+<Multi_key> <backslash> <s> <u> <b> <s> <e> <t> : "⊂"  # latex \subset
+<Multi_key> <backslash> <s> <u> <b> <s> <e> <t> <e> <q> : "⊆"  # latex \subseteq
+<Multi_key> <backslash> <s> <u> <p> <s> <e> <t> : "⊃"  # latex \supset
+<Multi_key> <backslash> <s> <u> <p> <s> <e> <t> <e> <q> : "⊇"  # latex \supseteq
+<Multi_key> <backslash> <s> <e> <t> <m> <i> <n> <u> <s> : "∖"  # latex \setminus
+<Multi_key> <backslash> <c> <a> <p> : "∩"  # latex \cap
+<Multi_key> <backslash> <c> <u> <p> : "∪"  # latex \cup
+<Multi_key> <backslash> <i> <n> <f> <t> <y> : "∞"  # latex \infty
+<Multi_key> <backslash> <e> <q> <u> <i> <v> : "≡"  # latex \equiv
+<Multi_key> <backslash> <n> <e> <q> <u> <i> <v> : "≢"  # latex \not\equiv
+<Multi_key> <backslash> <s> <i> <m> <e> <q> : "≃" # latex \simeq
+<Multi_key> <backslash> <a> <p> <p> <r> <o> <x> : "≈" # latex \approx
+<Multi_key> <backslash> <n> <e> <space> : "≠ "  # latex \ne
+<Multi_key> <backslash> <w> <e> <d> <g> <e> : "∧"  # latex \wedge
+<Multi_key> <backslash> <n> <o> <t> : "¬"  # latex \not
+<Multi_key> <backslash> <c> <d> <o> <t> : "⋅"  # latex \cdot
+<Multi_key> <backslash> <t> <i> <m> <e> <s> : "×"  # latex \times
+<Multi_key> <backslash> <l> <a> <n> <g> <l> <e> : "⟨"  # latex \langle
+<Multi_key> <backslash> <r> <a> <n> <g> <l> <e> : "⟩"  # latex \rangle
