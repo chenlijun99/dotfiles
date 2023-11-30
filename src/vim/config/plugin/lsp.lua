@@ -44,6 +44,7 @@ return {
 						offsetEncoding = { "utf-16" },
 					},
 				},
+				ocamllsp = {},
 				cmake = {},
 				pyright = {},
 				tsserver = {},

@@ -176,3 +176,6 @@ function enable_conda
     unset __conda_setup
     # <<< conda initialize <<<
 }
+
+# opam configuration
+[[ ! -r /home/lijun/.opam/opam-init/init.zsh ]] || source /home/lijun/.opam/opam-init/init.zsh  > /dev/null 2> /dev/null

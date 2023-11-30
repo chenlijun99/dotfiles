@@ -78,6 +78,9 @@ return {
 				"vue",
 				"yaml",
 				"kotlin",
+				"ocaml",
+				"ocaml_interface",
+				"ocamllex",
 				-- VimTex provides better highlighting
 				--"latex",
 			},
