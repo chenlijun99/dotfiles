@@ -16,7 +16,7 @@ function run_if_available() {
 }
 
 # If teams is autostarted too early, often it fails to startup
-run_if_available teams
+run_if_available teams-for-linux
 # If thunderbird is autostarted too early, it's GUI remains stuck
 run_if_available thunderbird
 # If slack is autostarted too early, it requires re-authentication for all the

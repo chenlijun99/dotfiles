@@ -43,7 +43,7 @@
       wechat
       slack
       signal-desktop
-      teams
+      teams-for-linux
       zoom-us
       tdesktop
       discord
