@@ -23,13 +23,46 @@
   i18n.inputMethod.enabled = "ibus";
   i18n.inputMethod.ibus.engines = with pkgs.ibus-engines; [rime];
 
-  # Install fonts
-  # See https://nixos.wiki/wiki/Fonts
-  fonts.packages = with pkgs; [
-    noto-fonts-cjk
-    noto-fonts-emoji
-    # I use this font in terminal emulator
-    # My Alacritty config uses NerdFont patched Hack
-    (nerdfonts.override {fonts = ["Hack"];})
-  ];
+  fonts = {
+    enableDefaultPackages = true;
+    fontconfig = {
+      # Take from https://github.com/NixOS/nixpkgs/issues/86601#issuecomment-757959059
+      localConf = ''
+        <?xml version="1.0"?>
+        <!DOCTYPE fontconfig SYSTEM "fonts.dtd">
+        <fontconfig>
+          <alias binding="weak">
+            <family>monospace</family>
+            <prefer>
+              <family>emoji</family>
+            </prefer>
+          </alias>
+          <alias binding="weak">
+            <family>sans-serif</family>
+            <prefer>
+              <family>emoji</family>
+            </prefer>
+          </alias>
+          <alias binding="weak">
+            <family>serif</family>
+            <prefer>
+              <family>emoji</family>
+            </prefer>
+          </alias>
+        </fontconfig>
+      '';
+      defaultFonts = {
+        emoji = ["Noto Color Emoji"];
+      };
+    };
+    # Install fonts
+    # See https://nixos.wiki/wiki/Fonts
+    packages = with pkgs; [
+      noto-fonts-cjk
+      noto-fonts-emoji
+      # I use this font in terminal emulator
+      # My Alacritty config uses NerdFont patched Hack
+      (nerdfonts.override {fonts = ["Hack"];})
+    ];
+  };
 }
