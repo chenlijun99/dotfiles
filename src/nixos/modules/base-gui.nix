@@ -25,61 +25,25 @@
 
   fonts = {
     fontconfig = {
-      localConf = ''
-        <?xml version="1.0"?>
-        <!DOCTYPE fontconfig SYSTEM "fonts.dtd">
-        <fontconfig>
-          <!--
-              If characters are not supported by Hack Nerd Font 
-              (my main monospace font that I use in Alacritty)
-              fallback to font family emoji and then to JuliaMono.
-
-              JuliaMono is a monospace font that supports many unicode math 
-              characters. Useful for Isabelle/HOL.
-
-              `emoji` comes first because otherwise JuliaMono also contains
-              support for some emojis but I want to use JuliaMono only for
-              math symbols.
-          -->
-          <alias binding="weak">
-            <family>Hack Nerd Font</family>
-            <prefer>
-              <family>emoji</family>
-              <family>JuliaMono</family>
-            </prefer>
-          </alias>
-
-          <!--
-              Take from 
-              https://github.com/NixOS/nixpkgs/issues/86601#issuecomment-757959059
-
-              To make the emoji font I like (i.e. Noto Color Emoji) to come first 
-              when falling back.
-              Chromium works fine without this. But Alacritty needs this.
-          -->
-          <alias binding="weak">
-            <family>monospace</family>
-            <prefer>
-              <family>emoji</family>
-            </prefer>
-          </alias>
-          <alias binding="weak">
-            <family>sans-serif</family>
-            <prefer>
-              <family>emoji</family>
-            </prefer>
-          </alias>
-          <alias binding="weak">
-            <family>serif</family>
-            <prefer>
-              <family>emoji</family>
-            </prefer>
-          </alias>
-        </fontconfig>
-      '';
       defaultFonts = {
         emoji = ["Noto Color Emoji"];
-        monospace = ["DejaVu Sans Mono" "JuliaMono"];
+
+        # Use Hack Nerd Font as main monospace font.
+        # I've been using it in the terminal (Alacritty) for so many years.
+        # If characters are not supported by Hack Nerd Font
+        # fallback to font family emoji and then to JuliaMono.
+        #
+        # JuliaMono is a monospace font that supports many unicode math
+        # characters. Useful for Isabelle/HOL.
+        #
+        # `emoji` comes first because otherwise JuliaMono also contains
+        # support for some emojis but I want to use JuliaMono only for
+        # math symbols.
+        #
+        # To debug font priority you can use `fc-match`.
+        # Also, of course, ArchWiki is always a nice source.
+        # [Font configuration](https://wiki.archlinux.org/title/Font_configuration)
+        monospace = ["Hack Nerd Font" "emoji" "JuliaMono" "DejaVu Sans Mono"];
       };
     };
     # Install fonts
