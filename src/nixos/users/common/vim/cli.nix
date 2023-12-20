@@ -46,7 +46,7 @@ in {
       lua53Packages.luacheck
 
       # clangd, clang-format, clang-tidy
-      clang-tools
+      clang-tools_16
       # For `git-clang-format`
       libclang.python
       # Another language server for C/C++
