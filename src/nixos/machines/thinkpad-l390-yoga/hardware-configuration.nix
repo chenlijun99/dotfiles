@@ -12,6 +12,14 @@
   boot.initrd.kernelModules = [ ];
   boot.kernelModules = [ "kvm-intel" ];
   boot.extraModulePackages = [ ];
+  boot.kernel.sysctl = {
+    # Allow the magic SysRq keys that I use
+    # In particular "b" for reboot (128) and "f" to invoke OOM killer (64).
+    # For now I don't really need 16 and 32 and they seem to have quite
+    # widespread adoption.
+    # See https://www.kernel.org/doc/html/latest/admin-guide/sysrq.html
+    "kernel.sysrq" = 16 + 32 + 64 + 128;
+  };
 
   fileSystems."/" =
     { device = "/dev/disk/by-uuid/addc027e-48f5-4c92-986b-6351c16dbbc1";
