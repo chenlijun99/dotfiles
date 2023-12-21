@@ -59,7 +59,7 @@ in {
       cmake-language-server
 
       # Nix LSP
-      rnix-lsp
+      nil
 
       # Python LSP
       nodePackages_latest.pyright

@@ -48,6 +48,7 @@ return {
 				cmake = {},
 				pyright = {},
 				tsserver = {},
+				nil_ls = {},
 			},
 			setup = {},
 		},
