@@ -1,7 +1,18 @@
 return {
 	{
 		"nvim-treesitter/nvim-treesitter-context",
+		-- Since by default I don't use this plugin, I wish I could
+		-- lazy load it only when it is needed (via keys), but it seems that
+		-- if it is lazy loaded when I'm in the middle of a file
+		-- the some error is triggered.
 		event = { "BufReadPre", "BufNewFile" },
+		keys = {
+			{
+				"<leader>bc",
+				"<cmd>TSContextToggle<CR>",
+				desc = "Toggle tree-sitter context",
+			},
+		},
 		dependencies = {
 			"nvim-treesitter/nvim-treesitter",
 		},
@@ -27,5 +38,11 @@ return {
 			-- (fun(buf: integer): boolean) return false to disable attaching
 			on_attach = nil,
 		},
+		config = function(opts)
+			local m = require("treesitter-context")
+			m.setup(opts)
+			-- Keep it initially disabled.
+			m.disable()
+		end,
 	},
 }
