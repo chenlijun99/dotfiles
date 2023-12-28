@@ -1,8 +1,9 @@
 {
   description = "NixOS configuration of Lijun Chen";
   inputs = {
-    nixpkgs-stable.url = "github:NixOS/nixpkgs/nixos-22.11";
+    nixpkgs-stable.url = "github:NixOS/nixpkgs/nixos-23.11";
     nixpkgs-unstable.url = "github:NixOS/nixpkgs/nixos-unstable";
+    nixpkgs-inkscape-1-22.url = "github:NixOS/nixpkgs/nixos-23.05";
     # Version of nixpkgs where pCloud doesn't crash
     # See https://github.com/NixOS/nixpkgs/issues/226339
     nixpkgs-unstable-pcloud-ok.url = "github:NixOS/nixpkgs/e3652e0735fbec227f342712f180f4f21f0594f2";
@@ -14,6 +15,7 @@
       url = "github:nix-community/nixos-generators";
       inputs.nixpkgs.follows = "nixpkgs-unstable";
     };
+    # I get some useful packages from here. E.g. WeChat.
     nur.url = "github:nix-community/NUR";
   };
   outputs = {

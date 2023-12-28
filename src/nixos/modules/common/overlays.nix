@@ -16,6 +16,12 @@
       allowUnfree = true;
     };
   };
+  pkgs-inkscape-1-22 = import inputs.nixpkgs-inkscape-1-22 {
+    system = pkgs.system;
+    config = {
+      allowUnfree = true;
+    };
+  };
 in {
   nixpkgs.overlays = [
     (final: prev: {
@@ -51,6 +57,12 @@ in {
       #   };
       # };
       wechat = config.nur.repos.xddxdd.wechat-uos-bin;
+      #
+      # New Inkscape 1.3.x are slow when working with PDF.
+      # https://inkscape.org/forums/beyond/13-and-131-are-very-very-slow-opening-a-small-pdf-file/
+      # I've also experienced this.
+      #
+      inkscape = pkgs-inkscape-1-22.inkscape;
     })
   ];
   nixpkgs.config.permittedInsecurePackages = [

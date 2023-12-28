@@ -53,6 +53,9 @@ in {
 
       # Count lines of code
       scc
+      # Misc
+      pdftk
+      inkscape
     ];
   };
   # Enable management of XDG base directories using home-manager
