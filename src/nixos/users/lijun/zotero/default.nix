@@ -21,7 +21,8 @@
         # Where to find new attachments
         "extensions.zotfile.source_dir" = "${config.home.homeDirectory}/Downloads";
         "extensions.zotfile.tablet.dest_dir" = "${config.home.homeDirectory}/pCloudDrive/Zotero/Tablet";
-
+        # Set Quick copy to "Better Bibtex"
+        "extensions.zotero.export.quickCopy.setting" = "export=ca65189f-8815-4afe-8c8b-8c7c15f0edca";
         # ZotFile renaming rules
         # Most (maybe all?) of them are default settings. You can easily find
         # them in the ZotFile repository.
