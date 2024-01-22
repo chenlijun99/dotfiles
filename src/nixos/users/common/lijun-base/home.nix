@@ -75,6 +75,13 @@ in {
       source = ../../../../config/ibus/rime/default.custom.yaml;
       target = "ibus/rime/default.custom.yaml";
     };
+    "strawberry" = {
+      # Mainly for two purposes
+      #
+      # * Remember setting to fingerprint collection
+      # * Remember file naming pattern.
+      source = utils.mkOutOfStoreRelativeThisRepoSymLink "./src/config/strawberry";
+    };
     "safeeyes" = {
       source = utils.mkOutOfStoreRelativeThisRepoSymLink "./src/config/safeeyes";
     };
