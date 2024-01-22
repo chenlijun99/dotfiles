@@ -75,6 +75,11 @@ in {
       source = ../../../../config/ibus/rime/default.custom.yaml;
       target = "ibus/rime/default.custom.yaml";
     };
+    "baloofilerc" = {
+      # Disable KDE baloo file indexing
+      # See https://community.kde.org/Baloo/Configuration
+      source = utils.mkOutOfStoreRelativeThisRepoSymLink "./src/config/baloofilerc";
+    };
     "strawberry" = {
       # Mainly for two purposes
       #
