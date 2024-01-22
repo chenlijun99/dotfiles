@@ -34,8 +34,12 @@ in {
       zeal
       # Disk usage statistics
       libsForQt5.filelight
+
       # Latex
       texlive.combined.scheme-full
+      # Needed for minted
+      python310Packages.pygments
+
       plantuml
       graphviz
       doxygen
