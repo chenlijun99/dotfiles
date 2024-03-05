@@ -14,6 +14,25 @@ local LuaSnip = {
 	},
 }
 
+-- Fix issue with unpredictable LuaSnip cursor behavior
+-- https://github.com/L3MON4D3/LuaSnip/issues/258
+-- Basically after leaving insert mode and re-entering if I use tab sometimes I still jump around the snippet.
+vim.api.nvim_create_autocmd("ModeChanged", {
+	pattern = "*",
+	callback = function()
+		if
+			(
+				(vim.v.event.old_mode == "s" and vim.v.event.new_mode == "n")
+				or vim.v.event.old_mode == "i"
+			)
+			and require("luasnip").session.current_nodes[vim.api.nvim_get_current_buf()]
+			and not require("luasnip").session.jump_active
+		then
+			require("luasnip").unlink_current()
+		end
+	end,
+})
+
 local kind_icons = {
 	Text = "",
 	Method = "m",
@@ -63,10 +82,10 @@ return {
 				local line, col = unpack(vim.api.nvim_win_get_cursor(0))
 				return col ~= 0
 					and vim.api
-							.nvim_buf_get_lines(0, line - 1, line, true)[1]
-							:sub(col, col)
-							:match("%s")
-						== nil
+					.nvim_buf_get_lines(0, line - 1, line, true)[1]
+					:sub(col, col)
+					:match("%s")
+					== nil
 			end
 
 			local luasnip = require("luasnip")
