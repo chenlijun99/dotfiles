@@ -26,13 +26,13 @@ if [ "$#" -eq 1 ]; then
 
 	mkdir -p "$ALACRITTY_DATA_PATH"
 	if [[ "$1" == "dark" ]]; then
-		ln -sf "$ALACRITTY_CONFIG_PATH"/gruvbox_dark.yaml "$ALACRITTY_DATA_PATH"/clj_current_theme.yaml
+		ln -sf "$ALACRITTY_CONFIG_PATH"/gruvbox_dark.toml "$ALACRITTY_DATA_PATH"/clj_current_theme.toml
 		echo "Changed Alacritty theme to gruvbox_dark"
 
 		generate_set_background_vimscript "dark" >"$NEOVIM_COLORSCHEME_DATA_PATH"
 		echo "Changed Neovim theme to gruvbox_dark"
 	elif [[ "$1" == "light" ]]; then
-		ln -sf "$ALACRITTY_CONFIG_PATH"/gruvbox_light.yaml "$ALACRITTY_DATA_PATH"/clj_current_theme.yaml
+		ln -sf "$ALACRITTY_CONFIG_PATH"/gruvbox_light.toml "$ALACRITTY_DATA_PATH"/clj_current_theme.toml
 		echo "Changed Alacritty theme to gruvbox_light"
 
 		generate_set_background_vimscript "light" >"$NEOVIM_COLORSCHEME_DATA_PATH"
