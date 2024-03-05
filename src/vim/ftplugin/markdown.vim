@@ -50,3 +50,7 @@ function! s:SetexToAtx(line1, line2)
     execute 'silent! ' . a:line1 . ',' . a:line2 . 'substitute/\v(.*\S.*)\n-+$/## \1/'
     return l:originalNumLines - line('$')
 endfunction
+
+" Use surround vim to quickly wrap text in Anki cloze
+" Can be used as follows: in visual mode, use Sc.
+let b:surround_{char2nr('c')} = "{{c1::\r}}"

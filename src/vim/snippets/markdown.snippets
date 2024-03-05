@@ -6,15 +6,19 @@ snippet Anki-cloze
     \`\`\`autoanki
     note_type: Cloze
     fields:
-        Text: $0
-        Extra:
+        Text: |
+            $0
+        Extra: |
+            
     \`\`\`
 snippet Anki-basic
     \`\`\`autoanki
     note_type: Basic
     fields:
-        Front: $0
-        Back:
+        Front: |
+            $0
+        Back: |
+            
     \`\`\`
 snippet Anki
     \`\`\`autoanki
@@ -22,3 +26,9 @@ snippet Anki
     fields:
         ${0:Field}
     \`\`\`
+
+snippet PdfLink
+    <object data="autoanki-zotero://pdf/byCiteKey/$1#page=$2"></object>
+
+snippet PdfLinkMultipage
+    <object data="autoanki-zotero://pdf/byCiteKey/$1#page=$2" data-autoanki-pdf-pages="$3"></object>
