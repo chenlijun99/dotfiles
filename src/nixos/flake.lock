@@ -104,6 +104,22 @@
         "type": "github"
       }
     },
+    "nixpkgs-unstable-anki-ok": {
+      "locked": {
+        "lastModified": 1701068326,
+        "narHash": "sha256-vmMceA+q6hG1yrjb+MP8T0YFDQIrW3bl45e7z24IEts=",
+        "owner": "NixOS",
+        "repo": "nixpkgs",
+        "rev": "8cfef6986adfb599ba379ae53c9f5631ecd2fd9c",
+        "type": "github"
+      },
+      "original": {
+        "owner": "NixOS",
+        "repo": "nixpkgs",
+        "rev": "8cfef6986adfb599ba379ae53c9f5631ecd2fd9c",
+        "type": "github"
+      }
+    },
     "nixpkgs-unstable-pcloud-ok": {
       "locked": {
         "lastModified": 1680213900,
@@ -142,6 +158,7 @@
         "nixpkgs-inkscape-1-22": "nixpkgs-inkscape-1-22",
         "nixpkgs-stable": "nixpkgs-stable",
         "nixpkgs-unstable": "nixpkgs-unstable",
+        "nixpkgs-unstable-anki-ok": "nixpkgs-unstable-anki-ok",
         "nixpkgs-unstable-pcloud-ok": "nixpkgs-unstable-pcloud-ok",
         "nur": "nur"
       }

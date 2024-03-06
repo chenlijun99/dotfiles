@@ -16,6 +16,12 @@
       allowUnfree = true;
     };
   };
+  pkgs-anki-ok = import inputs.nixpkgs-unstable-anki-ok {
+    system = pkgs.system;
+    config = {
+      allowUnfree = true;
+    };
+  };
   pkgs-inkscape-1-22 = import inputs.nixpkgs-inkscape-1-22 {
     system = pkgs.system;
     config = {
@@ -26,7 +32,7 @@ in {
   nixpkgs.overlays = [
     (final: prev: {
       # My custom Anki
-      anki-bin = pkgs.callPackage ./anki {};
+      anki-bin = pkgs-anki-ok.callPackage ./anki {};
       # My custom okular
       okular = import ./okular args;
       # My custom zotero

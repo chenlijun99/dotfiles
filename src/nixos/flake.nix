@@ -7,6 +7,8 @@
     # Version of nixpkgs where pCloud doesn't crash
     # See https://github.com/NixOS/nixpkgs/issues/226339
     nixpkgs-unstable-pcloud-ok.url = "github:NixOS/nixpkgs/e3652e0735fbec227f342712f180f4f21f0594f2";
+    # Version of nixpkgs where Anki works
+    nixpkgs-unstable-anki-ok.url = "github:NixOS/nixpkgs/8cfef6986adfb599ba379ae53c9f5631ecd2fd9c";
     home-manager = {
       url = "github:nix-community/home-manager";
       inputs.nixpkgs.follows = "nixpkgs-unstable";
