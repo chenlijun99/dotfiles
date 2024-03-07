@@ -24,6 +24,10 @@ return {
 			-- set to false to disable all additional syntax features
 			enable = false,
 		},
+		completion = {
+			-- I already have markdown-oxide for this
+			nvim_cmp = false,
+		},
 
 		-- see below for full list of options 👇
 	},

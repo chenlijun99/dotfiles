@@ -146,7 +146,16 @@ return {
 					end, { "i", "s" }),
 				}),
 				sources = cmp.config.sources({
-					{ name = "nvim_lsp" },
+					{
+						name = "nvim_lsp",
+						option = {
+							-- As suggested here
+							-- https://github.com/Feel-ix-343/markdown-oxide?tab=readme-ov-file#neovim
+							markdown_oxide = {
+								keyword_pattern = [[\(\k\| \|\/\|#\)\+]],
+							},
+						},
+					},
 					{ name = "nvim_lsp_signature_help" },
 					{ name = "luasnip" },
 				}, {

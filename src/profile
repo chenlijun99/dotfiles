@@ -19,6 +19,9 @@ fi
 # set PATH so it includes user's private bin directories
 PATH="$HOME/bin:$HOME/.local/bin:$PATH"
 
+# Cargo bin
+PATH="$HOME/.cargo/bin:$PATH"
+
 # Since we're not using home-manager to manage our shell configuration
 # we need to source one of the following files
 #

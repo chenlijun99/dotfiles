@@ -49,6 +49,7 @@ return {
 				pyright = {},
 				tsserver = {},
 				nil_ls = {},
+				markdown_oxide = {},
 			},
 			setup = {},
 		},
