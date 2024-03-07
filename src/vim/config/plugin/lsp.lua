@@ -50,6 +50,30 @@ return {
 				tsserver = {},
 				nil_ls = {},
 				markdown_oxide = {},
+				rust_analyzer = {
+					on_attach = function(client, bufnr)
+						require("completion").on_attach(client)
+						vim.lsp.inlay_hint.enable(bufnr)
+					end,
+					settings = {
+						["rust-analyzer"] = {
+							imports = {
+								granularity = {
+									group = "module",
+								},
+								prefix = "self",
+							},
+							cargo = {
+								buildScripts = {
+									enable = true,
+								},
+							},
+							procMacro = {
+								enable = true,
+							},
+						},
+					},
+				},
 			},
 			setup = {},
 		},
