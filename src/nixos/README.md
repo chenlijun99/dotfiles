@@ -25,7 +25,7 @@ My multi-device NixOS configuration.
 │   │   └── ...
 │   ├── desktop.nix
 │   ├── dev.nix
-│   ├── docker.nix
+│   ├── container.nix
 │   └── virtualbox.nix
 ├── README.md              # This README.md
 └── users                  # User configs that can be imported by `machines`

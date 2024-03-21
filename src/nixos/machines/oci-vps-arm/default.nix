@@ -2,7 +2,7 @@
   imports = [
     ./hardware-configuration.nix
     ../../modules/dev.nix
-    ../../modules/docker.nix
+    ../../modules/container.nix
     ../../modules/ssh-server.nix
     ../../users/lijun-cli
     ../../users/test

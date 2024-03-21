@@ -9,7 +9,7 @@
     ../../modules/desktop.nix
     ../../modules/audio.nix
     ../../modules/bluetooth.nix
-    ../../modules/docker.nix
+    ../../modules/container.nix
     ../../modules/virtualbox.nix
     ../../modules/printing.nix
     ../../modules/vm.nix
