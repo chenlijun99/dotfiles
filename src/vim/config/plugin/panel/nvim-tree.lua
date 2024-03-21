@@ -49,6 +49,8 @@ local function on_attach(bufnr)
   vim.keymap.set('n', 'i', api.tree.toggle_gitignore_filter, opts('Toggle Git Ignore'))
   vim.keymap.set('n', 'I', api.tree.toggle_hidden_filter, opts('Toggle Dotfiles'))
   vim.keymap.set('n', '<c-l>', api.tree.reload, opts('Refresh'))
+  vim.keymap.set('n', 'bf', api.live_filter.start, opts('Live filter start'))
+  vim.keymap.set('n', 'bF', api.live_filter.clear, opts('Live filter clear'))
   vim.keymap.set('n', 'ma', api.fs.create, opts('Create'))
   vim.keymap.set('n', 'md', api.fs.remove, opts('Delete'))
   vim.keymap.set('n', 'mD', api.fs.trash, opts('Trash'))
@@ -66,7 +68,8 @@ local function on_attach(bufnr)
   vim.keymap.set('n', '-', api.tree.change_root_to_parent, opts('Up'))
   vim.keymap.set('n', 'q', api.tree.close, opts('Close'))
   vim.keymap.set('n', 'g?', api.tree.toggle_help, opts('Help'))
-  vim.keymap.set('n', 'W', api.tree.collapse_all, opts('Collapse'))
+  vim.keymap.set('n', 'zM', api.tree.collapse_all, opts('Collapse'))
+  vim.keymap.set('n', 'zR', api.tree.expand_all, opts('Expand all'))
   vim.keymap.set('n', 'S', api.tree.search_node, opts('Search'))
   vim.keymap.set('n', '<C-k>', api.node.show_info_popup, opts('Info'))
   vim.keymap.set('n', '.', api.node.run.cmd, opts('Run Command'))
@@ -99,7 +102,7 @@ return {
 				disable_netrw = false,
 				hijack_netrw = true,
 				open_on_tab = false,
-				hijack_cursor = true,
+				hijack_cursor = false,
 				hijack_unnamed_buffer_when_opening = false,
 				update_cwd = true,
 				update_focused_file = {
