@@ -32,3 +32,12 @@ snippet PdfLink
 
 snippet PdfLinkMultipage
     <object data="autoanki-zotero://pdf/byCiteKey/$1#page=$2" data-autoanki-pdf-pages="$3"></object>
+
+snippet CljReadingLog
+    * [cljReadingDay:: ${CURRENT_YEAR}-${CURRENT_MONTH}-${CURRENT_DATE}] [cljReadingTimeRange:: $1-${CURRENT_HOUR}:${CURRENT_MINUTE}] [cljReadingRange:: $2-$3] $0
+snippet CljReadingTime
+    [cljReadingTimeRange:: $0-${CURRENT_HOUR}:${CURRENT_MINUTE}]
+snippet CljReadingRange
+    [cljReadingRange:: $1-$2] $0
+snippet CljReadingDay
+    [cljReadingDay:: ${CURRENT_YEAR}-${CURRENT_MONTH}-${CURRENT_DATE}] $0
