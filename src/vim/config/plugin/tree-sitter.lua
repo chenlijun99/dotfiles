@@ -81,6 +81,7 @@ return {
 				"ocaml",
 				"ocaml_interface",
 				"ocamllex",
+				"rst",
 				-- VimTex provides better highlighting
 				--"latex",
 			},
