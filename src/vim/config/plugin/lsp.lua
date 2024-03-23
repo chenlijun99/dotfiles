@@ -82,8 +82,6 @@ return {
 			setup = {},
 		},
 		config = function(_, opts)
-			local lspconfig = require("lspconfig")
-
 			local cmp_nvim_lsp_capabilities =
 				require("cmp_nvim_lsp").default_capabilities(
 					vim.lsp.protocol.make_client_capabilities()
@@ -93,7 +91,7 @@ return {
 
 			local function setup(server)
 				local server_opts = vim.tbl_deep_extend("force", {
-					capabilities = vim.deepcopy(capabilities),
+					capabilities = vim.deepcopy(cmp_nvim_lsp_capabilities),
 				}, servers[server] or {})
 
 				if opts.setup[server] then
