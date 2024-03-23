@@ -49,7 +49,11 @@ return {
 				pyright = {},
 				tsserver = {},
 				nil_ls = {},
-				markdown_oxide = {},
+				-- Dunno why, but causes some error messages from Neovim
+				-- when opening markdown files in non-git folders.
+				-- Anyway, I need it only for Obsidian. So I enable it only
+				-- in the obsidian vault using .nvim.lua.
+				-- markdown_oxide = {},
 				rust_analyzer = {
 					on_attach = function(client, bufnr)
 						require("completion").on_attach(client)
