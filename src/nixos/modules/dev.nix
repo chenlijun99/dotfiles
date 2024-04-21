@@ -11,11 +11,14 @@
     cmake
     ninja
     gnumake
+    # bear can be used to get a `compile_commands.json` file out from a Makefile-based project
+    bear
     # Always have a C/C++ compiler at hand :)
     gcc
     # Languages runtimes
     nodejs
-    python3Full poetry
+    python3Full
+    poetry
     lua
     # Package manager from Rust
     cargo
