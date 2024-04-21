@@ -7,9 +7,12 @@
   home = {
     packages = with pkgs; [
       # Performance profiler
-      pkgs.linuxPackages.perf
+      linuxPackages.perf
       # perf GUI
-      pkgs.hotspot
+      hotspot
+      # Scripts from Brendan Gregg
+      flamegraph
+      inferno
     ];
   };
 }
