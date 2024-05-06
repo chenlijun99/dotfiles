@@ -27,6 +27,14 @@
           ];
           definedAliases = ["gs"];
         };
+        "Google Maps" = {
+          urls = [
+            {
+              template = "https://www.google.com/maps/search/{searchTerms}";
+            }
+          ];
+          definedAliases = ["gm"];
+        };
         "Google translate" = {
           urls = [
             {
