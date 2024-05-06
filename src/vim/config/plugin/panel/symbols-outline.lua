@@ -9,7 +9,10 @@ return {
 			},
 		},
 		config = function()
-			require("symbols-outline").setup()
+			require("symbols-outline").setup({
+				-- By default keep most things folded.
+				autofold_depth = 1,
+			})
 		end,
 	},
 }
