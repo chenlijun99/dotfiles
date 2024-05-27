@@ -23,6 +23,9 @@ in {
       tree-sitter
       # Required to build some plugins (e.g. tree-sitter parsers)
       gcc
+
+      # Required by some plugins
+      nodejs
       # Required to install some Vim plugins that have helper programs written
       # in Node.js
       yarn
@@ -71,6 +74,9 @@ in {
       # Shell formatter and checker
       shfmt
       shellcheck
+
+      # Nix formatter
+      alejandra
     ];
     file = {
       ".vim" = {
