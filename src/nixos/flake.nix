@@ -145,6 +145,7 @@
     };
     homeConfigurations = {
       "lijun" = defFlakeHome "x86_64-linux" "lijun" true;
+      "lijun-cli" = defFlakeHome "x86_64-linux" "lijun-cli" true;
       "lijun-test" = defFlakeHome "x86_64-linux" "lijun-test" true;
     };
   };
