@@ -22,6 +22,12 @@ PATH="$HOME/bin:$HOME/.local/bin:$PATH"
 # Cargo bin
 PATH="$HOME/.cargo/bin:$PATH"
 
+# In case of installing Nix via single-user installation,
+# need to source this to enable Nix
+if [ -e "$HOME/.nix-profile/etc/profile.d/nix.sh" ]; then
+    . "$HOME/.nix-profile/etc/profile.d/nix.sh" 
+fi
+
 # Since we're not using home-manager to manage our shell configuration
 # we need to source one of the following files
 #
