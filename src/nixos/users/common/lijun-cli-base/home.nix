@@ -24,6 +24,9 @@ in {
     # See https://nix-community.github.io/home-manager/options.html#opt-home.stateVersion
     stateVersion = "21.11";
     packages = with pkgs; [
+      git
+      git-lfs
+      distrobox
       # Ripgrep. I use it in Vim and also on CLI
       ripgrep
       # Temporarily disable doInstallCheck, which fails due to newest pandoc removing support for a flag
