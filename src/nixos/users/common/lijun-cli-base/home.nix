@@ -16,6 +16,7 @@ in {
     ../this.nix
     ../vim/cli.nix
     ../networking/cli.nix
+    ../performance/cli.nix
     # My custom scripts
     ./../../../../local/bin/scripts.nix
   ];

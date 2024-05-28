@@ -19,9 +19,9 @@ in {
     ./flameshot.nix
     ./autostart.nix
     ./desktop.nix
-    ./performance.nix
     ../networking/gui.nix
     ../vim/gui.nix
+    ../performance/gui.nix
   ];
   home = {
     # See https://nix-community.github.io/home-manager/options.html#opt-home.stateVersion
