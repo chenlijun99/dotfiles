@@ -30,6 +30,8 @@
     win-virtio
     win-spice
     gnome.adwaita-icon-theme
+    # Required for virtiofs-based shared filesystem
+    virtiofsd
   ];
 
   # Manage the virtualisation services
