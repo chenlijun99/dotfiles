@@ -26,6 +26,12 @@ in {
     packages = with pkgs; [
       git
       git-lfs
+      wget
+      file
+      tldr
+      htop
+      vifm
+      tree
       distrobox
       # Ripgrep. I use it in Vim and also on CLI
       ripgrep
