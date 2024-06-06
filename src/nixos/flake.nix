@@ -1,7 +1,7 @@
 {
   description = "NixOS configuration of Lijun Chen";
   inputs = {
-    nixpkgs-stable.url = "github:NixOS/nixpkgs/nixos-23.11";
+    nixpkgs-stable.url = "github:NixOS/nixpkgs/nixos-24.05";
     nixpkgs-unstable.url = "github:NixOS/nixpkgs/nixos-unstable";
     nixpkgs-inkscape-1-22.url = "github:NixOS/nixpkgs/nixos-23.05";
     # Version of nixpkgs where pCloud doesn't crash
