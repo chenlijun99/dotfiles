@@ -34,7 +34,7 @@ in {
       # For offline documentation
       zeal
       # Disk usage statistics
-      libsForQt5.filelight
+      kdePackages.filelight
 
       # Latex
       texlive.combined.scheme-full

@@ -5,11 +5,9 @@
   services.displayManager = {
     sddm.enable = true;
   };
-  services.xserver = {
-    enable = true;
-    desktopManager.plasma5 = {
-      enable = true;
-    };
+  services.xserver.enable = true;
+  services.desktopManager = {
+    plasma6.enable = true;
   };
   # for touchpad support on many laptops
   services.libinput.enable = true;

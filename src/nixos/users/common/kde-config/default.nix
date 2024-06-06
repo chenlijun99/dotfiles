@@ -52,7 +52,7 @@ in {
             key = lib.last path;
           in ''
             $DRY_RUN_CMD \
-            ${pkgs.libsForQt5.kconfig}/bin/kwriteconfig5 \
+            ${pkgs.kdePackages.kconfig}/bin/kwriteconfig6 \
             --file ~/.config/'${file}' \
             ${group_options} \
             --key '${key}' \
@@ -63,7 +63,7 @@ in {
       in
         lib.hm.dag.entryAfter ["writeBoundary"] ''
            ${(builtins.concatStringsSep "\n" lines)}
-          $DRY_RUN_CMD ${pkgs.libsForQt5.qt5.qttools.bin}/bin/qdbus org.kde.KWin /KWin reconfigure || echo "KWin reconfigure failed"
+          $DRY_RUN_CMD ${pkgs.kdePackages.qttools}/bin/qdbus org.kde.KWin /KWin reconfigure || echo "KWin reconfigure failed"
         '';
     };
   };

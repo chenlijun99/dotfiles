@@ -265,7 +265,7 @@ in {
       clientmachinematch = 0;
       desktops = desktops.Id_2;
       desktopsrule = 3;
-      wmclass = "navigator zotero";
+      wmclass = "Navigator Zotero";
       wmclasscomplete = true;
       wmclassmatch = 2;
     };
@@ -275,8 +275,8 @@ in {
       clientmachinematch = 0;
       desktops = desktops.Id_2;
       desktopsrule = 3;
-      wmclass = "zeal";
-      wmclasscomplete = false;
+      wmclass = "zeal Zeal";
+      wmclasscomplete = true;
       wmclassmatch = 2;
     };
     "3" = {
@@ -285,7 +285,7 @@ in {
       clientmachinematch = 0;
       desktops = desktops.Id_3;
       desktopsrule = 3;
-      wmclass = "mail thunderbird";
+      wmclass = "Mail thunderbird";
       wmclasscomplete = true;
       wmclassmatch = 2;
     };
@@ -298,62 +298,42 @@ in {
       title = "Telegram (29)";
       titlematch = 0;
       types = 1;
-      wmclass = "telegram-desktop telegramdesktop";
+      wmclass = "telegram-desktop TelegramDesktop";
       wmclasscomplete = true;
       wmclassmatch = 2;
     };
     "5" = {
-      Description = "Application settings for chromium";
-      clientmachine = "localhost";
-      clientmachinematch = "0";
-      desktops = desktops.Id_2;
-      desktopsrule = 3;
-      wmclass = "chromium";
-      wmclasscomplete = false;
-      wmclassmatch = 2;
-    };
-    "6" = {
       Description = "Application settings for Teams";
       desktops = desktops.Id_3;
       desktopsrule = 3;
-      wmclass = "microsoft teams";
-      wmclasscomplete = false;
+      wmclass = "teams-for-linux teams-for-linux";
+      wmclasscomplete = true;
       wmclassmatch = 2;
     };
-    "7" = {
-      Description = "Application settings for youtube-music-desktop-app";
-      clientmachine = "localhost";
-      clientmachinematch = "0";
-      desktops = desktops.Id_4;
-      desktopsrule = 3;
-      wmclass = "youtube-music-desktop-app";
-      wmclasscomplete = false;
-      wmclassmatch = 2;
-    };
-    "8" = {
+    "6" = {
       Description = "Application settings for firefox";
       clientmachine = "localhost";
       clientmachinematch = 0;
       desktops = desktops.Id_2;
       desktopsrule = 3;
-      wmclass = "navigator firefox";
+      wmclass = "Navigator firefox";
       wmclasscomplete = true;
       wmclassmatch = 2;
     };
-    "9" = {
+    "7" = {
       Description = "Application settings for slack";
       clientmachine = "localhost";
       desktops = desktops.Id_3;
       desktopsrule = 3;
-      wmclass = "slack";
+      wmclass = "slack Slack";
       wmclassmatch = 2;
     };
-    "10" = {
+    "8" = {
       Description = "Application settings for Obsidian";
       desktops = desktops.Id_2;
       desktopsrule = 3;
-      wmclass = "obsidian";
-      wmclassmatch = 1;
+      wmclass = "obsidian obsidian";
+      wmclassmatch = 2;
     };
     General.count = 8;
   };
@@ -386,6 +366,9 @@ in {
   plasmashellrc = {
     PlasmaViews = {
       "Panel 97" = {
+        # Floating panel is just distracting and useless.
+        # I don't like the aesthetics either.
+        floating = 0;
         Defaults.thickness = 28;
       };
     };

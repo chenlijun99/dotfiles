@@ -1,8 +1,8 @@
 diff --git a/part/pageview.cpp b/part/pageview.cpp
-index 93c7c4dbf..716f7d205 100644
+index 5eb17ee45..b8668e330 100644
 --- a/part/pageview.cpp
 +++ b/part/pageview.cpp
-@@ -2849,11 +2849,57 @@ void PageView::mouseReleaseEvent(QMouseEvent *e)
+@@ -2827,11 +2827,58 @@ void PageView::mouseReleaseEvent(QMouseEvent *e)
          menu.addAction(new OKMenuTitle(&menu, i18n("Image (%1 by %2 pixels)", selectionRect.width(), selectionRect.height())));
          imageToClipboard = menu.addAction(QIcon::fromTheme(QStringLiteral("image-x-generic")), i18n("Copy to Clipboard"));
          imageToFile = menu.addAction(QIcon::fromTheme(QStringLiteral("document-save")), i18n("Save to File..."));
@@ -45,7 +45,8 @@ index 93c7c4dbf..716f7d205 100644
 +            }
 +        }
 +
-         QAction *choice = menu.exec(e->globalPos());
+         QAction *choice = menu.exec(e->globalPosition().toPoint());
++
          // check if the user really selected an action
          if (choice) {
 +            if (choice == coordinatesToClipboard) {

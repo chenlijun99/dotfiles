@@ -21,7 +21,8 @@ run_if_available teams-for-linux
 run_if_available thunderbird
 # If slack is autostarted too early, it requires re-authentication for all the
 # workspaces
-run_if_available slack
+# Recently haven't been using slack. For now comment out.
+# run_if_available slack
 # If syncthingtray is autostarted too early, it complains that no systemtray
 # is available yet.
 run_if_available syncthingtray
