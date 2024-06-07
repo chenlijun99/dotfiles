@@ -38,7 +38,13 @@ in {
       MiddleButtonWindow = 9;
     };
     Windows = {
-      FocusPolicy = "FocusFollowsMouse";
+      # Focus "under" mouse instead of "follow" mouse so that
+      # when I switch virtual desktop the window in the target virtual
+      # desktop is automatically focused.
+      # Before upgrade to KDE 6 this wasn't reequired. Weird.
+      FocusPolicy = "FocusUnderMouse";
+      DelayFocusInterval = 150;
+
       NextFocusPrefersMouse = true;
       Placement = "Smart";
       TitlebarDoubleClickCommand = "Maximize";
