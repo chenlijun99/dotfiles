@@ -9,8 +9,18 @@
     # Why do we use firefox-bin? See ../../../modules/base-gui.nix
     package = pkgs.firefox-bin;
     profiles.lijun = {
+      userContent = ''
+        /*
+         * Hide Leechblock from addon manager
+         * https://www.proginosko.com/leechblock/faq/hide-addon/
+         * A desperate attempt to curb procrastination xD.
+         */
+        [addon-id='leechblockng@proginosko.com'] { display: none !important; }
+      '';
       settings = {
         "browser.tabs.closeWindowWithLastTab" = false;
+        # Required for userContent
+        "toolkit.legacyUserProfileCustomizations.stylesheets" = true;
       };
       # Enforce the search engine configuration configured using home-manager
       # Will lose the existing configuration from Firefox, but I don't care.
