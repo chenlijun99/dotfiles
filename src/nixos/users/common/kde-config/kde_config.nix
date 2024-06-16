@@ -42,7 +42,11 @@ in {
       # when I switch virtual desktop the window in the target virtual
       # desktop is automatically focused.
       # Before upgrade to KDE 6 this wasn't reequired. Weird.
-      FocusPolicy = "FocusUnderMouse";
+      #
+      # UPDATE: with "FocusUnderMouse" the task switcher behaves strangely.
+      # A quick Atl+Tab doesn't alternate between current and old window.
+      # It just goes to the next window.
+      FocusPolicy = "FocusFollowsMouse";
       DelayFocusInterval = 150;
 
       NextFocusPrefersMouse = true;
