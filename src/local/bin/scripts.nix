@@ -29,7 +29,7 @@
         ];
       };
       clj_reset_kde_desktop = clj_script "clj_reset_kde_desktop" {
-        runtimeInputs = with pkgs; [alacritty];
+        runtimeInputs = with pkgs; [alacritty kdePackages.kdbusaddons kdePackages.kde-cli-tools];
       };
       clj_time_to_sleep = clj_script "clj_time_to_sleep" {
         runtimeInputs = with pkgs; [qrencode];
