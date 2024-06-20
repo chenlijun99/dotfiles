@@ -65,7 +65,7 @@ in {
       nil
 
       # Python LSP
-      nodePackages_latest.pyright
+      pyright
       black
 
       # Assembly formatter
