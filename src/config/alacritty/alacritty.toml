@@ -9,3 +9,6 @@ style = "Regular"
 
 [mouse]
 hide_when_typing = true
+
+[bell]
+command = { program = "xkbbell" }
