@@ -58,8 +58,12 @@
       # Misc
       scrcpy
       digikam
+      # KDE scanner application
+      kdePackages.skanlite
       # Screen stream&recording
       obs-studio
+      # Conversion utility
+      imagemagick
     ];
   };
 }
