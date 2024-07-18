@@ -170,99 +170,13 @@ in {
     ksmserver = {
       "Log Out" = "Alt+Shift+F4,Ctrl+Alt+Del,Log Out";
     };
-  };
-  # Hot keys (custom shortcuts)
-  khotkeysrc = {
-    Data.DataCount = 4;
-    # First 3 are set by KDE by default
-    Data_4 = {
-      "Comment" = "Comment";
-      "DataCount" = 4;
-      "Enabled" = true;
-      "Name" = "Lijun";
-      "SystemGroup" = 0;
-      "Type" = "ACTION_DATA_GROUP";
-    };
-    Data_4Conditions = {
-      ConditionsCount = "0";
-    };
-    Data_4_1 = {
-      Comment = "Reconfigure KWin";
-      Enabled = true;
-      Name = "Reconfigure KWin";
-      Type = "SIMPLE_ACTION_DATA";
-    };
-    Data_4_1Actions = {
-      ActionsCount = 1;
-    };
-    Data_4_1Actions0 = {
-      CommandURL = "qdbus org.kde.KWin /KWin reconfigure";
-      Type = "COMMAND_URL";
-    };
-    Data_4_1Conditions = {
-      Comment = "";
-      ConditionsCount = 0;
-    };
-    Data_4_1Triggers = {
-      Comment = "Simple_action";
-      TriggersCount = 1;
-    };
-    Data_4_1Triggers0 = {
-      Key = "Meta+Shift+C";
-      Type = "SHORTCUT";
-      Uuid = "{ab5c05f7-c0ae-4351-97d0-c40a9a37d501}";
-    };
-    Data_4_2 = {
-      Comment = "Reset KWin";
-      Enabled = "true";
-      Name = "Reset KDE desktop";
-      Type = "SIMPLE_ACTION_DATA";
-    };
-    Data_4_2Actions = {
-      ActionsCount = "1";
-    };
-    Data_4_2Actions0 = {
-      CommandURL = "clj_reset_kde_desktop";
-      Type = "COMMAND_URL";
-    };
-    Data_4_2Conditions = {
-      Comment = "";
-      ConditionsCount = 0;
-    };
-    Data_4_2Triggers = {
-      Comment = "Simple_action";
-      TriggersCount = 1;
-    };
-    Data_4_2Triggers0 = {
-      Key = "Meta+Shift+R";
-      Type = "SHORTCUT";
-      Uuid = "{d9d82857-c09d-4949-a256-510366145ae1}";
-    };
-    Data_4_3 = {
-      Comment = "Use flameshot";
-      Enabled = true;
-      Name = "Screenshot";
-      Type = "SIMPLE_ACTION_DATA";
-    };
-    Data_4_3Actions = {
-      ActionsCount = 1;
-    };
-    Data_4_3Actions0 = {
-      CommandURL = "clj_multiscreenshot";
-      Type = "COMMAND_URL";
-    };
-    Data_4_3Conditions = {
-      Comment = "";
-      ConditionsCount = 0;
-    };
-    Data_4_3Triggers = {
-      Comment = "Simple_action";
-      TriggersCount = 1;
-    };
-    Data_4_3Triggers0 = {
-      Key = "Print";
-      Type = "SHORTCUT";
-      Uuid = "{b18fe7ee-b35e-42b5-a4f9-62cf4278838e}";
+    services = {
+      "clj_multiscreenshot.desktop" = {
+        _launch = "Print";
+      };
+      "clj_reset_kde_desktop" = {
+        _launch = "Meta+Shift+R";
+      };
     };
   };
   #
