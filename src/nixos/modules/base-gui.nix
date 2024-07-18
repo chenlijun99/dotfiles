@@ -9,8 +9,8 @@
   nixpkgs.config.allowUnfree = true;
   environment.systemPackages = with pkgs; [
     gparted
-    gnome.gnome-disk-utility
-    gnome.gnome-calculator
+    gnome-disk-utility
+    gnome-calculator
     # Main browser that all the users can use
     # This is a prebuilt binary from Mozilla.
     # NixOS provides also "firefox", which is built using Nix.
@@ -20,8 +20,11 @@
   ];
 
   # Input method for chinese
-  i18n.inputMethod.enabled = "ibus";
-  i18n.inputMethod.ibus.engines = with pkgs.ibus-engines; [rime];
+  i18n.inputMethod = {
+    type = "ibus";
+    enable = true;
+    ibus.engines = with pkgs.ibus-engines; [rime];
+  };
 
   fonts = {
     fontconfig = {

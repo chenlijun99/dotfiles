@@ -29,7 +29,7 @@
     spice-protocol
     win-virtio
     win-spice
-    gnome.adwaita-icon-theme
+    adwaita-icon-theme
     # Required for virtiofs-based shared filesystem
     virtiofsd
   ];
