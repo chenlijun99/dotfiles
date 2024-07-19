@@ -5,7 +5,7 @@ return {
 		-- lazy load it only when it is needed (via keys), but it seems that
 		-- if it is lazy loaded when I'm in the middle of a file
 		-- the some error is triggered.
-		event = { "BufReadPre", "BufNewFile" },
+		event = { "LazyFile", "VeryLazy" },
 		keys = {
 			{
 				"<leader>bc",
