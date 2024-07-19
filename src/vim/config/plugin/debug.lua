@@ -5,6 +5,7 @@ let g:which_key_map.d = { 'group_name' : '+debug' }
 local dapui = {
 	"rcarriga/nvim-dap-ui",
 	lazy = true,
+	dependencies = { "nvim-neotest/nvim-nio" },
 	keys = {
 		{
 			"<leader>pd",
@@ -18,12 +19,12 @@ local dapui = {
 		},
 		{
 			"<leader>de",
-			'<Cmd>lua require("dapui").eval(vim.fn.input("Executable invocation: "))<CR>"',
+			'<Cmd>lua require("dapui").eval(vim.fn.input("Executable invocation: "))<CR>',
 			desc = "Eval",
 		},
 		{
 			"<leader>de",
-			'<Cmd>lua require("dapui").eval()',
+			'<Cmd>lua require("dapui").eval()<CR>',
 			desc = "Eval",
 			mode = "v",
 		},
@@ -108,62 +109,62 @@ return {
 		keys = {
 			{
 				"<leader>ds",
-				"lua require'clj.my_debug'.start_debug()<CR>",
+				"<cmd>lua require'clj.my_debug'.start_debug()<CR>",
 				desc = "Start debugging/continue",
 			},
 			{
 				"<leader>dS",
-				"lua require'dap'.run_last()<CR>",
+				"<cmd>lua require'dap'.run_last()<CR>",
 				desc = "Debug with last config",
 			},
 			{
 				"<leader>dc",
-				"lua require'dap'.continue()<CR>",
+				"<cmd>lua require'dap'.continue()<CR>",
 				desc = "Continue",
 			},
 			{
 				"<leader>dx",
-				"lua require'dap'.terminate()<CR>",
+				"<cmd>lua require'dap'.terminate()<CR>",
 				desc = "Terminate",
 			},
 			{
 				"<leader>du",
-				"lua require'dap'.run_to_cursor()<CR>",
+				"<cmd>lua require'dap'.run_to_cursor()<CR>",
 				desc = "Run until cursor",
 			},
 			{
 				"<leader>dn",
-				"lua require'dap'.step_over()<CR>",
+				"<cmd>lua require'dap'.step_over()<CR>",
 				desc = "Step over",
 			},
 			{
 				"<leader>di",
-				"lua require'dap'.step_into()<CR>",
+				"<cmd>lua require'dap'.step_into()<CR>",
 				desc = "Step into",
 			},
 			{
 				"<leader>do",
-				"lua require'dap'.step_out()<CR>",
+				"<cmd>lua require'dap'.step_out()<CR>",
 				desc = "Step out",
 			},
 			{
 				"<leader>db",
-				"lua require'dap'.toggle_breakpoint()<CR>",
+				"<cmd>lua require'dap'.toggle_breakpoint()<CR>",
 				desc = "Toggle breakpoint",
 			},
 			{
 				"<leader>dB",
-				"lua require'dap'.set_breakpoint(vim.fn.input('Breakpoint condition: '))<CR>",
+				"<cmd>lua require'dap'.set_breakpoint(vim.fn.input('Breakpoint condition: '))<CR>",
 				desc = "Set conditional breakpoint",
 			},
 			{
 				"<leader>dl",
-				"lua require'dap'.set_breakpoint(nil, nil, vim.fn.input('Log point message: '))<CR>",
+				"<cmd>lua require'dap'.set_breakpoint(nil, nil, vim.fn.input('Log point message: '))<CR>",
 				desc = "Set log point",
 			},
 			{
 				"<leader>dr",
-				"lua require'dap'.repl.open()<CR>",
+				"<cmd>lua require'dap'.repl.open()<CR>",
 				desc = "Open REPL",
 			},
 		},
@@ -188,16 +189,14 @@ return {
 				{ text = "❌", texthl = "", linehl = "", numhl = "" }
 			)
 
-			-- Got from https://stackoverflow.com/a/28664691
-			dap.adapters.lldb = {
+			--
+			-- See https://github.com/mfussenegger/nvim-dap/wiki/Debug-Adapter-installation#ccrust-via-gdb
+			--
+			dap.adapters.gdb = {
 				type = "executable",
-				command = "/usr/bin/lldb-vscode", -- adjust as needed
-				name = "lldb",
+				command = "gdb",
+				args = { "-i", "dap" },
 			}
-
-			-- If you want to use this for rust and c, add something like this:
-			dap.configurations.c = dap.configurations.cpp
-			dap.configurations.rust = dap.configurations.cpp
 		end,
 	},
 }
