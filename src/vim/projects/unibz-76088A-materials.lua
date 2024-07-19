@@ -8,4 +8,4 @@ vim.cmd(
 
 -- Override nvim-tree width
 -- Larger file tree, so that the whole file name can be seen
-require"nvim-tree.view".View.width = 35
+require("nvim-tree.view").View.width = 35

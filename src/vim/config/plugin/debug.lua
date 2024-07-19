@@ -60,14 +60,14 @@ local dapui = {
 					-- The order of the windows in the screen is actually the
 					-- opposite of one they are listed here. That why we use reverse.
 					elements = reverse({
-						{ id = "stacks",      size = 0.25 },
+						{ id = "stacks", size = 0.25 },
 						-- Put "scopes" window (the most used one) in the center
 						{
 							id = "scopes",
 							size = 0.35,
 						},
 						{ id = "breakpoints", size = 0.25 },
-						{ id = "watches",     size = 0.15 },
+						{ id = "watches", size = 0.15 },
 					}),
 					size = 50,
 					position = "right",
