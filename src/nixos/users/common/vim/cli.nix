@@ -39,7 +39,7 @@ in {
       nodePackages.eslint_d
       nodePackages.prettier
       nodePackages.stylelint
-      nodePackages.markdownlint-cli
+      markdownlint-cli2
 
       # Lua formatter
       stylua

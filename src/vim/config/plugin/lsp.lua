@@ -151,18 +151,10 @@ return {
 
 			vim.api.nvim_set_keymap(
 				"n",
-				"<leader>lf",
-				"<cmd>lua vim.lsp.buf.format{ async = true }<CR>",
-				opts("Format")
+				"<leader>li",
+				"<cmd>LspInfo<cr>",
+				opts("Code action")
 			)
-			vim.api.nvim_set_keymap(
-				"v",
-				"<leader>lf",
-				"<cmd>lua vim.lsp.buf.range_formatting()<CR>",
-				opts("Range format")
-			)
-
-			vim.api.nvim_set_keymap("n", "<leader>li", "<cmd>LspInfo<cr>", opts("Code action"))
 
 			vim.api.nvim_set_keymap(
 				"n",

@@ -12,6 +12,10 @@ if not vim.loop.fs_stat(lazypath) then
 end
 vim.opt.rtp:prepend(lazypath)
 
+-- Setup the LazyFile event
+local lazy = require("clj.lazy")
+lazy.lazy_file()
+
 -- Load all the Lua plugins in lua/clj/plugin/
 require("lazy").setup("clj.plugin", {
 	performance = {
