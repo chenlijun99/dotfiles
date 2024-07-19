@@ -15,6 +15,17 @@ return {
 				mode = { "n", "v" },
 				desc = "Conform: format",
 			},
+			{
+				"<leader>lF",
+				function()
+					require("conform").format({
+						timeout_ms = 3000,
+						formatters = { "injected" },
+					})
+				end,
+				mode = { "n", "v" },
+				desc = "Conform: format",
+			},
 		},
 		opts = {
 			formatters_by_ft = {
@@ -26,6 +37,11 @@ return {
 				sh = { "shfmt" },
 				cmake = { "cmake_format" },
 				python = { "black" },
+				markdown = {
+					"prettierd",
+					"prettier",
+					stop_after_first = true,
+				},
 				javascript = {
 					"prettierd",
 					"prettier",
