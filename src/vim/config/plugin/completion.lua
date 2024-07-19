@@ -167,6 +167,9 @@ return {
 							keyword_pattern = [[\k\+]],
 						},
 					},
+				}, {
+					name = "lazydev",
+					group_index = 0, -- set group index to 0 to skip loading LuaLS completions
 				}),
 				formatting = {
 					fields = { "kind", "abbr", "menu" },

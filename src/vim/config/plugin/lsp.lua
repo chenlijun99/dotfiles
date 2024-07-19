@@ -6,12 +6,6 @@ return {
 	{
 		"neovim/nvim-lspconfig",
 		event = { "BufReadPre", "BufNewFile" },
-		dependencies = {
-			{
-				"folke/neodev.nvim",
-				opts = { experimental = { pathStrict = true } },
-			},
-		},
 		opts = {
 			-- options for vim.diagnostic.config()
 			diagnostics = {
