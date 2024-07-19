@@ -1,4 +1,4 @@
-let g:which_key_map.k = { 'name' : '+documentation' }
+let g:which_key_map.k = { 'group_name' : '+documentation' }
 
 " KabbAmine/zeavim.vim {{{
 Plug 'KabbAmine/zeavim.vim', {'on': [
@@ -34,6 +34,7 @@ let g:zv_get_docset_by = ['ft', 'ext']
 
 " kkoomen/vim-doge {{{
 Plug 'kkoomen/vim-doge', { 'do': { -> doge#install() } }
+let g:doge_enable_mappings=0
 nnoremap <leader>kg :DogeGenerate<cr>
 let g:which_key_map.k.g = 'Generate doc (doge)'
 let g:doge_comment_interactive = 0

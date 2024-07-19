@@ -1,4 +1,4 @@
-let g:which_key_map.g = { 'name' : '+git' }
+let g:which_key_map.g = { 'group_name' : '+git' }
 
 "tpope/vim-fugitive {{{
 Plug 'tpope/vim-fugitive'

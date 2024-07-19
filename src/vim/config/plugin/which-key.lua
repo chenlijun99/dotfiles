@@ -1,41 +1,56 @@
 return {
 	{
 		"folke/which-key.nvim",
-		keys = { "<leader>", "g", "[", "]" },
-		opts = {
-			plugins = { spelling = true },
-		},
+		lazy = true,
+		event = "VeryLazy",
 		config = function(_, opts)
 			local wk = require("which-key")
-			wk.setup({
-				-- your configuration comes here
-				-- or leave it empty to use the default settings
-				-- refer to the configuration section below
-			})
-			local global_normap_mappings =
-				vim.tbl_deep_extend("error", which_key_map, vim.g.which_key_map)
-			wk.register(global_normap_mappings, { prefix = "<leader>" })
 
-			local global_normap_mappings_with_g_leader = vim.tbl_deep_extend(
-				"error",
-				which_key_map_g,
-				vim.g.which_key_map_g
-			)
-			wk.register(global_normap_mappings_with_g_leader, { prefix = "g" })
+			wk.setup(opts)
+			local function concatenate_in_place(dst, src)
+				for _, v in pairs(src) do
+					table.insert(dst, v)
+				end
+			end
 
-			local global_normap_mappings_next = vim.tbl_deep_extend(
-				"error",
-				which_key_map_global_next,
-				vim.g.which_key_map_global_next
-			)
-			wk.register(global_normap_mappings_next, { prefix = "]" })
+			local function convert_to_spec(which_key_map, prefix)
+				local spec = {}
 
-			local global_normap_mappings_previous = vim.tbl_deep_extend(
-				"error",
-				which_key_map_global_previous,
-				vim.g.which_key_map_global_previous
-			)
-			wk.register(global_normap_mappings_previous, { prefix = "[" })
+				if which_key_map["map_name"] ~= nil then
+					table.insert(spec, {
+						prefix,
+						desc = which_key_map["map_name"],
+						mode = which_key_map["mode"] or { "n" },
+					})
+				end
+
+				if which_key_map["group_name"] ~= nil then
+					table.insert(spec, {
+						prefix,
+						group = which_key_map["group_name"],
+						mode = which_key_map["mode"] or { "n", "v" },
+					})
+				end
+
+				for k, v in pairs(which_key_map) do
+					if type(v) == "table" then
+						concatenate_in_place(
+							spec,
+							convert_to_spec(v, prefix .. k)
+						)
+					else
+						if k ~= "group_name" and k ~= "map_name" then
+							table.insert(spec, { prefix .. k, desc = v })
+						end
+					end
+				end
+				return spec
+			end
+
+			wk.add(convert_to_spec(vim.g.which_key_map, "<leader>"))
+			wk.add(convert_to_spec(vim.g.which_key_map_g, "g"))
+			wk.add(convert_to_spec(vim.g.which_key_map_global_next, "]"))
+			wk.add(convert_to_spec(vim.g.which_key_map_global_previous, "["))
 		end,
 	},
 }

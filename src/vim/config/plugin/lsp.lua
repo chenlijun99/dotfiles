@@ -1,4 +1,6 @@
-which_key_map.l = { name = "+lsp" }
+vim.cmd([[
+let g:which_key_map.l = { 'group_name' : '+lsp' }
+]])
 
 return {
 	{
@@ -112,141 +114,130 @@ return {
 				end
 			end
 
-			local opts = { noremap = true }
+			local function opts(desc)
+				return {
+					desc = "LSP: " .. desc,
+					noremap = true,
+				}
+			end
 
-			which_key_map_g.H = "Show diagnostics"
 			vim.api.nvim_set_keymap(
 				"n",
 				"gH",
 				"<cmd>lua vim.diagnostic.open_float()<CR>",
-				opts
+				opts("Show diagnostics")
 			)
 
-			which_key_map.l.r = "Rename"
 			vim.api.nvim_set_keymap(
 				"n",
 				"<leader>lr",
 				"<cmd>lua vim.lsp.buf.rename()<CR>",
-				opts
+				opts("Rename")
 			)
 
-			which_key_map.l.a = "Code action"
 			vim.api.nvim_set_keymap(
 				"n",
 				"<leader>la",
 				"<cmd>lua vim.lsp.buf.code_action()<CR>",
-				opts
+				opts("Code action")
 			)
 
-			which_key_map.l.s = "Document symbols"
 			vim.api.nvim_set_keymap(
 				"n",
 				"<leader>ls",
 				"<cmd>lua vim.lsp.buf.document_symbol()<CR>",
-				opts
+				opts("Document symbols")
 			)
-			which_key_map.l.S = "Workspace symbols"
 			vim.api.nvim_set_keymap(
 				"n",
 				"<leader>lS",
 				"<cmd>lua vim.lsp.buf.workspace_symbol()<CR>",
-				opts
+				opts("Workspace symbols")
 			)
 
-			which_key_map.l.f = "Format"
 			vim.api.nvim_set_keymap(
 				"n",
 				"<leader>lf",
 				"<cmd>lua vim.lsp.buf.format{ async = true }<CR>",
-				opts
+				opts("Format")
 			)
 			vim.api.nvim_set_keymap(
 				"v",
 				"<leader>lf",
 				"<cmd>lua vim.lsp.buf.range_formatting()<CR>",
-				opts
+				opts("Range format")
 			)
 
-			which_key_map.l.i = "Code action"
-			vim.api.nvim_set_keymap("n", "<leader>li", "<cmd>LspInfo<cr>", opts)
+			vim.api.nvim_set_keymap("n", "<leader>li", "<cmd>LspInfo<cr>", opts("Code action"))
 
-			which_key_map.l.d = "Show buffer diagnostics"
 			vim.api.nvim_set_keymap(
 				"n",
 				"<leader>ld",
 				"<cmd>lua vim.diagnostic.setloclist()<CR>",
-				opts
+				opts("Buffer diagnostics")
 			)
 
-			which_key_map.l.D = "Show all diagnostics"
 			vim.api.nvim_set_keymap(
 				"n",
 				"<leader>lD",
 				"<cmd>lua vim.diagnostic.setqflist()<CR>",
-				opts
+				opts("All diagnostics")
 			)
 
-			which_key_map_global_previous.d = "Previous lsp diagnostic"
 			vim.api.nvim_set_keymap(
 				"n",
 				"[d",
 				"<cmd>lua vim.diagnostic.goto_prev()<CR>",
-				opts
+				opts("Previous diagnostic")
 			)
 
-			which_key_map_global_next.d = "Next lsp diagnostic"
 			vim.api.nvim_set_keymap(
 				"n",
 				"]d",
 				"<cmd>lua vim.diagnostic.goto_next()<CR>",
-				opts
+				opts("Next diagnostic")
 			)
 
-			which_key_map_g.D = "Goto declaration"
 			vim.api.nvim_set_keymap(
 				"n",
 				"gD",
 				"<cmd>lua vim.lsp.buf.declaration()<CR>",
-				opts
+				opts("Goto declaration")
 			)
 
-			which_key_map_g.d = "Goto definition"
 			vim.api.nvim_set_keymap(
 				"n",
 				"gd",
 				"<cmd>lua vim.lsp.buf.definition()<CR>",
-				opts
+				opts("Goto definition")
 			)
 
-			which_key_map_g.h = "Hover"
 			vim.api.nvim_set_keymap(
 				"n",
 				"gh",
 				"<cmd>lua vim.lsp.buf.hover()<CR>",
-				opts
+				opts("Hover")
 			)
 
-			which_key_map_g.i = "Goto implementation"
 			vim.api.nvim_set_keymap(
 				"n",
 				"gi",
 				"<cmd>lua vim.lsp.buf.implementation()<CR>",
-				opts
+				opts("Goto implementation")
 			)
 
-			which_key_map_g.r = "References"
 			vim.api.nvim_set_keymap(
 				"n",
 				"gr",
 				"<cmd>lua vim.lsp.buf.references()<CR>",
-				opts
+				opts("References")
 			)
 
 			vim.api.nvim_set_keymap(
 				"n",
 				"<C-k>",
 				"<cmd>lua vim.lsp.buf.signature_help()<CR>",
-				opts
+				opts("Signature help")
 			)
 		end,
 	},

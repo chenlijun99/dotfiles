@@ -1,19 +1,14 @@
 return {
 	{
 		"phaazon/hop.nvim",
-		keys = { "<leader>j" },
-		config = function()
-			require("hop").setup()
-
-			which_key_map.j = "Jump"
-			local opts = { noremap = true, silent = true }
-			vim.api.nvim_set_keymap("", "<leader>j", "<cmd>HopChar1<CR>", opts)
-			vim.api.nvim_set_keymap(
-				"n",
+		lazy = true,
+		keys = {
+			{
 				"<leader>j",
 				"<cmd>HopChar1MW<CR>",
-				opts
-			)
-		end,
+				desc = "Hop",
+			},
+		},
+		opts = {},
 	},
 }

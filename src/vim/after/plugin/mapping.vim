@@ -30,7 +30,7 @@ nnoremap <silent> <leader>w :wa<cr>
 ca w smile
 ca wa smile
 
-let g:which_key_map.s = { 'name': '+Split' }
+let g:which_key_map.s = { 'group_name': '+split' }
 let g:which_key_map.s.v = "Vertical"
 nnoremap <silent> <leader>sv :vsplit<cr>
 let g:which_key_map.s.h = "Horizontal"
@@ -47,7 +47,7 @@ let g:which_key_map.m.h = "Diff off"
 nnoremap <silent> <leader>mD :diffoff!<cr>
 
 
-let g:which_key_map.t = { 'name': '+Tab' }
+let g:which_key_map.t = { 'group_name': '+tab' }
 let g:which_key_map.t.n = "New"
 nnoremap <silent> <leader>to :tabnew<cr>
 let g:which_key_map.t.c = "Close"

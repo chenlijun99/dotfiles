@@ -1,5 +1,5 @@
-let g:which_key_map.f = { 'name' : '+find' }
-let g:which_key_map.f.r = { 'name' : '+replace' }
+let g:which_key_map.f = { 'group_name' : '+find' }
+let g:which_key_map.f.r = { 'group_name' : '+replace' }
 
 function! s:ignore_submodules(...)
 	if a:0 > 0
@@ -26,7 +26,7 @@ function! s:ignore_submodules(...)
 	return ignore_args
 endfunction
 
-" junegunn/fzf {{{ 
+" junegunn/fzf {{{
 Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
 Plug 'junegunn/fzf.vim'
 
@@ -94,13 +94,16 @@ let g:fzf_colors =
 " explicitly bind the keys to down and up in your $FZF_DEFAULT_OPTS.
 let g:fzf_history_dir = '~/.local/share/fzf-history'
 let g:fzf_preview_window = ['hidden,right,50%', 'ctrl-_']
-" }}} 
+" }}}
 
 " dyng/ctrlsf.vim {{{
-let g:which_key_map.f.r.c = '(CtrlSF)'
+let g:which_key_map.f.r.c = {
+			\ 'map_name': '(CtrlSF)',
+			\ 'mode': ['n', 'x'],
+			\}
 nnoremap <leader>frc :CtrlSF<Space>
-let g:which_key_map.f.r.c = '(CtrlSF)'
 xnoremap <leader>frc :<C-u>call <SID>VSetSearch()<CR>:CtrlSF<Space><C-R>=@/<CR><CR>
+
 Plug 'dyng/ctrlsf.vim',
 			\ { 'on': ['CtrlSF'] }
 
@@ -110,11 +113,17 @@ Plug 'dyng/ctrlsf.vim',
 Plug 'tpope/vim-abolish',
 			\ { 'on': ['Abolish', 'Subvert'] }
 
-let g:which_key_map.f.r.s = 'Subvert'
+let g:which_key_map.f.r.c = {
+			\ 'map_name': 'Subvert',
+			\ 'mode': ['x'],
+			\}
 xnoremap <leader>frs :<C-u>call <SID>VSetSearch()<CR>:%Subvert/<C-R>=@/<CR>//gc<left><left><left>
 " }}}
 
-let g:which_key_map.f.r.r = 'built-in'
+let g:which_key_map.f.r.c = {
+			\ 'map_name': 'built-n',
+			\ 'mode': ['x'],
+			\}
 " from SpaceVim
 xnoremap <leader>frr :<C-u>call <SID>VSetSearch()<CR>:%s/<C-R>=@/<CR>//gc<left><left><left>
 function! s:VSetSearch() abort

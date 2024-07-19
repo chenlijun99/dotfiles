@@ -1,4 +1,4 @@
-let g:which_key_map.c = { 'name' : '+comment' }
+let g:which_key_map.c = { 'group_name' : '+comment' }
 Plug 'scrooloose/nerdcommenter' , { 'on' : '<Plug>NERDCommenterToggle' }
 let g:NERDCreateDefaultMappings = 0
 

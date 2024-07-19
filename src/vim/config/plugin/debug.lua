@@ -1,10 +1,33 @@
 vim.cmd([[
-let g:which_key_map.d = { 'name' : '+debug' }
+let g:which_key_map.d = { 'group_name' : '+debug' }
 ]])
 
 local dapui = {
 	"rcarriga/nvim-dap-ui",
 	lazy = true,
+	keys = {
+		{
+			"<leader>pd",
+			"<cmd>lua require'dapui'.open()<CR>",
+			desc = "Open debug ui",
+		},
+		{
+			"<leader>pD",
+			"<cmd>lua require'dapui'.close()<CR>",
+			desc = "Close debug ui",
+		},
+		{
+			"<leader>de",
+			'<Cmd>lua require("dapui").eval(vim.fn.input("Executable invocation: "))<CR>"',
+			desc = "Eval",
+		},
+		{
+			"<leader>de",
+			'<Cmd>lua require("dapui").eval()',
+			desc = "Eval",
+			mode = "v",
+		},
+	},
 	config = function()
 		local dap, dapui = require("dap"), require("dapui")
 
@@ -71,33 +94,6 @@ local dapui = {
 		--dap.listeners.before.event_exited["dapui_config"] = function()
 		--dapui.close()
 		--end
-
-		vim.cmd([[
-			let g:which_key_map.d.e = 'Eval'
-			nnoremap <silent> <leader>de <Cmd>lua require("dapui").eval(vim.fn.input("Executable invocation: "))<CR>
-			vnoremap <silent> <leader>de <Cmd>lua require("dapui").eval()<CR>
-		]])
-
-		which_key_map.p = {
-			d = "Open debug ui",
-		}
-		local opts = { noremap = true, silent = true }
-		vim.api.nvim_set_keymap(
-			"n",
-			"<leader>pd",
-			"<cmd>lua require'dapui'.open()<CR>",
-			opts
-		)
-
-		which_key_map.p = {
-			D = "Close debug ui",
-		}
-		vim.api.nvim_set_keymap(
-			"n",
-			"<leader>pD",
-			"<cmd>lua require'dapui'.close()<CR>",
-			opts
-		)
 	end,
 }
 
