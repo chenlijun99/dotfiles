@@ -18,7 +18,17 @@ set shortmess+=c
 set backspace=indent,eol,start
 
 " set default clipboard as system clipboard
-set clipboard=unnamedplus
+if has('nvim-0.10')
+	" only set clipboard if not in ssh, to make sure the OSC 52
+	" integration works automatically. Requires Neovim >= 0.10.0
+	if empty($SSH_TTY)
+		set clipboard=unnamedplus
+	else
+		set clipboard=
+	endif
+else
+	set clipboard=unnamedplus
+endif
 
 " enable the use of mouse for [a]ll the mode
 set mouse=a
