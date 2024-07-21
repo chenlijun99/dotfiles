@@ -151,6 +151,34 @@ return {
 
 			vim.api.nvim_set_keymap(
 				"n",
+				"<leader>lci",
+				"<cmd>lua vim.lsp.buf.incoming_calls()<CR>",
+				opts("Incoming calls")
+			)
+
+			vim.api.nvim_set_keymap(
+				"n",
+				"<leader>lco",
+				"<cmd>lua vim.lsp.buf.outgoing_calls()<CR>",
+				opts("Outgoing calls")
+			)
+
+			vim.api.nvim_set_keymap(
+				"n",
+				"<leader>lt",
+				"<cmd>lua vim.lsp.buf.typehierarchy('subtypes')<CR>",
+				opts("Subtypes")
+			)
+
+			vim.api.nvim_set_keymap(
+				"n",
+				"<leader>lT",
+				"<cmd>lua vim.lsp.buf.typehierarchy('supertypes')<CR>",
+				opts("Supertypes")
+			)
+
+			vim.api.nvim_set_keymap(
+				"n",
 				"<leader>li",
 				"<cmd>LspInfo<cr>",
 				opts("Code action")

@@ -8,6 +8,7 @@ let g:fugitive_gitlab_domains = ['http://gitlab.currymix']
 
 let g:which_key_map.g.s = 'Git status'
 nnoremap <leader>gs :G<cr>
+nnoremap <leader>gB :Git blame<cr>
 nnoremap <leader>gb :GBrowse<cr>
 nnoremap <leader>gd :Gdiff<cr>
 nnoremap <leader>ge :Gedit<cr>
