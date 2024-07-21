@@ -5,16 +5,6 @@ return {
 		build = ":TSUpdate",
 		event = { "LazyFile", "VeryLazy" },
 		lazy = vim.fn.argc(-1) == 0, -- load treesitter early when opening a file from the cmdline
-		dependencies = {
-			{
-				{
-					"nvim-treesitter/playground",
-					config = function(_, opts)
-						require("nvim-treesitter.configs").setup(opts)
-					end,
-				},
-			},
-		},
 		---@type TSConfig
 		opts = {
 			highlight = {

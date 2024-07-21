@@ -3,7 +3,6 @@ return {
 		"nvim-lualine/lualine.nvim",
 		event = "VeryLazy",
 		dependencies = {
-
 			"arkav/lualine-lsp-progress",
 		},
 		config = function()

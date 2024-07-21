@@ -5,16 +5,13 @@ return {
 		-- lazy load it only when it is needed (via keys), but it seems that
 		-- if it is lazy loaded when I'm in the middle of a file
 		-- the some error is triggered.
-		event = { "LazyFile", "VeryLazy" },
+		event = "VeryLazy",
 		keys = {
 			{
 				"<leader>bc",
 				"<cmd>TSContextToggle<CR>",
 				desc = "Toggle tree-sitter context",
 			},
-		},
-		dependencies = {
-			"nvim-treesitter/nvim-treesitter",
 		},
 		opts = {
 			-- Enable this plugin (Can be enabled/disabled later via commands)

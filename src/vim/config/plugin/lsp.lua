@@ -5,7 +5,7 @@ let g:which_key_map.l = { 'group_name' : '+lsp' }
 return {
 	{
 		"neovim/nvim-lspconfig",
-		event = { "BufReadPre", "BufNewFile" },
+		event = "LazyFile",
 		opts = {
 			-- options for vim.diagnostic.config()
 			diagnostics = {

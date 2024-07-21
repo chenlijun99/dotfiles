@@ -1,6 +1,8 @@
 return {
 	{
 		"Treeniks/isabelle-lsp.nvim",
+		lazy = true,
+		ft = "isabelle",
 		dependencies = {
 			"neovim/nvim-lspconfig",
 		},
