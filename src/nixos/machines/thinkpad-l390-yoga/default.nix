@@ -16,6 +16,7 @@
     ../../modules/tlp.nix
     ../../modules/flatpak.nix
     ../../modules/ausweisapp.nix
+    ../../modules/monitoring.nix
     ../../users/lijun
     ../../users/lijun-test
     ../../users/test
