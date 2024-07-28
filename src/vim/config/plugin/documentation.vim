@@ -32,16 +32,5 @@ let g:zv_file_types = {
 let g:zv_get_docset_by = ['ft', 'ext']
 " }}}
 
-" kkoomen/vim-doge {{{
-Plug 'kkoomen/vim-doge', { 'do': { -> doge#install() } }
-let g:doge_enable_mappings=0
-nnoremap <leader>kg :DogeGenerate<cr>
-let g:which_key_map.k.g = 'Generate doc (doge)'
-let g:doge_comment_interactive = 0
-let g:doge_javascript_settings = {
-\  'omit_redundant_param_types': 1,
-\}
-" }}}
-
 " set modeline
 " vim: foldlevel=0 foldmethod=marker
