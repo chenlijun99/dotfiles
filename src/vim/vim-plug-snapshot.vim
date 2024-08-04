@@ -15,6 +15,7 @@ silent! let g:plugs['goyo.vim'].commit = 'fa0263d456dd43f5926484d1c4c7022dfcb21b
 silent! let g:plugs['gv.vim'].commit = 'b6bb6664e2c95aa584059f195eb3a9f3cb133994'
 silent! let g:plugs['markdown-preview.nvim'].commit = 'a923f5fc5ba36a3b17e289dc35dc17f66d0548ee'
 silent! let g:plugs['nerdcommenter'].commit = '7bb1f72e802a80e37bdda5f6906c69b5a93de1eb'
+silent! let g:plugs['plantuml-syntax'].commit = '8fb95a3ae4354ca2322ef24803d8960fce519eb0'
 silent! let g:plugs['rainbow_parentheses.vim'].commit = '27e7cd73fec9d1162169180399ff8ea9fa28b003'
 silent! let g:plugs['undotree'].commit = '56c684a805fe948936cda0d1b19505b84ad7e065'
 silent! let g:plugs['vim-abolish'].commit = 'dcbfe065297d31823561ba787f51056c147aa682'
