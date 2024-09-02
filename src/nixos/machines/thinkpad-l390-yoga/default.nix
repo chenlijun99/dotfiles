@@ -18,6 +18,7 @@
     ../../modules/ausweisapp.nix
     ../../modules/monitoring.nix
     ../../modules/graphic-tablet.nix
+    ../../modules/embedded-programmin.nix
     ../../users/lijun
     ../../users/lijun-test
     ../../users/test
