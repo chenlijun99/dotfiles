@@ -43,7 +43,7 @@ return {
 				ocamllsp = {},
 				cmake = {},
 				pyright = {},
-				tsserver = {},
+				ts_ls = {},
 				nil_ls = {},
 				-- Dunno why, but causes some error messages from Neovim
 				-- when opening markdown files in non-git folders.
