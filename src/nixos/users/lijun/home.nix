@@ -63,7 +63,7 @@
       # Screen stream&recording
       obs-studio
       # Conversion utility
-      imagemagick
+      imagemagickBig
     ];
   };
 }
