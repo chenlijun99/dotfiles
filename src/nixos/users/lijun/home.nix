@@ -64,6 +64,11 @@
       obs-studio
       # Conversion utility
       imagemagickBig
+
+      # Money-related
+      hledger
+      hledger-ui
+      hledger-web
     ];
   };
 }

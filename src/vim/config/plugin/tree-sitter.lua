@@ -73,6 +73,7 @@ return {
 				"ocaml_interface",
 				"ocamllex",
 				"rst",
+				"ledger",
 				-- VimTex provides better highlighting
 				--"latex",
 			},
