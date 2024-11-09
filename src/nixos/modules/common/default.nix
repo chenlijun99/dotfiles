@@ -16,8 +16,8 @@
     #
     # So with this we control which version of nix (the package manager) we want to use
     #
-    # pkgs.nixFlakes is an alias of a version of nix that supports flakes
-    package = pkgs.nixFlakes;
+    # pkgs.nixVersions.stable is an alias of a version of nix that supports flakes
+    package = pkgs.nixVersions.stable;
     extraOptions = ''
       experimental-features = nix-command flakes
     '';

@@ -13,12 +13,9 @@ function take_screenshots()
 
 	i=0
 
-	active_window=$(xdotool getactivewindow)
-
 	if ! flameshot gui --raw > "${DIR}/${i}.png" ; then
 		return
 	fi
-	xdotool windowactivate "$active_window"
 
 	((i=i+1))
 
@@ -31,13 +28,11 @@ function take_screenshots()
 
 			# Print key
 			if [[ $key -eq 37 ]]; then
-				active_window=$(xdotool getactivewindow)
 
 				if ! flameshot gui --raw > "${DIR}/${i}.png"; then
 					rm "${DIR}/${i}.png"
 					break
 				fi
-				xdotool windowactivate "$active_window"
 				((i=i+1))
 			fi
 
@@ -48,7 +43,7 @@ function take_screenshots()
 		fi
 	done < <(xinput test-xi2 --root 3 | grep -A3 --line-buffered RawKeyRelease)
 
-	convert "${DIR}/*.png" -append png:- | xclip -selection clipboard -t image/png
+	magick "${DIR}/*.png" -append png:- | xclip -selection clipboard -t image/png
 	notify-send "multiscreenshot.sh" "Concatenated screenshot saved to clipboard" || true
 }
 

@@ -9,6 +9,9 @@
 } @ args: let
   pkgs-unstable = import inputs.nixpkgs-unstable {
     system = pkgs.system;
+    config = {
+      allowUnfree = true;
+    };
   };
   pkgs-pcloud-ok = import inputs.nixpkgs-unstable-pcloud-ok {
     system = pkgs.system;

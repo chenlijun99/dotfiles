@@ -1,5 +1,5 @@
 diff --git a/part/pageview.cpp b/part/pageview.cpp
-index 5eb17ee45..b8668e330 100644
+index 3de853a64..76cecc991 100644
 --- a/part/pageview.cpp
 +++ b/part/pageview.cpp
 @@ -2827,11 +2827,58 @@ void PageView::mouseReleaseEvent(QMouseEvent *e)
@@ -45,7 +45,7 @@ index 5eb17ee45..b8668e330 100644
 +            }
 +        }
 +
-         QAction *choice = menu.exec(e->globalPosition().toPoint());
+         const QAction *choice = menu.exec(e->globalPosition().toPoint());
 +
          // check if the user really selected an action
          if (choice) {

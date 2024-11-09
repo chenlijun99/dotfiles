@@ -19,6 +19,7 @@ in {
     ./flameshot.nix
     ./autostart.nix
     ./desktop.nix
+    ./fcitx5.nix
     ../networking/gui.nix
     ../vim/gui.nix
     ../performance/gui.nix

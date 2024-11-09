@@ -189,7 +189,7 @@ in {
       clientmachinematch = 0;
       desktops = desktops.Id_2;
       desktopsrule = 3;
-      wmclass = "Navigator Zotero";
+      wmclass = "zotero";
       wmclasscomplete = true;
       wmclassmatch = 2;
     };
@@ -199,7 +199,7 @@ in {
       clientmachinematch = 0;
       desktops = desktops.Id_2;
       desktopsrule = 3;
-      wmclass = "zeal Zeal";
+      wmclass = "zeal";
       wmclasscomplete = true;
       wmclassmatch = 2;
     };
@@ -209,7 +209,7 @@ in {
       clientmachinematch = 0;
       desktops = desktops.Id_3;
       desktopsrule = 3;
-      wmclass = "Mail thunderbird";
+      wmclass = "thunderbird";
       wmclasscomplete = true;
       wmclassmatch = 2;
     };
@@ -222,7 +222,7 @@ in {
       title = "Telegram (29)";
       titlematch = 0;
       types = 1;
-      wmclass = "telegram-desktop TelegramDesktop";
+      wmclass = "telegram-desktop";
       wmclasscomplete = true;
       wmclassmatch = 2;
     };
@@ -230,7 +230,7 @@ in {
       Description = "Application settings for Teams";
       desktops = desktops.Id_3;
       desktopsrule = 3;
-      wmclass = "teams-for-linux teams-for-linux";
+      wmclass = "teams-for-linux";
       wmclasscomplete = true;
       wmclassmatch = 2;
     };
@@ -240,26 +240,23 @@ in {
       clientmachinematch = 0;
       desktops = desktops.Id_2;
       desktopsrule = 3;
-      wmclass = "Navigator firefox";
+      wmclass = "firefox";
       wmclasscomplete = true;
       wmclassmatch = 2;
     };
     "7" = {
-      Description = "Application settings for slack";
-      clientmachine = "localhost";
-      desktops = desktops.Id_3;
-      desktopsrule = 3;
-      wmclass = "slack Slack";
-      wmclassmatch = 2;
-    };
-    "8" = {
       Description = "Application settings for Obsidian";
       desktops = desktops.Id_2;
       desktopsrule = 3;
       wmclass = "obsidian obsidian";
       wmclassmatch = 2;
     };
-    General.count = 8;
+    General = {
+      # Total number of rules
+      count = 7;
+      # Order of rules
+      rules = "1,2,3,4,5,6,7";
+    };
   };
   kxkbrc = {
     Layout = {

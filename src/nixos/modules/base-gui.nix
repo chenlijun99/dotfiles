@@ -21,9 +21,17 @@
 
   # Input method for chinese
   i18n.inputMethod = {
-    type = "ibus";
+    type = "fcitx5";
     enable = true;
-    ibus.engines = with pkgs.ibus-engines; [rime];
+    fcitx5 = {
+      waylandFrontend = true;
+      addons = with pkgs; [
+        kdePackages.fcitx5-qt
+        fcitx5-chinese-addons
+        rime-data
+        fcitx5-rime
+      ];
+    };
   };
 
   fonts = {
@@ -52,7 +60,7 @@
     # Install fonts
     # See https://nixos.wiki/wiki/Fonts
     packages = with pkgs; [
-      noto-fonts-cjk
+      noto-fonts-cjk-sans
       noto-fonts-emoji
       # I need a monospace font that supports as many math unicode characters as possible
       #
