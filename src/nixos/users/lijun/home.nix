@@ -60,6 +60,10 @@
       digikam
       # KDE scanner application
       kdePackages.skanlite
+      # KDE scanner application for multi-page scanning
+      skanpage
+      # KDE audio recorder
+      kdePackages.krecorder
       # Screen stream&recording
       obs-studio
       # Conversion utility
