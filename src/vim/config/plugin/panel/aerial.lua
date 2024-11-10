@@ -13,11 +13,6 @@ return {
 				"<cmd>AerialToggle!<CR>",
 				desc = "Symbols outline",
 			},
-			{
-				"<c-m>",
-				"<cmd>call aerial#fzf()<cr>",
-				desc = "Fuzzy file symbols",
-			},
 		},
 		opts = { nav = {
 			preview = true,
