@@ -18,16 +18,56 @@ set shortmess+=c
 set backspace=indent,eol,start
 
 " set default clipboard as system clipboard
+set clipboard=unnamedplus
 if has('nvim-0.10')
-	" only set clipboard if not in ssh, to make sure the OSC 52
-	" integration works automatically. Requires Neovim >= 0.10.0
-	if empty($SSH_TTY)
-		set clipboard=unnamedplus
-	else
-		set clipboard=
-	endif
-else
-	set clipboard=unnamedplus
+	" Configure OSC-52 integration
+	lua << EOF
+-- clipboard overrides is needed as Alacritty does not support runtime OSC 52 detection.
+-- We need to customize the clipboard depending on whether in tmux, in SSH_TTY or not.
+--  In Tmux, there are 2 clipboard providers
+--  1. Tmux
+--  2. OSC52 should also work by default.
+--  In SSH_TTY, OSC 52 should work, but needs to be overridden as I use Alacritty.
+--  In local (not SSH session), Default clipboard providers can be used (e.g. wl-copy).
+--
+--  You can test OSC 52 in terminal by using following in your terminal -
+--  printf $'\e]52;c;%s\a' "$(base64 <<<'hello world')"
+
+local is_tmux_session = vim.env.TERM_PROGRAM == "tmux" 
+-- Tmux is its own clipboard provider which directly works.
+-- Assuming OSC 52 support + passthrough is enabled.
+-- Still, paste doesn't work.
+-- It doesn't seem related to alacritty.
+-- I tried setting `osc52 = "CopyPaste"` (the default is `CopyOnly`).
+-- It still doesn't work.
+-- But I guess I can live with "Ctrl-Shift-v". It is more secure and 
+-- anyway only copying was the more annoying part.
+-- TMUX documentation about its clipboard - https://github.com/tmux/tmux/wiki/Clipboard#the-clipboard
+
+if vim.env.SSH_TTY and not is_tmux_session then
+   -- Alacritty does not support runtime OSC 52 detection
+   -- So we can't rely on `set clipboard=` and then have Neovim
+   -- automatically enable OSC 52-based clipboard.
+   --
+   -- Also, we want to use OSC52 for only copying.
+   -- For pasting we'll just use "Ctrl-Shift-v".
+   local function paste()
+     return { vim.fn.split(vim.fn.getreg(""), "\n"),       vim.fn.getregtype("") }
+   end
+   local osc52 = require("vim.ui.clipboard.osc52")
+   vim.g.clipboard = {
+     name = "OSC 52",
+     copy = {
+      ["+"] = osc52.copy("+"),
+      ["*"] = osc52.copy("*"),
+    },
+    paste = {
+      ["+"] = paste,
+      ["*"] = paste,
+    },
+   }
+ end
+EOF
 endif
 
 " enable the use of mouse for [a]ll the mode
