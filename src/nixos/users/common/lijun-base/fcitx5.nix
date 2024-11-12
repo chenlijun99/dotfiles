@@ -1,7 +1,6 @@
 {
-  config,
   pkgs,
-  inputs,
+  lib,
   ...
 } @ args: let
   utils = import ../utils.nix args;
@@ -31,5 +30,22 @@ in {
       source = utils.mkOutOfStoreRelativeThisRepoSymLink "./src/config/fcitx5/conf/chttrans.conf";
       target = "fcitx5/conf/chttrans.conf";
     };
+  };
+  home.activation = {
+    # fcitx5 often overwrites our system links...
+    # And then upon re-activation home-manager compains that the files
+    # already exist and fails.
+    #
+    # See some (mildly) related discussion
+    # https://github.com/nix-community/home-manager/issues/3090
+    # Specificaly https://github.com/nix-community/home-manager/issues/3090#issuecomment-1835357162
+    fcitx5Configs = lib.hm.dag.entryBefore ["checkLinkTargets"] ''
+      $DRY_RUN_CMD rm -f ~/.config/fcitx5/config
+      $DRY_RUN_CMD rm -f ~/.config/fcitx5/profile
+      $DRY_RUN_CMD rm -f ~/.config/fcitx5/conf/classicui.conf
+      $DRY_RUN_CMD rm -f ~/.config/fcitx5/conf/pinyin.conf
+      $DRY_RUN_CMD rm -f ~/.config/fcitx5/conf/cloudpinyin.conf
+      $DRY_RUN_CMD rm -f ~/.config/fcitx5/conf/chttrans.conf
+    '';
   };
 }

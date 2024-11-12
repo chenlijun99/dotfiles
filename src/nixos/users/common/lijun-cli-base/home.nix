@@ -52,6 +52,8 @@ in {
       moreutils
       # Useful for working with JSON on the commandline
       jq
+      # Mount remote directories via SSH
+      sshfs
     ];
     file = {
       ".vifm" = {
