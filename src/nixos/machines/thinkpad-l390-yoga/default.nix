@@ -19,6 +19,7 @@
     ../../modules/monitoring.nix
     ../../modules/graphic-tablet.nix
     ../../modules/embedded-programmin.nix
+    ../../modules/llm.nix
     ../../users/lijun
     ../../users/lijun-test
     ../../users/test
