@@ -61,6 +61,9 @@
     # See https://nixos.wiki/wiki/Fonts
     packages = with pkgs; [
       noto-fonts-cjk-sans
+      # Not sure why, BaiduNetDisk doesn't pick up `noto-fonts-cjk-sans`.
+      # This font works OTOH.
+      wqy_zenhei
       noto-fonts-emoji
       # I need a monospace font that supports as many math unicode characters as possible
       #
