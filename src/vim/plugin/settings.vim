@@ -174,6 +174,28 @@ set noexpandtab
 set background=dark
 colorscheme gruvbox
 
+" To make Neovim work with transparent terminals.
+" NOTE: this works okay-ish since I use the same colorscheme on my terminal
+" and on Neovim.
+"
+" Update: No, let's comment it out. I don't work well this way, it's too 
+" distracting.
+" 
+" highlight Normal guibg=NONE ctermbg=NONE
+" highlight NormalNC guibg=NONE ctermbg=NONE
+
+" I prefer these things to be non transparent.
+"
+" highlight SignColumn ctermbg=NONE ctermfg=NONE guibg=NONE
+" highlight NonText ctermbg=none guibg=NONE
+"
+" Used for some floating windows
+" highlight Pmenu ctermbg=NONE ctermfg=NONE guibg=NONE
+" highlight FloatBorder ctermbg=NONE ctermfg=NONE guibg=NONE
+" highlight NormalFloat ctermbg=NONE ctermfg=NONE guibg=NONE
+" highlight TabLine ctermbg=None ctermfg=None guibg=None 
+
+
 set t_Co=256
 let &t_Cs = "\e[4:3m"
 let &t_Ce = "\e[4:0m"
@@ -220,7 +242,6 @@ set spellfile=$HOME/.vim/spell/myspell.utf-8.add
 set list listchars=tab:\▸\ 
 
 set fileencodings=ucs-bom,utf-8,default,latin,gb18030,gbk,gk2312
-
 
 " set modeline 
 " vim: foldlevel=0 foldmethod=marker
