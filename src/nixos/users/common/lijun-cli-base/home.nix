@@ -13,6 +13,7 @@ in {
   imports = [
     ./tmux.nix
     ./shell.nix
+    ./nix.nix
     ../this.nix
     ../vim/cli.nix
     ../networking/cli.nix
