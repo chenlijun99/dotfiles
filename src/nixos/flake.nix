@@ -156,6 +156,7 @@
       "lijun" = defFlakeHome "x86_64-linux" "lijun" true {};
       "lijun-cli" = defFlakeHome "x86_64-linux" "lijun-cli" true {};
       "lijun-test" = defFlakeHome "x86_64-linux" "lijun-test" true {};
+      "chenlij" = defFlakeHome "x86_64-linux" "lijun-cli" true {actual_username = "chenlij";};
       # GPU server at Chair of Connected Mobility
       "clij" = defFlakeHome "x86_64-linux" "lijun-cli" true {actual_username = "clij";};
       # MP server at Chair of Connected Mobility
