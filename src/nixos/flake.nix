@@ -77,7 +77,10 @@
       username (string): username, must be one in ./users/, except "common"
       unstable: whether the system should use nixpkgs-unstable
     */
-    defFlakeHome = system: username: unstable: {actual_username ? username}: let
+    defFlakeHome = system: username: unstable: {
+      actual_username ? username,
+      actual_home ? "/home/${actual_username}",
+    }: let
       actual_inputs_ = actual_inputs unstable;
     in
       # Check https://github.com/nix-community/home-manager/blob/master/flake.nix
@@ -95,7 +98,7 @@
           ({lib, ...}: {
             home = {
               username = lib.mkForce actual_username;
-              homeDirectory = lib.mkForce "/home/${actual_username}";
+              homeDirectory = lib.mkForce actual_home;
             };
           })
         ];
@@ -152,8 +155,14 @@
     homeConfigurations = {
       "lijun" = defFlakeHome "x86_64-linux" "lijun" true {};
       "lijun-cli" = defFlakeHome "x86_64-linux" "lijun-cli" true {};
-      "clij" = defFlakeHome "x86_64-linux" "lijun-cli" true {actual_username = "clij";};
       "lijun-test" = defFlakeHome "x86_64-linux" "lijun-test" true {};
+      # GPU server at Chair of Connected Mobility
+      "clij" = defFlakeHome "x86_64-linux" "lijun-cli" true {actual_username = "clij";};
+      # MP server at Chair of Connected Mobility
+      "clij_cmp" = defFlakeHome "x86_64-linux" "lijun-cli" true {
+        actual_username = "clij";
+        actual_home = "/home_stud/clij";
+      };
     };
   };
 }
