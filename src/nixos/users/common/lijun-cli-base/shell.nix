@@ -14,7 +14,17 @@ in {
   home = {
     packages = with pkgs; [
       zsh
-      bash
+      # normal bash causes several errors with my legacy bash config
+      #
+      # Something like:
+      #
+      # ```
+      # ...
+      # bash: complete: command not found
+      # bash: shopt: hostcomplete: invalid shell option name
+      # ...
+      # ```
+      bashInteractive
     ];
     file = {
       ".profile" = {
