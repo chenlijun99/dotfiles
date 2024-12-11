@@ -77,6 +77,12 @@ in {
 
       # Nix formatter
       alejandra
+
+      typst
+      # Typst LSP
+      tinymist
+      # Typst formattero
+      typstyle
     ];
     file = {
       ".vim" = {

@@ -37,6 +37,7 @@ return {
 				sh = { "shfmt" },
 				cmake = { "cmake_format" },
 				python = { "black" },
+				typst = { "typstyle" },
 				markdown = {
 					"prettierd",
 					"prettier",

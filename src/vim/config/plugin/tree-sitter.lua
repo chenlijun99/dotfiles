@@ -74,6 +74,7 @@ return {
 				"ocamllex",
 				"rst",
 				"ledger",
+				"typst",
 				-- VimTex provides better highlighting
 				--"latex",
 			},

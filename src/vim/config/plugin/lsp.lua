@@ -45,6 +45,15 @@ return {
 				pyright = {},
 				ts_ls = {},
 				nil_ls = {},
+				tinymist = {
+					--- todo: these configuration from lspconfig maybe broken
+					single_file_support = true,
+					root_dir = function()
+						return vim.fn.getcwd()
+					end,
+					--- See [Tinymist Server Configuration](https://github.com/Myriad-Dreamin/tinymist/blob/main/Configuration.md) for references.
+					settings = {},
+				},
 				-- Dunno why, but causes some error messages from Neovim
 				-- when opening markdown files in non-git folders.
 				-- Anyway, I need it only for Obsidian. So I enable it only
