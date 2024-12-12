@@ -55,6 +55,8 @@ in {
       jq
       # Mount remote directories via SSH
       sshfs
+      # So useful
+      rclone
     ];
     file = {
       ".vifm" = {
