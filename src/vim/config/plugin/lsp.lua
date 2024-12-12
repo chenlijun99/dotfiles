@@ -5,7 +5,12 @@ let g:which_key_map.l = { 'group_name' : '+lsp' }
 return {
 	{
 		"neovim/nvim-lspconfig",
-		event = "LazyFile",
+		-- Hmm, with LazyFile-based lazy loading 
+		-- for some filetypes the LSP does not attach to the the first 
+		-- opened buffer.
+		-- Running `:e` works, but it's annoying.
+		--
+		-- Experienced this behaviour with Python (pyright) and Typst (tinymist)
 		opts = {
 			-- options for vim.diagnostic.config()
 			diagnostics = {
