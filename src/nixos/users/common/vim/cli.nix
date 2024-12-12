@@ -83,6 +83,9 @@ in {
       tinymist
       # Typst formattero
       typstyle
+
+      # JSON formatter
+      fixjson
     ];
     file = {
       ".vim" = {

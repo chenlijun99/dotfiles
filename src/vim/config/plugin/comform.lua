@@ -38,6 +38,7 @@ return {
 				cmake = { "cmake_format" },
 				python = { "black" },
 				typst = { "typstyle" },
+				json = { "fixjson" },
 				markdown = {
 					"prettierd",
 					"prettier",
