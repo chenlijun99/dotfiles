@@ -74,9 +74,7 @@
       #
       # For now, this font is the best I've come across.
       julia-mono
-      # I use this font in terminal emulator
-      # My Alacritty config uses NerdFont patched Hack
-      (nerdfonts.override {fonts = ["Hack"];})
+      nerd-fonts.hack
     ];
   };
 }

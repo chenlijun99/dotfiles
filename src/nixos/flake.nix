@@ -1,7 +1,7 @@
 {
   description = "NixOS configuration of Lijun Chen";
   inputs = {
-    nixpkgs-stable.url = "github:NixOS/nixpkgs/nixos-24.05";
+    nixpkgs-stable.url = "github:NixOS/nixpkgs/nixos-24.11";
     nixpkgs-unstable.url = "github:NixOS/nixpkgs/nixos-unstable";
     nixpkgs-inkscape-1-22.url = "github:NixOS/nixpkgs/nixos-23.05";
     # Version of nixpkgs where pCloud doesn't crash
@@ -67,7 +67,7 @@
           ./modules/common
         ];
       }
-      nur.nixosModules.nur
+      nur.modules.nixos.default
     ];
     /*
     Function to create a Flake-based standalone home-manager configuration

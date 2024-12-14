@@ -43,23 +43,7 @@ in {
       drawio = pkgs-unstable.drawio;
 
       pcloud = pkgs-pcloud-ok.pcloud;
-      # Cryptomator 1.8 doesn't work.
-      # FUSE mount doesn't work.
-      cryptomator = pkgs-pcloud-ok.cryptomator;
-      # The link's content is updated from time to time as new WeChat versions are released.
-      # See https://github.com/nix-community/nur-combined/blob/3a60aba83aac2972253090b0a011464d5d1fb28d/repos/xddxdd/pkgs/default.nix#L167-L174
-      #
-      # To get the new sha256, run `nix store prefetch-file https://dldir1.qq.com/weixin/Windows/WeChatSetup.exe`
-      #
-      # This derivation patches Wine, thus Wine needs to be built.
-      # wechat = config.nur.repos.xddxdd.wine-wechat.override {
-      #   version = "3.9.7";
-      #   setupSrc = builtins.fetchurl {
-      #     url = "https://dldir1.qq.com/weixin/Windows/WeChatSetup.exe";
-      #     sha256 = "sha256-esiCE8KzxfHzjnhzUKc+1UWMF/Fhz6mxuono0H/6GHI=";
-      #   };
-      # };
-      wechat = config.nur.repos.xddxdd.wechat-uos-bin;
+      wechat = pkgs.wechat-uos;
       #
       # New Inkscape 1.3.x are slow when working with PDF.
       # https://inkscape.org/forums/beyond/13-and-131-are-very-very-slow-opening-a-small-pdf-file/
