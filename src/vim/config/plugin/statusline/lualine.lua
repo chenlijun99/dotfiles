@@ -2,9 +2,6 @@ return {
 	{
 		"nvim-lualine/lualine.nvim",
 		event = "VeryLazy",
-		dependencies = {
-			"arkav/lualine-lsp-progress",
-		},
 		config = function()
 			local function getWords()
 				if
@@ -33,7 +30,6 @@ return {
 						"branch",
 						"diff",
 						"diagnostics",
-						"lsp_progress",
 					},
 					lualine_c = { "filename" },
 					lualine_x = {
@@ -42,7 +38,6 @@ return {
 						"fileformat",
 						"filetype",
 					},
-					lualine_y = { "progress" },
 					lualine_z = { "location" },
 				},
 				inactive_sections = {
