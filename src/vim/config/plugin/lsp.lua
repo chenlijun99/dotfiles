@@ -51,6 +51,10 @@ return {
 				ts_ls = {},
 				nil_ls = {},
 				tinymist = {
+					-- Workaround for LSP index out of bound issue.
+					-- Will be fixed in new Neovim release (currently using 0.10.2)
+					-- https://github.com/neovim/neovim/issues/30675#issuecomment-2395272151
+					offset_encoding = "utf-8",
 					--- todo: these configuration from lspconfig maybe broken
 					single_file_support = true,
 					root_dir = function()
