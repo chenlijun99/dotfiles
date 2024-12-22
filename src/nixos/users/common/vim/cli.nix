@@ -86,6 +86,10 @@ in {
 
       # JSON formatter
       fixjson
+
+      # Rust tooling
+      rust-analyzer
+      clippy
     ];
     file = {
       ".vim" = {
