@@ -13,7 +13,9 @@ let g:rooter_patterns = [
 			\ 'package.json',
 			\ 'composer.json',
 			\ '.lvimrc',
-			\ '.obsidian'
+			\ '.obsidian',
+			\ '.Cargo.toml',
+			\ '.luarc'
 			\ ]
 
 if clj#core#enable_full_power()

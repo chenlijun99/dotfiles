@@ -64,30 +64,6 @@ return {
 				-- Anyway, I need it only for Obsidian. So I enable it only
 				-- in the obsidian vault using .nvim.lua.
 				-- markdown_oxide = {},
-				rust_analyzer = {
-					on_attach = function(client, bufnr)
-						require("completion").on_attach(client)
-						vim.lsp.inlay_hint.enable(bufnr)
-					end,
-					settings = {
-						["rust-analyzer"] = {
-							imports = {
-								granularity = {
-									group = "module",
-								},
-								prefix = "self",
-							},
-							cargo = {
-								buildScripts = {
-									enable = true,
-								},
-							},
-							procMacro = {
-								enable = true,
-							},
-						},
-					},
-				},
 			},
 			setup = {},
 		},
