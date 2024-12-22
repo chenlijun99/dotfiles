@@ -75,6 +75,7 @@ return {
 				"rst",
 				"ledger",
 				"typst",
+				"just",
 				-- VimTex provides better highlighting
 				--"latex",
 			},

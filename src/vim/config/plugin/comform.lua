@@ -39,6 +39,7 @@ return {
 				python = { "black" },
 				typst = { "typstyle" },
 				json = { "fixjson" },
+				just = { "just" },
 				markdown = {
 					"prettierd",
 					"prettier",
