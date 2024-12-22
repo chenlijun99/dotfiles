@@ -5,8 +5,8 @@ let g:which_key_map.l = { 'group_name' : '+lsp' }
 return {
 	{
 		"neovim/nvim-lspconfig",
-		-- Hmm, with LazyFile-based lazy loading 
-		-- for some filetypes the LSP does not attach to the the first 
+		-- Hmm, with LazyFile-based lazy loading
+		-- for some filetypes the LSP does not attach to the the first
 		-- opened buffer.
 		-- Running `:e` works, but it's annoying.
 		--
@@ -243,6 +243,20 @@ return {
 				"<cmd>lua vim.lsp.buf.signature_help()<CR>",
 				opts("Signature help")
 			)
+
+			vim.api.nvim_create_autocmd("LspAttach", {
+				group = vim.api.nvim_create_augroup("UserLspConfig", {}),
+				callback = function(ev)
+					vim.bo[ev.buf].omnifunc = "v:lua.vim.lsp.omnifunc"
+
+					local client = vim.lsp.get_client_by_id(ev.data.client_id)
+					assert(client ~= nil)
+
+					if client.server_capabilities.inlayHintProvider then
+						vim.lsp.inlay_hint.enable(true, { bufnr = ev.buf })
+					end
+				end,
+			})
 		end,
 	},
 }
