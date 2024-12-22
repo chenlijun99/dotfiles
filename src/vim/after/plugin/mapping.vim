@@ -35,10 +35,14 @@ let g:which_key_map.s.v = "Vertical"
 nnoremap <silent> <leader>sv :vsplit<cr>
 let g:which_key_map.s.h = "Horizontal"
 nnoremap <silent> <leader>sh :split<cr>
-let g:which_key_map.s.v = "Vertical new"
+let g:which_key_map.s.V = "Vertical new"
 nnoremap <silent> <leader>sV :vnew<cr>
-let g:which_key_map.s.h = "Horizontal new"
+let g:which_key_map.s.H = "Horizontal new"
 nnoremap <silent> <leader>sH :new<cr>
+let g:which_key_map.s.t = "Tab"
+nnoremap <silent> <leader>st :tabnew<cr>
+let g:which_key_map.s.T = "Tab new"
+nnoremap <silent> <leader>sT :tab split<cr>
 
 " Source https://vi.stackexchange.com/a/38170
 let g:which_key_map.m.h = "Diff windows"
@@ -48,11 +52,13 @@ nnoremap <silent> <leader>mD :diffoff!<cr>
 
 
 let g:which_key_map.t = { 'group_name': '+tab' }
-let g:which_key_map.t.n = "New"
+let g:which_key_map.t.o = "New"
 nnoremap <silent> <leader>to :tabnew<cr>
+let g:which_key_map.t.s = "New (split)"
+nnoremap <silent> <leader>ts :tab split<cr>
 let g:which_key_map.t.c = "Close"
 nnoremap <silent> <leader>tc :tabclose<cr>
-let g:which_key_map.t.v = "Next"
+let g:which_key_map.t.n = "Next"
 nnoremap <silent> <leader>tn :tabnext<cr>
 let g:which_key_map.t.h = "Previous"
 nnoremap <silent> <leader>tN :tabprevious<cr>
