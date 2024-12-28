@@ -154,7 +154,6 @@ setopt share_history
 
 export PATH="$HOME/.yarn/bin:$HOME/.config/yarn/global/node_modules/.bin:$PATH"
 
-[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
 [ -f ~/.just.zsh ] && source ~/.just.zsh
 
 if [ -e /home/${USER}/.nix-profile/etc/profile.d/nix.sh ]; then . /home/${USER}/.nix-profile/etc/profile.d/nix.sh; fi # added by Nix installer
