@@ -47,7 +47,13 @@ return {
 				},
 				ocamllsp = {},
 				cmake = {},
-				pyright = {},
+				pyright = {
+					-- nvim-lspconfig docs
+					-- https://github.com/neovim/nvim-lspconfig/blob/master/doc/configs.md#pyright
+					-- pyright docs
+					-- https://github.com/microsoft/pyright/blob/main/docs/settings.md
+					analysis = {},
+				},
 				ts_ls = {},
 				nil_ls = {},
 				tinymist = {
