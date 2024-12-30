@@ -33,7 +33,14 @@ if has('nvim-0.10')
 --  You can test OSC 52 in terminal by using following in your terminal -
 --  printf $'\e]52;c;%s\a' "$(base64 <<<'hello world')"
 
-local is_tmux_session = vim.env.TERM_PROGRAM == "tmux" 
+local tmux_natively_supports_clipboard = vim.env.TERM_PROGRAM == "tmux" 
+if tmux_natively_supports_clipboard then
+  -- Keep only numbers using gsub.
+  -- Tmux >= 3.3 supports passthrough
+  does_tmux_support_passthrough = vim.env.TERM_PROGRAM_VERSION:gsub("%D", "") >= "33"
+  tmux_natively_supports_clipboard = tmux_natively_supports_clipboard and does_tmux_support_passthrough
+end
+
 -- Tmux is its own clipboard provider which directly works.
 -- Assuming OSC 52 support + passthrough is enabled.
 -- Still, paste doesn't work.
@@ -44,7 +51,7 @@ local is_tmux_session = vim.env.TERM_PROGRAM == "tmux"
 -- anyway only copying was the more annoying part.
 -- TMUX documentation about its clipboard - https://github.com/tmux/tmux/wiki/Clipboard#the-clipboard
 
-if vim.env.SSH_TTY and not is_tmux_session then
+if vim.env.SSH_TTY and not tmux_natively_supports_clipboard then
    -- Alacritty does not support runtime OSC 52 detection
    -- So we can't rely on `set clipboard=` and then have Neovim
    -- automatically enable OSC 52-based clipboard.
