@@ -1,4 +1,4 @@
-setlocal spell spelllang=en,it,cjk
+setlocal spell
 setlocal wrap
 
 nnoremap <buffer> <localleader>g :Goyo<cr>

@@ -1,4 +1,4 @@
-setlocal spell spelllang=en,it
+setlocal spell
 " toggle spell-checking
 nnoremap <buffer> <leader>c :setl spell!<cr>
 

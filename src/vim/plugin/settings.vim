@@ -238,6 +238,8 @@ autocmd BufReadPre *.approved.txt setlocal noundofile
 " }}}
 
 set spellfile=$HOME/.vim/spell/myspell.utf-8.add
+" Languages that I use
+set spelllang=en,it,cjk
 
 set list listchars=tab:\▸\ 
 
