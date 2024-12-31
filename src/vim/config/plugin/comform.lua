@@ -40,6 +40,7 @@ return {
 				typst = { "typstyle" },
 				json = { "fixjson" },
 				just = { "just" },
+				toml = { "taplo" },
 				markdown = {
 					"prettierd",
 					"prettier",
