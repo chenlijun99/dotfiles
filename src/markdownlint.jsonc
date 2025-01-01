@@ -1,0 +1,53 @@
+// Both [markdownlint-cli](https://github.com/igorshubovych/markdownlint-cli)
+// and [markdownlint-cli2](https://github.com/DavidAnson/markdownlint-cli2) 
+// support .markdownlint.jsonc
+{
+  // Enable all markdownlint rules
+  // Check the rules at https://github.com/DavidAnson/markdownlint/blob/main/doc/Rules.md
+  "default": true,
+
+  // Use asterisk. I like it.
+  "MD004": { "style": "asterisk" },
+
+  // Rationale: Indenting by 2 spaces allows the content of a nested list to be
+  // in line with the start of the content of the parent list when a single
+  // space is used after the list marker. Indenting by 4 spaces is consistent
+  // with code blocks and simpler for editors to implement. Additionally, this
+  // can be a compatibility issue for other Markdown parsers, which require
+  // 4-space indents
+  // 
+  // Decision: I prefer 2. I haven't met yet a parser that doesn't support
+  // this.
+  "MD007": { "indent": 2 },
+
+  "MD010": {
+    // Set to value consistent with MD007
+    "spaces_per_tab": 2 
+  },
+
+  // Disable line length check
+  // I prefer soft-wrapping.
+  "MD013": false,
+
+  // Rule: Multiple headings with the same content
+  // Rationale: Rationale: Some Markdown parsers generate anchors for headings
+  // based on the heading name; headings with the same content can cause
+  // problems with that.
+  //
+  // Choice: disable. I don't care.
+  "MD024": false,
+
+  // Set Ordered list item prefix to "ordered" (use 1. 2. 3. not 1. 1. 1.)
+  "MD029": { "style": "ordered" },
+
+  // Allow inline HTML
+  "MD033": false,
+
+  // Allow using bare URLs without providing alt text
+  // The rationale for this rule is that it is not supported by some
+  // Markdown parsers, but I don't care.
+  "MD034": false,
+
+  // First line doesn't need to be top-level heading
+  "MD041": false
+}

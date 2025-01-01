@@ -39,9 +39,21 @@ return {
 				python = { "black" },
 				typst = { "typstyle" },
 				json = { "fixjson" },
+				-- fixjson doesn't support comments yet
+				-- https://github.com/rhysd/fixjson/issues/17
+				-- jsonc = { "fixjson" },
 				just = { "just" },
 				toml = { "taplo" },
 				markdown = {
+					-- Prefer markdownlint as formatter.
+					-- We use it as linter anyway.
+					"markdownlint-cli2",
+					-- I don't like how prettier formats the lists.
+					--
+					-- It has been fixed in 3.4.0.
+					-- See https://github.com/prettier/prettier/issues/5019
+					-- But at the time of writing, it is still not available
+					-- on Nixpkgs.
 					"prettierd",
 					"prettier",
 					stop_after_first = true,

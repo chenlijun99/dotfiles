@@ -5,7 +5,12 @@ return {
 		config = function()
 			local lint = require("lint")
 			lint.linters_by_ft = {
-				markdown = { "markdownlint-cli2" },
+				markdown = {
+					-- See
+					-- https://dlaa.me/blog/post/markdownlintcli2
+					-- for markdownlint-cli vs markdownlint-cli2
+					"markdownlint-cli2" 
+				},
 				shell = { "shellcheck" },
 				yaml = { "yamllint" },
 				zsh = { "zsh" },

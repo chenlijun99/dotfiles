@@ -78,8 +78,8 @@ in {
       ".ls_colors" = {
         source = utils.mkOutOfStoreRelativeThisRepoSymLink "./src/ls_colors";
       };
-      ".markdownlintrc" = {
-        source = utils.mkOutOfStoreRelativeThisRepoSymLink "./src/markdownlintrc";
+      ".markdownlint.jsonc" = {
+        source = utils.mkOutOfStoreRelativeThisRepoSymLink "./src/markdownlint.jsonc";
       };
       ".xbindkeysrc" = {
         source = utils.mkOutOfStoreRelativeThisRepoSymLink "./src/xbindkeysrc";
