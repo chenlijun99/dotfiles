@@ -12,6 +12,8 @@ return {
 				disable = function(lang, bufnr)
 					-- Disable tree-sitter hilight on large files
 					return vim.api.nvim_buf_line_count(bufnr) > 5000
+						-- VimTex provides better highlighting
+						or lang == "latex"
 				end,
 			},
 			indent = {
@@ -76,8 +78,7 @@ return {
 				"ledger",
 				"typst",
 				"just",
-				-- VimTex provides better highlighting
-				--"latex",
+				"latex",
 			},
 		},
 		---@param opts TSConfig
