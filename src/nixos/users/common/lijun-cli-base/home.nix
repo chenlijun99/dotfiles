@@ -55,6 +55,8 @@ in {
       jq
       # Mount remote directories via SSH
       sshfs
+      # Utility script to easily use git for coarse synchrinization
+      git-sync
 
       rclone
       devenv
