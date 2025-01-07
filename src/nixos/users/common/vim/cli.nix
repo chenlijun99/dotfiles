@@ -39,7 +39,16 @@ in {
       nodePackages.eslint_d
       nodePackages.prettier
       nodePackages.stylelint
-      markdownlint-cli2
+
+      # See
+      # https://dlaa.me/blog/post/markdownlintcli2
+      # for markdownlint-cli vs markdownlint-cli2
+      #
+      # But in the end I prefer markdownlint-cli because it supports
+      # looking for a default config in $HOME
+      # See https://github.com/igorshubovych/markdownlint-cli?tab=readme-ov-file#configuration
+      # and https://github.com/DavidAnson/markdownlint-cli2/issues/364
+      markdownlint-cli
 
       # Lua formatter
       stylua

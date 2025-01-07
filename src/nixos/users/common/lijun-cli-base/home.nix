@@ -83,6 +83,23 @@ in {
       ".markdownlint.jsonc" = {
         source = utils.mkOutOfStoreRelativeThisRepoSymLink "./src/markdownlint.jsonc";
       };
+      ".markdownlintrc" = let
+        stripJsoncCommentsNaive = inputPath: let
+          drv = pkgs.stdenv.mkDerivation {
+            name = "jsonc-to-json" + inputPath;
+            src = inputPath;
+            dontUnpack = true;
+            buildInputs = [pkgs.jq];
+            buildPhase = ''
+              mkdir -p $out
+              # Use jq to validate and format the JSON
+              sed -E 's/\/\/.*$//' $src | jq > $out/output.json
+            '';
+          };
+        in (drv + "/output.json");
+      in {
+        source = stripJsoncCommentsNaive ../../../../markdownlint.jsonc;
+      };
       ".xbindkeysrc" = {
         source = utils.mkOutOfStoreRelativeThisRepoSymLink "./src/xbindkeysrc";
       };

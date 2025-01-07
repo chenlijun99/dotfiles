@@ -6,10 +6,7 @@ return {
 			local lint = require("lint")
 			lint.linters_by_ft = {
 				markdown = {
-					-- See
-					-- https://dlaa.me/blog/post/markdownlintcli2
-					-- for markdownlint-cli vs markdownlint-cli2
-					"markdownlint-cli2" 
+					"markdownlint"
 				},
 				shell = { "shellcheck" },
 				yaml = { "yamllint" },

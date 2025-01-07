@@ -47,7 +47,7 @@ return {
 				markdown = {
 					-- Prefer markdownlint as formatter.
 					-- We use it as linter anyway.
-					"markdownlint-cli2",
+					"markdownlint",
 					-- I don't like how prettier formats the lists.
 					--
 					-- It has been fixed in 3.4.0.
