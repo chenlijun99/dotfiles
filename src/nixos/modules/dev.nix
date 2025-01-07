@@ -22,6 +22,9 @@
     lua
     # Package manager from Rust
     cargo
+
+    man-pages
+    man-pages-posix
   ];
 
   programs.zsh.enable = true;
