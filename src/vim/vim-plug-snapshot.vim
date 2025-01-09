@@ -5,7 +5,6 @@
 
 silent! let g:plugs['CamelCaseMotion'].commit = 'de439d7c06cffd0839a29045a103fe4b44b15cdc'
 silent! let g:plugs['FastFold'].commit = 'ab3d199d288a51708c3181a25aba1f9de2050b89'
-silent! let g:plugs['auto-pairs'].commit = '39f06b873a8449af8ff6a3eee716d3da14d63a76'
 silent! let g:plugs['ctrlsf.vim'].commit = '32236a8b376d9311dec9b5fe795ca99d32060b13'
 silent! let g:plugs['d2-vim'].commit = '981c87dccb63df2887cc41b96e84bf550f736c57'
 silent! let g:plugs['diffchar.vim'].commit = 'ccf4c238a71d834ad1e21834f08be274bc0f05a3'

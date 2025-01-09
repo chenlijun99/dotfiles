@@ -42,13 +42,6 @@ Plug 'junegunn/rainbow_parentheses.vim'
 Plug 'junegunn/vim-easy-align', { 'on' : ['EasyAlign'] }
 " }}}
 
-" jiangmiao/auto-pairs {{{
-Plug 'jiangmiao/auto-pairs'
-" Never really used this. Just realized it conflicts with my other mappings.
-" Let's disable it.
-let g:AutoPairsMapCh=0
-"}}}
-
 " mhinz/vim-startify {{{
 Plug 'mhinz/vim-startify'
 

@@ -10,6 +10,9 @@ local LuaSnip = {
 	opts = {
 		-- For me it's very bothersome and unintuitive when LuaSnip enters into old, already expanded snippets.
 		history = false,
+		-- So that in snippets where the same placeholder is used, they are
+		-- kept in sync as I type.
+		update_events = "TextChanged,TextChangedI",
 		delete_check_events = "TextChanged",
 	},
 }
@@ -96,11 +99,11 @@ return {
 					end,
 				},
 				mapping = cmp.mapping.preset.insert({
-					["<C-b>"] = cmp.mapping(
+					["<C-u>"] = cmp.mapping(
 						cmp.mapping.scroll_docs(-4),
 						{ "i", "c" }
 					),
-					["<C-f>"] = cmp.mapping(
+					["<C-d>"] = cmp.mapping(
 						cmp.mapping.scroll_docs(4),
 						{ "i", "c" }
 					),
@@ -211,5 +214,18 @@ return {
 				}),
 			})
 		end,
+	},
+	{
+		"windwp/nvim-autopairs",
+		event = "InsertEnter",
+		config = function()
+			require("nvim-autopairs").setup({})
+			local cmp_autopairs = require("nvim-autopairs.completion.cmp")
+			local cmp = require("cmp")
+			cmp.event:on("confirm_done", cmp_autopairs.on_confirm_done())
+		end,
+		dependencies = {
+			"hrsh7th/nvim-cmp",
+		},
 	},
 }
