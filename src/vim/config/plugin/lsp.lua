@@ -184,6 +184,10 @@ return {
 				opts("Code action")
 			)
 
+			vim.keymap.set("n", "<leader>li", function()
+				vim.lsp.inlay_hint.enable(not vim.lsp.inlay_hint.is_enabled())
+			end, opts("Toggle inlay hints"))
+
 			vim.api.nvim_set_keymap(
 				"n",
 				"<leader>ld",
@@ -253,20 +257,6 @@ return {
 				"<cmd>lua vim.lsp.buf.signature_help()<CR>",
 				opts("Signature help")
 			)
-
-			vim.api.nvim_create_autocmd("LspAttach", {
-				group = vim.api.nvim_create_augroup("UserLspConfig", {}),
-				callback = function(ev)
-					vim.bo[ev.buf].omnifunc = "v:lua.vim.lsp.omnifunc"
-
-					local client = vim.lsp.get_client_by_id(ev.data.client_id)
-					assert(client ~= nil)
-
-					if client.server_capabilities.inlayHintProvider then
-						vim.lsp.inlay_hint.enable(true, { bufnr = ev.buf })
-					end
-				end,
-			})
 		end,
 	},
 }
