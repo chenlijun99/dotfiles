@@ -12,8 +12,39 @@ function NvimTreeOpenOrFindFile()
 	end
 end
 
+---Smart sizing
+---
+---@param enable boolean Whether to enable smart sizing or not
+---@param check_buffer boolean Whether to check and ensure the current buffer is a nvim-tree buffer
+local function smart_size(enable, check_buffer)
+	local tree = require("nvim-tree.api").tree
+	if
+		check_buffer and not tree.is_tree_buf(vim.api.nvim_get_current_buf())
+	then
+		return
+	end
+
+	local config = require("nvim-tree").config
+	if enable then
+		tree.resize({
+			width = {
+				min = config.view.width,
+				max = -1,
+				padding = 3,
+			},
+		})
+		-- Without reload the initial dynamic size is wrong
+		-- Not sure why.
+		tree.reload()
+	else
+		tree.resize()
+	end
+end
+
 local function on_attach(bufnr)
 	local api = require("nvim-tree.api")
+
+	smart_size(true, false)
 
 	local function opts(desc)
 		return {
@@ -219,6 +250,32 @@ return {
 						enable = true,
 					},
 				},
+			})
+
+			local group = vim.api.nvim_create_augroup(
+				"CljNvimTreeGroup",
+				{ clear = true }
+			)
+			vim.api.nvim_create_autocmd("WinEnter", {
+				group = group,
+				pattern = "*",
+				callback = function()
+					local buf_ft = vim.bo.filetype
+					if buf_ft == "NvimTree" then
+						smart_size(true, true)
+					end
+				end,
+			})
+
+			vim.api.nvim_create_autocmd("WinLeave", {
+				group = group,
+				pattern = "*",
+				callback = function()
+					local buf_ft = vim.bo.filetype
+					if buf_ft == "NvimTree" then
+						smart_size(false, true)
+					end
+				end,
 			})
 		end,
 	},
