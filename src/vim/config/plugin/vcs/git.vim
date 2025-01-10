@@ -26,7 +26,7 @@ let g:flog_default_opts = {
 let g:which_key_map.g.V = 'project history'
 nnoremap <leader>gV :Flog<cr>
 let g:which_key_map.g.v =' file history' 
-nnoremap <leader>gv :Flog -all -path=%<cr>
+nnoremap <leader>gv :Flog -path=%<cr>
 " }}}
 
 " set modeline
