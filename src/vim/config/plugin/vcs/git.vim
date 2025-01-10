@@ -17,12 +17,16 @@ nnoremap <leader>gc :Git commit<cr>
 nnoremap <leader>gC :Git commit --amend<cr>
 "}}}
 
-" junegunn/gv.vim {{{
-Plug 'junegunn/gv.vim' , { 'on': ['GV', 'GV!'] }
+" rbong/vim-flog {{{
+Plug 'rbong/vim-flog' ,{ 'on': ['Flog', 'Flogsplit', 'Floggit'] }
+let g:flog_default_opts = {
+            \ 'default_collapsed': 1,
+            \ 'date': 'short',
+            \ }
 let g:which_key_map.g.V = 'project history'
-nnoremap <leader>gV :GV<cr>
+nnoremap <leader>gV :Flog<cr>
 let g:which_key_map.g.v =' file history' 
-nnoremap <leader>gv :GV!<cr>
+nnoremap <leader>gv :Flog -all -path=%<cr>
 " }}}
 
 " set modeline
