@@ -1,6 +1,7 @@
-let g:which_key_map.f = { 'group_name' : '+find' }
-let g:which_key_map.f.r = { 'group_name' : '+replace' }
-
+if clj#core#enable_full_power()
+	" fzf.vim is used only as fallback
+	finish
+endif
 function! s:ignore_submodules(...)
 	if a:0 > 0
 		let prepend = a:1
@@ -26,7 +27,6 @@ function! s:ignore_submodules(...)
 	return ignore_args
 endfunction
 
-" junegunn/fzf {{{
 Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
 Plug 'junegunn/fzf.vim'
 
@@ -67,6 +67,9 @@ nnoremap <silent> <leader>ft :FzfTags<cr>
 let g:which_key_map.f.c = 'fuzzy commits'
 nnoremap <silent> <leader>fc :FzfCommits<cr>
 
+" Use fzf to complete paths. Very convenient.
+inoremap <expr> <c-x><c-f> fzf#vim#complete#path('rg --files')
+
 let g:fzf_command_prefix = 'Fzf'
 
 " Default fzf layout
@@ -94,45 +97,3 @@ let g:fzf_colors =
 " explicitly bind the keys to down and up in your $FZF_DEFAULT_OPTS.
 let g:fzf_history_dir = '~/.local/share/fzf-history'
 let g:fzf_preview_window = ['hidden,right,50%', 'ctrl-_']
-" }}}
-
-" dyng/ctrlsf.vim {{{
-let g:which_key_map.f.r.c = {
-			\ 'map_name': '(CtrlSF)',
-			\ 'mode': ['n', 'x'],
-			\}
-nnoremap <leader>frc :CtrlSF<Space>
-xnoremap <leader>frc :<C-u>call <SID>VSetSearch()<CR>:CtrlSF<Space><C-R>=@/<CR><CR>
-
-Plug 'dyng/ctrlsf.vim',
-			\ { 'on': ['CtrlSF'] }
-
-" }}}
-
-" tpope/vim-abolish {{{
-Plug 'tpope/vim-abolish',
-			\ { 'on': ['Abolish', 'Subvert'] }
-
-let g:which_key_map.f.r.c = {
-			\ 'map_name': 'Subvert',
-			\ 'mode': ['x'],
-			\}
-xnoremap <leader>frs :<C-u>call <SID>VSetSearch()<CR>:%Subvert/<C-R>=@/<CR>//gc<left><left><left>
-" }}}
-
-let g:which_key_map.f.r.c = {
-			\ 'map_name': 'built-n',
-			\ 'mode': ['x'],
-			\}
-" from SpaceVim
-xnoremap <leader>frr :<C-u>call <SID>VSetSearch()<CR>:%s/<C-R>=@/<CR>//gc<left><left><left>
-function! s:VSetSearch() abort
-	let temp = @s
-	norm! gv"sy
-	" Escape expression '\\/.*$^~[]' is from https://superuser.com/a/320514
-	let @/ = substitute(escape(@s, '\\/.*$^~[]'), '\n', '\\n', 'g')
-	let @s = temp
-endfunction
-
-" set modeline
-" vim: foldlevel=0 foldmethod=marker
