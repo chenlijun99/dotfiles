@@ -27,7 +27,7 @@ function! s:ignore_submodules(...)
 	return ignore_args
 endfunction
 
-Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
+Plug 'junegunn/fzf'
 Plug 'junegunn/fzf.vim'
 
 function! s:get_fzf_main_mapping()

@@ -34,6 +34,7 @@ in {
       vifm
       tree
       distrobox
+      fzf
       # Ripgrep. I use it in Vim and also on CLI
       ripgrep
       # Temporarily disable doInstallCheck, which fails due to newest pandoc removing support for a flag
