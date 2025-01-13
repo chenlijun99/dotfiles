@@ -99,6 +99,15 @@ in {
       # Rust tooling
       rust-analyzer
       clippy
+
+      # Working with bibtex
+      #
+      # Nope. Were interesting options, but found something better.
+      # fzf-bibtex
+      # https://github.com/dimo414/bkt
+      # bkt
+      # https://github.com/typst/hayagriva
+      # hayagriva
     ];
     file = {
       ".vim" = {

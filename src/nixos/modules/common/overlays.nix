@@ -4,6 +4,7 @@
 {
   pkgs,
   inputs,
+  lib,
   config,
   ...
 } @ args: let
@@ -50,6 +51,7 @@ in {
       # I've also experienced this.
       #
       inkscape = pkgs-inkscape-1-22.inkscape;
+      fzf-bibtex = import ./fzf-bibtex args;
     })
   ];
   nixpkgs.config.permittedInsecurePackages = [

@@ -36,10 +36,12 @@ snippet PdfLinkMultipage
 snippet clj_literature_note
 	---
 	aliases:
-	  - ${0:title}
+	  - "${BIBLIOTECA_ITEM_TITLE}"
 	---
 
-	# ${0:title}
+	[Open in Zotero](zotero://select/items/@${BIBLIOTECA_ITEM_KEY})
+
+	# ${BIBLIOTECA_ITEM_TITLE}$0
 
 	## See also
 
@@ -50,6 +52,8 @@ snippet clj_literature_note
 	## Notes
 
 	## Diary
+
+	* Craeted in ${CURRENT_YEAR}-${CURRENT_MONTH}-${CURRENT_DATE}
 
 snippet clj_literature_log
 	${CURRENT_YEAR}-${CURRENT_MONTH}-${CURRENT_DATE} (${1:how much time}): ${0:what}
