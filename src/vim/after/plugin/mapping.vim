@@ -62,6 +62,24 @@ let g:which_key_map.t.n = "Next"
 nnoremap <silent> <leader>tn :tabnext<cr>
 let g:which_key_map.t.h = "Previous"
 nnoremap <silent> <leader>tN :tabprevious<cr>
+let g:which_key_map.t["1"] = "Tab 1"
+nnoremap <silent> <leader>t1 1gt
+let g:which_key_map.t["2"] = "Tab 2"
+nnoremap <silent> <leader>t2 2gt
+let g:which_key_map.t["3"] = "Tab 3"
+nnoremap <silent> <leader>t3 3gt
+let g:which_key_map.t["4"] = "Tab 4"
+nnoremap <silent> <leader>t4 4gt
+let g:which_key_map.t["5"] = "Tab 5"
+nnoremap <silent> <leader>t5 5gt
+let g:which_key_map.t["6"] = "Tab 6"
+nnoremap <silent> <leader>t6 6gt
+let g:which_key_map.t["7"] = "Tab 7"
+nnoremap <silent> <leader>t7 7gt
+let g:which_key_map.t["8"] = "Tab 8"
+nnoremap <silent> <leader>t8 8gt
+let g:which_key_map.t["9"] = "Tab 9"
+nnoremap <silent> <leader>t9 9gt
 
 let g:which_key_map.m.c =  'configure vimrc'
 nnoremap <silent> <leader>mc :vsplit $MYVIMRC<cr>
