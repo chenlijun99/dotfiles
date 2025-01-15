@@ -80,6 +80,8 @@ let g:which_key_map.t["8"] = "Tab 8"
 nnoremap <silent> <leader>t8 8gt
 let g:which_key_map.t["9"] = "Tab 9"
 nnoremap <silent> <leader>t9 9gt
+let g:which_key_map.t["<tab>"] = "Alternate tab"
+nnoremap <silent> <leader>t<tab> g<tab>
 
 let g:which_key_map.m.c =  'configure vimrc'
 nnoremap <silent> <leader>mc :vsplit $MYVIMRC<cr>
