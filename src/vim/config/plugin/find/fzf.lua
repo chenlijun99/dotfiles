@@ -61,6 +61,20 @@ return {
 			end,
 			desc = "fuzzy commits",
 		},
+		{
+			"<leader>fls",
+			function()
+				require("fzf-lua").lsp_document_symbols()
+			end,
+			desc = "Document symbols",
+		},
+		{
+			"<leader>flS",
+			function()
+				require("fzf-lua").lsp_live_workspace_symbols()
+			end,
+			desc = "Workspace symbols",
+		},
 	},
 	lazy = true,
 	opts = {

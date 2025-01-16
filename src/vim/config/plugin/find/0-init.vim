@@ -1,4 +1,5 @@
 let g:which_key_map.f = { 'group_name' : '+find' }
+let g:which_key_map.f.l = { 'group_name' : '+LSP' }
 let g:which_key_map.f.r = { 'group_name' : '+replace' }
 
 " dyng/ctrlsf.vim {{{
