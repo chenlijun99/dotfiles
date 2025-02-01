@@ -21,33 +21,37 @@ return {
 			local presets = require("markview.presets")
 
 			require("markview").setup({
-				-- Keep initially disabled. I'll enable it when I need.
-				initial_state = false,
+				preview = {
+					-- Keep initially disabled. I'll enable it when I need.
+					enable = false,
+				},
 				--hybrid_modes = {"i"},
-				headings = presets.headings.marker,
+				markdown = {
+					headings = presets.headings.marker,
+					list_items = {
+						enable = true,
+						marker_minus = {
+							add_padding = false,
+						},
+						marker_plus = {
+							add_padding = false,
+						},
+						marker_star = {
+							add_padding = false,
+						},
+						marker_dot = {
+							add_padding = false,
+						},
+						marker_parenthesis = {
+							add_padding = false,
+						},
+					},
+				},
 				inline_codes = {
 					enable = true,
 				},
 				latex = {
 					enable = true,
-				},
-				list_items = {
-					enable = true,
-					marker_minus = {
-						add_padding = false,
-					},
-					marker_plus = {
-						add_padding = false,
-					},
-					marker_star = {
-						add_padding = false,
-					},
-					marker_dot = {
-						add_padding = false,
-					},
-					marker_parenthesis = {
-						add_padding = false,
-					},
 				},
 			})
 		end,
