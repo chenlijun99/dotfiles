@@ -12,6 +12,7 @@ silent! let g:plugs['fugitive-gitlab.vim'].commit = '3584cf7e607ba7822f991d407a8
 silent! let g:plugs['fzf'].commit = '14ef8e80519987962008b2da0c95907993d03865'
 silent! let g:plugs['fzf.vim'].commit = '556f45e79ae5e3970054fee4c4373472604a1b4e'
 silent! let g:plugs['goyo.vim'].commit = 'fa0263d456dd43f5926484d1c4c7022dfcb21ba9'
+silent! let g:plugs['ical.vim'].commit = 'fc04e718533af6c7f920a7a908016f83addb53c8'
 silent! let g:plugs['markdown-preview.nvim'].commit = 'a923f5fc5ba36a3b17e289dc35dc17f66d0548ee'
 silent! let g:plugs['nerdcommenter'].commit = '66c07e4083ab02ed2540ac289cc602c70b858c13'
 silent! let g:plugs['plantuml-syntax'].commit = '9d4900aa16674bf5bb8296a72b975317d573b547'
