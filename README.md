@@ -91,6 +91,16 @@ See also:
 $ nixos-generate-config --dir src/nixos/machines/<machine name>
 ```
 
+### Trouble-shooting
+
+* Why is a derivation being built?
+
+  Run `nix build` or whatever uses it (e.g. `nixos-rebuild switch`) with verbose logs (`--verbose`) and find the exact path of the derivation. Then find the top-level derivation (i.e. the system derivation or the home-manager derivation).
+
+  ```sh
+  $ nix why-depends <top-level derivation path> <derivation>
+  ```
+
 ## Legacy
 
 I now use NixOS, but I still try to keep things usable also on other distros. Here it is documented how my dotfiles used to work before the migration to NixOS.

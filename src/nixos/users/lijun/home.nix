@@ -40,7 +40,6 @@
       keepassxc
 
       # Communication
-      wechat
       slack
       signal-desktop
       teams-for-linux
@@ -73,6 +72,8 @@
       hledger
       hledger-ui
       hledger-web
+
+      gnome-pomodoro
     ];
   };
 }

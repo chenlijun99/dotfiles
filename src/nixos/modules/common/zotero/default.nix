@@ -12,7 +12,7 @@
   lib,
   zotero,
   ...
-}: (pkgs.buildFHSUserEnv {
+}: (pkgs.buildFHSEnv {
   # also determines the name of the wrapped command
   name = zotero.pname;
 
