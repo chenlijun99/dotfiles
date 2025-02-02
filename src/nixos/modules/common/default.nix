@@ -18,6 +18,10 @@
     #
     # pkgs.nixVersions.stable is an alias of a version of nix that supports flakes
     package = pkgs.nixVersions.stable;
+    # To suppress the warning:
+    # warning: Nix search path entry '/nix/var/nix/profiles/per-user/root/channels' does not exist, ignoring
+    # See https://github.com/NixOS/nix/issues/2982#issuecomment-2477618346
+    channel.enable = false;
     extraOptions = ''
       experimental-features = nix-command flakes
     '';
@@ -29,4 +33,3 @@
   # of this flake.
   system.configurationRevision = with inputs; nixpkgs.lib.mkIf (self ? rev) self.rev;
 }
-
