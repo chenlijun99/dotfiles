@@ -32,6 +32,7 @@
     ../../modules/graphic-tablet.nix
     ../../modules/embedded-programmin.nix
     ../../modules/llm.nix
+    ../../modules/kanata.nix
     ../../users/lijun
     ../../users/lijun-test
     ../../users/test

@@ -1,0 +1,120 @@
+;; This doesn't necessarily reflect the layout of keyboards I own
+;; It just represents a lowest common denominator of keys that all my
+;; keyboards should have, organized in a familiar layout.
+;;
+;; The rest of the file can (only) assume the presence of these keys.
+(defsrc
+  grv   1    2    3    4    5    6    7    8    9    0    -    =    bspc
+  tab   q    w    e    r    t    y    u    i    o    p    [    ]    \
+  caps  a    s    d    f    g    h    j    k    l    ;    '    ret
+  lsft  z    x    c    v    b    n    m    ,    .    /    rsft
+  lctl  lmet lalt           spc            ralt rmet rctl
+)
+
+;; A+J is audio decrease
+;; A+K is audio increase
+;; A+Space is mute toggle
+;; M+J is microphone increase
+;; M+K is microphone decrease
+;; M+Space is microphone toggle
+;; P is the Print key
+;; B+J is brightness decrease
+;; B+K is brightness increase
+(deflayer alt
+  XX    mlft mmid mrgt XX   XX   XX   XX   XX   XX   XX   XX   XX   XX
+  XX    XX   XX   XX   XX   XX   XX   XX   XX   XX   prnt XX   XX   XX
+  XX    @cha XX   XX   XX   XX   XX   @chj @chk XX   XX   XX   XX
+  XX    XX   XX   XX   XX   @chb XX   @chm XX   XX   XX   XX
+  XX    XX   XX             @chspc         XX   XX   XX
+)
+
+(defalias
+  cha (chord alt-chords a)
+  chb (chord alt-chords b)
+  chm (chord alt-chords m)
+  chj (chord alt-chords j)
+  chk (chord alt-chords k)
+  chspc (chord alt-chords spc)
+)
+
+;; Why use macro?
+;; See docs section "Input chords > Release behaviour"
+;; It still kinda sucks. But just adding more layers instead of using defchords
+;; is better. Anyway, let's accept this for now.
+(defchords alt-chords 500
+  (a j) (macro VolumeUp)
+  (a k) (macro VolumeDown)
+  (a spc) (macro VolumeMute)
+  ;; Mic keys seem to be not supported yet.
+  (m j) XX
+  (m k) XX
+  (b j) (macro brup)
+  (b k) (macro brdown)
+)
+
+(deflayer mouse
+  XX    mlft mmid mrgt XX   XX   XX   XX   XX   XX   XX   XX   XX   XX
+  XX    XX   @ma↑ XX   XX   XX   XX   XX   XX   XX   XX   XX   XX   XX
+  XX    @ma← @ma↓ @ma→ XX   XX   XX   mlft mmid mrgt XX   XX   XX
+  XX    XX   XX   XX   XX   XX   XX   XX   @slw @fst XX   XX
+  XX    XX   XX             @l_mousewheel  XX   XX   XX
+)
+
+(deflayer mousewheel
+  XX    mlft mmid mrgt XX   XX   XX   mlft mmid mrgt XX   XX   XX   XX
+  XX    XX   @mwu XX   XX   XX   XX   XX   XX   XX   XX   XX   XX   XX
+  XX    @mwl @mwd @mwr XX   XX   XX   XX   XX   XX   XX   XX   XX
+  XX    XX   XX   XX   XX   XX   XX   XX   XX   XX   XX   XX
+  XX    XX   XX             XX   XX   XX   XX
+)
+
+(defalias
+  l_alt (layer-while-held alt)
+)
+
+(defalias
+  l_mouse (layer-while-held mouse)
+)
+
+(defalias
+  l_mousewheel (layer-while-held mousewheel)
+)
+
+(defalias
+  ;; mouse layer or caps
+  moc (tap-hold 200 200 caps @l_mouse)
+)
+
+(defalias
+  ms↑ (movemouse-up 4 8)
+  ms← (movemouse-left 4 8)
+  ms↓ (movemouse-down 4 8)
+  ms→ (movemouse-right 4 8)
+
+  fst (movemouse-speed 150)
+  slw (movemouse-speed 15)
+
+  mwu (mwheel-up 50 120)
+  mwd (mwheel-down 50 120)
+  mwl (mwheel-left 50 120)
+  mwr (mwheel-right 50 120)
+
+  ;; $interval Number of milliseconds between move activations.
+  ;; Depends on my reaction time. But should be small for cursor to feel smooth
+  ;; when distance is high.
+  ;;
+  ;; $acceletaion-time Number of milliseconds until max distance per activation is reached.
+  ;;
+  ;; $min Initial distance to travel per activation in unit of pixels.
+  ;; Close to the most fine-grained operation I expect to do
+  ;;
+  ;; $max Maximum distance to travel per activation in unit of pixels.
+  ;; $max / $interval is the highest speed as which I want to go
+  ;;
+  ;; NOTE: (($max - $min) / $acceletaion-time) * $interval should be a small 
+  ;; number for acceleration to feel smooth
+  ma↑ (movemouse-accel-up 30 1000 10 80)
+  ma← (movemouse-accel-left 30 1000 10 80)
+  ma↓ (movemouse-accel-down 30 1000 10 80)
+  ma→ (movemouse-accel-right 30 1000 10 80)
+)
