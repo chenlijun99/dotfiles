@@ -56,16 +56,16 @@
   XX    mlft mmid mrgt XX   XX   XX   XX   XX   XX   XX   XX   XX   XX
   XX    XX   @ma↑ XX   XX   XX   XX   XX   XX   XX   XX   XX   XX   XX
   XX    @ma← @ma↓ @ma→ XX   XX   XX   mlft mmid mrgt XX   XX   XX
-  XX    XX   XX   XX   XX   XX   XX   XX   @slw @fst XX   XX
-  XX    XX   XX             @l_mousewheel  XX   XX   XX
+  _     XX   XX   XX   XX   XX   XX   XX   @slw @fst XX   XX
+  _     _    _              @l_mousewheel  XX   XX   XX
 )
 
 (deflayer mousewheel
   XX    mlft mmid mrgt XX   XX   XX   mlft mmid mrgt XX   XX   XX   XX
   XX    XX   @mwu XX   XX   XX   XX   XX   XX   XX   XX   XX   XX   XX
   XX    @mwl @mwd @mwr XX   XX   XX   XX   XX   XX   XX   XX   XX
-  XX    XX   XX   XX   XX   XX   XX   XX   XX   XX   XX   XX
-  XX    XX   XX             XX   XX   XX   XX
+  _     XX   XX   XX   XX   XX   XX   XX   XX   XX   XX   XX
+  _     _    _              XX   XX   XX   XX
 )
 
 (defalias
