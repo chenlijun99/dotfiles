@@ -1,11 +1,14 @@
 default:
 	@just --list --justfile {{ justfile() }}
 
-flakes-update:
-	cd src/nixos && nix flae update
+# Update project devenv
+update:
+	devenv update
 
-# NixOS Configuration
-nixos-upgrade machine: flakes-update
+flakes-update:
+	cd src/nixos && nix flake update
+
+nixos-switch machine:
 	sudo nixos-rebuild switch --flake ./src/nixos#{{machine}}
 
 nixos-rollback:
@@ -14,9 +17,37 @@ nixos-rollback:
 nixos-list-generations:
 	sudo nix-env --list-generations -p /nix/var/nix/profiles/system
 
-# Home Manager
-home-manager-upgrade user: flakes-update
+home-manager-switch user:
 	home-manager switch --flake ./src/nixos#{{user}}
+
+secrets-list:
+	#!/usr/bin/env bash
+
+	# Check if .sops.yaml exists
+	if [ ! -f ".sops.yaml" ]; then
+	  echo "Error: .sops.yaml not found" >&2
+	  exit 1
+	fi
+
+	# Extract regexes
+	regexes=$(cat .sops.yaml | yq -r '.creation_rules[].path_regex' | sed 's/^"//; s/"$//' | tr '\n' '|')
+
+	# Remove the trailing pipe character
+	regexes="${regexes%|}"
+
+	# Find files and filter with ripgrep
+	find . -type f | rg --color never --regexp "$regexes"
+
+secrets-edit:
+	#!/usr/bin/env bash
+	SELECTED_SECRET_FILE=$(just secrets-list | fzf)
+	sops "$SELECTED_SECRET_FILE"
+
+secrets-update:
+	#!/usr/bin/env bash
+	for SECRET_FILE in $(just secrets-list); do
+		sops updatekeys "$SECRET_FILE"
+	done
 
 # Space Optimization
 nix-gc-delete-all:

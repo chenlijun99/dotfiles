@@ -1,0 +1,7 @@
+keys:
+  - &long_term_age_key age1dpz24ggg809nztfmckn8a30s3ctnpwdmfgphyf9rcw9p77a0gssqeqpp7q
+creation_rules:
+  - path_regex: src/nixos/users/lijun/secrets.yaml$
+    key_groups:
+      - age:
+          - *long_term_age_key

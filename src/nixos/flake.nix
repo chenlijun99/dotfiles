@@ -1,6 +1,10 @@
 {
   description = "NixOS configuration of Lijun Chen";
   inputs = {
+    sops-nix = {
+      url = "github:Mic92/sops-nix";
+      inputs.nixpkgs.follows = "nixpkgs-unstable";
+    };
     nixpkgs-stable.url = "github:NixOS/nixpkgs/nixos-24.11";
     nixpkgs-unstable.url = "github:NixOS/nixpkgs/nixos-unstable";
     nixpkgs-inkscape-1-22.url = "github:NixOS/nixpkgs/nixos-23.05";
@@ -22,6 +26,7 @@
     home-manager,
     nixos-generators,
     nur,
+    sops-nix,
     ...
   } @ inputs: let
     # If using nixpkgs-stable to build the system, then nixpkgs is also nixpkgs-stable.
@@ -55,6 +60,9 @@
         home-manager.extraSpecialArgs = {
           inputs = actual_inputs unstable;
         };
+        home-manager.sharedModules = [
+          sops-nix.homeManagerModules.sops
+        ];
         # On activation move existing files by appending the given file extension rather than exiting with an error.
         # See more on https://rycee.gitlab.io/home-manager/nixos-options.html
         home-manager.backupFileExtension = "bak";
@@ -65,6 +73,7 @@
         ];
       }
       nur.modules.nixos.default
+      sops-nix.nixosModules.sops
     ];
     /*
     Function to create a Flake-based standalone home-manager configuration
@@ -93,6 +102,9 @@
         modules = [
           ./users/${username}/home.nix
           ({lib, ...}: {
+            imports = [
+              sops-nix.homeManagerModules.sops
+            ];
             home = {
               username = lib.mkForce actual_username;
               homeDirectory = lib.mkForce actual_home;
