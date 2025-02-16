@@ -321,3 +321,13 @@ src/vim/spell/
 
 ## my-utils/Anki: ignore note_buffer
 src/my-utils/Anki/scratchpad.tex
+
+# Devenv
+.devenv*
+devenv.local.nix
+
+# direnv
+.direnv
+
+# pre-commit
+.pre-commit-config.yaml
