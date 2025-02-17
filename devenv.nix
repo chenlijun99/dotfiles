@@ -27,7 +27,7 @@
   # https://devenv.sh/git-hooks/
   git-hooks.hooks = {
     markdownlint.enable = true;
-    vdirsyncer = {
+    secrets-update = {
       enable = true;
       name = "Update secrets";
       entry = "just secrets-update";

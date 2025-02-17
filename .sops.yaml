@@ -5,3 +5,5 @@ creation_rules:
     key_groups:
       - age:
           - *long_term_age_key
+          # WSL2
+          - age14sgkhy79syhhsndj4nfdkd6syp40p8pkq0fx5egeeffq74cslgusmwg65y

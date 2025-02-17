@@ -20,6 +20,12 @@ nixos-list-generations:
 home-manager-switch user:
 	home-manager switch --flake ./src/nixos#{{user}}
 
+secrets-user-gen-key ssh_private_key:
+	mkdir -p ~/.config/sops/age/
+	ssh-to-age -private-key -i {{ssh_private_key}} > ~/.config/sops/age/keys.txt
+	echo "Add the following age key to .sops.yaml"
+	ssh-to-age -i {{ssh_private_key}}.pub
+
 secrets-list:
 	#!/usr/bin/env bash
 
