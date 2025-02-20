@@ -7,3 +7,5 @@ creation_rules:
           - *long_term_age_key
           # WSL2
           - age14sgkhy79syhhsndj4nfdkd6syp40p8pkq0fx5egeeffq74cslgusmwg65y
+          # IDP: gpu-01
+          - age1nnv32q4lcxnajc909lwf2svv74e4rgclnk7qfs2szhjv48er3atq3f5lz6
