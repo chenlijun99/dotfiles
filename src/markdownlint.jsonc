@@ -30,8 +30,12 @@
   // I prefer soft-wrapping.
   "MD013": false,
 
+  // Rationale: I still think it's good to make explicit that a line is a 
+  // shell command. Even if I don't include some output.
+  "MD014": false,
+
   // Rule: Multiple headings with the same content
-  // Rationale: Rationale: Some Markdown parsers generate anchors for headings
+  // Rationale: Some Markdown parsers generate anchors for headings
   // based on the heading name; headings with the same content can cause
   // problems with that.
   //
@@ -48,6 +52,11 @@
   // The rationale for this rule is that it is not supported by some
   // Markdown parsers, but I don't care.
   "MD034": false,
+
+  // Rule: Fenced code blocks should have a language specified 
+  // 
+  // Choice: disable. sometimes there's no language (e.g. `tree` output).
+  "MD040": false,
 
   // First line doesn't need to be top-level heading
   "MD041": false
