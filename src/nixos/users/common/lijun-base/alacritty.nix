@@ -16,7 +16,7 @@ in {
   };
   xdg.configFile = {
     "alacritty" = {
-      source = utils.mkOutOfStoreRelativeThisRepoSymLink "./src/config/alacritty/";
+      source = config.lib.clj.mkOutOfStoreRelativeThisRepoSymLink "./src/config/alacritty/";
     };
   };
 }

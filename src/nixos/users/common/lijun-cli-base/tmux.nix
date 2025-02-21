@@ -14,10 +14,10 @@ in {
     ];
     file = {
       ".tmux" = {
-        source = utils.mkOutOfStoreRelativeThisRepoSymLink "./src/tmux";
+        source = config.lib.clj.mkOutOfStoreRelativeThisRepoSymLink "./src/tmux";
       };
       ".tmux.conf" = {
-        source = utils.mkOutOfStoreRelativeThisRepoSymLink "./src/tmux.conf";
+        source = config.lib.clj.mkOutOfStoreRelativeThisRepoSymLink "./src/tmux.conf";
       };
     };
   };

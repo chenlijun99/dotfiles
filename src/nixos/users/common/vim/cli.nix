@@ -9,7 +9,7 @@
 in {
   xdg.configFile = {
     "nvim" = {
-      source = utils.mkOutOfStoreRelativeThisRepoSymLink "./src/vim/";
+      source = config.lib.clj.mkOutOfStoreRelativeThisRepoSymLink "./src/vim/";
     };
   };
   home = {
@@ -111,10 +111,10 @@ in {
     ];
     file = {
       ".vim" = {
-        source = utils.mkOutOfStoreRelativeThisRepoSymLink "./src/vim/";
+        source = config.lib.clj.mkOutOfStoreRelativeThisRepoSymLink "./src/vim/";
       };
       ".vimrc" = {
-        source = utils.mkOutOfStoreRelativeThisRepoSymLink "./src/vimrc";
+        source = config.lib.clj.mkOutOfStoreRelativeThisRepoSymLink "./src/vimrc";
       };
     };
   };

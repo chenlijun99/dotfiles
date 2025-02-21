@@ -62,25 +62,25 @@ in {
     ];
     file = {
       ".vifm" = {
-        source = utils.mkOutOfStoreRelativeThisRepoSymLink "./src/vifm";
+        source = config.lib.clj.mkOutOfStoreRelativeThisRepoSymLink "./src/vifm";
       };
       ".ctags" = {
-        source = utils.mkOutOfStoreRelativeThisRepoSymLink "./src/ctags";
+        source = config.lib.clj.mkOutOfStoreRelativeThisRepoSymLink "./src/ctags";
       };
       ".detoxrc" = {
-        source = utils.mkOutOfStoreRelativeThisRepoSymLink "./src/detoxrc";
+        source = config.lib.clj.mkOutOfStoreRelativeThisRepoSymLink "./src/detoxrc";
       };
       ".gdbinit" = {
-        source = utils.mkOutOfStoreRelativeThisRepoSymLink "./src/gdbinit";
+        source = config.lib.clj.mkOutOfStoreRelativeThisRepoSymLink "./src/gdbinit";
       };
       ".gitconfig" = {
-        source = utils.mkOutOfStoreRelativeThisRepoSymLink "./src/gitconfig";
+        source = config.lib.clj.mkOutOfStoreRelativeThisRepoSymLink "./src/gitconfig";
       };
       ".ls_colors" = {
-        source = utils.mkOutOfStoreRelativeThisRepoSymLink "./src/ls_colors";
+        source = config.lib.clj.mkOutOfStoreRelativeThisRepoSymLink "./src/ls_colors";
       };
       ".markdownlint.jsonc" = {
-        source = utils.mkOutOfStoreRelativeThisRepoSymLink "./src/markdownlint.jsonc";
+        source = config.lib.clj.mkOutOfStoreRelativeThisRepoSymLink "./src/markdownlint.jsonc";
       };
       ".markdownlintrc" = let
         stripJsoncCommentsNaive = inputPath: let
@@ -100,12 +100,12 @@ in {
         source = stripJsoncCommentsNaive ../../../../markdownlint.jsonc;
       };
       ".xbindkeysrc" = {
-        source = utils.mkOutOfStoreRelativeThisRepoSymLink "./src/xbindkeysrc";
+        source = config.lib.clj.mkOutOfStoreRelativeThisRepoSymLink "./src/xbindkeysrc";
       };
       # GNU readline config
       # Mostly for Vim keybindings
       ".inputrc" = {
-        source = utils.mkOutOfStoreRelativeThisRepoSymLink "./src/inputrc";
+        source = config.lib.clj.mkOutOfStoreRelativeThisRepoSymLink "./src/inputrc";
       };
     };
   };

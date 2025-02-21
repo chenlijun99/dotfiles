@@ -28,43 +28,43 @@ in {
     ];
     file = {
       ".profile" = {
-        source = utils.mkOutOfStoreRelativeThisRepoSymLink "./src/profile";
+        source = config.lib.clj.mkOutOfStoreRelativeThisRepoSymLink "./src/profile";
       };
       ".shell_aliases" = {
-        source = utils.mkOutOfStoreRelativeThisRepoSymLink "./src/shell_aliases";
+        source = config.lib.clj.mkOutOfStoreRelativeThisRepoSymLink "./src/shell_aliases";
       };
       ##########################################################################
       # Zsh
       ##########################################################################
       ".zprofile" = {
-        source = utils.mkOutOfStoreRelativeThisRepoSymLink "./src/zprofile";
+        source = config.lib.clj.mkOutOfStoreRelativeThisRepoSymLink "./src/zprofile";
       };
       ".zshrc" = {
-        source = utils.mkOutOfStoreRelativeThisRepoSymLink "./src/zshrc";
+        source = config.lib.clj.mkOutOfStoreRelativeThisRepoSymLink "./src/zshrc";
       };
       ".on-my-zsh" = {
-        source = utils.mkOutOfStoreRelativeThisRepoSymLink "./src/oh-my-zsh";
+        source = config.lib.clj.mkOutOfStoreRelativeThisRepoSymLink "./src/oh-my-zsh";
         # Dunno why, but for ".oh-my-zsh" we need to set target
         target = ".oh-my-zsh";
       };
       ".zsh_custom" = {
-        source = utils.mkOutOfStoreRelativeThisRepoSymLink "./src/zsh_custom";
+        source = config.lib.clj.mkOutOfStoreRelativeThisRepoSymLink "./src/zsh_custom";
       };
       # Blazing fast prompt for Zsh
       ".p10k.zsh" = {
-        source = utils.mkOutOfStoreRelativeThisRepoSymLink "./src/p10k.zsh";
+        source = config.lib.clj.mkOutOfStoreRelativeThisRepoSymLink "./src/p10k.zsh";
       };
       ##########################################################################
       # Bash (legacy stuff that I don't use anymore, since I use Zsh)
       ##########################################################################
       ".bashrc" = {
-        source = utils.mkOutOfStoreRelativeThisRepoSymLink "./src/bashrc";
+        source = config.lib.clj.mkOutOfStoreRelativeThisRepoSymLink "./src/bashrc";
       };
       ".promptrc" = {
-        source = utils.mkOutOfStoreRelativeThisRepoSymLink "./src/promptrc";
+        source = config.lib.clj.mkOutOfStoreRelativeThisRepoSymLink "./src/promptrc";
       };
       ".git-prompt.sh" = {
-        source = utils.mkOutOfStoreRelativeThisRepoSymLink "./src/git-prompt.sh";
+        source = config.lib.clj.mkOutOfStoreRelativeThisRepoSymLink "./src/git-prompt.sh";
       };
     };
   };

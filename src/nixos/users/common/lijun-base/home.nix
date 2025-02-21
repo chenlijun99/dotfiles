@@ -80,25 +80,25 @@ in {
     "baloofilerc" = {
       # Disable KDE baloo file indexing
       # See https://community.kde.org/Baloo/Configuration
-      source = utils.mkOutOfStoreRelativeThisRepoSymLink "./src/config/baloofilerc";
+      source = config.lib.clj.mkOutOfStoreRelativeThisRepoSymLink "./src/config/baloofilerc";
     };
     "strawberry" = {
       # Mainly for two purposes
       #
       # * Remember setting to fingerprint collection
       # * Remember file naming pattern.
-      source = utils.mkOutOfStoreRelativeThisRepoSymLink "./src/config/strawberry";
+      source = config.lib.clj.mkOutOfStoreRelativeThisRepoSymLink "./src/config/strawberry";
     };
     "safeeyes" = {
-      source = utils.mkOutOfStoreRelativeThisRepoSymLink "./src/config/safeeyes";
+      source = config.lib.clj.mkOutOfStoreRelativeThisRepoSymLink "./src/config/safeeyes";
     };
     "zathura" = {
-      source = utils.mkOutOfStoreRelativeThisRepoSymLink "./src/config/zathura";
+      source = config.lib.clj.mkOutOfStoreRelativeThisRepoSymLink "./src/config/zathura";
     };
   };
   home.file = {
     ".XCompose" = {
-      source = utils.mkOutOfStoreRelativeThisRepoSymLink "./src/XCompose";
+      source = config.lib.clj.mkOutOfStoreRelativeThisRepoSymLink "./src/XCompose";
     };
   };
 }
