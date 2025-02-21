@@ -6,10 +6,6 @@
   utils = import ../utils.nix args;
 in {
   home = {
-    packages = with pkgs; [
-      latte-dock
-    ];
-
     activation = {
       # Temporary hack to make KDE configurable from Nix
       # See open issue: https://github.com/nix-community/home-manager/issues/607

@@ -113,30 +113,6 @@ in {
       "view_zoom_in" = "Meta+=,Meta+=,Zoom In";
       "view_zoom_out" = "Meta+-,Meta+-,Zoom Out";
     };
-    lattedock = {
-      "_k_friendly_name" = "Latte Dock";
-      "activate entry 1" = "Meta+1,Meta+1,Activate Entry 1";
-      "activate entry 10" = "Meta+0,Meta+0,Activate Entry 10";
-      "activate entry 2" = "Meta+2,Meta+2,Activate Entry 2";
-      "activate entry 3" = "Meta+3,Meta+3,Activate Entry 3";
-      "activate entry 4" = "Meta+4,Meta+4,Activate Entry 4";
-      "activate entry 5" = "Meta+5,Meta+5,Activate Entry 5";
-      "activate entry 6" = "Meta+6,Meta+6,Activate Entry 6";
-      "activate entry 7" = "Meta+7,Meta+7,Activate Entry 7";
-      "activate entry 8" = "Meta+8,Meta+8,Activate Entry 8";
-      "activate entry 9" = "Meta+9,Meta+9,Activate Entry 9";
-      "clear-history" = "none,none,Clear Clipboard History";
-      "new instance for entry 1" = "Meta+Ctrl+1,Meta+Ctrl+1,New Instance for Entry 1";
-      "new instance for entry 10" = "Meta+Ctrl+0,Meta+Ctrl+0,New Instance for Entry 10";
-      "new instance for entry 2" = "Meta+Ctrl+2,Meta+Ctrl+2,New Instance for Entry 2";
-      "new instance for entry 3" = "Meta+Ctrl+3,Meta+Ctrl+3,New Instance for Entry 3";
-      "new instance for entry 4" = "Meta+Ctrl+4,Meta+Ctrl+4,New Instance for Entry 4";
-      "new instance for entry 5" = "Meta+Ctrl+5,Meta+Ctrl+5,New Instance for Entry 5";
-      "new instance for entry 6" = "Meta+Ctrl+6,Meta+Ctrl+6,New Instance for Entry 6";
-      "new instance for entry 7" = "Meta+Ctrl+7,Meta+Ctrl+7,New Instance for Entry 7";
-      "new instance for entry 8" = "Meta+Ctrl+8,Meta+Ctrl+8,New Instance for Entry 8";
-      "new instance for entry 9" = "Meta+Ctrl+9,Meta+Ctrl+9,New Instance for Entry 9";
-    };
     plasmashell = {
       "_k_friendly_name" = "Activity switching";
       "activate task manager entry 1" = "Meta+!,Meta+1,Activate Task Manager Entry 1";
@@ -176,6 +152,31 @@ in {
       };
       "clj_reset_kde_desktop" = {
         _launch = "Meta+Shift+R";
+      };
+
+      "clj_switch_to_dolphin.desktop" = {
+        _launch = "Meta+1";
+      };
+      "clj_switch_to_firefox.desktop" = {
+        _launch = "Meta+2";
+      };
+      "clj_switch_to_alacritty.desktop" = {
+        _launch = "Meta+3";
+      };
+      "clj_switch_to_keepassxc.desktop" = {
+        _launch = "Meta+4";
+      };
+      "org.kde.dolphin.desktop" = {
+        _launch = "Meta+E\tMeta+Ctrl+1";
+      };
+      "firefox.desktop" = {
+        _launch = "Meta+Ctrl+2";
+      };
+      "Alacritty.desktop" = {
+        _launch = "Meta+Ctrl+3";
+      };
+      "org.keepassxc.KeePassXC.desktop" = {
+        _launch = "Meta+Ctrl+4";
       };
     };
   };
@@ -377,102 +378,6 @@ in {
           immutability = 1;
           plugin = "org.kde.plasma.showdesktop";
           Configuration = {
-          };
-        };
-      };
-    };
-  };
-  #
-  # Latte dock config
-  #
-  lattedockrc = {
-    UniversalSettings = {
-      badges3DStyle = false;
-      canDisableBorders = false;
-      currentLayout = "Lijun";
-      singleModeLayoutName = "Lijun";
-      # Global launchers group.
-      # I.e. if configured to use the global group, a dock has these applications pinned.
-      # Note that some launchers may behave strangely (e.g. firefox), i.e.
-      # duplicate launchers entries.
-      # Related to https://github.com/NixOS/nixpkgs/issues/38987
-      # The only workaround is far is to open the programs and pin them.
-      #
-      # After all, KDE configs are a mess and this home-manager based config is
-      # not intended to be an exact reflection of the working config.
-      # It's more a good base on which I can arrive at the desired config in as
-      # few steps as possible.
-      launchers = lib.concatMapStringsSep "," (app: "applications:" + app) (
-        ["org.kde.dolphin.desktop" "firefox.desktop" "Alacritty.desktop"]
-        ++ lib.optionals (builtins.elem pkgs.keepassxc config.home.packages)
-        ["org.keepassxc.KeePassXC.desktop"]
-        ++ lib.optionals (builtins.elem pkgs.obsidian config.home.packages)
-        ["obsidian.desktop"]
-        ++ lib.optionals (builtins.elem pkgs.zotero config.home.packages)
-        ["zotero.desktop"]
-      );
-      memoryUsage = 0;
-      metaPressAndHoldEnabled = true;
-      mouseSensitivity = 2;
-      screenTrackerInterval = 2500;
-      showInfoWindow = true;
-      version = 2;
-    };
-  };
-  "latte/Lijun.layout.latte" = {
-    Containments."1" = {
-      activityId = "";
-      byPassWM = false;
-      dockWindowBehavior = true;
-      enableKWinEdges = false;
-      formfactor = 2;
-      immutability = 1;
-      isPreferredForShortcuts = false;
-      location = 4;
-      onPrimary = true;
-      plugin = "org.kde.latte.containment";
-      raiseOnActivityChange = false;
-      raiseOnDesktopChange = false;
-      settingsComplexity = 4;
-      timerHide = 100;
-      timerShow = 500;
-      viewType = 0;
-      visibility = 4;
-      wallpaperplugin = "org.kde.image";
-      General = {
-        # Size of the icons
-        iconSize = 36;
-        # Margin between icons
-        lengthExtMargin = 15;
-      };
-      Applets = {
-        "2" = {
-          immutability = 1;
-          plugin = "org.kde.latte.plasmoid";
-          General = {
-            advanced = false;
-            autoDecreaseIconSize = false;
-            editBackgroundOpacity = "0.5";
-            hoverAction = "HighlightWindows";
-            iconMargin = 0;
-            iconSize = 33;
-            panelSize = 5;
-            shadowOpacity = 35;
-            shadowSize = 40;
-            showGlow = false;
-            showWindowActions = true;
-            shrinkThickMargins = true;
-            splitterPosition = 3;
-            splitterPosition2 = 4;
-            themeColors = "SmartThemeColors";
-            zoomLevel = 2;
-          };
-          Configuration.General = {
-            isInLatteDock = true;
-            # Use global group launchers.
-            # I.e. use the global configuration of pinned applications (in
-            # lattedockrc)
-            launchersGroup = "Global";
           };
         };
       };

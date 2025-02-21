@@ -1,0 +1,9 @@
+#!/usr/bin/env xdg-open
+[Desktop Entry]
+Name=Switch to Alacritty
+TryExec=clj_win_cycle_or_launch
+Exec=clj_win_cycle_or_launch alacritty
+Type=Application
+Icon=Alacritty
+StartupNotify=false
+

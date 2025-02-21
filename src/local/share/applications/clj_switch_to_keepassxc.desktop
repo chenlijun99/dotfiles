@@ -1,0 +1,8 @@
+#!/usr/bin/env xdg-open
+[Desktop Entry]
+Name=Switch to Keepassxc
+TryExec=clj_win_cycle_or_launch
+Exec=clj_win_cycle_or_launch keepassxc
+Type=Application
+Icon=KeePassXC
+StartupNotify=false

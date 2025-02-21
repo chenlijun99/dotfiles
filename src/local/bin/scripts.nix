@@ -43,6 +43,32 @@
         export PATH=${pkgs.lib.makeBinPath [pkgs.wmctrl pkgs.libnotify]}:$PATH
         ${./clj_stay_focused.py}
       '';
+
+      # Why go through this instead of wrapping the python script in a bash
+      # script? Apparently doing so makes the python script startup much
+      # slwoer (400-500ms), which becoems noticeable for the 
+      # use case of this script.
+      clj_win_cycle_or_launch = pkgs.python3Packages.buildPythonApplication rec {
+        pname = "clj_win_cycle_or_launch";
+        version = "0.1.0";
+        pyproject = false;
+        dontUnpack = true;
+        propagatedBuildInputs = with pkgs; [
+          kdotool
+        ];
+
+        # This sets up a virtual environment and installs the dependencies.
+        installPhase = ''
+          install -Dm755 "${./clj_win_cycle_or_launch.py}" "$out/bin/${pname}"
+        '';
+        doCheck = false;
+
+        meta = with pkgs.lib; {
+          description = "A simple Python application";
+          license = licenses.mit;
+          maintainers = with maintainers; [];
+        };
+      };
     in [
       clj_alacritty
       clj_multiscreenshot
@@ -51,6 +77,7 @@
       clj_switch_theme
       clj_de_autostart
       clj_stay_focused
+      clj_win_cycle_or_launch
     ];
   };
 }
