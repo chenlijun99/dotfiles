@@ -9,6 +9,7 @@ return {
 					"markdownlint"
 				},
 				shell = { "shellcheck" },
+				sh = { "shellcheck" },
 				yaml = { "yamllint" },
 				zsh = { "zsh" },
 				javascript = { "eslint_d" },
