@@ -6,7 +6,6 @@
   inputs,
   ...
 }: {
-  nixpkgs.config.allowUnfree = true;
   environment.systemPackages = with pkgs; [
     gparted
     gnome-disk-utility

@@ -6,7 +6,6 @@
   inputs,
   ...
 }: {
-  nixpkgs.config.allowUnfree = true;
   # Some IMHO essential packages that can be useful on any machine, to all users
   environment.systemPackages = with pkgs; [
     ############################################################################

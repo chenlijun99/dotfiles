@@ -10,7 +10,6 @@
 in {
   # Let Home Manager install and manage itself.
   programs.home-manager.enable = true;
-  nixpkgs.config.allowUnfree = true;
   imports = [
     ../lijun-cli-base/home.nix
     ../this.nix

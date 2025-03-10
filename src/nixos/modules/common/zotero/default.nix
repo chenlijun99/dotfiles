@@ -26,7 +26,7 @@
     # Make okular available in FHS, so that Zotero can find it.
     # This is an essential part of my workflow :
     # PDF link => Zotero => opens correct page using Okular.
-    okular
+    kdePackages.okular
   ]);
 
   # symlink shared assets, including icons and desktop entries

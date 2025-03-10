@@ -11,7 +11,6 @@
     ./zotero/default.nix
     ./sops.nix
   ];
-  nixpkgs.config.allowUnfree = true;
   home = {
     username = "lijun";
     homeDirectory = "/home/lijun";
@@ -28,7 +27,7 @@
       obsidian
 
       # PDF reader
-      okular
+      kdePackages.okular
 
       # Email client
       thunderbird
@@ -61,7 +60,7 @@
       # KDE scanner application
       kdePackages.skanlite
       # KDE scanner application for multi-page scanning
-      skanpage
+      kdePackages.skanpage
       # KDE audio recorder
       kdePackages.krecorder
       # Screen stream&recording

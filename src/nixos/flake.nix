@@ -71,6 +71,7 @@
         imports = [
           ./modules/common
         ];
+        nixpkgs.config.allowUnfree = true;
       }
       nur.modules.nixos.default
       sops-nix.nixosModules.sops
@@ -105,6 +106,7 @@
             imports = [
               sops-nix.homeManagerModules.sops
             ];
+            nixpkgs.config.allowUnfree = true;
             home = {
               username = lib.mkForce actual_username;
               homeDirectory = lib.mkForce actual_home;
