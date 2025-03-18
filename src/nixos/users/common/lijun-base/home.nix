@@ -41,11 +41,7 @@ in {
       # Needed for minted
       python310Packages.pygments
 
-      plantuml
-      graphviz
-      doxygen
       drawio
-      pandoc
       libreoffice
       xournalpp
       vlc
@@ -53,13 +49,8 @@ in {
       safeeyes
 
       # terminal emulators that I use to interface with serial port
-      picocom
       gtkterm
 
-      # Count lines of code
-      scc
-      # Misc
-      pdftk
       inkscape
     ];
   };

@@ -58,6 +58,18 @@ in {
 
       rclone
       devenv
+
+      plantuml
+      graphviz
+      doxygen
+      pandoc
+      pdftk
+
+      # terminal emulators that I use to interface with serial port
+      picocom
+
+      # Count lines of code
+      scc
     ];
     file = {
       ".vifm" = {
