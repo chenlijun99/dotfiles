@@ -220,10 +220,6 @@ set foldlevelstart=99
 set foldnestmax=5
 "}}}
 
-" Gui {{{
-set guioptions=a
-" }}}
-
 " Undo {{{
 " Neovim's default undo dir is "$XDG_DATA_HOME/nvim/undo/", which is OK.
 " Vim's default undo dir is relative to CWD, which I don't want.
