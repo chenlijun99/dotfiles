@@ -17,7 +17,6 @@
     # Languages runtimes
     nodejs
     python3Full
-    poetry
     lua
     # Package manager from Rust
     cargo

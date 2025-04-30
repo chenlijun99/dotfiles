@@ -26,9 +26,9 @@
       # Will lose the existing configuration from Firefox, but I don't care.
       search.force = true;
       search.engines = {
-        "Bing".metaData.alias = "b";
+        "bing".metaData.alias = "b";
 
-        "Google".metaData.alias = "g";
+        "google".metaData.alias = "g";
         "Google scholar" = {
           urls = [
             {
@@ -74,7 +74,7 @@
         };
         "NixOS Wiki" = {
           urls = [{template = "https://nixos.wiki/index.php?search={searchTerms}";}];
-          iconUpdateURL = "https://nixos.wiki/favicon.png";
+          icon = "https://nixos.wiki/favicon.png";
           # every day
           updateInterval = 24 * 60 * 60 * 1000;
           definedAliases = ["nw"];
@@ -83,7 +83,7 @@
         # Language related
         "WordReference" = {
           urls = [{template = "https://www.wordreference.com/enit/{searchTerms}";}];
-          iconUpdateURL = "https://www.wordreference.com/favicon.ico";
+          icon = "https://www.wordreference.com/favicon.ico";
           # every day
           updateInterval = 24 * 60 * 60 * 1000;
           definedAliases = ["lw"];
