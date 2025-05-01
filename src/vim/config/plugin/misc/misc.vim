@@ -1,8 +1,3 @@
-" 'Konfekt/FastFold' {{{
-" lazy fold recomputing
-Plug 'Konfekt/FastFold'
-" }}}
-
 "bkad/CamelCaseMotion {{{
 Plug 'bkad/CamelCaseMotion' , { 'on' : [] }
 
