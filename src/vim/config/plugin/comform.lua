@@ -74,7 +74,7 @@ return {
 				asm = { "asm-fmt" },
 				sh = { "shfmt" },
 				cmake = { "cmake_format" },
-				python = { "black" },
+				python = { "ruff_format" },
 				typst = { "typstyle" },
 				json = { "fixjson" },
 				-- fixjson doesn't support comments yet

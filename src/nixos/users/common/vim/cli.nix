@@ -73,9 +73,10 @@ in {
       # Nix LSP
       nil
 
-      # Python LSP
+      # Python tooling
       pyright
       black
+      ruff
 
       # Assembly formatter
       asmfmt
