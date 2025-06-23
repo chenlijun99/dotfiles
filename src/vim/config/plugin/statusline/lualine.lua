@@ -8,6 +8,7 @@ return {
 					vim.bo.filetype == "markdown"
 					or vim.bo.filetype == "txt"
 					or vim.bo.filetype == "latex"
+					or vim.bo.filetype == "typst"
 				then
 					return tostring(vim.fn.wordcount().words) .. " words"
 				else
