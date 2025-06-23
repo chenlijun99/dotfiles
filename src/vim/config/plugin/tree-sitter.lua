@@ -79,11 +79,15 @@ return {
 				"typst",
 				"just",
 				"latex",
+				"hcl",
 			},
 		},
 		---@param opts TSConfig
 		config = function(_, opts)
 			require("nvim-treesitter.configs").setup(opts)
+
+			-- Use HCL grammar for the opentofu filetype
+			vim.treesitter.language.register("hcl", "opentofu")
 		end,
 	},
 }

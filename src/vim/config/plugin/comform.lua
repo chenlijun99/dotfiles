@@ -82,6 +82,7 @@ return {
 				-- jsonc = { "fixjson" },
 				just = { "just" },
 				toml = { "taplo" },
+				opentofu = { "tofu_fmt" },
 				markdown = {
 					-- Prefer markdownlint as formatter.
 					-- We use it as linter anyway.
