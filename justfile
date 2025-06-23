@@ -56,12 +56,14 @@ secrets-update:
 	done
 
 # Space Optimization
+# nix-collect-garbage with sudo cleans system garbage, without sudo cleans
+# per-user garbage
+#
 nix-gc-delete-all:
-	sudo nix-collect-garbage -d
+	sudo nix-collect-garbage -d && nix-collect-garbage -d
 
-# Space Optimization
 nix-gc-delete-older period:
-	sudo nix-collect-garbage --delete-older-than {{period}}
+	sudo nix-collect-garbage --delete-older-than {{ period }} && nix-collect-garbage --delete-older-than {{ period }}
 
 # Generate hardware-configuratio.nix for new machine
 generate-machine-config machine:
