@@ -36,11 +36,6 @@ in {
       # Disk usage statistics
       kdePackages.filelight
 
-      # Latex
-      texlive.combined.scheme-full
-      # Needed for minted
-      python310Packages.pygments
-
       drawio
       libreoffice
       xournalpp
