@@ -41,8 +41,12 @@ end
 
 function M.create_progress_handle(request)
 	local progress = require("fidget.progress")
+	local strategy_suffix = ""
+	if request.data.strategy then
+		strategy_suffix = " (" .. request.data.strategy .. ")"
+	end
 	return progress.handle.create({
-		title = " Requesting assistance (" .. request.data.strategy .. ")",
+		title = " Requesting assistance" .. strategy_suffix,
 		message = "In progress...",
 		lsp_client = {
 			name = M.llm_role_title(request.data.adapter),
