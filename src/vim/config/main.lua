@@ -18,6 +18,8 @@ lazy.lazy_file()
 
 -- Load all the Lua plugins in lua/clj/plugin/
 require("lazy").setup("clj.plugin", {
+	-- Disable annoying change detection
+	change_detection = { enabled = false },
 	performance = {
 		rtp = {
 			-- [[
