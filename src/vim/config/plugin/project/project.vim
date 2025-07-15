@@ -28,15 +28,21 @@ vim.api.nvim_create_autocmd("User", {
 	group = vim.api.nvim_create_augroup("clj-vim-rooter", { clear = true }),
 	pattern = "RooterChDir",
 	callback = function()
-		vim.print(
-			"Project root changed. Reading .nvim.lua if exists and is trusted"
+		vim.notify(
+			"[Clj] Project root changed. Checking .nvim.lua"
 		)
 		if vim.fn.filereadable(".nvim.lua") == 1 then
 			local str = vim.secure.read(".nvim.lua")
 			if str then
 				local fn = loadstring(str)
 				if fn then
+					vim.cmd([[doautocmd User CljLoadExrcPre]])
+					
+					vim.notify(
+						"[Clj] Loading ".. vim.fn.getcwd() .. "/.nvim.lua"
+					)
 					fn()
+					vim.cmd([[doautocmd User CljLoadExrcPost]])
 				end
 			end
 		end

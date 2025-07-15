@@ -11,101 +11,98 @@ return {
 		-- Running `:e` works, but it's annoying.
 		--
 		-- Experienced this behaviour with Python (pyright) and Typst (tinymist)
-		opts = {
-			-- options for vim.diagnostic.config()
-			diagnostics = {
+		config = function()
+			vim.diagnostic.config({
 				underline = true,
 				update_in_insert = false,
 				virtual_text = { spacing = 4, prefix = "●" },
 				severity_sort = true,
-			},
-			-- Automatically format on save
-			autoformat = true,
-			-- options for vim.lsp.buf.format
-			-- `bufnr` and `filter` is handled by the LazyVim formatter,
-			-- but can be also overridden when specified
-			format = {
-				formatting_options = nil,
-				timeout_ms = nil,
-			},
-			-- LSP Server Settings
-			---@type lspconfig.options
-			servers = {
-				lua_ls = {},
-				clangd = {
-					-- Workaround "warning: multiple different client offset_encodings
-					-- detected for buffer" Which is caused by the fact that Neovim
-					-- currently doesn't support multipe LSP offset_encodings settings in the same buffer.
-					-- But we use both clangd and null.ls (clang-format, cppcheck,
-					-- etc), but they have conflicting offset_encodings apparently.
-					-- See
-					-- * https://github.com/jose-elias-alvarez/null-ls.nvim/issues/428
-					-- * https://github.com/neovim/neovim/pull/16694#issuecomment-996947306: where I got the workaround
-					capabilities = {
-						offsetEncoding = { "utf-16" },
-					},
-				},
-				ocamllsp = {},
-				cmake = {},
-				pyright = {
-					-- nvim-lspconfig docs
-					-- https://github.com/neovim/nvim-lspconfig/blob/master/doc/configs.md#pyright
-					-- pyright docs
-					-- https://github.com/microsoft/pyright/blob/main/docs/settings.md
-					analysis = {},
-				},
-				ts_ls = {},
-				nil_ls = {},
-				tinymist = {
-					-- Workaround for LSP index out of bound issue.
-					-- Will be fixed in new Neovim release (currently using 0.10.2)
-					-- https://github.com/neovim/neovim/issues/30675#issuecomment-2395272151
-					offset_encoding = "utf-8",
-					--- todo: these configuration from lspconfig maybe broken
-					single_file_support = true,
-					root_dir = function()
-						return vim.fn.getcwd()
-					end,
-					--- See [Tinymist Server Configuration](https://github.com/Myriad-Dreamin/tinymist/blob/main/Configuration.md) for references.
-					settings = {},
-				},
-				-- Dunno why, but causes some error messages from Neovim
-				-- when opening markdown files in non-git folders.
-				-- Anyway, I need it only for Obsidian. So I enable it only
-				-- in the obsidian vault using .nvim.lua.
-				-- markdown_oxide = {},
-			},
-			setup = {},
-		},
-		config = function(_, opts)
-			local cmp_nvim_lsp_capabilities =
-				require("cmp_nvim_lsp").default_capabilities(
-					vim.lsp.protocol.make_client_capabilities()
-				)
+			})
 
-			local servers = opts.servers
+			local default_lsp = {
+				"lua_ls",
+				"clangd",
+				"ocamllsp",
+				"cmake",
+				"pyright",
+				-- TypeScript
+				"ts_ls",
+				-- Nix
+				"nil_ls",
+				-- Typst
+				"tinymist",
+			}
 
-			local function setup(server)
-				local server_opts = vim.tbl_deep_extend("force", {
-					capabilities = vim.deepcopy(cmp_nvim_lsp_capabilities),
-				}, servers[server] or {})
-
-				if opts.setup[server] then
-					if opts.setup[server](server, server_opts) then
-						return
-					end
-				elseif opts.setup["*"] then
-					if opts.setup["*"](server, server_opts) then
-						return
+			local function enable_default_lsp()
+				-- Enable LSPs after .nvim.lua is loaded
+				-- Enable only the default LSPs whose supported filetypes
+				-- are not already supported by the LSPs that are already enabled.
+				local covered_filetypes = {}
+				for name in vim.spairs(vim.lsp._enabled_configs) do
+					for _, ft in pairs(vim.lsp.config[name].filetypes) do
+						covered_filetypes[ft] = true
 					end
 				end
-				require("lspconfig")[server].setup(server_opts)
+				local lsp_to_enable = {}
+				for _, lsp in pairs(default_lsp) do
+					for _, ft in pairs(vim.lsp.config[lsp].filetypes) do
+						if covered_filetypes[ft] == true then
+							-- already covered
+							goto skip_enable
+						end
+					end
+					lsp_to_enable[lsp] = true
+
+					::skip_enable::
+				end
+				lsp_to_enable = vim.tbl_keys(lsp_to_enable)
+
+				if #lsp_to_enable > 0 then
+					vim.notify(
+						"[Clj] LSP: Enabling additional default LSPs "
+							.. table.concat(lsp_to_enable, ", ")
+					)
+					vim.lsp.enable(lsp_to_enable)
+				end
 			end
 
-			for server, server_opts in pairs(servers) do
-				if server_opts then
-					setup(server)
-				end
+			local lsp_augroup =
+				vim.api.nvim_create_augroup("clj-lsp-config", { clear = true })
+
+			-- Enable LSPs on VimEnter, when potential .nvim.lua
+			-- has also been loaded
+			vim.api.nvim_create_autocmd("VimEnter", {
+				group = lsp_augroup,
+				callback = enable_default_lsp,
+			})
+
+			if false then
+				-- I'm not sure I like this behaviour.
+				-- It'll lead to a lot of LSP server restart if we switch
+				-- between workspaces in a single Vim instance.
+				-- Exclude this for now.
+
+				-- Autocmd to stop LSPs before .nvim.lua is loaded
+				vim.api.nvim_create_autocmd("User", {
+					group = lsp_augroup,
+					pattern = "CljLoadExrcPre",
+					callback = function()
+						-- Disable everything that is enabled now
+						vim.lsp.enable(
+							vim.tbl_keys(vim.lsp._enabled_configs),
+							false
+						)
+						vim.notify(
+							"[Clj] LSP: Disable all LSPs before loading exrc"
+						)
+					end,
+				})
+
+				vim.api.nvim_create_autocmd("User", {
+					group = lsp_augroup,
+					pattern = "CljLoadExrcPost",
+					callback = enable_default_lsp,
+				})
 			end
 
 			local function opts(desc)
