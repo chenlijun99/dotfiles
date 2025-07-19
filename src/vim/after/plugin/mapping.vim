@@ -13,7 +13,7 @@ nnoremap <c-u> <c-u>zz
 " L jump to end-of-line
 " Should work even on wrappped lines
 noremap <silent><expr> H &l:wrap ? 'g^' : '^'
-noremap <silent><expr> L &l:wrap ? 'g$BE' : 'g_'
+noremap <silent><expr> L &l:wrap ? 'g$' : 'g_'
 
 " when pasting in selection mode, don't overwrite register content with
 " selected text

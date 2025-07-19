@@ -10,10 +10,14 @@ let g:vimtex_compiler_latexmk = {
     \   '-interaction=nonstopmode',
     \ ],
     \}
+let g:vimtex_toc_config = {
+    \ 'split_pos' : 'vert rightbelow',
+    \ 'resize' : 0,
+    \}
 " Disable this option since it's too slow
 " https://github.com/lervag/vimtex/issues/513
 let g:vimtex_matchparen_enabled = 0
 autocmd FileType tex,latex,plaintex
 			\ nnoremap <buffer> <localleader>p <Plug>(vimtex-compile)
 			\ | xnoremap <buffer> <localleader>p <Plug>(vimtex-compile-selected)
-			\ | nnoremap <buffer> <localleader>t <Plug>(vimtex-toc-open)
+			\ | nnoremap <buffer> <localleader>t <Plug>(vimtex-toc-toggle)
