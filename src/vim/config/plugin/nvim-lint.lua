@@ -6,7 +6,10 @@ return {
 			local lint = require("lint")
 			lint.linters_by_ft = {
 				markdown = {
-					"markdownlint"
+					"markdownlint",
+				},
+				python = {
+					"ruff",
 				},
 				shell = { "shellcheck" },
 				sh = { "shellcheck" },
