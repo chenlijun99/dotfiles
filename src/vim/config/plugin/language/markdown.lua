@@ -21,6 +21,12 @@ return {
 			local presets = require("markview.presets")
 
 			require("markview").setup({
+				experimental = {
+					-- See https://github.com/OXY2DEV/markview.nvim/issues/365
+					-- Didn't ready too careful. I don't have problems
+					-- with tree-sitter highlight. So just suppress the warning.
+					check_rtp = false,
+				},
 				preview = {
 					-- Keep initially disabled. I'll enable it when I need.
 					enable = false,
