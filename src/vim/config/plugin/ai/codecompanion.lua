@@ -128,8 +128,8 @@ return {
 									n = "<localleader>p",
 								},
 								index = 9,
-								callback = "keymaps.pin_reference",
-								description = "Pin Reference",
+								callback = "keymaps.pin_context",
+								description = "Pin Context",
 							},
 							watch = {
 								modes = {
