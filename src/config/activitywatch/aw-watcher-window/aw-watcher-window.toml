@@ -1,0 +1,5 @@
+[aw-watcher-window]
+#exclude_title = false
+#exclude_titles = []
+#poll_time = 1.0
+#strategy_macos = "swift"

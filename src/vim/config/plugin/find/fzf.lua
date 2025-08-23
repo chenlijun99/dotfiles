@@ -165,5 +165,7 @@ return {
 			},
 		}
 		require("fzf-lua").setup(opts)
+		-- Register as UI for vim.ui.select
+		require("fzf-lua").register_ui_select()
 	end,
 }

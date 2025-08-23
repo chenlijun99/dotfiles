@@ -9,6 +9,7 @@
     ../common/lijun-base/home.nix
     ../common/kde-config/default.nix
     ./zotero/default.nix
+    ./activitiywatch/default.nix
     ./sops.nix
   ];
   home = {
