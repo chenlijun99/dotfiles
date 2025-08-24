@@ -20,6 +20,8 @@ return {
 				-- Use local `mcp-hub` binary
 				use_bundled_binary = true,
 			})
+			-- Require the native servers
+			require("clj.mcphub_native_servers.prompts")
 		end,
 	},
 }

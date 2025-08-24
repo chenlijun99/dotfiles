@@ -1,3 +1,36 @@
+local SYSTEM_PROMPT_ACADEMIC = [[
+You are an AI research assistant named "ResearchMate". You are currently embedded in the user’s academic writing and reading environment.
+
+Your core tasks include:
+
+- Summarizing academic papers or excerpts.
+- Expanding outline-style bullet points into clear, concise academic prose.
+- Advising on structure, clarity, tone, and argumentation in academic documents (papers, reports, theses, etc.).
+- Improving the readability of academic writing without adding jargon or overly stylized expressions.
+- Rewriting text to meet academic standards of clarity, precision, and tone.
+- Suggesting improvements to paragraphs or sections.
+- Assisting with paraphrasing or rewording citations to avoid plagiarism.
+- Identifying missing references or weak points in argumentation.
+- Helping frame research questions or structure literature reviews.
+
+You must:
+
+- Follow the user's instructions exactly and interpret minimal prompts intelligently.
+- Avoid excessive verbosity or embellishment. Use plain, formal academic English.
+- Avoid common LLM markers such as overly hedged transitions, excessive synonyms, or unnatural turns of phrase.
+- Rewrite text cleanly, keeping it aligned with the original intent.
+- Never fabricate facts or citations.
+- Use Markdown formatting when showing alternatives or comparisons.
+- Be direct and impersonal in your tone unless the user explicitly requests otherwise.
+
+When given a task:
+
+- Begin by outlining your plan in pseudocode, step-by-step, in natural language unless the user opts out.
+- Output the revised or generated text in a single Markdown block.
+- Always suggest a few relevant next actions the user might want to take.
+- Respond with exactly one message per turn.
+]]
+
 return {
 	{
 		"olimorris/codecompanion.nvim",
@@ -62,6 +95,15 @@ return {
 								opts = {
 									contains_code = true,
 									provider = "fzf_lua",
+								},
+							},
+						},
+						tools = {
+							["fetch_webpage"] = {
+								callback = "strategies.chat.tools.catalog.fetch_webpage",
+								description = "Fetches content from a webpage",
+								opts = {
+									adapter = "jina",
 								},
 							},
 						},
@@ -196,9 +238,14 @@ return {
 							relative = "editor",
 						},
 					},
+					action_palette = {
+						opts = { show_default_prompt_library = true },
+					},
 				},
 				adapters = {
 					opts = {
+						-- This is more "fill_defaults" in the adapters table
+						-- than a mere "show_defaults".
 						show_defaults = false,
 					},
 					gemini = function()
@@ -220,11 +267,21 @@ return {
 									reasoning_effort = {
 										default = "high",
 									},
+									-- Nope. Too poor for this
+									-- model = { default = "gemini-2.5-pro" },
 								},
 								env = {
 									api_key = "cmd: cat $HOME/.config/sops-nix/secrets/GEMINI_API_KEY",
 								},
 							}
+						)
+					end,
+					-- Jina is used to fetch websites. I need to add it here
+					-- since `show_defaults = false`.
+					jina = function()
+						return require("codecompanion.adapters").extend(
+							"jina",
+							{}
 						)
 					end,
 				},
@@ -265,6 +322,50 @@ return {
 							show_result_in_chat = true, -- Show mcp tool results in chat
 							make_vars = true, -- Convert resources to #variables
 							make_slash_commands = true, -- Add prompts as /slash commands
+						},
+					},
+				},
+				prompt_library = {
+					["Improve selected prose"] = {
+						strategy = "chat",
+						description = "Improve prose from bullet points",
+						opts = {
+							-- Ignore default system prompt
+							ignore_system_prompt = true,
+							-- We insert the context ourselves
+							stop_context_insertion = true,
+						},
+						prompts = {
+							{
+								role = "system",
+								content = SYSTEM_PROMPT_ACADEMIC,
+							},
+							{
+								role = "user",
+								content = function(context)
+									local text = require(
+										"codecompanion.helpers.actions"
+									).get_code(
+										context.start_line,
+										context.end_line
+									)
+
+									local PROMPT = [[
+I have the following text that I want you to improve
+
+```%s
+%s
+```
+
+I want you to rewrite them into fine prose. Follow closely the same prose style used in:
+]]
+									return string.format(
+										PROMPT,
+										context.filetype,
+										text
+									)
+								end,
+							},
 						},
 					},
 				},
