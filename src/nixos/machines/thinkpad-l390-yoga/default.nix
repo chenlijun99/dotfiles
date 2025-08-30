@@ -1,13 +1,13 @@
 #
 # NixOS config for running on my ThinkPad-L390-Yoga
 #
-{...}: {
+{pkgs, ...}: {
   # Enable auto rotation
   #
   # Disable because I decided to use manual rotation.
   # In KDE auto rotation can be enabled only in touch mode.
   # But then some screen elements become too big...
-  # To manually change orientation in KDE, I can use 
+  # To manually change orientation in KDE, I can use
   # ```
   # $ kscreen-doctor output.<display>.orientation.<orientation>
   # ```
@@ -50,6 +50,9 @@
   networking.hostName = "lijun-ThinkPad-L390-Yoga";
   # Enables wireless support via network manager.
   networking.networkmanager.enable = true;
+  networking.networkmanager.plugins = [
+    pkgs.networkmanager-openvpn
+  ];
 
   # Set your time zone.
   # time.timeZone = "Europe/Amsterdam";
