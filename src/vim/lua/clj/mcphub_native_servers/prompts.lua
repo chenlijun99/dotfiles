@@ -160,3 +160,31 @@ mcphub.add_prompt(SERVER_NAME, {
 			:send()
 	end,
 })
+
+mcphub.add_prompt(SERVER_NAME, {
+	name = "summarize_conversation_into_notes",
+	description = "Summarize conversation into notes",
+	handler = function(_, res)
+		return res:user()
+			:text(
+				string.format("Thanks for the conversation. I learnt a lot!\n\z
+					 \n\z
+					 I want you to take our whole conversation and based on this content \z
+					 write some Markdown files that I can insert in my personal knowledge system.\n\z
+					 \n\z
+					 Avoid too long prose, don't bold too many words. \z
+					 In particular, prefer Markdown sections over bolded text. \z
+					 Do not use section heading within bullet points though.\n\z
+					 For each file, start with the level 1 section heading and \z
+					 fill the top-level section heading with the title.\n\z
+					 \n\z
+					 Feel free to add other content that we haven't discussed about, if you deem important.\n\z
+					 \n\z
+					 You should first try to organize the content of our conversation \z
+					 (and other potential content you deem important) into a coherent and logical structure, \z
+					 similar to how you would when writing a book. \z
+					 Then fill the structure with content")
+			)
+			:send()
+	end,
+})
