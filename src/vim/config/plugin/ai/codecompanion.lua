@@ -213,13 +213,11 @@ return {
 								callback = "keymaps.toggle_system_prompt",
 								description = "Toggle the system prompt",
 							},
-							auto_tool_mode = {
-								modes = {
-									n = "<localleader>ta",
-								},
-								index = 18,
-								callback = "keymaps.auto_tool_mode",
-								description = "Toggle automatic tool mode",
+							super_diff = {
+								modes = { n = "<localleader>D" },
+								index = 21,
+								callback = "keymaps.super_diff",
+								description = "Show Super Diff",
 							},
 						},
 					},
@@ -243,47 +241,49 @@ return {
 					},
 				},
 				adapters = {
-					opts = {
-						-- This is more "fill_defaults" in the adapters table
-						-- than a mere "show_defaults".
-						show_defaults = false,
-					},
-					gemini = function()
-						return require("codecompanion.adapters").extend(
-							"gemini",
-							{
-								env = {
-									api_key = "cmd: cat $HOME/.config/sops-nix/secrets/GEMINI_API_KEY",
-								},
-							}
-						)
-					end,
-					gemini_hard = function()
-						return require("codecompanion.adapters").extend(
-							"gemini",
-							{
-								name = "gemini_hard",
-								schema = {
-									reasoning_effort = {
-										default = "high",
+					http = {
+						opts = {
+							-- This is more "fill_defaults" in the adapters table
+							-- than a mere "show_defaults".
+							show_defaults = false,
+						},
+						gemini = function()
+							return require("codecompanion.adapters").extend(
+								"gemini",
+								{
+									env = {
+										api_key = "cmd: cat $HOME/.config/sops-nix/secrets/GEMINI_API_KEY",
 									},
-									-- Nope. Too poor for this
-									-- model = { default = "gemini-2.5-pro" },
-								},
-								env = {
-									api_key = "cmd: cat $HOME/.config/sops-nix/secrets/GEMINI_API_KEY",
-								},
-							}
-						)
-					end,
-					-- Jina is used to fetch websites. I need to add it here
-					-- since `show_defaults = false`.
-					jina = function()
-						return require("codecompanion.adapters").extend(
-							"jina",
-							{}
-						)
-					end,
+								}
+							)
+						end,
+						gemini_hard = function()
+							return require("codecompanion.adapters").extend(
+								"gemini",
+								{
+									name = "gemini_hard",
+									schema = {
+										reasoning_effort = {
+											default = "high",
+										},
+										-- Nope. Too poor for this
+										-- model = { default = "gemini-2.5-pro" },
+									},
+									env = {
+										api_key = "cmd: cat $HOME/.config/sops-nix/secrets/GEMINI_API_KEY",
+									},
+								}
+							)
+						end,
+						-- Jina is used to fetch websites. I need to add it here
+						-- since `show_defaults = false`.
+						jina = function()
+							return require("codecompanion.adapters").extend(
+								"jina",
+								{}
+							)
+						end,
+					},
 				},
 				extensions = {
 					history = {
