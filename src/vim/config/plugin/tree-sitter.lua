@@ -80,6 +80,7 @@ return {
 				"just",
 				"latex",
 				"hcl",
+				"sql",
 			},
 		},
 		---@param opts TSConfig

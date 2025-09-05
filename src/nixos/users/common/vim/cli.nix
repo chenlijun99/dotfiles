@@ -101,6 +101,9 @@ in {
       rust-analyzer
       clippy
 
+      # SQL
+      sqruff
+
       # Working with bibtex
       #
       # Nope. Were interesting options, but found something better.

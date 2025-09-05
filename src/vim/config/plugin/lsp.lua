@@ -31,6 +31,8 @@ return {
 				"nil_ls",
 				-- Typst
 				"tinymist",
+				-- SQL formatter and linter
+				"sqruff",
 			}
 
 			local function enable_default_lsp()
