@@ -112,6 +112,8 @@ return {
 					"prettier",
 					stop_after_first = true,
 				},
+				tex = { "tex-fmt" },
+				latex = { "tex-fmt" },
 			},
 		},
 		config = function(_, opts)
