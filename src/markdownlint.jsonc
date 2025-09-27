@@ -34,6 +34,10 @@
   // shell command. Even if I don't include some output.
   "MD014": false,
 
+  // Rule: no-missing-space-atx 
+  // In some Markdown variants `#xyz` is used to represent tags.
+  "MD018": false,
+
   // Rule: Multiple headings with the same content
   // Rationale: Some Markdown parsers generate anchors for headings
   // based on the heading name; headings with the same content can cause
@@ -41,6 +45,14 @@
   //
   // Choice: disable. I don't care.
   "MD024": false,
+
+  // Rule: no-blanks-blockquote
+  // Disable because in some syntaxes, blockquotes with some heading are used 
+  // for admonition/callout. I may have two consecutive admonitions, which 
+  // markdownlint treats as single blockquote separated by blanks.
+  // Also, in general, sometimes I may want to have two blockquotes, one after 
+  // another.
+  "MD028": false,
 
   // Set Ordered list item prefix to "ordered" (use 1. 2. 3. not 1. 1. 1.)
   "MD029": { "style": "ordered" },
