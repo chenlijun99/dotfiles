@@ -1,11 +1,8 @@
 {
-  pkgs,
   lib,
   config,
   ...
-} @ args: let
-  utils = import ../utils.nix args;
-in {
+}: {
   xdg.configFile = {
     "fcitx5_config" = {
       source = config.lib.clj.mkOutOfStoreRelativeThisRepoSymLink "./src/config/fcitx5/config";

@@ -29,6 +29,7 @@
         fcitx5-chinese-addons
         rime-data
         fcitx5-rime
+        rime-ice
       ];
     };
   };

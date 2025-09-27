@@ -27,9 +27,5 @@ run_if_available thunderbird
 # Recently haven't been using slack. For now comment out.
 # run_if_available slack
 
-# If syncthingtray is autostarted too early, it complains that no systemtray
-# is available yet.
-run_if_available syncthingtray
-
 # Start running in background
 clj_stay_focused &

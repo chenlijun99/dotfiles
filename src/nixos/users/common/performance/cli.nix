@@ -2,7 +2,7 @@
   home = {
     packages = with pkgs; [
       # Performance profiler
-      linuxPackages.perf
+      perf
       # Scripts from Brendan Gregg
       flamegraph
       inferno

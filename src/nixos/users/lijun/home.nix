@@ -11,6 +11,7 @@
     ./zotero/default.nix
     ./activitiywatch/default.nix
     ./sops.nix
+    ./syncthing.nix
   ];
   home = {
     username = "lijun";
@@ -50,9 +51,6 @@
       # Multimedia
       strawberry
       ffmpeg
-
-      syncthing
-      syncthingtray
 
       # Misc
       scrcpy
