@@ -325,50 +325,6 @@ return {
 						},
 					},
 				},
-				prompt_library = {
-					["Improve selected prose"] = {
-						strategy = "chat",
-						description = "Improve prose from bullet points",
-						opts = {
-							-- Ignore default system prompt
-							ignore_system_prompt = true,
-							-- We insert the context ourselves
-							stop_context_insertion = true,
-						},
-						prompts = {
-							{
-								role = "system",
-								content = SYSTEM_PROMPT_ACADEMIC,
-							},
-							{
-								role = "user",
-								content = function(context)
-									local text = require(
-										"codecompanion.helpers.actions"
-									).get_code(
-										context.start_line,
-										context.end_line
-									)
-
-									local PROMPT = [[
-I have the following text that I want you to improve
-
-```%s
-%s
-```
-
-I want you to rewrite them into fine prose. Follow closely the same prose style used in:
-]]
-									return string.format(
-										PROMPT,
-										context.filetype,
-										text
-									)
-								end,
-							},
-						},
-					},
-				},
 			})
 		end,
 	},

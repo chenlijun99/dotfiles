@@ -8,6 +8,39 @@ local mcphub = require("mcphub")
 
 local SERVER_NAME = "clj_prompts"
 
+local SYSTEM_PROMPT_ACADEMIC = [[
+You are an AI research assistant named "ResearchMate". You are currently embedded in the user’s academic writing and reading environment.
+
+Your core tasks include:
+
+- Summarizing academic papers or excerpts.
+- Expanding outline-style bullet points into clear, concise academic prose.
+- Advising on structure, clarity, tone, and argumentation in academic documents (papers, reports, theses, etc.).
+- Improving the readability of academic writing without adding jargon or overly stylized expressions.
+- Rewriting text to meet academic standards of clarity, precision, and tone.
+- Suggesting improvements to paragraphs or sections.
+- Assisting with paraphrasing or rewording citations to avoid plagiarism.
+- Identifying missing references or weak points in argumentation.
+- Helping frame research questions or structure literature reviews.
+
+You must:
+
+- Follow the user's instructions exactly and interpret minimal prompts intelligently.
+- Avoid excessive verbosity or embellishment. Use plain, formal academic English.
+- Avoid common LLM markers such as overly hedged transitions, excessive synonyms, or unnatural turns of phrase.
+- Rewrite text cleanly, keeping it aligned with the original intent.
+- Never fabricate facts or citations.
+- Use Markdown formatting when showing alternatives or comparisons.
+- Be direct and impersonal in your tone unless the user explicitly requests otherwise.
+
+When given a task:
+
+- Begin by outlining your plan in pseudocode, step-by-step, in natural language unless the user opts out.
+- Output the revised or generated text in a single Markdown block.
+- Always suggest a few relevant next actions the user might want to take.
+- Respond with exactly one message per turn.
+]]
+
 mcphub.add_prompt(SERVER_NAME, {
 	name = "spec_brainstorm_init",
 	description = [[Initiates an iterative brainstorming process to develop a detailed specification for an idea.
@@ -183,7 +216,50 @@ mcphub.add_prompt(SERVER_NAME, {
 					 You should first try to organize the content of our conversation \z
 					 (and other potential content you deem important) into a coherent and logical structure, \z
 					 similar to how you would when writing a book. \z
-					 Then fill the structure with content")
+					 Then fill the structure with content.\n\z
+					 \n\z
+					 Also, while you have freedom on how to structure the content \z
+					 and what to include, please take into account our conversation. \z
+					 Include my questions and a summary of the answer. \z
+					 Include also my remarks (if case they are wrong, include your corrections). \z
+					 The goal is to make the note more \"personal\". \z
+					 Use markdown admonition for these special blocks \n\z
+					 \n\z
+					 ```markdown\n\z
+					 > [!FAQ]\n\z
+					 > Useful for questions and the corresponding answer.\n\z
+					 \n\z
+					 > [!TIP]\n\z
+					 > Helpful advice for doing things better or more easily.\n\z
+					 \n\z
+					 > [!IMPORTANT]\n\z
+					 > Key information users need to know to achieve their goal.\n\z
+					 \n\z
+					 > [!WARNING]\n\z
+					 > Urgent info that needs immediate user attention to avoid problems.\n\z
+					 \n\z
+					 > [!CAUTION]\n\z
+					 > Advises about risks or negative outcomes of certain actions.\n\z
+					 ```")
+			)
+			:send()
+	end,
+})
+
+mcphub.add_prompt(SERVER_NAME, {
+	name = "improve_research_prose",
+	description = "Improve research prose",
+	handler = function(_, res)
+		return res:system()
+			:text(SYSTEM_PROMPT_ACADEMIC)
+			:user()
+			:text(
+				string.format(
+					"I have the following text that I want you to improve\n\z
+					 \n\z
+					 I want you to improve them and make them because fine prose. \z
+					 Follow closely the same prose style used in:\n\z"
+				)
 			)
 			:send()
 	end,
