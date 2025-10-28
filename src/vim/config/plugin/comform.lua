@@ -114,6 +114,8 @@ return {
 				},
 				tex = { "tex-fmt" },
 				latex = { "tex-fmt" },
+				kotlin = { "ktfmt" },
+				java = { "google-java-format" },
 			},
 		},
 		config = function(_, opts)
