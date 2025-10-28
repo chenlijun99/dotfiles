@@ -39,6 +39,10 @@
   ];
   environment.variables.EDITOR = "vim";
 
+  # nix-ld is pretty neat for running unpatched binaries
+  # See https://github.com/nix-community/nix-ld
+  programs.nix-ld.enable = true;
+
   programs.zsh.enable = true;
   users.defaultUserShell = pkgs.zsh;
 }
