@@ -33,6 +33,7 @@
     ../../modules/embedded-programmin.nix
     #../../modules/llm.nix
     ../../modules/kanata.nix
+    ../../modules/desktop-utilities.nix
     ../../users/lijun
     ../../users/lijun-test
     ../../users/test
