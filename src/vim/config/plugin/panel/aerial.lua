@@ -25,7 +25,7 @@ return {
 				-- max_width = {40, 0.2} means "the lesser of 40 columns or 20% of total"
 				max_width = { 50, 0.5 },
 				width = nil,
-				min_width = 10,
+				min_width = 20,
 			},
 		},
 		config = function(_, opts)
