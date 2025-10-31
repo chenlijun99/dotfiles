@@ -45,7 +45,7 @@
       signal-desktop
       teams-for-linux
       zoom-us
-      tdesktop
+      telegram-desktop
       discord
 
       # Multimedia

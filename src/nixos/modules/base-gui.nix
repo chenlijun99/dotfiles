@@ -26,7 +26,7 @@
       waylandFrontend = true;
       addons = with pkgs; [
         kdePackages.fcitx5-qt
-        fcitx5-chinese-addons
+        kdePackages.fcitx5-chinese-addons
         rime-data
         fcitx5-rime
         rime-ice
@@ -64,7 +64,7 @@
       # Not sure why, BaiduNetDisk doesn't pick up `noto-fonts-cjk-sans`.
       # This font works OTOH.
       wqy_zenhei
-      noto-fonts-emoji
+      noto-fonts-color-emoji
       # I need a monospace font that supports as many math unicode characters as possible
       #
       # A few characters that I often encounter in Isabelle/HOL
