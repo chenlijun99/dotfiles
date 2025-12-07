@@ -86,6 +86,7 @@
     defFlakeHome = system: username: unstable: {
       actual_username ? username,
       actual_home ? "/home/${actual_username}",
+      extraModules ? [],
     }: let
       actual_inputs_ = actual_inputs unstable;
     in
@@ -99,19 +100,21 @@
         extraSpecialArgs = {
           inputs = actual_inputs_;
         };
-        modules = [
-          ./users/${username}/home.nix
-          ({lib, ...}: {
-            imports = [
-              sops-nix.homeManagerModules.sops
-            ];
-            nixpkgs.config.allowUnfree = true;
-            home = {
-              username = lib.mkForce actual_username;
-              homeDirectory = lib.mkForce actual_home;
-            };
-          })
-        ];
+        modules =
+          [
+            ./users/${username}/home.nix
+            ({lib, ...}: {
+              imports = [
+                sops-nix.homeManagerModules.sops
+              ];
+              nixpkgs.config.allowUnfree = true;
+              home = {
+                username = lib.mkForce actual_username;
+                homeDirectory = lib.mkForce actual_home;
+              };
+            })
+          ]
+          ++ extraModules;
       };
   in {
     nixosConfigurations = {
@@ -183,6 +186,18 @@
       "clij_cmp" = defFlakeHome "x86_64-linux" "lijun-cli" true {
         actual_username = "clij";
         actual_home = "/home_stud/clij";
+      };
+      # Work
+      "lijun.chen" = defFlakeHome "x86_64-linux" "lijun-gui" true {
+        actual_username = "lijun.chen";
+        actual_home = "/home/lijun.chen";
+        extraModules = [
+          ({lib, ...}: {
+            imports = [
+              ./users/common/kanata/default.nix
+            ];
+          })
+        ];
       };
     };
   };
