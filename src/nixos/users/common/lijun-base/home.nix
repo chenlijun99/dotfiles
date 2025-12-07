@@ -19,6 +19,7 @@ in {
     ./autostart.nix
     ./desktop.nix
     ./fcitx5.nix
+    ./fonts.nix
     ../networking/gui.nix
     ../vim/gui.nix
     ../performance/gui.nix
@@ -36,7 +37,6 @@ in {
       # Disk usage statistics
       kdePackages.filelight
 
-      drawio
       libreoffice
       xournalpp
       vlc
