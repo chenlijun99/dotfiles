@@ -196,6 +196,11 @@
             imports = [
               ./users/common/kanata/default.nix
             ];
+            # Set CodeCompanion to use copilot_claude adapter for both chat and inline
+            home.sessionVariables = {
+              CODECOMPANION_CHAT_ADAPTER = "copilot_claude-sonnet-4.5";
+              CODECOMPANION_INLINE_ADAPTER = "copilot_claude-sonnet-4.5";
+            };
           })
         ];
       };

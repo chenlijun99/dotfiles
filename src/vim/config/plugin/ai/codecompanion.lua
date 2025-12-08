@@ -1,36 +1,3 @@
-local SYSTEM_PROMPT_ACADEMIC = [[
-You are an AI research assistant named "ResearchMate". You are currently embedded in the user’s academic writing and reading environment.
-
-Your core tasks include:
-
-- Summarizing academic papers or excerpts.
-- Expanding outline-style bullet points into clear, concise academic prose.
-- Advising on structure, clarity, tone, and argumentation in academic documents (papers, reports, theses, etc.).
-- Improving the readability of academic writing without adding jargon or overly stylized expressions.
-- Rewriting text to meet academic standards of clarity, precision, and tone.
-- Suggesting improvements to paragraphs or sections.
-- Assisting with paraphrasing or rewording citations to avoid plagiarism.
-- Identifying missing references or weak points in argumentation.
-- Helping frame research questions or structure literature reviews.
-
-You must:
-
-- Follow the user's instructions exactly and interpret minimal prompts intelligently.
-- Avoid excessive verbosity or embellishment. Use plain, formal academic English.
-- Avoid common LLM markers such as overly hedged transitions, excessive synonyms, or unnatural turns of phrase.
-- Rewrite text cleanly, keeping it aligned with the original intent.
-- Never fabricate facts or citations.
-- Use Markdown formatting when showing alternatives or comparisons.
-- Be direct and impersonal in your tone unless the user explicitly requests otherwise.
-
-When given a task:
-
-- Begin by outlining your plan in pseudocode, step-by-step, in natural language unless the user opts out.
-- Output the revised or generated text in a single Markdown block.
-- Always suggest a few relevant next actions the user might want to take.
-- Respond with exactly one message per turn.
-]]
-
 return {
 	{
 		"olimorris/codecompanion.nvim",
@@ -67,10 +34,24 @@ return {
 		config = function()
 			require("clj.codecompanion-helpers.fidget").init()
 
+			-- Get default adapters from environment variables, fallback to "gemini"
+			local chat_adapter = vim.env.CODECOMPANION_CHAT_ADAPTER or "gemini"
+			local inline_adapter = vim.env.CODECOMPANION_INLINE_ADAPTER
+				or "gemini"
+
 			require("codecompanion").setup({
 				strategies = {
 					chat = {
-						adapter = "gemini",
+						adapter = chat_adapter,
+						tools = {
+							["fetch_webpage"] = {
+								callback = "strategies.chat.tools.catalog.fetch_webpage",
+								description = "Fetches content from a webpage",
+								opts = {
+									adapter = "jina",
+								},
+							},
+						},
 						-- Override default keymaps of the Chat buffer
 						keymaps = {
 							close = {
@@ -170,7 +151,7 @@ return {
 						},
 					},
 					inline = {
-						adapter = "gemini",
+						adapter = inline_adapter,
 					},
 				},
 				display = {
@@ -195,6 +176,43 @@ return {
 							-- than a mere "show_defaults".
 							show_presets = false,
 						},
+						["copilot_gemini-2.5-pro"] = function()
+							return require("codecompanion.adapters").extend(
+								"copilot",
+								{
+									name = "copilot_gemini-2.5-pro",
+									schema = {
+										model = { default = "gemini-2.5-pro" },
+									},
+								}
+							)
+						end,
+						["copilot_claude-sonnet-4.5"] = function()
+							return require("codecompanion.adapters").extend(
+								"copilot",
+								{
+									name = "copilot_claude-sonnet-4.5",
+									schema = {
+										model = {
+											default = "claude-sonnet-4.5",
+										},
+									},
+								}
+							)
+						end,
+						["copilot_gpt-5-mini"] = function()
+							return require("codecompanion.adapters").extend(
+								"copilot",
+								{
+									name = "copilot_gpt-5-mini",
+									schema = {
+										model = {
+											default = "gpt-5-mini",
+										},
+									},
+								}
+							)
+						end,
 						["gemini-2.5-flash"] = function()
 							return require("codecompanion.adapters").extend(
 								"gemini",
