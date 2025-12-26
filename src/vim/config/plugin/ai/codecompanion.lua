@@ -71,42 +71,6 @@ return {
 				strategies = {
 					chat = {
 						adapter = "gemini",
-						slash_commands = {
-							["file"] = {
-								-- Location to the slash command in CodeCompanion
-								callback = "strategies.chat.slash_commands.file",
-								description = "Select a file using fzf-lua",
-								opts = {
-									provider = "fzf_lua",
-									contains_code = true,
-								},
-							},
-							["buffer"] = {
-								callback = "strategies.chat.slash_commands.buffer",
-								description = "Select buffer use fzf-lua",
-								opts = {
-									provider = "fzf_lua",
-									contains_code = true,
-								},
-							},
-							["symbols"] = {
-								callback = "strategies.chat.slash_commands.symbols",
-								description = "Insert symbols for a selected file",
-								opts = {
-									contains_code = true,
-									provider = "fzf_lua",
-								},
-							},
-						},
-						tools = {
-							["fetch_webpage"] = {
-								callback = "strategies.chat.tools.catalog.fetch_webpage",
-								description = "Fetches content from a webpage",
-								opts = {
-									adapter = "jina",
-								},
-							},
-						},
 						-- Override default keymaps of the Chat buffer
 						keymaps = {
 							close = {
@@ -164,22 +128,6 @@ return {
 								index = 8,
 								callback = "keymaps.yank_code",
 								description = "Yank Code",
-							},
-							pin = {
-								modes = {
-									n = "<localleader>p",
-								},
-								index = 9,
-								callback = "keymaps.pin_context",
-								description = "Pin Context",
-							},
-							watch = {
-								modes = {
-									n = "<localleader>w",
-								},
-								index = 10,
-								callback = "keymaps.toggle_watch",
-								description = "Watch Buffer",
 							},
 							change_adapter = {
 								modes = {
@@ -245,14 +193,34 @@ return {
 						opts = {
 							-- This is more "fill_defaults" in the adapters table
 							-- than a mere "show_defaults".
-							show_defaults = false,
+							show_presets = false,
 						},
+						["gemini-2.5-flash"] = function()
+							return require("codecompanion.adapters").extend(
+								"gemini",
+								{
+									env = {
+										api_key = "cmd: cat $HOME/.config/sops-nix/secrets/GEMINI_API_KEY",
+									},
+									schema = {
+										model = {
+											default = "gemini-2.5-flash",
+										},
+									},
+								}
+							)
+						end,
 						gemini = function()
 							return require("codecompanion.adapters").extend(
 								"gemini",
 								{
 									env = {
 										api_key = "cmd: cat $HOME/.config/sops-nix/secrets/GEMINI_API_KEY",
+									},
+									schema = {
+										model = {
+											default = "gemini-3-flash-preview",
+										},
 									},
 								}
 							)
@@ -266,8 +234,9 @@ return {
 										reasoning_effort = {
 											default = "high",
 										},
-										-- Nope. Too poor for this
-										-- model = { default = "gemini-2.5-pro" },
+										model = {
+											default = "gemini-3-flash-preview",
+										},
 									},
 									env = {
 										api_key = "cmd: cat $HOME/.config/sops-nix/secrets/GEMINI_API_KEY",
