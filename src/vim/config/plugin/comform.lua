@@ -112,6 +112,11 @@ return {
 					"prettier",
 					stop_after_first = true,
 				},
+				typescriptreact = {
+					"prettierd",
+					"prettier",
+					stop_after_first = true,
+				},
 				tex = { "tex-fmt" },
 				latex = { "tex-fmt" },
 				kotlin = { "ktfmt" },

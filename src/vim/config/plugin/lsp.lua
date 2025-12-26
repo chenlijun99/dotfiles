@@ -25,8 +25,11 @@ return {
 				"ocamllsp",
 				"cmake",
 				"pyright",
-				-- TypeScript
+				-- TypeScript and web development
 				"ts_ls",
+				"tailwindcss",
+				"cssls",
+				"html",
 				-- Nix
 				"nil_ls",
 				-- Typst
