@@ -74,7 +74,7 @@ return {
 						slash_commands = {
 							["file"] = {
 								-- Location to the slash command in CodeCompanion
-								callback = "strategies.chat.slash_commands.file",
+								callback = "strategies.chat.slash_commands.catalog.file",
 								description = "Select a file using fzf-lua",
 								opts = {
 									provider = "fzf_lua",
@@ -82,7 +82,7 @@ return {
 								},
 							},
 							["buffer"] = {
-								callback = "strategies.chat.slash_commands.buffer",
+								callback = "strategies.chat.slash_commands.catalog.buffer",
 								description = "Select buffer use fzf-lua",
 								opts = {
 									provider = "fzf_lua",
@@ -90,7 +90,7 @@ return {
 								},
 							},
 							["symbols"] = {
-								callback = "strategies.chat.slash_commands.symbols",
+								callback = "strategies.chat.slash_commands.catalog.symbols",
 								description = "Insert symbols for a selected file",
 								opts = {
 									contains_code = true,
@@ -165,22 +165,6 @@ return {
 								callback = "keymaps.yank_code",
 								description = "Yank Code",
 							},
-							pin = {
-								modes = {
-									n = "<localleader>p",
-								},
-								index = 9,
-								callback = "keymaps.pin_context",
-								description = "Pin Context",
-							},
-							watch = {
-								modes = {
-									n = "<localleader>w",
-								},
-								index = 10,
-								callback = "keymaps.toggle_watch",
-								description = "Watch Buffer",
-							},
 							change_adapter = {
 								modes = {
 									n = "<localleader>a",
@@ -254,6 +238,11 @@ return {
 									env = {
 										api_key = "cmd: cat $HOME/.config/sops-nix/secrets/GEMINI_API_KEY",
 									},
+									schema = {
+										model = {
+											default = "gemini-3-flash-preview",
+										},
+									},
 								}
 							)
 						end,
@@ -266,8 +255,9 @@ return {
 										reasoning_effort = {
 											default = "high",
 										},
-										-- Nope. Too poor for this
-										-- model = { default = "gemini-2.5-pro" },
+										model = {
+											default = "gemini-3-flash-preview",
+										},
 									},
 									env = {
 										api_key = "cmd: cat $HOME/.config/sops-nix/secrets/GEMINI_API_KEY",
