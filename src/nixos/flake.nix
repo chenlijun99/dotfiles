@@ -125,6 +125,16 @@
             }
           ];
       };
+      "thinkpad-t14-gen6" = nixpkgs-unstable.lib.nixosSystem {
+        system = "x86_64-linux";
+        modules =
+          getNixosSystemModules true
+          ++ [
+            {
+              imports = [./machines/thinkpad-t14-gen6];
+            }
+          ];
+      };
       "hp" = nixpkgs-unstable.lib.nixosSystem {
         system = "x86_64-linux";
         modules =
