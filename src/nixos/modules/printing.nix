@@ -10,4 +10,6 @@
   services.avahi.enable = true;
   services.avahi.nssmdns4 = true;
   services.avahi.openFirewall = true;
+  # Enable "print to pdf"
+  services.printing.cups-pdf.enable = true;
 }

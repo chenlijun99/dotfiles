@@ -3,7 +3,7 @@
 #
 {...}: {
   services.below = {
-    enable = true;
+    enable = false;
     # Retain for 1 day
     retention.time = 60 * 60 * 24;
   };
