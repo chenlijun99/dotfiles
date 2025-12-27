@@ -2,18 +2,6 @@
 # NixOS config for running on my ThinkPad-L390-Yoga
 #
 {pkgs, ...}: {
-  # Enable auto rotation
-  #
-  # Disable because I decided to use manual rotation.
-  # In KDE auto rotation can be enabled only in touch mode.
-  # But then some screen elements become too big...
-  # To manually change orientation in KDE, I can use
-  # ```
-  # $ kscreen-doctor output.<display>.orientation.<orientation>
-  # ```
-  #
-  # hardware.sensor.iio.enable = true;
-
   imports = [
     ./hardware-configuration.nix
     ../../modules/base-gui.nix
@@ -38,6 +26,8 @@
     ../../users/lijun-test
     ../../users/test
   ];
+
+  boot.kernelPackages = pkgs.linuxPackages_6_18;
 
   boot.loader = {
     # Use the systemd-boot EFI boot loader.
