@@ -15,3 +15,5 @@
 	required = true
 [push]
 	autoSetupRemote = true
+[includeIf "gitdir:~/Repositories/work/"]
+    path = ~/Repositories/work/.gitconfig
