@@ -3,6 +3,7 @@ setlocal spell
 nnoremap <buffer> <leader>c :setl spell!<cr>
 
 setlocal lazyredraw
+setlocal wrap
 
 " set modeline 
 " vim: foldlevel=0 foldmethod=marker
