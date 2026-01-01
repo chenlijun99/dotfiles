@@ -1,8 +1,9 @@
 Plug 'airblade/vim-rooter'
-let g:rooter_silent_chdir = 1
+let g:rooter_silent_chdir = 0
 let g:rooter_cd_cmd="lcd"
 let g:rooter_change_directory_for_non_project_files = 'current'
 let g:rooter_resolve_links = 1
+let g:rooter_manual_only = 1
 
 " '!^packages': Don't use monorepo single package as root
 " '.git': Treat submodule root as project root
@@ -19,11 +20,19 @@ let g:rooter_patterns = [
 			\ ]
 
 if clj#core#enable_full_power()
-	" Run .nvim.lua if vim-rooter changes CWD to a new project directory
-	" Neovim only searches in CWD at startup!
-	"
-	" Useful for e.g. I open neovim from a deep folder of a project.
 lua << EOF
+-- Automatically find project root once at startup. Re-rooting happens 
+-- manually.
+vim.api.nvim_create_autocmd("VimEnter", {
+	group = vim.api.nvim_create_augroup("clj-vim-rooter-startup", { clear = true }),
+	callback = function()
+		vim.cmd("Rooter")
+	end,
+})
+-- Run .nvim.lua if vim-rooter changes CWD to a new project directory
+-- Neovim only searches in CWD at startup!
+--
+-- Useful for e.g. I open neovim from a deep folder of a project.
 vim.api.nvim_create_autocmd("User", {
 	group = vim.api.nvim_create_augroup("clj-vim-rooter", { clear = true }),
 	pattern = "RooterChDir",

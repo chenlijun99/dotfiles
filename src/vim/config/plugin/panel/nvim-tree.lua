@@ -1,4 +1,4 @@
-function NvimTreeOpenOrFindFile()
+local function NvimTreeOpenOrFindFile()
 	if vim.api.nvim_eval("expand('%:p') == ''") == 1 then
 		-- If file not saved in file system, open nvim tree normally
 		vim.cmd("NvimTreeOpen")
@@ -7,7 +7,15 @@ function NvimTreeOpenOrFindFile()
 		api.tree.find_file({
 			open = true,
 			focus = true,
-			update_root = true,
+			-- Don't update root at each `find_file`.
+			-- If this is enabled, when opening a file in that is not part of
+			-- the directory tree of CWD, nvim-tree reroots the directory
+			-- tree. This is not a nice behaviour.
+			--
+			-- Other `nvim-tree` settings ensure that when something like
+			-- `vim-rooter` changes the cwd, also nvim-tree changes it.
+			-- That's enough and it's the behaviour I want.
+			update_root = false,
 		})
 	end
 end
@@ -201,7 +209,7 @@ return {
 		keys = {
 			{
 				"<leader>pf",
-				"<cmd>lua NvimTreeOpenOrFindFile()<CR>",
+				NvimTreeOpenOrFindFile,
 				desc = "Filetree explorer",
 			},
 		},

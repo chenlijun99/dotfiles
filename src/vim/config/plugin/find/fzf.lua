@@ -13,9 +13,9 @@ return {
 					"exists('*FugitiveHead') && !empty(FugitiveHead())"
 				)
 				if in_git then
-					require("fzf-lua").files()
-				else
 					require("fzf-lua").git_files()
+				else
+					require("fzf-lua").files()
 				end
 			end,
 			desc = "fuzzy files",
@@ -162,6 +162,17 @@ return {
 			},
 			fzf_opts = {
 				["--history"] = vim.fn.stdpath("data") .. "/fzf-history",
+			},
+			files = {
+				-- `--no-ignore-exclude`: show also files that are locally ignored in `.git/info/exclude`.
+				-- `--follow`: follow system links
+				--
+				-- Use case: I often have a `personal/` folder where I put
+				-- system links to personal notes about the project.
+				-- NOTE: I'm modifying the default opts of the `files` picker
+				-- because fzf-lua files is also used by other plugins as file
+				-- picker (e.g., code companion).
+				rg_opts = [[--color=never --hidden --files -g "!.git" --no-ignore-exclude --follow]],
 			},
 		}
 		require("fzf-lua").setup(opts)

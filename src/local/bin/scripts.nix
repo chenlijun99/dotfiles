@@ -46,7 +46,7 @@
 
       # Why go through this instead of wrapping the python script in a bash
       # script? Apparently doing so makes the python script startup much
-      # slwoer (400-500ms), which becoems noticeable for the 
+      # slwoer (400-500ms), which becoems noticeable for the
       # use case of this script.
       clj_win_cycle_or_launch = pkgs.python3Packages.buildPythonApplication rec {
         pname = "clj_win_cycle_or_launch";
@@ -69,6 +69,9 @@
           maintainers = with maintainers; [];
         };
       };
+      clj_setup_project = pkgs.writeScriptBin "clj_setup_project" ''
+        ${./clj_setup_project.py}
+      '';
     in [
       clj_alacritty
       clj_multiscreenshot
@@ -78,6 +81,7 @@
       clj_de_autostart
       clj_stay_focused
       clj_win_cycle_or_launch
+      clj_setup_project
     ];
   };
 }

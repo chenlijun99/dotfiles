@@ -3,6 +3,7 @@
   "theme": "system",
   // In addition to the default, look also for project-specific personal
   // AGENTS.md files.
+  "instructions": ["personal/pkm/AGENTS.md"],
   "formatter": {
     "markdownlint ": {
       "command": ["markdownlint", "--fix", "$FILE"],
