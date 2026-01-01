@@ -13,6 +13,7 @@ in {
     ./tmux.nix
     ./shell.nix
     ./nix.nix
+    ./opencode.nix
     ../this.nix
     ../vim/cli.nix
     ../networking/cli.nix

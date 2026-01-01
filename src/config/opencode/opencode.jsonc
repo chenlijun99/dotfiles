@@ -1,0 +1,12 @@
+{
+  "$schema": "https://opencode.ai/config.json",
+  "theme": "system",
+  // In addition to the default, look also for project-specific personal
+  // AGENTS.md files.
+  "formatter": {
+    "markdownlint ": {
+      "command": ["markdownlint", "--fix", "$FILE"],
+      "extensions": [".md"]
+    }
+  }
+}
