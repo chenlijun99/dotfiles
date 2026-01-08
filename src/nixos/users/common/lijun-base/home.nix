@@ -15,6 +15,7 @@ in {
     ../this.nix
     ./firefox.nix
     ./alacritty.nix
+    ./ghostty.nix
     ./flameshot.nix
     ./autostart.nix
     ./desktop.nix

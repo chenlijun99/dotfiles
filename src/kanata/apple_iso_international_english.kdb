@@ -1,0 +1,48 @@
+;; The keyboard I got on one macbook I had access to.
+;; Apple Internal keyboard, ISO English internal layout
+;; See https://support.apple.com/en-us/102743 on how to identify this Apple
+;; keyboard layout we're talking about.
+(defcfg
+  process-unmapped-keys true
+  macos-dev-names-include (
+   ;; Process only events from these two devices.
+   ;; Otherwise kanata messes with external mouse and makes it non-functional.
+    "Apple Internal Keyboard / Trackpad"
+    "Karabiner DriverKit VirtualHIDKeyboard 1.8.0"
+  )
+  concurrent-tap-hold yes
+  rapid-event-delay 5
+  override-release-on-activation yes
+)
+
+(defoverrides
+  ;; Swap grave with ±. The ISO internal english layout has ± at the left of 
+  ;; the 1 key, where I'm used to find the grave (a.k.a. backtick) key.
+  ;; Why nonusbslash? I don't know. Somebody digged this out.
+  ;; https://github.com/jtroo/kanata/discussions/1066#discussioncomment-14664845
+  (nonusbslash) (grave)
+)
+
+(deflayermap (default-layer)
+  ;; Left-option -> PC-like Left-Meta layer
+  lalt @l_pc_lmet
+  ;; Left-meta -> PC-like Left-Alt layer
+  lmet @l_pc_lalt
+
+  ;; FN-Ctrl Swap
+  ;; FN -> PC-like Left-ctrl layer
+  fn @l_pc_lctl
+  lctl fn
+
+  ;; Right-option -> Right-ctrl
+  ralt rctl
+  ;; Right-Meta as my custom Right-alt layer
+  rmet @l_alt
+
+  caps @moc
+  ;; Everything else to the original key in defsrc.
+  _ use-defsrc
+)
+
+(include common.kbd)
+(include macos.kbd)

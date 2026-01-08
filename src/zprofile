@@ -4,7 +4,16 @@
 emulate sh
 . ~/.profile
 
-# See https://realjenius.com/2020/01/12/kde-neon-snap-apps-missing/
-emulate sh -c 'source /etc/profile'
+# Rationale for keeping the following line commented:
+# - /etc/profile on macOS calls `path_helper`, which causes Nix paths to be appended to PATH
+#   instead, making Nix programs have lower precedence than the ones on the 
+#   system. See https://github.com/DeterminateSystems/nix-installer/issues/327#issuecomment-1465232929
+#   for a mention of path_helper being the root cause of the issue.
+# - This line was originally added to surface Ubuntu/snap environment to zsh
+#   (following https://realjenius.com/2020/01/12/kde-neon-snap-apps-missing/),
+#   but I no longer use snap/Ubuntu. There are cleaner, targeted fixes if needed
+#   later (per-shell PATH entries, /etc/profile.d scripts, or using the OS
+#   environment/launcher to propagate PATH).
+# emulate sh -c 'source /etc/profile'
 
 emulate zsh

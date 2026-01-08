@@ -33,7 +33,6 @@ in {
       htop
       vifm
       tree
-      distrobox
       fzf
       # Ripgrep. I use it in Vim and also on CLI
       ripgrep
@@ -52,11 +51,6 @@ in {
       moreutils
       # Useful for working with JSON on the commandline
       jq
-      # Mount remote directories via SSH
-      sshfs
-      # Utility script to easily use git for coarse synchrinization
-      git-sync
-
       rclone
       devenv
 
@@ -64,10 +58,8 @@ in {
       graphviz
       doxygen
       pandoc
-      pdftk
 
       # terminal emulators that I use to interface with serial port
-      picocom
 
       # Count lines of code
       scc

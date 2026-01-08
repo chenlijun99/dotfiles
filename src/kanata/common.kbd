@@ -8,7 +8,7 @@
   tab   q    w    e    r    t    y    u    i    o    p    [    ]    \
   caps  a    s    d    f    g    h    j    k    l    ;    '    ret
   lsft  z    x    c    v    b    n    m    ,    .    /    rsft
-  lctl  lmet lalt           spc            ralt rmet rctl
+  lctl  fn   lmet lalt      spc            ralt rmet rctl
 )
 
 ;; A+J is audio decrease
@@ -22,10 +22,10 @@
 ;; B+K is brightness increase
 (deflayer alt
   XX    mlft mmid mrgt XX   XX   XX   XX   XX   XX   XX   XX   XX   XX
-  XX    XX   XX   XX   XX   XX   XX   XX   XX   XX   prnt XX   XX   XX
+  XX    XX   XX   XX   XX   XX   XX   XX   XX   XX   XX   XX   XX   XX
   XX    @cha XX   XX   XX   XX   XX   @chj @chk XX   XX   XX   XX
   XX    XX   XX   XX   XX   @chb XX   @chm XX   XX   XX   XX
-  XX    XX   XX             @chspc         XX   XX   XX
+  XX    XX   XX   XX        @chspc         XX   XX   XX
 )
 
 (defalias
@@ -57,7 +57,7 @@
   XX    XX   @ma↑ XX   XX   XX   XX   XX   XX   XX   XX   XX   XX   XX
   XX    @ma← @ma↓ @ma→ XX   XX   XX   mlft mmid mrgt XX   XX   XX
   _     XX   XX   XX   XX   XX   XX   XX   @slw @fst XX   XX
-  _     _    _              @l_mousewheel  XX   XX   XX
+  _     _    _    _         @l_mousewheel  XX   XX   XX
 )
 
 (deflayer mousewheel
@@ -65,7 +65,7 @@
   XX    XX   @mwu XX   XX   XX   XX   XX   XX   XX   XX   XX   XX   XX
   XX    @mwl @mwd @mwr XX   XX   XX   XX   XX   XX   XX   XX   XX
   _     XX   XX   XX   XX   XX   XX   XX   XX   XX   XX   XX
-  _     _    _              XX   XX   XX   XX
+  _     _    _    _         XX   XX   XX   XX
 )
 
 (defalias
@@ -94,11 +94,6 @@
   fst (movemouse-speed 150)
   slw (movemouse-speed 15)
 
-  mwu (mwheel-up 50 120)
-  mwd (mwheel-down 50 120)
-  mwl (mwheel-left 50 120)
-  mwr (mwheel-right 50 120)
-
   ;; $interval Number of milliseconds between move activations.
   ;; Depends on my reaction time. But should be small for cursor to feel smooth
   ;; when distance is high.
@@ -117,4 +112,23 @@
   ma← (movemouse-accel-left 30 1000 10 80)
   ma↓ (movemouse-accel-down 30 1000 10 80)
   ma→ (movemouse-accel-right 30 1000 10 80)
+)
+
+;; Not sure why, but on macOS if I 120 pixel as travel distance I get way
+;; too fast scroll. 5 works.
+(platform (macos)
+  (defalias
+    mwu (mwheel-down 60 5)
+    mwd (mwheel-up 60 5)
+    mwl (mwheel-left 60 5)
+    mwr (mwheel-right 60 5)
+  )
+)
+(platform (linux win winiov2 wintercept)
+  (defalias
+    mwu (mwheel-down 50 120)
+    mwd (mwheel-up 50 120)
+    mwl (mwheel-left 50 120)
+    mwr (mwheel-right 50 120)
+  )
 )

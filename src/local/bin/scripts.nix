@@ -1,11 +1,10 @@
 # This home-manager module contains my utility scripts
 {
-  config,
   pkgs,
-  inputs,
+  lib,
   ...
 }: {
-  home = {
+  home = lib.mkIf (!pkgs.stdenv.isDarwin) {
     packages = let
       clj_script = script_name: extra_attrs:
         pkgs.writeShellApplication ({

@@ -7,6 +7,10 @@
     };
     nixpkgs-stable.url = "github:NixOS/nixpkgs/nixos-25.11";
     nixpkgs-unstable.url = "github:NixOS/nixpkgs/nixos-unstable";
+    nix-darwin = {
+      url = "github:nix-darwin/nix-darwin/master";
+      inputs.nixpkgs.follows = "nixpkgs-unstable";
+    };
     home-manager = {
       url = "github:nix-community/home-manager";
       inputs.nixpkgs.follows = "nixpkgs-unstable";
@@ -22,6 +26,7 @@
     self,
     nixpkgs-stable,
     nixpkgs-unstable,
+    nix-darwin,
     home-manager,
     nixos-generators,
     nur,
@@ -157,6 +162,39 @@
               imports = [./machines/oci-vps-arm];
             }
           ];
+      };
+    };
+    darwinConfigurations = {
+      "MAC9004" = nix-darwin.lib.darwinSystem {
+        specialArgs = {inherit inputs;};
+        modules = [
+          {
+            imports = [./machines/macbook-pro-m4-max];
+          }
+          home-manager.darwinModules.home-manager
+          {
+            # See https://nix-community.github.io/home-manager/index.html
+            # why the following two options are useful
+            home-manager.useUserPackages = true;
+            home-manager.useGlobalPkgs = true;
+            # Pass flake inputs to home manager modules
+            home-manager.extraSpecialArgs = {
+              inherit inputs;
+            };
+            home-manager.sharedModules = [
+              sops-nix.homeManagerModules.sops
+            ];
+            # On activation move existing files by appending the given file extension rather than exiting with an error.
+            # See more on https://rycee.gitlab.io/home-manager/nixos-options.html
+            home-manager.backupFileExtension = "bak";
+          }
+          {
+            imports = [
+              ./modules/darwin/common
+            ];
+            nixpkgs.config.allowUnfree = true;
+          }
+        ];
       };
     };
     packages = {

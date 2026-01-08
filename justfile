@@ -11,6 +11,9 @@ flakes-update:
 nixos-switch machine:
 	sudo nixos-rebuild switch --flake ./src/nixos#{{machine}}
 
+darwin-switch host:
+	sudo $(which darwin-rebuild) switch --flake ./src/nixos#{{host}}
+
 nixos-rollback:
 	nixos-rebuild switch --rollback 
 
