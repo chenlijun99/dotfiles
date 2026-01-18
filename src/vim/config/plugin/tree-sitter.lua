@@ -1,33 +1,19 @@
 return {
 	{
 		"nvim-treesitter/nvim-treesitter",
-		version = false, -- last release is way too old and doesn't work on Windows
+		branch = "main",
+		version = false,
 		build = ":TSUpdate",
 		event = { "LazyFile", "VeryLazy" },
-		lazy = vim.fn.argc(-1) == 0, -- load treesitter early when opening a file from the cmdline
-		---@type TSConfig
-		opts = {
-			highlight = {
-				enable = true,
-				disable = function(lang, bufnr)
-					-- Disable tree-sitter hilight on large files
-					return vim.api.nvim_buf_line_count(bufnr) > 5000
-						-- VimTex provides better highlighting
-						or lang == "latex"
-				end,
-			},
-			indent = {
-				enable = true,
-				disable = function(lang, bufnr)
-					-- Disable tree-sitter indent on large files
-					-- I actually most often just use external auto-formatter.
-					-- So I may consider to disable tree-sitter indent entirely
-					return lang == "python"
-						or vim.api.nvim_buf_line_count(bufnr) > 5000
-				end,
-			},
-			context_commentstring = { enable = true, enable_autocmd = false },
-			ensure_installed = {
+		-- load treesitter early when opening a file from the cmdline
+		lazy = vim.fn.argc(-1) == 0,
+		config = function()
+			-- Use HCL grammar for the opentofu filetype
+			vim.treesitter.language.register("hcl", "opentofu")
+
+			local ts = require("nvim-treesitter")
+
+			local ensure_installed = {
 				"bash",
 				"bibtex",
 				"c",
@@ -66,7 +52,6 @@ return {
 				"tlaplus",
 				"tsx",
 				"typescript",
-				"verilog",
 				"vim",
 				"vue",
 				"yaml",
@@ -81,14 +66,55 @@ return {
 				"latex",
 				"hcl",
 				"sql",
-			},
-		},
-		---@param opts TSConfig
-		config = function(_, opts)
-			require("nvim-treesitter.configs").setup(opts)
+			}
+			ts.install(ensure_installed)
 
-			-- Use HCL grammar for the opentofu filetype
-			vim.treesitter.language.register("hcl", "opentofu")
+			local ignore_filetype = {
+				"checkhealth",
+				"lazy",
+				"mason",
+				"snacks_dashboard",
+				"snacks_notif",
+				"snacks_win",
+				"snacks_input",
+				"snacks_picker_input",
+				"TelescopePrompt",
+				"alpha",
+				"dashboard",
+				"spectre_panel",
+				"NvimTree",
+				"undotree",
+				"Outline",
+				"sagaoutline",
+				"copilot-chat",
+				"vscode-diff-explorer",
+			}
+
+			vim.api.nvim_create_autocmd("FileType", {
+				group = vim.api.nvim_create_augroup(
+					"TreesitterSetup",
+					{ clear = true }
+				),
+				desc = "Enable TreeSitter highlighting",
+				callback = function(ev)
+					local ft = ev.match
+					if vim.tbl_contains(ignore_filetype, ft) then
+						return
+					end
+
+					local lang = vim.treesitter.language.get_lang(ft) or ft
+					local buf = ev.buf
+
+					if
+						-- VimTex provides better highlighting
+						lang == "latex"
+					then
+						return
+					end
+
+					pcall(vim.treesitter.start, buf, lang)
+				end,
+			})
 		end,
 	},
 }
