@@ -120,7 +120,12 @@ return {
 				tex = { "tex-fmt" },
 				latex = { "tex-fmt" },
 				kotlin = { "ktfmt" },
-				java = { "google-java-format" },
+				java = {
+					"spotless_gradle",
+					"spotless_maven",
+					"google-java-format",
+					stop_after_first = true,
+				},
 			},
 		},
 		config = function(_, opts)
