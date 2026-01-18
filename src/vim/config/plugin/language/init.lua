@@ -4,4 +4,5 @@ return {
 	{ import = "clj.plugin.language.markdown" },
 	{ import = "clj.plugin.language.kotlin" },
 	{ import = "clj.plugin.language.java" },
+	{ import = "clj.plugin.language.cpp" },
 }
