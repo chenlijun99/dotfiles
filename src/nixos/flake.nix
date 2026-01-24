@@ -143,6 +143,16 @@
             }
           ];
       };
+      "bosgame-m5" = nixpkgs-unstable.lib.nixosSystem {
+        system = "x86_64-linux";
+        modules =
+          getNixosSystemModules true
+          ++ [
+            {
+              imports = [./machines/bosgame-m5];
+            }
+          ];
+      };
       "hp" = nixpkgs-unstable.lib.nixosSystem {
         system = "x86_64-linux";
         modules =
