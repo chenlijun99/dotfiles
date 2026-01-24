@@ -3,12 +3,33 @@
 ;; keyboards should have, organized in a familiar layout.
 ;;
 ;; The rest of the file can (only) assume the presence of these keys.
-(defsrc
-  grv   1    2    3    4    5    6    7    8    9    0    -    =    bspc
-  tab   q    w    e    r    t    y    u    i    o    p    [    ]    \
-  caps  a    s    d    f    g    h    j    k    l    ;    '    ret
-  lsft  z    x    c    v    b    n    m    ,    .    /    rsft
-  lctl  fn   lmet lalt      spc            ralt rmet rctl
+;;
+;; NOTE: the `fn` key is processed by Kanata only on macOS. AFAIK kanata does
+;; not support conditional key in `defsrc`. So, using platform is the ugly
+;; workaround. Also, since `fn` is not supported, what to use in its place?
+;; Just picked a random placeholder key that I'm unlikely going to use, i.e.
+;; EjectCD.
+;; The other approach that doesn't require the EjectCD key placeholder would
+;; lead to defsrc on macos and on linux to have different number of keys.
+;; Then I'd have to refactor all the `deflayer`s in this file into `deflayermap`.
+;; But I like `deflayer`.
+(platform (macos)
+  (defsrc
+    grv   1    2    3    4    5    6    7    8    9    0    -    =    bspc
+    tab   q    w    e    r    t    y    u    i    o    p    [    ]    \
+    caps  a    s    d    f    g    h    j    k    l    ;    '    ret
+    lsft  z    x    c    v    b    n    m    ,    .    /    rsft
+    lctl  fn   lmet lalt      spc            ralt rmet rctl
+  )
+)
+(platform (linux win winiov2 wintercept)
+  (defsrc
+    grv   1    2    3    4    5    6    7    8    9    0    -    =    bspc
+    tab   q    w    e    r    t    y    u    i    o    p    [    ]    \
+    caps  a    s    d    f    g    h    j    k    l    ;    '    ret
+    lsft  z    x    c    v    b    n    m    ,    .    /    rsft
+    lctl  EjectCD   lmet lalt      spc            ralt rmet rctl
+  )
 )
 
 ;; A+J is audio decrease
