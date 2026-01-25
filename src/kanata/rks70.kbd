@@ -9,14 +9,28 @@
     ;; RK-S70 in wired mode
     "SINO WEALTH Bluetooth Keyboard"
   )
+  macos-dev-names-include (
+    ;; RK-S70 in wired mode on macOS
+    "0x8619C1AA3D34180E"
+  )
   concurrent-tap-hold yes
   rapid-event-delay 5
   override-release-on-activation yes
 )
 
 (deflayermap (default-layer)
+  ;; Swap grave with esc. RK-S70 has Esc at the left of the 1 key, where
+  ;; I'm used to find the grave (a.k.a. backtick) key.
+  ;; The grave key is placed OTOH at the top right corner...
+  ;; I use defchordsv2 to hackily trigger Esc (look below).
+  ;; NOTE: I don't use defoverrides to swap grave with esc because defoverrides
+  ;; acts globally, which means the esc triggered by defchordsv2 would be mapped
+  ;; to grave again.
   grave XX
   esc grave
+  lalt @l_pc_lalt
+  lmet @l_pc_lmet
+  lctl @l_pc_lctl
 
   caps @moc
   ralt @l_alt

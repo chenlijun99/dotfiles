@@ -153,3 +153,108 @@
     mwr (mwheel-right 50 120)
   )
 )
+
+;;
+;; Special mappings from PC-style shortcuts to macOS shortcuts
+;; On Linux/Windows it just maps these modifiers back the the same modifers.
+;; On macOS it triggers special layers.
+;;
+(platform (linux win winiov2 wintercept)
+  (defalias
+    l_pc_lctl lctl
+    l_pc_lalt lalt
+    l_pc_lmet lmet
+  )
+)
+(platform (macos)
+  (defalias
+    l_pc_lctl (multi lmet (layer-while-held pc_lctl_layer))
+    l_pc_lalt (multi lalt (layer-while-held pc_lalt_layer))
+    l_pc_lmet (multi lmet (layer-while-held pc_lmet_layer))
+  )
+)
+
+;; Linux/Windows-style Ctrl-* shortcuts layer
+;; Most of them correspond to Command-* shortcuts on macOS. 
+;; So by default we send the Command key and introduce only a few exceptions
+;; in this layer. See the `l_pc_lctl` alias.
+;;
+;; Specific-applications (e.g. terminal programs like neovim) that are
+;; based heavily on Ctrl-* shortcuts should do application-level remapping
+;; of Command to Ctrl.
+;;
+;; In the layer we configure a few exceptions.
+(deflayermap (pc_lctl_layer)
+  ;; In App navigation (e.g., browser):
+  ;; Windows `Ctrl + Tab` -> macOS `Command + Tab`
+  tab (multi (release-key lmet) lctl tab)
+  ;; I already use directly `Command + Space` as shortcut.
+  ;; Ctrl + Space is useful to some apps (e.g. trigger autocompletion in Vim)
+  spc (multi (release-key lmet) lctl spc)
+  
+  ;; Text box shortcuts 
+  ;; (e.g., Windows `Ctrl + Left` -> macOS `Option + Left`)
+  left  (multi (release-key lmet) lalt left)
+  right (multi (release-key lmet) lalt right)
+  bspc  (multi (release-key lmet) lalt bspc)
+  del   (multi (release-key lmet) lalt del)
+  e lrld
+)
+
+(defvirtualkeys vk_alt_tab (multi lmet (macro tab)))
+
+;; Linux/Windows-style Alt-* shortcuts layer
+;; By default, retain the same `Alt` key behavior. See the `l_pc_lalt` alias.
+;;
+;; In the layer we configure a few exceptions.
+(deflayermap (pc_lalt_layer)
+  ;; Alt + F4 -> Command + Shift + W (Close Window)
+  ;; Closest to Alt + F4.
+  ;; Command + W only closes a single "tab" within a window.
+  ;; Command + Q closes the program entirely (e.g., all the windows of a browser).
+  ;; Give up... Not all apps support this. Accept that window closing on
+  ;; macOS has different layers of semantics and get used to the new shortcuts.
+  ;; f4 (multi (release-key lalt) lmet lsft w)
+
+  ;; Application-window switching
+  ;; Linux/Windows `Alt + Tab` -> `Command + Tab`
+  ;; NOTE: we need to handle this case specially using virtual keys
+  ;; because on macOS (well, actually also on Linux/Windows) the behaviour of 
+  ;; Alt-Tab style switching is that if after the first switch the Alt key
+  ;; is still pressed, then a floating window shows the existing application
+  ;; windows.
+  tab (multi (release-key lalt) (on-press press-virtualkey vk_alt_tab) (on-physical-idle 60 release-virtualkey vk_alt_tab))
+  ;; Switching between windows of the same application
+  ;; Linux/Windows `Alt + Grave` -> `Command + Grave`
+  grave (multi (release-key lalt) lmet grave)
+
+  ;; Browser previous/next page
+  ;; E.g., Linux/Windows `Alt + Left` -> `Command + Left`
+  left (multi (release-key lalt) lmet left)
+  right (multi (release-key lalt) lmet right)
+  )
+
+;; Linux/Windows-style Super-* shortcuts layer
+;; By default, retain the same `Super` key behavior. See the `l_pc_lmet` alias.
+;;
+;; In the layer we configure a few exceptions.
+(deflayermap (pc_lmet_layer)
+  ;; Lock screen
+  ;; Linux/Windows `Super + L` -> `Command + Ctrl + Q`
+  l (multi lmet lctl q)
+  ;; Show desktop
+  ;; Linux/Windows `Super + D` -> `F11`
+  d (multi (release-key lmet) f11)
+
+  ;; Focus and launch nth item on the system dock
+  ;; Use this "hack" instead of properly configuring shortcuts to focus or 
+  ;; launch specific applications.
+  1 (multi (release-key lmet) (macro C-f3 home ret)) 
+  2 (multi (release-key lmet) (macro C-f3 home right ret)) 
+  3 (multi (release-key lmet) (macro C-f3 home right right ret)) 
+  4 (multi (release-key lmet) (macro C-f3 home right right right ret)) 
+  5 (multi (release-key lmet) (macro C-f3 home right right right right ret)) 
+  6 (multi (release-key lmet) (macro C-f3 home right right right right right ret)) 
+  7 (multi (release-key lmet) (macro C-f3 home right right right right right right ret)) 
+  8 (multi (release-key lmet) (macro C-f3 home right right right right right right right ret)) 
+)

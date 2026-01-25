@@ -15,6 +15,10 @@
 )
 
 (deflayermap (default-layer)
+  lalt @l_pc_lalt
+  lmet @l_pc_lmet
+  lctl @l_pc_lctl
+
   caps @moc
   ralt @l_alt
   ;; Everything else to the original key in defsrc.

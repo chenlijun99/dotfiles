@@ -10,18 +10,24 @@
   ];
 
   launchd = {
-    daemons = {
-      kanata = let
-        katataConfigDir = ../../../kanata;
+    daemons = let
+      katataConfigDir = ../../../kanata;
+
+      mkKanataDaemon = configFile: let
+        basename = builtins.baseNameOf configFile;
+        name = builtins.head (builtins.split "\\." basename);
       in {
-        command = "${pkgs.kanata}/bin/kanata -c ${katataConfigDir}/apple_iso_international_english.kdb";
+        command = "${pkgs.kanata}/bin/kanata -c ${katataConfigDir}/${configFile}";
         serviceConfig = {
           KeepAlive = true;
           RunAtLoad = true;
-          StandardOutPath = "/tmp/kanata.out.log";
-          StandardErrorPath = "/tmp/kanata.err.log";
+          StandardOutPath = "/tmp/kanata-${name}.out.log";
+          StandardErrorPath = "/tmp/kanata-${name}.err.log";
         };
       };
+    in {
+      kanata = mkKanataDaemon "apple_iso_international_english.kdb";
+      kanata-rks70 = mkKanataDaemon "rks70.kbd";
     };
   };
 }
