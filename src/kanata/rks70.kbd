@@ -12,6 +12,8 @@
   macos-dev-names-include (
     ;; RK-S70 in wired mode on macOS
     "0x8619C1AA3D34180E"
+    ;; RK-S70 in bluetooth
+    "RK-S70 5.0"
   )
   concurrent-tap-hold yes
   rapid-event-delay 5
