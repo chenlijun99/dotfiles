@@ -13,6 +13,9 @@
   concurrent-tap-hold yes
   rapid-event-delay 5
   override-release-on-activation yes
+
+  sequence-timeout 1000
+  sequence-input-mode hidden-delay-type
 )
 
 (defoverrides
@@ -34,8 +37,8 @@
   fn @l_pc_lctl
   lctl fn
 
-  ;; Right-option -> Right-ctrl
-  ralt rctl
+  ;; Right-option -> Right-ctrl, which I use as Compose key
+  ralt @compose_key
   ;; Right-Meta as my custom Right-alt layer
   rmet @l_alt
 
@@ -45,4 +48,3 @@
 )
 
 (include common.kbd)
-(include macos.kbd)

@@ -16,6 +16,9 @@
   concurrent-tap-hold yes
   rapid-event-delay 5
   override-release-on-activation yes
+
+  sequence-timeout 1000
+  sequence-input-mode hidden-delay-type
 )
 
 (deflayermap (default-layer)
@@ -34,6 +37,7 @@
 
   caps @moc
   ralt @l_alt
+  rctl @compose_key
   ;; Everything else to the original key in defsrc.
   _ use-defsrc
 )

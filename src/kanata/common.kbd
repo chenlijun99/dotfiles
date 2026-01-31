@@ -258,3 +258,164 @@
   7 (multi (release-key lmet) (macro C-f3 home right right right right right right ret)) 
   8 (multi (release-key lmet) (macro C-f3 home right right right right right right right ret)) 
 )
+
+;; =========================================
+;; Compose keys
+;; =========================================
+;; The sldr action makes kanata go into "sequence" mode.
+;; https://github.com/jtroo/kanata/blob/main/docs/config.adoc#sequences
+(defalias compose_key sldr)
+
+;; -----------------------------------------
+;; Platform-specific template definitions
+;; -----------------------------------------
+
+;; The documentation says that the `unicode` action is not well supported on
+;; Wayland. But it works for me. In any case, keep the clipboard workaround
+;; here for reference.
+;; Linux: Use clipboard workaround for Wayland compatibility
+;; (platform (linux)
+;;   (deftemplate compose (name seq-keys char)
+;;     (defvirtualkeys $name
+;;       (macro
+;;         (clipboard-save 0)
+;;         20
+;;         (clipboard-set $char)
+;;         20
+;;         S-ins
+;;         20
+;;         (clipboard-restore 0)
+;;       ))
+;;     (defseq $name $seq-keys)
+;;   )
+;; )
+
+(deftemplate compose (name seq-keys char)
+  (defvirtualkeys $name (unicode $char))
+  (defseq $name $seq-keys)
+)
+;; =========================================
+;; Compose Key Sequences (X11 style)
+;; =========================================
+
+;; -----------------------------------------
+;; Grave accent (`)
+;; -----------------------------------------
+(t! compose grav-a (` a) à)
+(t! compose grav-e (` e) è)
+(t! compose grav-i (` i) ì)
+(t! compose grav-o (` o) ò)
+(t! compose grav-u (` u) ù)
+(t! compose grav-A (` S-a) À)
+(t! compose grav-E (` S-e) È)
+(t! compose grav-I (` S-i) Ì)
+(t! compose grav-O (` S-o) Ò)
+(t! compose grav-U (` S-u) Ù)
+
+;; -----------------------------------------
+;; Acute accent (')
+;; -----------------------------------------
+(t! compose acut-a (' a) á)
+(t! compose acut-e (' e) é)
+(t! compose acut-i (' i) í)
+(t! compose acut-o (' o) ó)
+(t! compose acut-u (' u) ú)
+(t! compose acut-y (' y) ý)
+(t! compose acut-A (' S-a) Á)
+(t! compose acut-E (' S-e) É)
+(t! compose acut-I (' S-i) Í)
+(t! compose acut-O (' S-o) Ó)
+(t! compose acut-U (' S-u) Ú)
+(t! compose acut-Y (' S-y) Ý)
+
+;; -----------------------------------------
+;; Circumflex (^)
+;; -----------------------------------------
+(t! compose circ-a (S-6 a) â)
+(t! compose circ-e (S-6 e) ê)
+(t! compose circ-i (S-6 i) î)
+(t! compose circ-o (S-6 o) ô)
+(t! compose circ-u (S-6 u) û)
+(t! compose circ-A (S-6 S-a) Â)
+(t! compose circ-E (S-6 S-e) Ê)
+(t! compose circ-I (S-6 S-i) Î)
+(t! compose circ-O (S-6 S-o) Ô)
+(t! compose circ-U (S-6 S-u) Û)
+
+;; -----------------------------------------
+;; Tilde (~)
+;; -----------------------------------------
+(t! compose tild-a (S-` a) ã)
+(t! compose tild-n (S-` n) ñ)
+(t! compose tild-o (S-` o) õ)
+(t! compose tild-A (S-` S-a) Ã)
+(t! compose tild-N (S-` S-n) Ñ)
+(t! compose tild-O (S-` S-o) Õ)
+
+;; -----------------------------------------
+;; Diaeresis/Umlaut (")
+;; -----------------------------------------
+(t! compose diae-a (S-' a) ä)
+(t! compose diae-e (S-' e) ë)
+(t! compose diae-i (S-' i) ï)
+(t! compose diae-o (S-' o) ö)
+(t! compose diae-u (S-' u) ü)
+(t! compose diae-y (S-' y) ÿ)
+(t! compose diae-A (S-' S-a) Ä)
+(t! compose diae-E (S-' S-e) Ë)
+(t! compose diae-I (S-' S-i) Ï)
+(t! compose diae-O (S-' S-o) Ö)
+(t! compose diae-U (S-' S-u) Ü)
+(t! compose diae-Y (S-' S-y) Ÿ)
+
+;; -----------------------------------------
+;; Ring above (o)
+;; -----------------------------------------
+(t! compose ring-a (o a) å)
+(t! compose ring-A (o S-a) Å)
+
+;; -----------------------------------------
+;; Cedilla (,)
+;; -----------------------------------------
+(t! compose cedi-c (, c) ç)
+(t! compose cedi-C (, S-c) Ç)
+
+;; -----------------------------------------
+;; Stroke (/)
+;; -----------------------------------------
+(t! compose strk-o (/ o) ø)
+(t! compose strk-O (/ S-o) Ø)
+
+;; -----------------------------------------
+;; Currency symbols
+;; -----------------------------------------
+(t! compose cur-cent (c /) ¢)
+(t! compose cur-pound (l -) £)
+(t! compose cur-yen (y -) ¥)
+(t! compose cur-euro (e =) €)
+
+;; -----------------------------------------
+;; Punctuation and special characters
+;; -----------------------------------------
+(t! compose inv-excl (S-1 S-1) ¡)
+(t! compose inv-ques (S-/ S-/) ¿)
+(t! compose ellipsis (. .) …)
+(t! compose em-dash (- - -) —)
+(t! compose en-dash (- - .) –)
+(t! compose copyrght (o c) ©)
+(t! compose register (o r) ®)
+(t! compose trdmark (t m) ™)
+(t! compose section (s o) §)
+(t! compose pilcrow (p S-1) ¶)
+(t! compose degree (d g) °)
+
+;; -----------------------------------------
+;; Math symbols
+;; -----------------------------------------
+(t! compose math-neq (/ =) ≠)
+(t! compose math-leq (S-, =) ≤)
+(t! compose math-geq (S-. =) ≥)
+(t! compose math-eqv (= =) ≡)
+(t! compose math-apx (S-` =) ≈)
+(t! compose math-inf (8 8) ∞)
+(t! compose math-emp (/ 0) ∅)
