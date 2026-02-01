@@ -47,6 +47,18 @@
     coreutils
   ];
 
+  programs.zsh = {
+    enable = true;
+    # Improve zsh startup time.
+    # See https://github.com/nix-community/home-manager/issues/108
+    # Anyway, keep system-wide zsh config minimal. Any advanced customization
+    # shuold be done at the system leve.
+    enableCompletion = false;
+    enableBashCompletion = false;
+    enableGlobalCompInit = false;
+    enableAutosuggestions = false;
+  };
+
   users.users."lijun.chen" = {
     home = "/Users/lijun.chen";
     shell = pkgs.zsh;
