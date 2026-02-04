@@ -8,6 +8,7 @@
 }: {
   imports = [
     ./kanata.nix
+    ./container.nix
   ];
   nixpkgs.hostPlatform = "aarch64-darwin";
   system.stateVersion = 6;
