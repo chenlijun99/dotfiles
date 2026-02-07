@@ -4,7 +4,8 @@
 # Core modules (built-in, no download needed)
 zmodule environment
 zmodule input
-zmodule utility
+# I have my own aliases
+# zmodule utility
 
 # FZF integration (built-in module)
 zmodule fzf

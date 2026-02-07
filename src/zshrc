@@ -2,6 +2,12 @@
 # https://github.com/romkatv/powerlevel10k/issues/702#issuecomment-626222730
 emulate zsh -c "$(direnv export zsh)"
 
+# WORDCHARS defines which characters are considered part of a word for editing commands
+# Default includes special chars like /, -, ., etc. Setting to empty makes all special
+# characters act as word boundaries. Main use case: Ctrl+W deletes path components one
+# at a time (e.g., /usr/local/bin → /usr/local/ → /usr/) instead of the entire path
+WORDCHARS=''
+
 # Enable Powerlevel10k instant prompt. Should stay close to the top.
 if [[ -r "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh" ]]; then
   source "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh"
@@ -100,6 +106,16 @@ fi
 export ZSH_TMUX_FIXTERM=true
 # Dummy compdef for tmux plugin (real one loads with completion on first Tab)
 function compdef { : }
+
+# zsh-syntax-highlighting config
+# Remove underline
+# See https://github.com/zsh-users/zsh-syntax-highlighting/issues/573#issuecomment-2438623618
+(( ${+ZSH_HIGHLIGHT_STYLES} )) || typeset -A ZSH_HIGHLIGHT_STYLES
+ZSH_HIGHLIGHT_STYLES[path]=none
+ZSH_HIGHLIGHT_STYLES[path_pathseparator]=none
+ZSH_HIGHLIGHT_STYLES[path_prefix]=none
+ZSH_HIGHLIGHT_STYLES[path_prefix_pathseparator]=none
+ZSH_HIGHLIGHT_STYLES[precommand]=none
 
 # Initialize modules
 [[ -f ${ZIM_HOME}/init.zsh ]] && source ${ZIM_HOME}/init.zsh
