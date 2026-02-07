@@ -21,12 +21,60 @@ let g:rooter_patterns = [
 
 if clj#core#enable_full_power()
 lua << EOF
--- Automatically find project root once at startup. Re-rooting happens 
+local function load_nvim_lua_files()
+	-- Collect all .nvim.lua files from current directory up to root
+	local nvim_lua_files = {}
+	local current_dir = vim.fn.getcwd()
+	local root_dir = vim.loop.os_homedir() -- Stop at home directory
+
+	while current_dir and current_dir ~= "/" do
+		local nvim_lua_path = current_dir .. "/.nvim.lua"
+		if vim.fn.filereadable(nvim_lua_path) == 1 then
+			table.insert(nvim_lua_files, 1, nvim_lua_path) -- Insert at beginning for bottom-up order
+		end
+
+		-- Stop if we reached home directory
+		if current_dir == root_dir then
+			break
+		end
+
+		-- Move to parent directory
+		local parent = vim.fn.fnamemodify(current_dir, ":h")
+		if parent == current_dir then
+			break -- Reached root
+		end
+		current_dir = parent
+	end
+
+	-- Load all found .nvim.lua files from top to bottom
+	if #nvim_lua_files > 0 then
+		vim.cmd([[doautocmd User CljLoadExrcPre]])
+
+		for _, nvim_lua_path in ipairs(nvim_lua_files) do
+			local str = vim.secure.read(nvim_lua_path)
+			if str then
+				local fn = loadstring(str)
+				if fn then
+					vim.notify("[Clj] Loading " .. nvim_lua_path)
+					fn()
+				end
+			end
+		end
+
+		vim.cmd([[doautocmd User CljLoadExrcPost]])
+	end
+end
+
+-- Automatically find project root once at startup. Re-rooting happens
 -- manually.
 vim.api.nvim_create_autocmd("VimEnter", {
-	group = vim.api.nvim_create_augroup("clj-vim-rooter-startup", { clear = true }),
+	group = vim.api.nvim_create_augroup(
+		"clj-vim-rooter-startup",
+		{ clear = true }
+	),
 	callback = function()
 		vim.cmd("Rooter")
+		load_nvim_lua_files()
 	end,
 })
 -- Run .nvim.lua if vim-rooter changes CWD to a new project directory
@@ -38,23 +86,9 @@ vim.api.nvim_create_autocmd("User", {
 	pattern = "RooterChDir",
 	callback = function()
 		vim.notify(
-			"[Clj] Project root changed. Checking .nvim.lua"
+			"[Clj] Project root changed. Checking .nvim.lua in ancestor directories"
 		)
-		if vim.fn.filereadable(".nvim.lua") == 1 then
-			local str = vim.secure.read(".nvim.lua")
-			if str then
-				local fn = loadstring(str)
-				if fn then
-					vim.cmd([[doautocmd User CljLoadExrcPre]])
-					
-					vim.notify(
-						"[Clj] Loading ".. vim.fn.getcwd() .. "/.nvim.lua"
-					)
-					fn()
-					vim.cmd([[doautocmd User CljLoadExrcPost]])
-				end
-			end
-		end
+		load_nvim_lua_files()
 	end,
 })
 EOF
