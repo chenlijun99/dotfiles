@@ -79,7 +79,7 @@ return {
 			desc = "Workspace symbols",
 		},
 	},
-	lazy = false,
+	lazy = true,
 	config = function()
 		local file_copy_path_relative_to_cwd = function(selected, opts)
 			local path = require("fzf-lua").path
