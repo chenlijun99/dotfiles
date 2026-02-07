@@ -72,9 +72,12 @@ if [[ ! ${ZIM_HOME}/init.zsh -nt ${ZDOTDIR:-${HOME}}/.zimrc ]]; then
 fi
 
 # zsh-vi-mode configuration (must be set BEFORE loading the plugin)
-ZVM_VI_INSERT_ESCAPE_BINDKEY=jk
-ZVM_SYSTEM_CLIPBOARD_ENABLED=true
-ZVM_CURSOR_STYLE_ENABLED=false
+function zvm_config() {
+  ZVM_VI_INSERT_ESCAPE_BINDKEY=jk
+  ZVM_SYSTEM_CLIPBOARD_ENABLED=true
+  ZVM_CURSOR_STYLE_ENABLED=false
+  ZVM_LINE_INIT_MODE=$ZVM_MODE_INSERT
+}
 # FZF integration - must be loaded after zsh-vi-mode to restore keybindings
 # zsh-vi-mode resets keybindings, so we need to re-source FZF bindings
 function zvm_after_init() {
