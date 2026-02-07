@@ -2,11 +2,8 @@
 {
   config,
   pkgs,
-  inputs,
   ...
-} @ args: let
-  utils = import ../utils.nix args;
-in {
+}: {
   programs.direnv = {
     enable = true;
     nix-direnv.enable = true;
@@ -25,6 +22,8 @@ in {
       # ...
       # ```
       bashInteractive
+      # Used for bash prompt
+      starship
     ];
     file = {
       ".profile" = {
@@ -32,6 +31,9 @@ in {
       };
       ".shell_aliases" = {
         source = config.lib.clj.mkOutOfStoreRelativeThisRepoSymLink "./src/shell_aliases";
+      };
+      ".shell_env" = {
+        source = config.lib.clj.mkOutOfStoreRelativeThisRepoSymLink "./src/shell_env";
       };
       ##########################################################################
       # Zsh
@@ -42,13 +44,8 @@ in {
       ".zshrc" = {
         source = config.lib.clj.mkOutOfStoreRelativeThisRepoSymLink "./src/zshrc";
       };
-      ".on-my-zsh" = {
-        source = config.lib.clj.mkOutOfStoreRelativeThisRepoSymLink "./src/oh-my-zsh";
-        # Dunno why, but for ".oh-my-zsh" we need to set target
-        target = ".oh-my-zsh";
-      };
-      ".zsh_custom" = {
-        source = config.lib.clj.mkOutOfStoreRelativeThisRepoSymLink "./src/zsh_custom";
+      ".zimrc" = {
+        source = config.lib.clj.mkOutOfStoreRelativeThisRepoSymLink "./src/zimrc";
       };
       # Blazing fast prompt for Zsh
       ".p10k.zsh" = {
@@ -59,12 +56,6 @@ in {
       ##########################################################################
       ".bashrc" = {
         source = config.lib.clj.mkOutOfStoreRelativeThisRepoSymLink "./src/bashrc";
-      };
-      ".promptrc" = {
-        source = config.lib.clj.mkOutOfStoreRelativeThisRepoSymLink "./src/promptrc";
-      };
-      ".git-prompt.sh" = {
-        source = config.lib.clj.mkOutOfStoreRelativeThisRepoSymLink "./src/git-prompt.sh";
       };
     };
   };

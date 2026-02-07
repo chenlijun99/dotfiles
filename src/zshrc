@@ -1,90 +1,95 @@
-# If you come from bash you might have to change your $PATH.
-# export PATH=$HOME/bin:/usr/local/bin:$PATH
+# Put this before powerlevel10k instant prompt
+# https://github.com/romkatv/powerlevel10k/issues/702#issuecomment-626222730
+emulate zsh -c "$(direnv export zsh)"
 
-# Path to your oh-my-zsh installation.
-export ZSH="$HOME/.oh-my-zsh"
+# Enable Powerlevel10k instant prompt. Should stay close to the top.
+if [[ -r "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh" ]]; then
+  source "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh"
+fi
 
-# Set name of the theme to load --- if set to "random", it will
-# load a random theme each time oh-my-zsh is loaded, in which case,
-# to know which specific one was loaded, run: echo $RANDOM_THEME
-# See https://github.com/ohmyzsh/ohmyzsh/wiki/Themes
-ZSH_THEME="powerlevel10k/powerlevel10k"
+# Load my common shell environment (shared with bash)
+source ~/.shell_env
 
-# Set list of themes to pick from when loading at random
-# Setting this variable when ZSH_THEME=random will cause zsh to load
-# a theme from this variable instead of looking in $ZSH/themes/
-# If set to an empty array, this variable will have no effect.
-# ZSH_THEME_RANDOM_CANDIDATES=( "robbyrussell" "agnoster" )
+# Lazy-load completion on first Tab press
+# IMPORTANT: Must be defined before loading Zim modules to ensure Tab binding persists
+# and is not overridden by some plugins.
+# This is 1.5x faster than zmodule completion (which does extra dumpfile validation)
+# It's 1.1x faster than just doing `autoload -Uz compinit && compinit -C -d "${HOME}/.zcompdump"`
+# Has zero startup overhead vs no completion at all
+function _lazy_load_completion() {
+  # Rebind Tab to default completion widget before initializing
+  # This prevents calling this function on subsequent Tab presses
+  bindkey '^I' expand-or-complete
+  # Shift+Tab for reverse completion
+  bindkey '^[[Z' reverse-menu-complete
 
-# Uncomment the following line to use case-sensitive completion.
-# CASE_SENSITIVE="true"
+  # Initialize completion system
+  autoload -Uz compinit
 
-# Uncomment the following line to use hyphen-insensitive completion.
-# Case-sensitive completion must be off. _ and - will be interchangeable.
-# HYPHEN_INSENSITIVE="true"
+  # Validate dumpfile once per day (balances speed vs freshness)
+  local dumpfile="${HOME}/.zcompdump"
+  if [[ -f "${dumpfile}" && $(date -r "${dumpfile}" +%Y%m%d) != $(date +%Y%m%d) ]]; then
+    compinit -d "${dumpfile}"  # Regenerate if older than today
+  else
+    compinit -C -d "${dumpfile}"  # Skip checks for speed
+  fi
 
-# Uncomment one of the following lines to change the auto-update behavior
-# zstyle ':omz:update' mode disabled  # disable automatic updates
-# zstyle ':omz:update' mode auto      # update automatically without asking
-# zstyle ':omz:update' mode reminder  # just remind me to update when it's time
+  # Compile dumpfile for faster loading (if not already compiled or outdated)
+  if [[ ! "${dumpfile}.zwc" -nt "${dumpfile}" ]]; then
+    zcompile "${dumpfile}"
+  fi
 
-# Uncomment the following line to change how often to auto-update (in days).
-# zstyle ':omz:update' frequency 13
+  # Configure completion behavior
+  zstyle ':completion:*' menu select
+  zstyle ':completion:*' matcher-list 'm:{a-zA-Z}={A-Za-z}' 'r:|=*' 'l:|=* r:|=*'
+  zstyle ':completion::complete:*' cache-path "${HOME}/.zcompcache"
+  zstyle ':completion:*' use-cache on
 
-# Uncomment the following line if pasting URLs and other text is messed up.
-# DISABLE_MAGIC_FUNCTIONS="true"
+  # Trigger completion for current command
+  zle expand-or-complete
+}
+zle -N _lazy_load_completion
+bindkey '^I' _lazy_load_completion
 
-# Uncomment the following line to disable colors in ls.
-# DISABLE_LS_COLORS="true"
+# Zim: Plugin manager
+ZIM_HOME=${ZDOTDIR:-${HOME}}/.zim
 
-# Uncomment the following line to disable auto-setting terminal title.
-# DISABLE_AUTO_TITLE="true"
+# Download zimfw if not installed
+if [[ ! -e ${ZIM_HOME}/zimfw.zsh ]]; then
+  curl -fsSL --create-dirs -o ${ZIM_HOME}/zimfw.zsh \
+      https://github.com/zimfw/zimfw/releases/latest/download/zimfw.zsh
+fi
 
-# Uncomment the following line to enable command auto-correction.
-# ENABLE_CORRECTION="true"
+# Install missing modules and update ${ZIM_HOME}/init.zsh if missing or outdated
+if [[ ! ${ZIM_HOME}/init.zsh -nt ${ZDOTDIR:-${HOME}}/.zimrc ]]; then
+  source ${ZIM_HOME}/zimfw.zsh init -q
+fi
 
-# Uncomment the following line to display red dots whilst waiting for completion.
-# You can also set it to another string to have that shown instead of the default red dots.
-# e.g. COMPLETION_WAITING_DOTS="%F{yellow}waiting...%f"
-# Caution: this setting can cause issues with multiline prompts in zsh < 5.7.1 (see #5765)
-# COMPLETION_WAITING_DOTS="true"
+# zsh-vi-mode configuration (must be set BEFORE loading the plugin)
+ZVM_VI_INSERT_ESCAPE_BINDKEY=jk
+ZVM_SYSTEM_CLIPBOARD_ENABLED=true
+ZVM_CURSOR_STYLE_ENABLED=false
+# FZF integration - must be loaded after zsh-vi-mode to restore keybindings
+# zsh-vi-mode resets keybindings, so we need to re-source FZF bindings
+function zvm_after_init() {
+  # Re-source Zim's FZF keybindings (Ctrl-R, Ctrl-T, Alt-C)
+  local zim_fzf_bindings="${ZIM_HOME}/modules/fzf/fzf---zsh.zsh"
+  if [[ -f "${zim_fzf_bindings}" ]]; then
+    source "${zim_fzf_bindings}"
+  fi
+}
+# Vi mode custom keybindings for normal/visual mode (H, L)
+# Must use zvm_after_lazy_keybindings for normal/visual mode bindings
+function zvm_after_lazy_keybindings() {
+  bindkey -M vicmd 'H' beginning-of-line
+  bindkey -M vicmd 'L' end-of-line
+}
 
-# Uncomment the following line if you want to disable marking untracked files
-# under VCS as dirty. This makes repository status check for large repositories
-# much, much faster.
-# DISABLE_UNTRACKED_FILES_DIRTY="true"
-
-# Uncomment the following line if you want to change the command execution time
-# stamp shown in the history command output.
-# You can set one of the optional three formats:
-# "mm/dd/yyyy"|"dd.mm.yyyy"|"yyyy-mm-dd"
-# or set a custom format using the strftime function format specifications,
-# see 'man strftime' for details.
-# HIST_STAMPS="mm/dd/yyyy"
-
-# Would you like to use another custom folder than $ZSH/custom?
-ZSH_CUSTOM="$HOME/.zsh_custom/"
-
-# Which plugins would you like to load?
-# Standard plugins can be found in $ZSH/plugins/
-# Custom plugins may be added to $ZSH_CUSTOM/plugins/
-# Example format: plugins=(rails git textmate ruby lighthouse)
-# Add wisely, as too many plugins slow down shell startup.
-
-# Note that the vi-mode plugin must precede fzf plugin.
-# Otherwise the vi-mode plugin seems to override the key bindings (Ctrl+R,
-# Ctrl+T) for fzf.
-plugins+=(vi-mode my-zsh-vi)
-
-# The default `FZF_DEFAULT_COMMAND` that the ohmyzsh-fzf plugin uses
-# does not have the '--no-ignore' option, which means that fzf by default
-# respects .gitignore. We don't want that.
-export FZF_DEFAULT_COMMAND='rg --files --hidden --no-ignore --glob "!.git/*"'
-# Note that the fzf plugin must precede tmux plugin.
-# Because we have a tmux plugin that relies on fzf and assumes that fzf
-# is in PATH. The fzf plugin (from zsh) takes care of adding fzf to PATH.
-plugins+=(fzf)
-
+#
+# Configure ohmyzsh tmux plugin
+# I just use it to autostart into tmux.
+#
+ZSH_TMUX_AUTOSTART=true
 # Autostart tmux unless DISABLE_TMUX_AUTOSTART is true
 # I set DISABLE_TMUX_AUTOSTART in Konsole terminal, so that when I open
 # Konsole inside Dolphin, that terminal doesn't have Tmux.
@@ -93,92 +98,34 @@ then
     export ZSH_TMUX_AUTOSTART=true
 fi
 export ZSH_TMUX_FIXTERM=true
-plugins+=(tmux)
+# Dummy compdef for tmux plugin (real one loads with completion on first Tab)
+function compdef { : }
 
-source $ZSH/oh-my-zsh.sh
+# Initialize modules
+[[ -f ${ZIM_HOME}/init.zsh ]] && source ${ZIM_HOME}/init.zsh
 
-# Enable Powerlevel10k instant prompt. Should stay close to the top of ~/.zshrc.
-# Initialization code that may require console input (password prompts, [y/n]
-# confirmations, etc.) must go above this block; everything else may go below.
-#
-# Note: we're putting it after sourcing oh-my-zsh.sh because of a problem with
-# tmux. Error: "open terminal failed: not a terminal"
-# See https://github.com/romkatv/powerlevel10k/issues/1203
-if [[ -r "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh" ]]; then
-  source "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh"
-fi
-
-# I'm not interested in the aliases from oh-my-zsh plugins
-unalias -m '*'
-
-# User configuration
-
-# export MANPATH="/usr/local/man:$MANPATH"
-
-# You may need to manually set your language environment
-# export LANG=en_US.UTF-8
-
-# Preferred editor for local and remote sessions
-# if [[ -n $SSH_CONNECTION ]]; then
-#   export EDITOR='vim'
-# else
-#   export EDITOR='mvim'
-# fi
-export EDITOR='vim'
-
-# Compilation flags
-# export ARCHFLAGS="-arch x86_64"
-
-# Set personal aliases, overriding those provided by oh-my-zsh libs,
-# plugins, and themes. Aliases can be placed here, though oh-my-zsh
-# users are encouraged to define aliases within the ZSH_CUSTOM folder.
-# For a full list of active aliases, run `alias`.
-#
-# Example aliases
-# alias zshconfig="mate ~/.zshrc"
-# alias ohmyzsh="mate ~/.oh-my-zsh"
-if [ -f ~/.shell_aliases ]; then
-    . ~/.shell_aliases
-fi
-
-# Use Ninja as default CMake generator if available
-command -v ninja > /dev/null
-if [[ $? -eq 0 ]]; then
-	export CMAKE_GENERATOR="Ninja"
-fi
-
-# Sharing history among multiple zsh instances
-setopt share_history
-
-# To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
+# Or keep P10k (comment out if using Starship)
 [[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
 
-export PATH="$HOME/.yarn/bin:$HOME/.config/yarn/global/node_modules/.bin:$PATH"
+# History settings
+HISTSIZE=10000
+SAVEHIST=10000
+# Share history between sessions
+setopt SHARE_HISTORY
+# Don't record duplicates
+setopt HIST_IGNORE_DUPS
+# Don't record commands starting with space
+setopt HIST_IGNORE_SPACE
 
-[ -f ~/.just.zsh ] && source ~/.just.zsh
+# Globbing settings
+# Pass unmatched patterns as-is 
+# (mainly to allow me to write something like nix shell nixpkgs#package)
+setopt NO_NOMATCH
 
-if [ -e /home/${USER}/.nix-profile/etc/profile.d/nix.sh ]; then . /home/${USER}/.nix-profile/etc/profile.d/nix.sh; fi # added by Nix installer
-eval "$(direnv hook zsh)"
+# Load just completions if available
+[[ -f ~/.just.zsh ]] && source ~/.just.zsh
 
-function enable_conda
-{
-    # >>> conda initialize >>>
-    # !! Contents within this block are managed by 'conda init' !!
-    __conda_setup="$('/home/${USER}/anaconda3/bin/conda' 'shell.zsh' 'hook' 2> /dev/null)"
-    if [ $? -eq 0 ]; then
-	eval "$__conda_setup"
-    else
-	if [ -f "/home/${USER}/anaconda3/etc/profile.d/conda.sh" ]; then
-	    . "/home/${USER}/anaconda3/etc/profile.d/conda.sh"
-	else
-	    export PATH="/home/${USER}/anaconda3/bin:$PATH"
-	fi
-    fi
-    unset __conda_setup
-    # <<< conda initialize <<<
-}
-
-# opam configuration
-[[ ! -r /home/${USER}/.opam/opam-init/init.zsh ]] || source /home/${USER}/.opam/opam-init/init.zsh  > /dev/null 2> /dev/null
-
-[ -f /opt/homebrew/bin/brew ] && eval "$(/opt/homebrew/bin/brew shellenv)"
+# Direnv integration
+if command -v direnv &> /dev/null; then
+  eval "$(direnv hook zsh)"
+fi

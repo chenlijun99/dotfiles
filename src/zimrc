@@ -1,0 +1,21 @@
+# Zim modules configuration
+# See https://zimfw.sh/docs/modules/
+
+# Core modules (built-in, no download needed)
+zmodule environment
+zmodule input
+zmodule utility
+
+# FZF integration (built-in module)
+zmodule fzf
+
+# Vi mode - proper plugin for full vi keybindings
+zmodule jeffreytse/zsh-vi-mode
+
+# Syntax highlighting (recommended, near the end)
+zmodule zsh-users/zsh-syntax-highlighting
+
+zmodule romkatv/powerlevel10k --use degit
+
+# Use tmux plugin of ohmyzsh to autostart tmux
+zmodule ohmyzsh/ohmyzsh --root plugins/tmux

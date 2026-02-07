@@ -38,4 +38,9 @@ elif [[ -f "/etc/profiles/per-user/${USER}/etc/profile.d/hm-session-vars.sh" ]];
 	. "/etc/profiles/per-user/$USER/etc/profile.d/hm-session-vars.sh"
 fi
 
+command -v npm >/dev/null
+if [[ $? -eq 0 ]] ; then
+    PATH="$(npm config get prefix 2> /dev/null)/bin:$PATH"
+fi
+
 export PATH

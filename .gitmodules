@@ -4,9 +4,3 @@
 [submodule "src/vifm/vifm_devicons"]
 	path = src/vifm/vifm_devicons
 	url = https://github.com/cirala/vifm_devicons
-[submodule "src/oh-my-zsh"]
-	path = src/oh-my-zsh
-	url = https://github.com/ohmyzsh/ohmyzsh
-[submodule "src/zsh_custom/themes/powerlevel10k"]
-	path = src/zsh_custom/themes/powerlevel10k
-	url = https://github.com/romkatv/powerlevel10k.git

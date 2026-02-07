@@ -37,13 +37,3 @@ alias sudo='sudo '
 
 # Make xclip copy to clipboard. See https://stackoverflow.com/a/4208191 
 alias xclip="xclip -selection c"
-
-function tmux
-{
-	local tmux_binary=$(which tmux)
-	if [[ $# -gt 0 ]]; then
-		$tmux_binary "$@"
-	else
-		$tmux_binary attach 2> /dev/null || $tmux_binary new -s misc
-	fi
-}

@@ -1,0 +1,30 @@
+# Common Shell Environment Configuration
+# Sourced by both bash and zsh
+# Shell-agnostic configuration only
+
+# Editor
+export EDITOR='vim'
+
+# FZF configuration
+export FZF_DEFAULT_COMMAND='rg --files --hidden --no-ignore --glob "!.git/*"'
+
+# Ninja as default CMake generator if available
+if command -v ninja &> /dev/null; then
+  export CMAKE_GENERATOR="Ninja"
+fi
+
+# Load shell aliases
+[[ -f ~/.shell_aliases ]] && source ~/.shell_aliases
+
+# Nix integration
+if [[ -e /home/${USER}/.nix-profile/etc/profile.d/nix.sh ]]; then
+  source /home/${USER}/.nix-profile/etc/profile.d/nix.sh
+fi
+
+# Optional: Opam
+[[ ! -r /home/${USER}/.opam/opam-init/init.sh ]] || source /home/${USER}/.opam/opam-init/init.sh > /dev/null 2> /dev/null
+
+# Homebrew
+if [[ -f /opt/homebrew/bin/brew ]]; then
+  eval "$(/opt/homebrew/bin/brew shellenv)"
+fi

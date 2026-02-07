@@ -1,0 +1,79 @@
+# Starship Configuration
+# Fast, informative, and beautiful prompt
+
+# Timeout for commands (in milliseconds)
+command_timeout = 500
+
+# Format: what modules to show and in what order
+format = """
+[┌─](bold green)$username$hostname$directory$git_branch$git_status$git_state
+[└─](bold green)$character"""
+
+# Continuation prompt
+continuation_prompt = "[▶▶](bold green) "
+
+[character]
+success_symbol = "[❯](bold green)"
+error_symbol = "[❯](bold red)"
+vicmd_symbol = "[❮](bold green)"
+
+[username]
+show_always = false
+style_user = "bold yellow"
+style_root = "bold red"
+format = "[$user]($style) "
+
+[hostname]
+ssh_only = true
+style = "bold dimmed green"
+format = "[@$hostname]($style) "
+
+[directory]
+truncation_length = 3
+truncate_to_repo = true
+style = "bold cyan"
+format = "[$path]($style)[$read_only]($read_only_style) "
+
+[git_branch]
+symbol = " "
+style = "bold purple"
+format = "[$symbol$branch]($style) "
+
+[git_status]
+style = "bold red"
+format = "([$all_status$ahead_behind]($style) )"
+conflicted = "="
+ahead = "⇡${count}"
+behind = "⇣${count}"
+diverged = "⇕⇡${ahead_count}⇣${behind_count}"
+untracked = "?${count}"
+stashed = "$${count}"
+modified = "!${count}"
+staged = "+${count}"
+renamed = "»${count}"
+deleted = "✘${count}"
+
+[git_state]
+style = "bold yellow"
+format = "[$state( $progress_current/$progress_total)]($style) "
+
+[cmd_duration]
+min_time = 2000
+style = "bold yellow"
+format = "[took $duration]($style) "
+
+# Language-specific modules (disabled by default for speed)
+[python]
+disabled = true
+
+[nodejs]
+disabled = true
+
+[rust]
+disabled = true
+
+[golang]
+disabled = true
+
+[java]
+disabled = true
