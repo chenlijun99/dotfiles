@@ -19,6 +19,7 @@
       url = "github:nix-community/nixos-generators";
       inputs.nixpkgs.follows = "nixpkgs-unstable";
     };
+    nixos-hardware.url = "github:NixOS/nixos-hardware/master";
     # I get some useful packages from here. E.g. WeChat.
     nur.url = "github:nix-community/NUR";
   };
@@ -48,10 +49,6 @@
     */
     getNixosSystemModules = unstable: [
       {
-        # Introduce additional module parameters
-        _module.args = {
-          inputs = actual_inputs unstable;
-        };
       }
       # Include the home-manager NixOS module
       home-manager.nixosModules.home-manager
@@ -145,6 +142,10 @@
       };
       "bosgame-m5" = nixpkgs-unstable.lib.nixosSystem {
         system = "x86_64-linux";
+        # Introduce additional module parameters
+        specialArgs = {
+          inputs = actual_inputs true;
+        };
         modules =
           getNixosSystemModules true
           ++ [

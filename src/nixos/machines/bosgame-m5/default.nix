@@ -1,9 +1,16 @@
 #
 # NixOS config for running on my Bosgame M5
 #
-{pkgs, ...}: {
+{
+  pkgs,
+  inputs,
+  ...
+}: {
   imports = [
     ./hardware-configuration.nix
+    inputs.nixos-hardware.nixosModules.common-cpu-amd
+    inputs.nixos-hardware.nixosModules.common-cpu-amd-pstate
+    inputs.nixos-hardware.nixosModules.common-gpu-amd
     ../../modules/base-gui.nix
     ../../modules/dev.nix
     ../../modules/desktop.nix

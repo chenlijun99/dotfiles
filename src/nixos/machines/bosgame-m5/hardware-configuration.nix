@@ -12,18 +12,18 @@
     (modulesPath + "/installer/scan/not-detected.nix")
   ];
 
-  boot.initrd.availableKernelModules = ["nvme" "xhci_pci" "thunderbolt" "usb_storage" "usbhid" "sd_mod" "sdhci_pci"];
+  boot.initrd.availableKernelModules = ["nvme" "xhci_pci" "thunderbolt" "usbhid" "sdhci_pci"];
   boot.initrd.kernelModules = [];
   boot.kernelModules = ["kvm-amd"];
   boot.extraModulePackages = [];
 
   fileSystems."/" = {
-    device = "/dev/disk/by-uuid/addc027e-48f5-4c92-986b-6351c16dbbc1";
+    device = "/dev/disk/by-label/nixos-tmp";
     fsType = "ext4";
   };
 
   fileSystems."/boot" = {
-    device = "/dev/disk/by-uuid/7374-9580";
+    device = "/dev/disk/by-label/boot";
     fsType = "vfat";
     options = ["fmask=0022" "dmask=0022"];
   };
