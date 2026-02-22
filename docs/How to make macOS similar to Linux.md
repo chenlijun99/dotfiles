@@ -100,6 +100,8 @@ User presses Ctrl+W in Ghostty:
 
 ## Setup Instructions
 
+NOTE: you have to do this every time the kanata binary changes (typically every time you upgrade nix-darwin).
+
 Most of the setup is automated via nix-darwin and kanata autostarts as daemon using `launchd`. However, permissions needs to be manually granted to the kanata binary. See [How to use Kanata from Homebrew and LaunchCtl for macOS #1537](https://github.com/jtroo/kanata/discussions/1537).
 
 1. **Input Monitoring**: System Settings → Privacy & Security → Input Monitoring → Enable Kanata

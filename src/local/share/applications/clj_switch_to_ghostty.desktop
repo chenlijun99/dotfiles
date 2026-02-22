@@ -1,9 +1,8 @@
 #!/usr/bin/env xdg-open
 [Desktop Entry]
-Name=Switch to Alacritty
+Name=Switch to Ghostty
 TryExec=clj_win_cycle_or_launch
-Exec=clj_win_cycle_or_launch alacritty
+Exec=clj_win_cycle_or_launch ghostty
 Type=Application
-Icon=Alacritty
+Icon=Ghostty
 StartupNotify=false
-

@@ -7,7 +7,7 @@
 }: {
   cachix.enable = false;
   # https://devenv.sh/packages/
-  packages = with pkgs; [git age just sops ssh-to-age yq];
+  packages = with pkgs; [bashInteractive git age just sops ssh-to-age yq];
 
   # https://devenv.sh/languages/
   # languages.rust.enable = true;

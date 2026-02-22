@@ -1,11 +1,11 @@
 #!/usr/bin/env xdg-open
 [Desktop Entry]
-Name=Neovim in Alacritty
+Name=Neovim in ghostty
 GenericName=Text Editor
 GenericName[de]=Texteditor
 Comment=Edit text files
-TryExec=alacritty
-Exec=alacritty -e nvim %F
+TryExec=ghostty
+Exec=ghostty -e nvim %F
 Type=Application
 Keywords=Text;editor;
 Icon=nvim

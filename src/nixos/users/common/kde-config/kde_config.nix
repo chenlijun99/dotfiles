@@ -160,7 +160,7 @@ in {
       "clj_switch_to_firefox.desktop" = {
         _launch = "Meta+2";
       };
-      "clj_switch_to_alacritty.desktop" = {
+      "clj_switch_to_ghostty.desktop" = {
         _launch = "Meta+3";
       };
       "clj_switch_to_keepassxc.desktop" = {
