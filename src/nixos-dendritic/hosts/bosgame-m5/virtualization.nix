@@ -62,17 +62,32 @@
       #                       latency for the GPU and network.
       #
       # -display gtk,gl=on  – host GTK window with EGL/GL, required for virglrenderer.
-      # grab-on-hover=on    – keyboard & mouse are grabbed automatically when the
-      #                       cursor enters the VM window.
-      #                       Press Ctrl+Alt+G to release the grab.
-      #                       Press F11 to toggle full-screen (recommended: put the
-      #                       VM on a dedicated KDE virtual desktop and run it
-      #                       full-screen for the most natural experience).
+      # grab-on-hover=on    – keyboard is grabbed automatically when the cursor
+      #                       enters the VM window. With an absolute pointing device
+      #                       present (usb-tablet, added by NixOS for all x86 VMs),
+      #                       QEMU only grabs the keyboard here, not the pointer.
+      #
+      #                       ⚠️  DO NOT press Ctrl+Alt+G (full grab) on a Wayland host.
+      #                       Full grab uses zwp_locked_pointer_v1 – the cursor is locked
+      #                       in place. QEMU reads position from GdkEventMotion::x/y,
+      #                       but a locked pointer always reports the same fixed coords.
+      #                       The guest never gets updated coordinates, so clicks land
+      #                       at the wrong position. With usb-tablet (absolute input),
+      #                       full grab is never needed. Just move the cursor into the
+      #                       window and use it normally; grab-on-hover handles the
+      #                       keyboard automatically.
+      #                       Press F11 to toggle full-screen.
+      #
+      # show-cursor=on      – prevents QEMU from blanking the cursor when grab state
+      #                       changes. Without this, null_cursor = GDK_BLANK_CURSOR
+      #                       and the cursor disappears. With show-cursor=on,
+      #                       null_cursor = NULL (inherit host arrow), so gd_cursor_define()
+      #                       can always set the correct guest sprite on top.
       #
       virtualisation.qemu.options = [
         "-machine type=q35"
         "-device virtio-vga-gl,blob=on,hostmem=4G,venus=on"
-        "-display gtk,gl=on,grab-on-hover=on"
+        "-display gtk,gl=on,grab-on-hover=on,show-cursor=on"
       ];
 
       # Load the virtio-gpu kernel driver during early boot so the display is
