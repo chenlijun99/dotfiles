@@ -1,5 +1,8 @@
 # Remove all the default keybinds.
-keybind=clear
+
+gtk-wide-tabs = false
+gtk-custom-css = ./gtk.css
+window-show-tab-bar = always
 
 keybind = ctrl+shift+c=copy_to_clipboard
 keybind = ctrl+shift+v=paste_from_clipboard

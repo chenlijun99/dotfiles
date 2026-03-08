@@ -6,7 +6,6 @@
 }: let
   hostName = "MAC9004";
   features = [
-    "clj-ghostty"
     "clj-kanata"
   ];
   imports = self.lib.mkMultiContextImports features;
@@ -23,6 +22,9 @@ in {
                 self.modules.homeManager.clj-preset-minimal
                 {
                   clj.dotfiles.editable = true;
+                  clj.programs.neovim.profile = "full";
+                  # Minimal preset doesn't install ghostty by default
+                  clj.programs.ghostty.enable = true;
                 }
               ]
               ++ imports.homeManager;
@@ -41,6 +43,9 @@ in {
               userLijun.darwinModule
             ]
             ++ imports.darwin;
+          # Minimal preset doesn't install ghostty by default
+          clj.programs.ghostty.enable = true;
+
           nixpkgs.config.allowUnfree = true;
           # Add my user to trusted-users to be able to specify builders
           # E.g., use Linux VM as remote-builder for Linux VM.

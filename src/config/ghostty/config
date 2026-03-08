@@ -1,4 +1,14 @@
 theme = "Gruvbox Dark"
 mouse-hide-while-typing = true
 
+# Remove all the default keybinds.
+keybind=clear
+
+keybind = ctrl+enter=toggle_command_palette
+keybind = ctrl+shift+t=new_tab
+keybind = ctrl+shift+w=close_tab
+keybind = ctrl+tab=next_tab
+keybind = ctrl+shift+tab=previous_tab
+keybind = alt+t=toggle_tab_overview
+
 config-file = ./config_platform

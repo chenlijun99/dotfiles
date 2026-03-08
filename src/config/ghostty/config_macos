@@ -11,9 +11,6 @@ auto-update-channel = tip
 key-remap = super=ctrl
 macos-option-as-alt = true
 
-# Remove all the default keybinds.
-keybind=clear
-
 keybind = ctrl+shift+c=copy_to_clipboard:mixed
 keybind = ctrl+shift+v=paste_from_clipboard
 

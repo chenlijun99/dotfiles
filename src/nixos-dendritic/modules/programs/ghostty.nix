@@ -52,6 +52,10 @@
           source = config.lib.clj.linkDotfile "src/config/ghostty/config";
           target = "ghostty/config";
         };
+        "ghostty_gtk_css" = {
+          source = config.lib.clj.linkDotfile "src/config/ghostty/gtk.css";
+          target = "ghostty/gtk.css";
+        };
         "ghostty_config_platform" = {
           source = config.lib.clj.linkDotfile (
             if pkgs.stdenv.isDarwin
