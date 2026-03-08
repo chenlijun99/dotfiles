@@ -1,3 +1,23 @@
+local profile = require("clj.profile")
+
+-- nvim-autopairs: always enabled, but only integrates with cmp in full profile
+local autopairs = {
+	"windwp/nvim-autopairs",
+	event = "InsertEnter",
+	config = function()
+		require("nvim-autopairs").setup({})
+		if profile.is("full") then
+			local cmp_autopairs = require("nvim-autopairs.completion.cmp")
+			local cmp = require("cmp")
+			cmp.event:on("confirm_done", cmp_autopairs.on_confirm_done())
+		end
+	end,
+}
+
+if not profile.is("full") then
+	return { autopairs }
+end
+
 local LuaSnip = {
 	"L3MON4D3/LuaSnip",
 	dependencies = {
@@ -215,17 +235,5 @@ return {
 			})
 		end,
 	},
-	{
-		"windwp/nvim-autopairs",
-		event = "InsertEnter",
-		config = function()
-			require("nvim-autopairs").setup({})
-			local cmp_autopairs = require("nvim-autopairs.completion.cmp")
-			local cmp = require("cmp")
-			cmp.event:on("confirm_done", cmp_autopairs.on_confirm_done())
-		end,
-		dependencies = {
-			"hrsh7th/nvim-cmp",
-		},
-	},
+	autopairs,
 }

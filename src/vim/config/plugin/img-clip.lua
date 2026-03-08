@@ -1,3 +1,6 @@
+local profile = require("clj.profile")
+if not profile.is("full") then return {} end
+
 return {
 	"HakonHarnes/img-clip.nvim",
 	event = "VeryLazy",

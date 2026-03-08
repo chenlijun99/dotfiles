@@ -74,6 +74,11 @@ in {
     };
 
     config = lib.mkMerge [
+      # Neovim profile
+      {
+        clj.programs.neovim.profile = lib.mkDefault "full";
+      }
+
       # Zotero config
       {
         clj.programs.zotero.profiles.default = {

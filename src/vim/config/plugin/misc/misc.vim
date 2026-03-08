@@ -27,11 +27,10 @@ augroup load_camelcasemotion
 augroup END
 "}}}
 
-" junegunn/goyo.vim {{{
-Plug 'junegunn/goyo.vim' , { 'on' : ['Goyo', 'Goyo!'] }
-" }}}
 " junegunn/rainbow_parentheses.vim {{{
-Plug 'junegunn/rainbow_parentheses.vim'
+if clj#profile#is_full()
+	Plug 'junegunn/rainbow_parentheses.vim'
+endif
 " }}}
 " junegunn/vim-easy-align {{{
 Plug 'junegunn/vim-easy-align', { 'on' : ['EasyAlign'] }
@@ -44,9 +43,6 @@ Plug 'mhinz/vim-startify'
 let g:startify_change_to_dir = 0
 " }}}
 
-"tpope/vim-dispatch {{{
-Plug 'tpope/vim-dispatch', { 'on': ['Dispatch', 'Make', 'Start'] }
-"}}}
 " tpope/vim-repeat {{{
 Plug 'tpope/vim-repeat'
 " }}}

@@ -1,9 +1,9 @@
 let g:mapleader = "\<Space>"
 let g:maplocalleader = ','
 
-if ! clj#core#enable_full_power()
-	echo "Incompatible with full power config! Consider upgrading to a recent Neovim."
-endif
+" Prepend the profile local plugin before plug#begin so its autoload/
+" functions are available when plugin/*.vim files are sourced.
+execute 'set rtp^=' . expand('~/.vim/local_plugins/profile')
 
 " Source core config files
 for f in globpath(expand('<sfile>:p:h'), 'core/**/*.vim', 0, 1)
@@ -11,7 +11,14 @@ for f in globpath(expand('<sfile>:p:h'), 'core/**/*.vim', 0, 1)
 endfor
 
 " Start plugin configuration
-call plug#begin('~/.local/share/nvim/plugins')
+" Use stdpath('data') so the plugin directory respects NVIM_APPNAME
+" stdpath is not available in Vim. Vim always shares vim-plug plugins with the
+" default NVIM_APPNAME.
+if has('nvim')
+	call plug#begin(stdpath('data') . '/plugins')
+else
+	call plug#begin('~/.local/share/nvim/plugins')
+endif
 
 " Source all vim plugin config files
 for f in globpath(expand('<sfile>:p:h'), 'plugin/**/*.vim', 0, 1)
@@ -20,6 +27,7 @@ endfor
 
 Plug '~/.vim/local_plugins/shell'
 Plug '~/.vim/local_plugins/plugin_manager'
+Plug '~/.vim/local_plugins/profile'
 
 call plug#end()
 

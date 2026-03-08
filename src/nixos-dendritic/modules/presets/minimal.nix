@@ -26,6 +26,7 @@ in {
     imports = imports.homeManager;
     config = {
       clj.programs.networking.gui.enable = lib.mkDefault false;
+      clj.programs.neovim.profile = lib.mkDefault "minimal";
     };
   };
 }

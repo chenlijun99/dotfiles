@@ -1,3 +1,6 @@
+local profile = require("clj.profile")
+if not profile.is("full") then return {} end
+
 -- Taken from https://github.com/stevearc/conform.nvim/issues/92#issuecomment-2077222348
 function format_diff()
 	local ignore_filetypes = { "lua" }

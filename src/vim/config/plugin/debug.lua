@@ -1,3 +1,6 @@
+local profile = require("clj.profile")
+if not profile.is("full") then return {} end
+
 vim.cmd([[
 let g:which_key_map.d = { 'group_name' : '+debug' }
 ]])

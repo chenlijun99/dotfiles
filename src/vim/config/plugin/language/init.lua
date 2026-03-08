@@ -1,3 +1,6 @@
+local profile = require("clj.profile")
+if not profile.is("full") then return {} end
+
 return {
 	{ import = "clj.plugin.language.isabelle" },
 	{ import = "clj.plugin.language.rust" },

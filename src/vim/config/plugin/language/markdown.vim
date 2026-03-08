@@ -1,3 +1,7 @@
+if !clj#profile#is_full()
+	finish
+endif
+
 Plug 'mzlogin/vim-markdown-toc' , { 'for' : 'markdown'}
 
 Plug 'dhruvasagar/vim-table-mode' , { 'for' : 'markdown' , 'on': ['TableModeToggle']}
