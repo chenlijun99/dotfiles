@@ -10,6 +10,7 @@
       tree
       vifm
       fzf
+      unzipNLS
       ripgrep
       # GNU coreutils
       coreutils
