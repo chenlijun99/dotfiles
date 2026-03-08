@@ -18,6 +18,8 @@
 
   flake.modules.darwin.clj-container = {pkgs, ...}: {
     environment.systemPackages = with pkgs; [
+      # microvm
+      lima
       # Use colima as docker runtime on macOS insteaf of Docker Desktop
       colima
       # Docker CLI client

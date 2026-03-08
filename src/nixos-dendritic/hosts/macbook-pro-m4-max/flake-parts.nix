@@ -7,6 +7,7 @@
   hostName = "MAC9004";
   features = [
     "clj-kanata"
+    "clj-container"
   ];
   imports = self.lib.mkMultiContextImports features;
 in {
