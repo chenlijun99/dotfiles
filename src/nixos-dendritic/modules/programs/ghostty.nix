@@ -1,4 +1,23 @@
 {self, ...}: {
+  flake.modules.nixos.clj-ghostty = {
+    pkgs,
+    config,
+    lib,
+    ...
+  }: {
+    options.clj.programs.ghostty.enable = lib.mkEnableOption "Ghostty terminal emulator" // {default = true;};
+    # Sometimes we don't want to use ghostty on a machine, but we want to support
+    # people using ghostty to SSH into the machine.
+    # See https://ghostty.org/docs/help/terminfo#ssh
+    options.clj.programs.ghostty.include_terminfo = lib.mkEnableOption "Include ghostty terminfo into the system" // {default = config.clj.programs.ghostty.enable;};
+
+    config = lib.mkIf config.clj.programs.ghostty.include_terminfo {
+      environment.systemPackages = with pkgs; [
+        ghostty.terminfo
+      ];
+    };
+  };
+
   # Darwin uses Homebrew for the latest tip release
   flake.modules.darwin.clj-ghostty = {
     config,
