@@ -83,6 +83,9 @@ nnoremap <silent> <leader>t9 9gt
 let g:which_key_map.t["<tab>"] = "Alternate tab"
 nnoremap <silent> <leader>t<tab> g<tab>
 
+let g:which_key_map.b["w"] = "Toggle wrap"
+nnoremap <silent> <leader>bw :setlocal wrap!<cr>
+
 let g:which_key_map.m.c =  'configure vimrc'
 nnoremap <silent> <leader>mc :vsplit $MYVIMRC<cr>
 let g:which_key_map.m.C = 'update vimrc'
