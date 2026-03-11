@@ -22,42 +22,33 @@ set clipboard=unnamedplus
 if has('nvim-0.10')
 	" Configure OSC-52 integration
 	lua << EOF
--- clipboard overrides is needed as Alacritty does not support runtime OSC 52 detection.
--- We need to customize the clipboard depending on whether in tmux, in SSH_TTY or not.
---  In Tmux, there are 2 clipboard providers
---  1. Tmux
---  2. OSC52 should also work by default.
---  In SSH_TTY, OSC 52 should work, but needs to be overridden as I use Alacritty.
---  In local (not SSH session), Default clipboard providers can be used (e.g. wl-copy).
+-- Clipboard strategy:
 --
---  You can test OSC 52 in terminal by using following in your terminal -
---  printf $'\e]52;c;%s\a' "$(base64 <<<'hello world')"
+-- Goal: copy-out only. Vim copies via OSC52 writes; paste comes from the
+-- terminal (Ctrl-Shift-v), never from a clipboard read request.
+-- This prevents vim/tmux from issuing OSC52 reads to the terminal, which
+-- would (a) prompt ghostty for permission over SSH and (b) allow any
+-- process in tmux to silently read clipboard contents.
+--
+-- When to apply the override:
+--   - In tmux (>= 3.3, which supports OSC52 passthrough): use passthrough
+--     so OSC52 writes reach the terminal directly.
+--   - In SSH without tmux: send OSC52 writes directly over the SSH TTY.
+--   - Local without tmux: use the default clipboard provider (e.g. wl-copy
+--     on Wayland, pbcopy on macOS), which supports reads safely.
+--
+-- You can test OSC 52 writes in your terminal with:
+--   printf $'\e]52;c;%s\a' "$(base64 <<<'hello world')"
 
-local tmux_natively_supports_clipboard = vim.env.TERM_PROGRAM == "tmux" 
-if tmux_natively_supports_clipboard then
-  -- Keep only numbers using gsub.
-  -- Tmux >= 3.3 supports passthrough
-  does_tmux_support_passthrough = vim.env.TERM_PROGRAM_VERSION:gsub("%D", "") >= "33"
-  tmux_natively_supports_clipboard = tmux_natively_supports_clipboard and does_tmux_support_passthrough
-end
+local in_tmux = vim.env.TERM_PROGRAM == "tmux"
+-- Tmux >= 3.3 supports OSC52 passthrough to the outer terminal.
+local tmux_version = in_tmux and vim.env.TERM_PROGRAM_VERSION:gsub("%D", "") or "0"
+local tmux_has_passthrough = tmux_version >= "33"
 
--- Tmux is its own clipboard provider which directly works.
--- Assuming OSC 52 support + passthrough is enabled.
--- Still, paste doesn't work.
--- It doesn't seem related to alacritty.
--- I tried setting `osc52 = "CopyPaste"` (the default is `CopyOnly`).
--- It still doesn't work.
--- But I guess I can live with "Ctrl-Shift-v". It is more secure and 
--- anyway only copying was the more annoying part.
--- TMUX documentation about its clipboard - https://github.com/tmux/tmux/wiki/Clipboard#the-clipboard
-
-if vim.env.SSH_TTY and not tmux_natively_supports_clipboard then
-   -- Alacritty does not support runtime OSC 52 detection
-   -- So we can't rely on `set clipboard=` and then have Neovim
-   -- automatically enable OSC 52-based clipboard.
-   --
-   -- Also, we want to use OSC52 for only copying.
-   -- For pasting we'll just use "Ctrl-Shift-v".
+-- Apply copy-only OSC52 clipboard when in tmux (via passthrough) or SSH.
+if in_tmux and tmux_has_passthrough or vim.env.SSH_TTY then
+   -- Paste reads from vim's internal unnamed register only.
+   -- To paste from the system clipboard, use terminal paste: "Ctrl-Shift-v".
    local function paste()
      return { vim.fn.split(vim.fn.getreg(""), "\n"),       vim.fn.getregtype("") }
    end

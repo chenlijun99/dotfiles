@@ -1,6 +1,20 @@
 theme = "Gruvbox Dark"
 mouse-hide-while-typing = true
 
+# Clipboard read/write via OSC52:
+#
+# Write (copy): always allow. Any process copying to clipboard is fine —
+# we want vim/tmux to be able to copy text out.
+#
+# Read (paste): ask, not deny. We configure vim and tmux to never issue
+# clipboard read requests (paste goes through terminal inject instead), so
+# in practice this prompt should never appear. Keeping it as "ask" rather
+# than "deny" makes it visible when something unexpected tries to read the
+# clipboard, which helps diagnose misconfigured tools rather than silently
+# breaking them.
+clipboard-read = ask
+clipboard-write = allow
+
 # Remove all the default keybinds.
 keybind=clear
 
