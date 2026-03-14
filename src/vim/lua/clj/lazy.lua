@@ -5,11 +5,21 @@ M.lazy_file_events = { "BufReadPost", "BufNewFile", "BufWritePre" }
 function M.lazy_file()
 	-- This autocmd will only trigger when a file was loaded from the cmdline.
 	-- It will render the file as quickly as possible.
+	--
+	-- See more details here https://github.com/LazyVim/LazyVim/discussions/1583#discussioncomment-7187450
 	vim.api.nvim_create_autocmd("BufReadPost", {
 		once = true,
 		callback = function(event)
 			-- Skip if we already entered vim
 			if vim.v.vim_did_enter == 1 then
+				return
+			end
+
+			-- Skip if my plugin consider this to be a large file
+			-- No need to render this as quickly as possible
+			-- It also enables tree-sitter, which is not something I want
+			-- for large files.
+			if vim.b.clj_large_file == true then
 				return
 			end
 

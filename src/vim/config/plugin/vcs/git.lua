@@ -13,6 +13,10 @@ return {
 				untracked = { text = "▎" },
 			},
 			on_attach = function(bufnr)
+				if vim.b[bufnr].clj_large_file then
+					return false
+				end
+
 				local gitsigns = require("gitsigns")
 
 				local function map(mode, l, r, opts)

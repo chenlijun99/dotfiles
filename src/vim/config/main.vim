@@ -25,6 +25,8 @@ for f in globpath(expand('<sfile>:p:h'), 'plugin/**/*.vim', 0, 1)
     exe 'source' f
 endfor
 
+Plug '~/.vim/local_plugins/large_file'
+Plug '~/.vim/local_plugins/long_line'
 Plug '~/.vim/local_plugins/shell'
 Plug '~/.vim/local_plugins/plugin_manager'
 Plug '~/.vim/local_plugins/profile'

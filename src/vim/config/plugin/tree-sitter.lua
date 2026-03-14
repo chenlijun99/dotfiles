@@ -1,5 +1,7 @@
 local profile = require("clj.profile")
-if not profile.is("full") then return {} end
+if not profile.is("full") then
+	return {}
+end
 
 return {
 	{
@@ -104,9 +106,16 @@ return {
 					if vim.tbl_contains(ignore_filetype, ft) then
 						return
 					end
+					if not vim.tbl_contains(ensure_installed, ft) then
+						return
+					end
 
 					local lang = vim.treesitter.language.get_lang(ft) or ft
 					local buf = ev.buf
+
+					if vim.b.clj_large_file then
+						return
+					end
 
 					if
 						-- VimTex provides better highlighting
@@ -115,7 +124,7 @@ return {
 						return
 					end
 
-					pcall(vim.treesitter.start, buf, lang)
+					vim.treesitter.start()
 				end,
 			})
 		end,

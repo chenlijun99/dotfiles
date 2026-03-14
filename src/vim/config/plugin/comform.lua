@@ -1,5 +1,7 @@
 local profile = require("clj.profile")
-if not profile.is("full") then return {} end
+if not profile.is("full") then
+	return {}
+end
 
 -- Taken from https://github.com/stevearc/conform.nvim/issues/92#issuecomment-2077222348
 function format_diff()
@@ -79,7 +81,11 @@ return {
 				cmake = { "cmake_format" },
 				python = { "ruff_format" },
 				typst = { "typstyle" },
-				json = { "fixjson" },
+				json = {
+					"jq",
+					"fixjson",
+					stop_after_first = true,
+				},
 				-- fixjson doesn't support comments yet
 				-- https://github.com/rhysd/fixjson/issues/17
 				-- jsonc = { "fixjson" },
@@ -101,6 +107,7 @@ return {
 					stop_after_first = true,
 				},
 				yaml = {
+					"yq",
 					"prettierd",
 					"prettier",
 					stop_after_first = true,
