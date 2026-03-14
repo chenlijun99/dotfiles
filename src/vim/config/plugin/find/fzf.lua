@@ -23,7 +23,7 @@ return {
 		{
 			"<c-f>",
 			function()
-				require("fzf-lua").grep_project()
+				require("fzf-lua").live_grep_glob()
 			end,
 			desc = "fuzzy search",
 		},
