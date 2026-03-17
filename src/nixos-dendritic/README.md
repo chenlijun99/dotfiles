@@ -11,9 +11,6 @@ $ sudo nixos-rebuild switch --flake .#clj-host-bosgame-m5
 # Build and run NixOS configuration in a VM
 $ nixos-rebuild build-vm --flake ./src/nixos-dendritic#clj-host-bosgame-m5
 $ ./result/bin/run-clj-host-bosgame-m5-vm
-
-# Build Darwin configuration
-$ darwin-rebuild switch --flake .#clj-host-macbook-pro-m4-max
 ```
 
 See also [`examples/incus-dev-vm/flake.nix`](./examples/incus-dev-vm/) for an example of how the modules defined here can be reused in another flake.
