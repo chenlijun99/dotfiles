@@ -39,6 +39,26 @@ in {
         kanata
       ];
 
+      # NOTE: known race condition on macOS boot
+      #
+      # When the RKS70 is not connected at boot, kanata-rks70's
+      # macos-dev-names-include finds no matching device and falls back to
+      # intercepting ALL keyboards. This races with kanata-apple, and
+      # occasionally kanata-rks70 wins, applying the wrong config to the
+      # Apple internal keyboard.
+      #
+      # The underlying kanata bug is tracked in:
+      #   https://github.com/jtroo/kanata/pull/1986
+      #   (fix: exit instead of falling back to all devices when filter matches nothing)
+      #
+      # A proper macOS solution (equivalent to linux-continue-if-no-devs-found)
+      # is tracked in:
+      #   https://github.com/malpern/kanata/pull/11
+      #   (adds macos-continue-if-no-devs-found, watches for device connection via IOKit)
+      #
+      # Manual workaround when the Apple keyboard gets the wrong config on boot:
+      #   sudo launchctl bootout system/org.nixos.kanata-rks70
+      #   sudo pkill kanata   # kills kanata-apple; launchd will restart it cleanly
       launchd.daemons = let
         mkKanataDaemon = configFile: let
           basename = builtins.baseNameOf configFile;
@@ -54,7 +74,14 @@ in {
         };
       in {
         kanata = mkKanataDaemon "apple_iso_international_english.kdb";
-        kanata-rks70 = mkKanataDaemon "rks70.kbd";
+        # RunAtLoad = false: don't start on boot. When the RKS70 is absent,
+        # kanata falls back to intercepting all keyboards and races with
+        # kanata-apple (see the note above). Start manually after plugging in:
+        #   sudo launchctl kickstart system/org.nixos.kanata-rks70
+        kanata-rks70 = lib.mkMerge [
+          (mkKanataDaemon "rks70.kbd")
+          {serviceConfig = {RunAtLoad = lib.mkForce false;};}
+        ];
       };
     };
   };
