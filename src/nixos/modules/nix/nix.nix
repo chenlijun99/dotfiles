@@ -28,7 +28,7 @@
         extra-trusted-public-keys = devenv.cachix.org-1:w1cLUi8dv3hnoSPGAuibQv+f9TZLr6cv/Hm9XgU50cw=
       '';
       # Pinning Nixpkgs. See https://www.tweag.io/blog/2020-07-31-nixos-flakes/
-      registry.nixpkgs.flake = inputs.nixpkgs-unstable;
+      registry.nixpkgs.flake = inputs.nixpkgs;
     };
   };
 in {

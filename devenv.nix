@@ -7,7 +7,19 @@
 }: {
   cachix.enable = false;
   # https://devenv.sh/packages/
-  packages = with pkgs; [bashInteractive git age just sops ssh-to-age yq];
+  packages = with pkgs; [
+    bashInteractive
+    git
+    age
+    just
+    sops
+    ssh-to-age
+    yq
+    # To edit neovim config
+    stylua
+    lua-language-server
+    lua53Packages.luacheck
+  ];
 
   # https://devenv.sh/languages/
   # languages.rust.enable = true;

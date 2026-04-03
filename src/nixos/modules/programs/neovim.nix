@@ -59,42 +59,28 @@ in {
           ])
           # Full-profile packages: heavy dev toolchain (LSPs, formatters, linters, build tools)
           ++ lib.optionals (config.clj.programs.neovim.profile == "full") (with pkgs; [
+            # What to keep here:
+            # Tools that my neovim setup typically needs, outside of a project.
+            # E.g., I edit markdown, shell, python, etc. everywhere, not only
+            # in specific projects. So they should stay here.
+            #
+            # Other tools (LSPs, linters, etc) should be defined in project-specific nix shells
+            # This may be needed to build tree-sitter grammars
             tree-sitter
             gcc
+            # Some vim plugins may need this during installation
             nodejs
             yarn
-
-            # Dev tools (formatters, linters, LSPs)
-            yamllint
-            nodePackages_latest.typescript-language-server
-            nodePackages.eslint_d
-            nodePackages.prettier
-            nodePackages.stylelint
             markdownlint-cli
-            stylua
-            lua-language-server
-            lua53Packages.luacheck
-            clang-tools
-            libclang.python
-            ccls
-            cppcheck
-            cmake-format
-            cmake-language-server
+            # Nix
+            alejandra
             nil
-            pyright
-            black
+            # Python
+            ty
             ruff
-            asmfmt
+            # Shell
             shfmt
             shellcheck
-            alejandra
-            typst
-            tinymist
-            typstyle
-            fixjson
-            rust-analyzer
-            clippy
-            sqruff
           ])
           # GUI tools
           ++ lib.optionals ((config.clj.programs.neovim.gui.enable or false) && !pkgs.stdenv.isDarwin) (with pkgs; [

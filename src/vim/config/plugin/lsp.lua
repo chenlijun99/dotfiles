@@ -27,7 +27,7 @@ return {
 				"clangd",
 				"ocamllsp",
 				"cmake",
-				"pyright",
+				"ty",
 				-- TypeScript and web development
 				"ts_ls",
 				"tailwindcss",

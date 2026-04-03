@@ -12,7 +12,7 @@
         alacritty
         # Used for bell sound in Alacritty
         # E.g. `echo '\a'`
-        xorg.xkbutils
+        xkbutils
       ];
       xdg.configFile = {
         "alacritty" = {

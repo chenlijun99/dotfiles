@@ -6,7 +6,7 @@
     dotfiles.url = "path:../..";
 
     # We can use the same flake inputs as the dotfiles flake
-    nixpkgs.follows = "dotfiles/nixpkgs-unstable";
+    nixpkgs.follows = "dotfiles/nixpkgs";
     # Or override with our own if needed
     # nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable";
   };

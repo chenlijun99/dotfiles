@@ -7,7 +7,7 @@
   hostName = "clj-host-bosgame-m5";
 in {
   flake.nixosConfigurations.${hostName} =
-    inputs.nixpkgs-unstable.lib.nixosSystem
+    inputs.nixpkgs.lib.nixosSystem
     {
       system = "x86_64-linux";
       modules = let
