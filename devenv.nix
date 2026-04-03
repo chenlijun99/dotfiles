@@ -1,10 +1,4 @@
-{
-  pkgs,
-  lib,
-  config,
-  inputs,
-  ...
-}: {
+{pkgs, ...}: {
   cachix.enable = false;
   # https://devenv.sh/packages/
   packages = with pkgs; [
