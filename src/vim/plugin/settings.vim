@@ -106,6 +106,14 @@ set diffopt+=vertical
 if has('patch-8.2.2490') || has('nvim-0.5')
 	set diffopt+=followwrap
 endif
+" set wrap when doing diff, when windows are typically pretty narrow.
+augroup DiffWrap
+    autocmd!
+    " 1. Triggers when opening vimdiff directly from the terminal (e.g., vimdiff file1 file2)
+    autocmd VimEnter * if &diff | windo setlocal wrap | endif
+    " 2. Triggers when enabling diff mode from inside an active Vim session (e.g., :diffthis)
+    autocmd OptionSet diff if v:option_new | setlocal wrap | endif
+augroup END
 
 " While the performance problems that I suffered don't seem to be related to
 " shell setting, it seems that to many this setting indeed causes performance
