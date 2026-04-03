@@ -1,258 +1,59 @@
+# Dendritic NixOS/Darwin/Home-Manager Configuration
+# This file is minimal - all logic lives in modules/
 {
-  description = "NixOS configuration of Lijun Chen";
+  description = "NixOS configuration of Lijun Chen (Dendritic)";
+
   inputs = {
-    sops-nix = {
-      url = "github:Mic92/sops-nix";
-      inputs.nixpkgs.follows = "nixpkgs-unstable";
-    };
-    nixpkgs-stable.url = "github:NixOS/nixpkgs/nixos-25.11";
+    # Nixpkgs
+    nixpkgs-stable.url = "github:NixOS/nixpkgs/nixos-24.11";
     nixpkgs-unstable.url = "github:NixOS/nixpkgs/nixos-unstable";
+
+    # Flake-parts for dendritic structure
+    flake-parts.url = "github:hercules-ci/flake-parts";
+
+    # Auto-import all modules
+    import-tree.url = "github:vic/import-tree";
+
+    # Darwin support
     nix-darwin = {
       url = "github:nix-darwin/nix-darwin/master";
       inputs.nixpkgs.follows = "nixpkgs-unstable";
     };
+
+    # Home Manager
     home-manager = {
       url = "github:nix-community/home-manager";
       inputs.nixpkgs.follows = "nixpkgs-unstable";
     };
+
+    # Secrets management
+    sops-nix = {
+      url = "github:Mic92/sops-nix";
+      inputs.nixpkgs.follows = "nixpkgs-unstable";
+    };
+
+    # Impermanence - manage persistent state on ephemeral systems
+    impermanence.url = "github:nix-community/impermanence";
+
+    # Hardware optimizations
+    nixos-hardware.url = "github:NixOS/nixos-hardware/master";
+
+    # NUR for community packages (e.g., WeChat)
+    nur.url = "github:nix-community/NUR";
+
+    # Image generation
     nixos-generators = {
       url = "github:nix-community/nixos-generators";
       inputs.nixpkgs.follows = "nixpkgs-unstable";
     };
-    nixos-hardware.url = "github:NixOS/nixos-hardware/master";
-    # I get some useful packages from here. E.g. WeChat.
-    nur.url = "github:nix-community/NUR";
-  };
-  outputs = {
-    self,
-    nixpkgs-stable,
-    nixpkgs-unstable,
-    nix-darwin,
-    home-manager,
-    nixos-generators,
-    nur,
-    sops-nix,
-    ...
-  } @ inputs: let
-    # If using nixpkgs-stable to build the system, then nixpkgs is also nixpkgs-stable.
-    # If using nixpkgs-unstable to build the system, then nixpkgs is also nixpkgs-unstable.
-    actual_inputs = unstable:
-      if unstable
-      then (inputs // {nixpkgs = nixpkgs-unstable;})
-      else (inputs // {nixpkgs = nixpkgs-stable;});
 
-    /*
-    Get the common configuration for a NixOS system.
-
-    Params:
-      unstable: whether the system should use nixpkgs-unstable
-    */
-    getNixosSystemModules = unstable: [
-      {
-      }
-      # Include the home-manager NixOS module
-      home-manager.nixosModules.home-manager
-      {
-        # See https://nix-community.github.io/home-manager/index.html
-        # why the following two options are useful
-        home-manager.useUserPackages = true;
-        home-manager.useGlobalPkgs = true;
-        # Pass flake inputs to home manager modules
-        home-manager.extraSpecialArgs = {
-          inputs = actual_inputs unstable;
-        };
-        home-manager.sharedModules = [
-          sops-nix.homeManagerModules.sops
-        ];
-        # On activation move existing files by appending the given file extension rather than exiting with an error.
-        # See more on https://rycee.gitlab.io/home-manager/nixos-options.html
-        home-manager.backupFileExtension = "bak";
-      }
-      {
-        imports = [
-          ./modules/common
-        ];
-        nixpkgs.config.allowUnfree = true;
-      }
-      nur.modules.nixos.default
-      sops-nix.nixosModules.sops
-    ];
-    /*
-    Function to create a Flake-based standalone home-manager configuration
-
-    Params:
-      system (string): the architecture
-      username (string): username, must be one in ./users/, except "common"
-      unstable: whether the system should use nixpkgs-unstable
-    */
-    defFlakeHome = system: username: unstable: {
-      actual_username ? username,
-      actual_home ? "/home/${actual_username}",
-      extraModules ? [],
-    }: let
-      actual_inputs_ = actual_inputs unstable;
-    in
-      # Check https://github.com/nix-community/home-manager/blob/master/flake.nix
-      # for arguments of home-manager.lib.homeManagerConfiguration
-      home-manager.lib.homeManagerConfiguration {
-        pkgs = import actual_inputs_.nixpkgs {
-          inherit system;
-          config.allowUnfree = true;
-        };
-        extraSpecialArgs = {
-          inputs = actual_inputs_;
-        };
-        modules =
-          [
-            ./users/${username}/home.nix
-            ({lib, ...}: {
-              imports = [
-                sops-nix.homeManagerModules.sops
-              ];
-              nixpkgs.config.allowUnfree = true;
-              home = {
-                username = lib.mkForce actual_username;
-                homeDirectory = lib.mkForce actual_home;
-              };
-            })
-          ]
-          ++ extraModules;
-      };
-  in {
-    nixosConfigurations = {
-      "thinkpad-l390-yoga" = nixpkgs-unstable.lib.nixosSystem {
-        system = "x86_64-linux";
-        modules =
-          getNixosSystemModules true
-          ++ [
-            {
-              imports = [./machines/thinkpad-l390-yoga];
-            }
-          ];
-      };
-      "thinkpad-t14-gen6" = nixpkgs-unstable.lib.nixosSystem {
-        system = "x86_64-linux";
-        modules =
-          getNixosSystemModules true
-          ++ [
-            {
-              imports = [./machines/thinkpad-t14-gen6];
-            }
-          ];
-      };
-      "bosgame-m5" = nixpkgs-unstable.lib.nixosSystem {
-        system = "x86_64-linux";
-        # Introduce additional module parameters
-        specialArgs = {
-          inputs = actual_inputs true;
-        };
-        modules =
-          getNixosSystemModules true
-          ++ [
-            {
-              imports = [./machines/bosgame-m5];
-            }
-          ];
-      };
-      "hp" = nixpkgs-unstable.lib.nixosSystem {
-        system = "x86_64-linux";
-        modules =
-          getNixosSystemModules true
-          ++ [
-            {
-              imports = [./machines/hp];
-            }
-          ];
-      };
-      "oci-vps-arm" = nixpkgs-unstable.lib.nixosSystem {
-        system = "aarch64-linux";
-        modules =
-          getNixosSystemModules true
-          ++ [
-            {
-              imports = [./machines/oci-vps-arm];
-            }
-          ];
-      };
-    };
-    darwinConfigurations = {
-      "MAC9004" = nix-darwin.lib.darwinSystem {
-        specialArgs = {inherit inputs;};
-        modules = [
-          {
-            imports = [./machines/macbook-pro-m4-max];
-          }
-          home-manager.darwinModules.home-manager
-          {
-            # See https://nix-community.github.io/home-manager/index.html
-            # why the following two options are useful
-            home-manager.useUserPackages = true;
-            home-manager.useGlobalPkgs = true;
-            # Pass flake inputs to home manager modules
-            home-manager.extraSpecialArgs = {
-              inherit inputs;
-            };
-            home-manager.sharedModules = [
-              sops-nix.homeManagerModules.sops
-            ];
-            # On activation move existing files by appending the given file extension rather than exiting with an error.
-            # See more on https://rycee.gitlab.io/home-manager/nixos-options.html
-            home-manager.backupFileExtension = "bak";
-          }
-          {
-            imports = [
-              ./modules/darwin/common
-            ];
-            nixpkgs.config.allowUnfree = true;
-          }
-        ];
-      };
-    };
-    packages = {
-      "x86_64-linux" = {
-        # Package used by nixos-generators to generate my virtualbox image
-        "virtualbox-guest" = nixos-generators.nixosGenerate {
-          system = "x86_64-linux";
-          modules =
-            getNixosSystemModules true
-            ++ [
-              {
-                imports = [./machines/virtualbox-guest];
-              }
-            ];
-          format = "virtualbox";
-        };
-      };
-    };
-    homeConfigurations = {
-      "lijun" = defFlakeHome "x86_64-linux" "lijun" true {};
-      "lijun-cli" = defFlakeHome "x86_64-linux" "lijun-cli" true {};
-      "lijun-test" = defFlakeHome "x86_64-linux" "lijun-test" true {};
-      "chenlij" = defFlakeHome "x86_64-linux" "lijun-cli" true {actual_username = "chenlij";};
-      # GPU server at Chair of Connected Mobility
-      "clij" = defFlakeHome "x86_64-linux" "lijun-cli" true {actual_username = "clij";};
-      # MP server at Chair of Connected Mobility
-      "clij_cmp" = defFlakeHome "x86_64-linux" "lijun-cli" true {
-        actual_username = "clij";
-        actual_home = "/home_stud/clij";
-      };
-      # Work
-      "lijun.chen" = defFlakeHome "x86_64-linux" "lijun-gui" true {
-        actual_username = "lijun.chen";
-        actual_home = "/home/lijun.chen";
-        extraModules = [
-          ({lib, ...}: {
-            imports = [
-              ./users/common/kanata/default.nix
-            ];
-            # Set CodeCompanion to use copilot_claude adapter for both chat and inline
-            home.sessionVariables = {
-              CODECOMPANION_CHAT_ADAPTER = "copilot_claude-sonnet-4.5";
-              CODECOMPANION_INLINE_ADAPTER = "copilot_claude-sonnet-4.5";
-            };
-          })
-        ];
-      };
+    plasma-manager = {
+      url = "github:nix-community/plasma-manager";
+      inputs.nixpkgs.follows = "nixpkgs-unstable";
+      inputs.home-manager.follows = "home-manager";
     };
   };
+
+  outputs = inputs:
+    inputs.flake-parts.lib.mkFlake {inherit inputs;} (inputs.import-tree [./modules ./hosts]);
 }
