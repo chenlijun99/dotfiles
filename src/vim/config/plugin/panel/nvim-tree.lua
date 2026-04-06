@@ -20,6 +20,7 @@ local function NvimTreeOpenOrFindFile()
 	end
 end
 
+
 ---Smart sizing
 ---
 ---@param enable boolean Whether to enable smart sizing or not
@@ -32,7 +33,7 @@ local function smart_size(enable, check_buffer)
 		return
 	end
 
-	local config = require("nvim-tree").config
+	local config = require("nvim-tree.config").g
 	if enable then
 		tree.resize({
 			width = {
@@ -47,6 +48,28 @@ local function smart_size(enable, check_buffer)
 	else
 		tree.resize()
 	end
+
+	-- Workaround for nvim-tree commit 4cbe795 ("perf(#3257): remove setup for
+	-- view, extracting view-state"), which broke api.tree.resize by leaving a
+	-- dangling call to view.configure_width() that no longer exists.
+	-- If nvim-tree is ever unpinned past that commit, restore this block and
+	-- delete the block above.
+	--
+	-- local view_state = require("nvim-tree.view-state")
+	-- local view = require("nvim-tree.view")
+	-- if enable then
+	-- 	view_state.Active.adaptive_size = true
+	-- 	view_state.Active.width = VIEW_WIDTH
+	-- 	view_state.Active.max_width = -1
+	-- 	view_state.Active.root_excluded = true
+	-- 	view_state.Active.padding = 3
+	-- 	view.grow_from_content()
+	-- 	tree.reload()
+	-- else
+	-- 	view_state.Active.adaptive_size = false
+	-- 	view_state.Active.width = VIEW_WIDTH
+	-- 	view.resize()
+	-- end
 end
 
 local function on_attach(bufnr)
@@ -205,6 +228,9 @@ end
 return {
 	{
 		"kyazdani42/nvim-tree.lua",
+		-- Pinned before commit 4cbe795 which broke api.tree.resize by leaving a
+		-- dangling call to view.configure_width() after extracting view-state.
+		commit = "b548cfef00a79f0b3e3af24f91ae6bd14f22af95",
 		dependencies = { "kyazdani42/nvim-web-devicons" },
 		keys = {
 			{
