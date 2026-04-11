@@ -20,7 +20,7 @@
           libnotify
           flameshot
           xdotool
-          xorg.xinput
+          xinput
           xclip
           wl-clipboard-x11
           wl-clipboard
