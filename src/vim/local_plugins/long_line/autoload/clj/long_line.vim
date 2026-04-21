@@ -74,7 +74,7 @@ function! s:is_buffer_long_line() abort
     " c: accept match at cursor position
     " W: do not wrap around end of file
     " n: do not move cursor
-    let l:found = search('\%>500c', 'cnW')
+    let l:found = search('\%>5000c', 'cnW')
     call setpos('.', l:save_cursor)
     
     return l:found > 0
