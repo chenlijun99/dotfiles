@@ -4,7 +4,7 @@
   inputs,
   ...
 }: let
-  commonSystemConfig = {pkgs, ...}: {
+  commonConfig = {pkgs, ...}: {
     nix = {
       # From the docs:
       # > This option specifies the Nix package instance to use throughout the system.
@@ -18,10 +18,6 @@
       # the nix (lix) executable that installer (e.g., Lix or Determine Nix
       # installer).
       package = pkgs.nixVersions.stable;
-      # To suppress the warning:
-      # warning: Nix search path entry '/nix/var/nix/profiles/per-user/root/channels' does not exist, ignoring
-      # See https://github.com/NixOS/nix/issues/2982#issuecomment-2477618346
-      channel.enable = false;
       extraOptions = ''
         experimental-features = nix-command flakes
         extra-substituters = https://devenv.cachix.org
@@ -31,13 +27,21 @@
       registry.nixpkgs.flake = inputs.nixpkgs;
     };
   };
+  commonSystemConfig = {pkgs, ...}: {
+    nix = {
+      # To suppress the warning:
+      # warning: Nix search path entry '/nix/var/nix/profiles/per-user/root/channels' does not exist, ignoring
+      # See https://github.com/NixOS/nix/issues/2982#issuecomment-2477618346
+      channel.enable = false;
+    };
+  };
 in {
   flake.modules.nixos.clj-nix = {
     lib,
     pkgs,
     ...
   }: {
-    imports = [commonSystemConfig];
+    imports = [commonConfig commonSystemConfig];
     # nix-ld is pretty neat for running unpatched binaries
     # See https://github.com/nix-community/nix-ld
     programs.nix-ld.enable = true;
@@ -50,6 +54,14 @@ in {
     pkgs,
     ...
   }: {
-    imports = [commonSystemConfig];
+    imports = [commonConfig commonSystemConfig];
+  };
+
+  flake.modules.homeManager.clj-nix = {
+    lib,
+    pkgs,
+    ...
+  }: {
+    imports = [commonConfig];
   };
 }

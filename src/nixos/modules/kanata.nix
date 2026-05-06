@@ -86,13 +86,15 @@ in {
     };
   };
 
-  # Home-Manager - for non-NixOS Linux systems (requires manual udev setup)
+  # Set up kanata using home-manager. For non-NixOS Linux systems
+  # Requires manual udev setup
+  # See https://github.com/jtroo/kanata/blob/main/docs/setup-linux.md
   # Only enables if system-level kanata is not configured
   flake.modules.homeManager.clj-kanata = {
     config,
     lib,
     pkgs,
-    osConfig ? {},
+    osConfig ? null,
     ...
   }: let
     mkKanataService = name: configFile: {
@@ -102,10 +104,7 @@ in {
       };
       Service = {
         Type = "exec";
-        ExecStart = "${pkgs.kanata}/bin/kanata --cfg ${pkgs.concatText "kanata-${name}-config" [
-          (kanataConfigDir + "/${configFile}")
-          (kanataConfigDir + "/common.kbd")
-        ]}";
+        ExecStart = "${pkgs.kanata}/bin/kanata --cfg ${configFile}";
         Restart = "on-failure";
       };
       Install = {WantedBy = ["default.target"];};
@@ -113,8 +112,8 @@ in {
 
     # Define keyboards similar to system config
     keyboards = {
-      "normal" = "normal.kbd";
-      "rks70" = "rks70.kbd";
+      "normal" = "${kanataConfigDir}/normal.kbd";
+      "rks70" = "${kanataConfigDir}/rks70.kbd";
     };
   in {
     options.clj.kanata.enable = lib.mkEnableOption "Kanata keyboard remapper" // {default = true;};
@@ -130,7 +129,7 @@ in {
         systemKanataEnabled =
           (osConfig.services.kanata.enable or false)
           || (osConfig.launchd.daemons ? kanata);
-      in (config.clj.kanata.enable && !osKanataDisabled && !systemKanataEnabled)) {
+      in (config.clj.kanata.enable && (osConfig == null || (!osKanataDisabled && !systemKanataEnabled)))) {
         home.packages = [pkgs.kanata];
 
         systemd.user.services = (

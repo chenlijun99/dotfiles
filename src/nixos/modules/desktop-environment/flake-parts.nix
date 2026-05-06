@@ -1,12 +1,6 @@
 # Desktop environment configuration (KDE Plasma)
-{inputs, ...}: let
-  home-manager = {
-    sharedModules = [inputs.plasma-manager.homeModules.plasma-manager];
-  };
-in {
+{inputs, ...}: {
   flake.modules.nixos.clj-desktop-environment = {
-    inherit home-manager;
-
     services.displayManager.sddm.enable = true;
     services.xserver.enable = true;
     services.desktopManager.plasma6.enable = true;
@@ -20,8 +14,6 @@ in {
   };
 
   flake.modules.darwin.clj-desktop-environment = {
-    inherit home-manager;
-
     system.defaults = {
       dock.autohide = true;
       NSGlobalDomain."com.apple.mouse.tapBehavior" = 1;
@@ -30,6 +22,7 @@ in {
 
   flake.modules.homeManager.clj-desktop-environment = {
     imports = [
+      inputs.plasma-manager.homeModules.plasma-manager
       ./_plasma-manager.nix
     ];
   };
