@@ -47,6 +47,25 @@
       home.packages = lib.mkIf (!pkgs.stdenv.isDarwin) [
         pkgs.ghostty
       ];
+      programs.ghostty = {
+        enable = true;
+
+        # This enables the systemd user service (app-com.mitchellh.ghostty.service)
+        # which allows for faster launching and background persistence.
+        # Without this, the desktop file of ghostty, which has
+        # `DBusActivatable=true`, won't work.
+        # dbus will complain something like 'Activation via systemd failed for unit
+        # 'app-com.mitchellh.ghostty.service': Unit
+        # app-com.mitchellh.ghostty.service not found.
+        #
+        # And setting `DBusActivatable=false` is not the right fix (see
+        # https://github.com/ghostty-org/ghostty/discussions/10617#discussioncomment-16424746).
+        # Properly configuring systemd unit file is
+        systemd.enable = true;
+
+        # No settings. I manage settings via normal ghostty config files
+        # settings = { };
+      };
       xdg.configFile = {
         "ghostty_config" = {
           source = config.lib.clj.linkDotfile "src/config/ghostty/config";
