@@ -8,25 +8,36 @@
     ...
   }: {
     options.clj.programs.shell.enable = lib.mkEnableOption "Shell configuration" // {default = true;};
+    config =
+      lib.mkIf config.clj.programs.shell.enable
+      (let
+        # For root and other normal users
+        users = lib.filterAttrs (name: user: user.isNormalUser || name == "root") config.users.users;
+      in {
+        # Set zsh as default shell
+        # Enable some minimal zsh features for all users
+        programs.zsh = {
+          enable = lib.mkDefault true;
+          enableCompletion = lib.mkDefault true;
+          syntaxHighlighting.enable = lib.mkDefault true;
+        };
+        programs.fzf = {
+          fuzzyCompletion = true;
+          keybindings = true;
+        };
+        users.users = lib.mkDefault (
+          lib.mapAttrs (_: _: {
+            shell = lib.mkDefault pkgs.zsh;
+          })
+          users
+        );
 
-    config = lib.mkIf config.clj.programs.shell.enable {
-      programs.zsh.enable = true;
-
-      # Set zsh as default shell for all users
-      users.users = lib.mkDefault (
-        lib.mapAttrs (_: userConfig: {
-          shell = lib.mkDefault pkgs.zsh;
-        })
-        config.users.users
-      );
-    };
   };
 in {
   flake.modules.nixos.clj-shell = {
     imports = [
       systemConfigModule
       ({pkgs, ...}: {
-        programs.zsh.enable = true;
         users.defaultUserShell = pkgs.zsh;
       })
     ];
@@ -40,7 +51,6 @@ in {
         ...
       }: {
         programs.zsh = lib.mkIf config.clj.programs.shell.enable {
-          enable = true;
           # Improve zsh startup time.
           # See https://github.com/nix-community/home-manager/issues/108
           # Anyway, keep system-wide zsh config minimal. Any advanced customization
