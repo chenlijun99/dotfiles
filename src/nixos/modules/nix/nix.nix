@@ -4,7 +4,11 @@
   inputs,
   ...
 }: let
-  commonConfig = {pkgs, ...}: {
+  commonConfig = {
+    lib,
+    pkgs,
+    ...
+  }: {
     nix = {
       # From the docs:
       # > This option specifies the Nix package instance to use throughout the system.
@@ -17,7 +21,7 @@
       # be managed by nix-darwin and replaces the default nix that comes with
       # the nix (lix) executable that installer (e.g., Lix or Determine Nix
       # installer).
-      package = pkgs.nixVersions.stable;
+      package = lib.mkForce pkgs.nixVersions.stable;
       extraOptions = ''
         experimental-features = nix-command flakes
         extra-substituters = https://devenv.cachix.org
