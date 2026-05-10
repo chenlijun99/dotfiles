@@ -3,7 +3,10 @@
 # For: Personal workstations, main desktop/laptop
 {self, ...}: let
   featureImports = self.lib.mkMultiContextImports [
+    # Used by other modules
     "clj-lib"
+    "clj-impermanence"
+    # Independent
     "clj-nix"
     "clj-shell"
     "clj-cli-utils"

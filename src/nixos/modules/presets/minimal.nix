@@ -3,7 +3,10 @@
 # For: Remote servers, minimal VMs
 {self, ...}: let
   features = [
+    # Used by other modules
     "clj-lib"
+    "clj-impermanence"
+    # Independent
     "clj-nix"
     "clj-shell"
     "clj-git"

@@ -32,6 +32,14 @@
           users
         );
 
+        # Persist shell history
+        environment.persistence.${config.clj.impermanence.persistDir} = {
+          users = lib.mkDefault (lib.mapAttrs (_: _: {
+              files = [".bash_history" ".zsh_history"];
+            })
+            users);
+        };
+      });
   };
 in {
   flake.modules.nixos.clj-shell = {
