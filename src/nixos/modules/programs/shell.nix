@@ -19,11 +19,6 @@
         programs.zsh = {
           enable = lib.mkDefault true;
           enableCompletion = lib.mkDefault true;
-          syntaxHighlighting.enable = lib.mkDefault true;
-        };
-        programs.fzf = {
-          fuzzyCompletion = true;
-          keybindings = true;
         };
         users.users = lib.mkDefault (
           lib.mapAttrs (_: _: {
@@ -31,21 +26,31 @@
           })
           users
         );
-
-        # Persist shell history
-        environment.persistence.${config.clj.impermanence.persistDir} = {
-          users = lib.mkDefault (lib.mapAttrs (_: _: {
-              files = [".bash_history" ".zsh_history"];
-            })
-            users);
-        };
       });
   };
 in {
   flake.modules.nixos.clj-shell = {
     imports = [
       systemConfigModule
-      ({pkgs, ...}: {
+      ({
+        config,
+        lib,
+        pkgs,
+        ...
+      }: let
+        users = lib.filterAttrs (name: user: user.isNormalUser || name == "root") config.users.users;
+      in {
+        programs.zsh.syntaxHighlighting.enable = lib.mkDefault true;
+        programs.fzf = {
+          fuzzyCompletion = true;
+          keybindings = true;
+        };
+        environment.persistence.${config.clj.impermanence.persistDir} = {
+          users = lib.mkDefault (lib.mapAttrs (_: _: {
+              files = [".bash_history" ".zsh_history"];
+            })
+            users);
+        };
         users.defaultUserShell = pkgs.zsh;
       })
     ];
@@ -59,6 +64,7 @@ in {
         ...
       }: {
         programs.zsh = lib.mkIf config.clj.programs.shell.enable {
+          enableSyntaxHighlighting = lib.mkDefault true;
           # Improve zsh startup time.
           # See https://github.com/nix-community/home-manager/issues/108
           # Anyway, keep system-wide zsh config minimal. Any advanced customization

@@ -47,7 +47,7 @@
       home.packages = lib.mkIf (!pkgs.stdenv.isDarwin) [
         pkgs.ghostty
       ];
-      programs.ghostty = {
+      programs.ghostty = lib.mkIf (!pkgs.stdenv.isDarwin) {
         enable = true;
 
         # This enables the systemd user service (app-com.mitchellh.ghostty.service)
