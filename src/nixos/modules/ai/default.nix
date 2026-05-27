@@ -24,6 +24,7 @@
     pkgs.writeShellApplication {
       name = "container-shell";
       runtimeInputs = with pkgs; [
+        fzf
         podman
       ];
       text = let
@@ -86,8 +87,11 @@
       "--extra-mount"
       "--extra-remap"
       "--image"
+      "--git-access"
       "--mount-mode"
       "--mount-root"
+      "--session-name"
+      "--write-mode"
       "--write-scope"
     ],
     debugContainerFlag ? "--debug-container",

@@ -30,6 +30,30 @@ Run an interactive shell in the current project:
 nix run .#container-shell
 ```
 
+Start a named session you can later exec back into from another host tmux pane:
+
+```bash
+nix run .#container-shell -- --session-name review-session
+```
+
+List running managed sessions:
+
+```bash
+nix run .#container-shell -- ls
+```
+
+Open another shell in a running session:
+
+```bash
+nix run .#container-shell -- exec review-session
+```
+
+Select a running session with `fzf` and exec into it:
+
+```bash
+nix run .#container-shell -- fzf
+```
+
 Run a command directly in the prepared container:
 
 ```bash
@@ -40,10 +64,17 @@ Forward a token and mount an extra config directory:
 
 ```bash
 nix run .#container-shell -- \
+  --write-mode overlay \
+  --git-access overlay \
   --pass-env GITHUB_TOKEN \
   --extra-mount /home/alice/.codex:rw \
   -- codex
 ```
+
+Git access defaults to read-only metadata. Use `--git-access overlay` for disposable in-container Git state or `--git-access rw` to let the container mutate host Git metadata directly.
+
+When Git identity is configured for the launch directory, `container-shell` writes a minimal ephemeral `~/.gitconfig` inside the synthetic container home so `git commit` works without mounting the full host Git config. Repo-local identity overrides global defaults, and wrappers can override everything with `CONTAINER_SHELL_GIT_USER_NAME`, `CONTAINER_SHELL_GIT_USER_EMAIL`, and `CONTAINER_SHELL_GIT_DISABLE_SIGNING`.
+The worktree itself defaults to direct writes. Use `--write-mode overlay` to give the selected `--write-scope` a disposable overlay, which is useful for parallel agent sessions.
 
 Declare project-specific mounts in `.container-shell.yaml`:
 
@@ -72,3 +103,7 @@ inputs.dotfiles.lib.mkContainerShellWrapper {
   '';
 }
 ```
+
+## References
+
+https://www.luiscardoso.dev/blog/sandboxes-for-ai

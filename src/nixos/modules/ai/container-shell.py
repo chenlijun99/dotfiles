@@ -5,6 +5,7 @@ import json
 import logging
 import os
 import pwd
+import re
 import shlex
 import shutil
 import subprocess
@@ -18,6 +19,8 @@ import yaml
 CONFIG_FILE_NAME = ".container-shell.yaml"
 PROJECT_MARKERS = (".envrc", "devenv.nix", "devenv.yaml", "devenv.lock")
 SUPPORTED_MOUNT_MODES = frozenset(("ro", "rw", "overlay"))
+SUPPORTED_GIT_ACCESS_LEVELS = frozenset(("ro", "overlay", "rw"))
+SUPPORTED_WRITE_MODES = frozenset(("rw", "overlay"))
 CERT_BUNDLE_ENV_CANDIDATES = ("NIX_SSL_CERT_FILE", "SSL_CERT_FILE")
 CERT_BUNDLE_PATH_CANDIDATES = (
     "/etc/ssl/certs/ca-certificates.crt",
@@ -40,6 +43,12 @@ SYSTEM_CONTAINER_PATH = "/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin
 CONTAINER_INIT_PATH = Path("/tmp/container-shell-init.sh")
 CONTAINER_RCFILE_PATH = Path("/tmp/container-shell.bashrc")
 CONTAINER_COMMAND_PATH = Path("/tmp/container-shell-command.sh")
+GIT_USER_NAME_ENV = "CONTAINER_SHELL_GIT_USER_NAME"
+GIT_USER_EMAIL_ENV = "CONTAINER_SHELL_GIT_USER_EMAIL"
+GIT_DISABLE_SIGNING_ENV = "CONTAINER_SHELL_GIT_DISABLE_SIGNING"
+SESSION_LABEL_MANAGED = "dev.container-shell.managed"
+SESSION_LABEL_WORKDIR = "dev.container-shell.workdir"
+SESSION_LABEL_PROJECT_ROOT = "dev.container-shell.project-root"
 LOGGER = logging.getLogger("container-shell")
 
 
@@ -85,6 +94,32 @@ class ExtraMount:
 
 
 @dataclass(frozen=True)
+class GitMountPlan:
+    worktree_root: Path
+    git_dir: Path
+    git_common_dir: Path
+    control_path: Path | None
+
+
+@dataclass(frozen=True)
+class GitIdentity:
+    user_name: str
+    user_email: str
+    disable_signing: bool
+
+
+@dataclass(frozen=True)
+class SessionInfo:
+    name: str
+    container_id: str
+    image: str
+    status: str
+    state: str
+    workdir: str | None
+    project_root: str | None
+
+
+@dataclass(frozen=True)
 class OverlayScratch:
     target: Path
     upperdir: Path
@@ -99,6 +134,8 @@ class HostScratch:
     init_script: Path
     rcfile: Path
     command_entrypoint: Path
+    write_upperdir: Path | None
+    write_workdir: Path | None
     devenv_upperdir: Path | None
     devenv_workdir: Path | None
     extra_overlays: tuple[OverlayScratch, ...]
@@ -109,7 +146,7 @@ def configure_logging(debug_enabled: bool) -> None:
     logging.basicConfig(level=level, format="container-shell: %(levelname)s: %(message)s")
 
 
-def parse_args(argv: list[str]) -> argparse.Namespace:
+def build_run_parser() -> argparse.ArgumentParser:
     parser = argparse.ArgumentParser(
         prog="container-shell",
         description="Start an interactive Podman shell or command with host-built devenv state.",
@@ -144,6 +181,22 @@ def parse_args(argv: list[str]) -> argparse.Namespace:
         help="Choose whether only the launch subtree or the full project root is writable.",
     )
     parser.add_argument(
+        "--write-mode",
+        choices=tuple(sorted(SUPPORTED_WRITE_MODES)),
+        default="rw",
+        help="Expose the selected write scope as a direct writable bind or a disposable overlay.",
+    )
+    parser.add_argument(
+        "--git-access",
+        choices=tuple(sorted(SUPPORTED_GIT_ACCESS_LEVELS)),
+        default="ro",
+        help="Expose repository metadata read-only, via disposable overlay, or read-write.",
+    )
+    parser.add_argument(
+        "--session-name",
+        help="Optional stable Podman container name for later `container-shell exec` access.",
+    )
+    parser.add_argument(
         "--extra-mount",
         action="append",
         default=[],
@@ -175,6 +228,53 @@ def parse_args(argv: list[str]) -> argparse.Namespace:
         "command",
         nargs=argparse.REMAINDER,
         help="Optional command to execute inside the prepared container.",
+    )
+    return parser
+
+
+def parse_run_args(argv: list[str]) -> argparse.Namespace:
+    return build_run_parser().parse_args(argv)
+
+
+def parse_exec_args(argv: list[str]) -> argparse.Namespace:
+    parser = argparse.ArgumentParser(
+        prog="container-shell exec",
+        description="Open an additional shell or run a command inside a running container-shell session.",
+    )
+    parser.add_argument("--debug", action="store_true", help="Enable debug logging.")
+    parser.add_argument("session_name", help="Running container-shell session name.")
+    parser.add_argument(
+        "command",
+        nargs=argparse.REMAINDER,
+        help="Optional command to execute inside the running session.",
+    )
+    return parser.parse_args(argv)
+
+
+def parse_ls_args(argv: list[str]) -> argparse.Namespace:
+    parser = argparse.ArgumentParser(
+        prog="container-shell ls",
+        description="List running managed container-shell sessions.",
+    )
+    parser.add_argument("--debug", action="store_true", help="Enable debug logging.")
+    parser.add_argument(
+        "--json",
+        action="store_true",
+        help="Emit machine-readable JSON instead of a table.",
+    )
+    return parser.parse_args(argv)
+
+
+def parse_fzf_args(argv: list[str]) -> argparse.Namespace:
+    parser = argparse.ArgumentParser(
+        prog="container-shell fzf",
+        description="Select a running container-shell session with fzf and exec into it.",
+    )
+    parser.add_argument("--debug", action="store_true", help="Enable debug logging.")
+    parser.add_argument(
+        "command",
+        nargs=argparse.REMAINDER,
+        help="Optional command to execute inside the selected session.",
     )
     return parser.parse_args(argv)
 
@@ -226,6 +326,69 @@ def collect_extra_env(args: argparse.Namespace) -> dict[str, str]:
 
     LOGGER.debug("Collected extra container environment: %s", env)
     return env
+
+
+def parse_bool_env(name: str, *, default: bool) -> bool:
+    raw_value = os.environ.get(name)
+    if raw_value is None:
+        return default
+
+    normalized = raw_value.strip().lower()
+    if normalized in ("1", "true", "yes", "on"):
+        return True
+    if normalized in ("0", "false", "no", "off"):
+        return False
+
+    raise ContainerShellError(
+        f"{name} must be one of 1, 0, true, false, yes, no, on, off; got {raw_value!r}"
+    )
+
+
+def git_config_get(key: str, *, workdir: Path) -> str | None:
+    command = ["git", "-C", str(workdir), "config", "--get", key]
+    LOGGER.debug("Resolving host git config with command: %s", format_command(command))
+    try:
+        completed = subprocess.run(
+            command,
+            check=False,
+            capture_output=True,
+            text=True,
+        )
+    except OSError as exc:
+        raise ContainerShellError(f"failed to execute git while resolving {key}: {exc}") from exc
+
+    if completed.returncode != 0:
+        stderr = completed.stderr.strip()
+        LOGGER.debug("Host git config %s is not set: %s", key, stderr or completed.returncode)
+        return None
+
+    value = completed.stdout.strip()
+    return value or None
+
+
+def resolve_git_identity(workdir: Path) -> GitIdentity | None:
+    user_name = os.environ.get(GIT_USER_NAME_ENV) or git_config_get("user.name", workdir=workdir)
+    user_email = os.environ.get(GIT_USER_EMAIL_ENV) or git_config_get("user.email", workdir=workdir)
+
+    if not user_name and not user_email:
+        LOGGER.debug("No host git identity detected for synthetic container git config")
+        return None
+    if not user_name or not user_email:
+        LOGGER.warning(
+            "Skipping synthetic container git config because git identity is incomplete "
+            "(name=%r, email=%r)",
+            user_name,
+            user_email,
+        )
+        return None
+
+    identity = GitIdentity(
+        user_name=user_name,
+        user_email=user_email,
+        disable_signing=parse_bool_env(GIT_DISABLE_SIGNING_ENV, default=True),
+    )
+    LOGGER.debug("Resolved synthetic container git identity: %s", identity)
+    return identity
 
 
 def resolve_existing_path(path: Path, label: str) -> Path:
@@ -498,6 +661,114 @@ def detect_git_root(workdir: Path) -> Path | None:
     return git_root
 
 
+def resolve_git_mount_plan(workdir: Path) -> GitMountPlan | None:
+    command = [
+        "git",
+        "rev-parse",
+        "--path-format=absolute",
+        "--show-toplevel",
+        "--git-dir",
+        "--git-common-dir",
+    ]
+    LOGGER.debug("Resolving git mount plan with command: %s", format_command(command))
+    try:
+        completed = subprocess.run(
+            command,
+            cwd=workdir,
+            check=False,
+            capture_output=True,
+            text=True,
+        )
+    except OSError as exc:
+        raise ContainerShellError(f"failed to execute git while resolving repository metadata: {exc}") from exc
+
+    if completed.returncode != 0:
+        stderr = completed.stderr.strip()
+        LOGGER.debug("No git repository detected at %s: %s", workdir, stderr or completed.returncode)
+        return None
+
+    lines = [line.strip() for line in completed.stdout.splitlines() if line.strip()]
+    if len(lines) != 3:
+        raise ContainerShellError(
+            "git rev-parse returned unexpected output while resolving repository metadata"
+        )
+
+    worktree_root = resolve_existing_path(Path(lines[0]), "git worktree root")
+    git_dir = resolve_existing_path(Path(lines[1]), "git dir")
+    git_common_dir = resolve_existing_path(Path(lines[2]), "git common dir")
+    control_path = worktree_root / ".git"
+    if not control_path.exists():
+        control_path = None
+
+    plan = GitMountPlan(
+        worktree_root=worktree_root,
+        git_dir=git_dir,
+        git_common_dir=git_common_dir,
+        control_path=control_path,
+    )
+    LOGGER.debug("Resolved git mount plan: %s", plan)
+    return plan
+
+
+def git_access_mount_mode(git_access: str) -> str:
+    if git_access not in SUPPORTED_GIT_ACCESS_LEVELS:
+        raise ContainerShellError(
+            f"unsupported git access level {git_access!r}; expected one of "
+            f"{', '.join(sorted(SUPPORTED_GIT_ACCESS_LEVELS))}"
+        )
+    return git_access
+
+
+def write_mount_mode(write_mode: str) -> str:
+    if write_mode not in SUPPORTED_WRITE_MODES:
+        raise ContainerShellError(
+            f"unsupported write mode {write_mode!r}; expected one of "
+            f"{', '.join(sorted(SUPPORTED_WRITE_MODES))}"
+        )
+    return write_mode
+
+
+def collect_git_mounts(args: argparse.Namespace, layout: ShellLayout) -> list[ExtraMount]:
+    plan = resolve_git_mount_plan(layout.workdir)
+    if plan is None:
+        return []
+
+    if not is_within(plan.worktree_root, layout.mount_root):
+        if args.git_access == "ro":
+            LOGGER.info(
+                "Skipping automatic git metadata mounts because the repository root %s "
+                "falls outside mount root %s",
+                plan.worktree_root,
+                layout.mount_root,
+            )
+            return []
+        raise ContainerShellError(
+            "git access requires the repository root to stay inside the container mount root; "
+            f"repository root is {plan.worktree_root}, mount root is {layout.mount_root}"
+        )
+
+    mounts: list[ExtraMount] = []
+    seen_targets: set[Path] = set()
+
+    def add_mount(source: Path, target: Path, mode: str) -> None:
+        if target in seen_targets:
+            return
+        mounts.append(ExtraMount(source=source, target=target, mode=mode))
+        seen_targets.add(target)
+
+    if plan.control_path is not None:
+        control_source = resolve_existing_path(plan.control_path, "git control path")
+        control_mode = "ro" if control_source.is_file() else git_access_mount_mode(args.git_access)
+        add_mount(control_source, plan.control_path, control_mode)
+
+    access_mode = git_access_mount_mode(args.git_access)
+    add_mount(plan.git_dir, plan.git_dir, access_mode)
+    add_mount(plan.git_common_dir, plan.git_common_dir, access_mode)
+
+    LOGGER.debug("Resolved git metadata mounts: %s", mounts)
+    return mounts
+
+
 def is_dangerously_broad_root(path: Path) -> bool:
     root = Path(path.anchor)
     home = Path.home().resolve()
@@ -606,6 +877,7 @@ def create_host_scratch(
     temp_root: Path,
     identity: ContainerIdentity,
     layout: ShellLayout,
+    write_mode: str,
     extra_mounts: list[ExtraMount],
 ) -> HostScratch:
     home_dir = temp_root / "home" / identity.user_name
@@ -616,6 +888,15 @@ def create_host_scratch(
 
     home_dir.mkdir(parents=True, exist_ok=True)
     runtime_dir.mkdir(parents=True, exist_ok=True)
+
+    write_upperdir: Path | None = None
+    write_workdir: Path | None = None
+    if write_mount_mode(write_mode) == "overlay":
+        write_root = temp_root / "write-overlay"
+        write_upperdir = write_root / "upper"
+        write_workdir = write_root / "work"
+        write_upperdir.mkdir(parents=True, exist_ok=True)
+        write_workdir.mkdir(parents=True, exist_ok=True)
 
     devenv_upperdir: Path | None = None
     devenv_workdir: Path | None = None
@@ -659,12 +940,43 @@ def create_host_scratch(
         init_script=init_script,
         rcfile=rcfile,
         command_entrypoint=command_entrypoint,
+        write_upperdir=write_upperdir,
+        write_workdir=write_workdir,
         devenv_upperdir=devenv_upperdir,
         devenv_workdir=devenv_workdir,
         extra_overlays=tuple(extra_overlays),
     )
     LOGGER.debug("Prepared host scratch paths: %s", scratch)
     return scratch
+
+
+def write_git_config_value(config_path: Path, key: str, value: str) -> None:
+    command = ["git", "config", "--file", str(config_path), key, value]
+    LOGGER.debug("Writing synthetic container git config with command: %s", format_command(command))
+    try:
+        completed = subprocess.run(command, check=False, capture_output=True, text=True)
+    except OSError as exc:
+        raise ContainerShellError(f"failed to execute git while writing {config_path}: {exc}") from exc
+
+    if completed.returncode != 0:
+        stderr = completed.stderr.strip()
+        raise ContainerShellError(
+            f"failed to write {key} to synthetic container git config {config_path}: "
+            f"{stderr or completed.returncode}"
+        )
+
+
+def write_synthetic_git_config(scratch: HostScratch, git_identity: GitIdentity | None) -> None:
+    if git_identity is None:
+        return
+
+    config_path = scratch.home_dir / ".gitconfig"
+    write_git_config_value(config_path, "user.name", git_identity.user_name)
+    write_git_config_value(config_path, "user.email", git_identity.user_email)
+    if git_identity.disable_signing:
+        write_git_config_value(config_path, "commit.gpgSign", "false")
+
+    LOGGER.debug("Wrote synthetic container git config at %s", config_path)
 
 
 def mount_target_is_directory(mount: ExtraMount) -> bool:
@@ -744,6 +1056,7 @@ def prepare_nested_scratch_mount_targets(
 
 
 def build_mounts(
+    args: argparse.Namespace,
     layout: ShellLayout,
     scratch: HostScratch,
     identity: ContainerIdentity,
@@ -751,11 +1064,34 @@ def build_mounts(
 ) -> list[MountSpec]:
     mounts: list[MountSpec] = []
 
+    selected_write_mode = write_mount_mode(args.write_mode)
     if layout.mount_root == layout.write_root:
-        mounts.append(MountSpec(layout.mount_root, layout.mount_root, "rw"))
+        if selected_write_mode == "overlay":
+            if scratch.write_upperdir is None or scratch.write_workdir is None:
+                raise ContainerShellError("missing overlay scratch directories for write root")
+            mounts.append(
+                MountSpec(
+                    layout.write_root,
+                    layout.write_root,
+                    f"O,upperdir={scratch.write_upperdir},workdir={scratch.write_workdir}",
+                )
+            )
+        else:
+            mounts.append(MountSpec(layout.mount_root, layout.mount_root, "rw"))
     else:
         mounts.append(MountSpec(layout.mount_root, layout.mount_root, "ro"))
-        mounts.append(MountSpec(layout.write_root, layout.write_root, "rw"))
+        if selected_write_mode == "overlay":
+            if scratch.write_upperdir is None or scratch.write_workdir is None:
+                raise ContainerShellError("missing overlay scratch directories for write root")
+            mounts.append(
+                MountSpec(
+                    layout.write_root,
+                    layout.write_root,
+                    f"O,upperdir={scratch.write_upperdir},workdir={scratch.write_workdir}",
+                )
+            )
+        else:
+            mounts.append(MountSpec(layout.write_root, layout.write_root, "rw"))
 
     if layout.active_devenv is not None:
         if scratch.devenv_upperdir is None or scratch.devenv_workdir is None:
@@ -866,6 +1202,220 @@ def format_command(command: list[str]) -> str:
     return shlex.join(command)
 
 
+def validate_session_name(name: str) -> str:
+    normalized = name.strip()
+    if not normalized:
+        raise ContainerShellError("--session-name must not be empty")
+    if not re.fullmatch(r"[A-Za-z0-9][A-Za-z0-9_.-]*", normalized):
+        raise ContainerShellError(
+            "--session-name must match [A-Za-z0-9][A-Za-z0-9_.-]*"
+        )
+    return normalized
+
+
+def podman_json(command: list[str], *, label: str) -> object:
+    LOGGER.debug("Running %s command: %s", label, format_command(command))
+    try:
+        completed = subprocess.run(command, check=False, capture_output=True, text=True)
+    except OSError as exc:
+        raise ContainerShellError(f"failed to execute podman for {label}: {exc}") from exc
+
+    if completed.stderr.strip():
+        LOGGER.debug("podman %s stderr: %s", label, completed.stderr.strip())
+
+    if completed.returncode != 0:
+        stderr = completed.stderr.strip()
+        stdout = completed.stdout.strip()
+        raise ContainerShellError(
+            f"podman {label} failed: {stderr or stdout or completed.returncode}"
+        )
+
+    payload = completed.stdout.strip() or "[]"
+    try:
+        return json.loads(payload)
+    except json.JSONDecodeError as exc:
+        raise ContainerShellError(f"podman {label} did not return valid JSON") from exc
+
+
+def session_info_from_ps_entry(entry: object) -> SessionInfo:
+    if not isinstance(entry, dict):
+        raise ContainerShellError("podman ps returned an unexpected session entry")
+
+    names = entry.get("Names")
+    if not isinstance(names, list) or not names or not isinstance(names[0], str):
+        raise ContainerShellError("podman ps did not include a container name")
+
+    labels = entry.get("Labels")
+    if labels is None:
+        labels = {}
+    if not isinstance(labels, dict):
+        raise ContainerShellError("podman ps returned invalid labels")
+
+    return SessionInfo(
+        name=names[0],
+        container_id=str(entry.get("Id", "")),
+        image=str(entry.get("Image", "")),
+        status=str(entry.get("Status", "")),
+        state=str(entry.get("State", "")),
+        workdir=labels.get(SESSION_LABEL_WORKDIR) if isinstance(labels.get(SESSION_LABEL_WORKDIR), str) else None,
+        project_root=(
+            labels.get(SESSION_LABEL_PROJECT_ROOT)
+            if isinstance(labels.get(SESSION_LABEL_PROJECT_ROOT), str)
+            else None
+        ),
+    )
+
+
+def list_sessions() -> list[SessionInfo]:
+    payload = podman_json(
+        [
+            "podman",
+            "ps",
+            "--filter",
+            f"label={SESSION_LABEL_MANAGED}=1",
+            "--format",
+            "json",
+        ],
+        label="list sessions",
+    )
+    if not isinstance(payload, list):
+        raise ContainerShellError("podman ps returned an unexpected JSON payload")
+
+    sessions = [session_info_from_ps_entry(entry) for entry in payload]
+    sessions.sort(key=lambda session: session.name)
+    LOGGER.debug("Resolved running sessions: %s", sessions)
+    return sessions
+
+
+def inspect_session(name: str) -> SessionInfo:
+    payload = podman_json(
+        ["podman", "inspect", "--type", "container", name, "--format", "json"],
+        label=f"inspect session {name}",
+    )
+    if not isinstance(payload, list) or len(payload) != 1 or not isinstance(payload[0], dict):
+        raise ContainerShellError(f"podman inspect returned an unexpected payload for session {name}")
+
+    entry = payload[0]
+    config = entry.get("Config")
+    state_info = entry.get("State")
+    if not isinstance(config, dict) or not isinstance(state_info, dict):
+        raise ContainerShellError(f"podman inspect returned incomplete metadata for session {name}")
+
+    labels = config.get("Labels")
+    if labels is None:
+        labels = {}
+    if not isinstance(labels, dict):
+        raise ContainerShellError(f"podman inspect returned invalid labels for session {name}")
+    if labels.get(SESSION_LABEL_MANAGED) != "1":
+        raise ContainerShellError(f"{name} is not a managed container-shell session")
+
+    state = str(state_info.get("Status", ""))
+    if state != "running":
+        raise ContainerShellError(f"session {name} is not running (state={state or 'unknown'})")
+
+    return SessionInfo(
+        name=str(entry.get("Name", name)),
+        container_id=str(entry.get("Id", "")),
+        image=str(entry.get("ImageName", entry.get("Image", ""))),
+        status=state,
+        state=state,
+        workdir=(
+            config.get("WorkingDir")
+            if isinstance(config.get("WorkingDir"), str) and config.get("WorkingDir")
+            else labels.get(SESSION_LABEL_WORKDIR) if isinstance(labels.get(SESSION_LABEL_WORKDIR), str) else None
+        ),
+        project_root=(
+            labels.get(SESSION_LABEL_PROJECT_ROOT)
+            if isinstance(labels.get(SESSION_LABEL_PROJECT_ROOT), str)
+            else None
+        ),
+    )
+
+
+def render_sessions_table(sessions: list[SessionInfo]) -> str:
+    rows = [
+        ("NAME", "STATUS", "IMAGE", "WORKDIR"),
+        *[
+            (
+                session.name,
+                session.status or session.state or "?",
+                session.image or "?",
+                session.workdir or "",
+            )
+            for session in sessions
+        ],
+    ]
+    widths = [max(len(row[index]) for row in rows) for index in range(len(rows[0]))]
+    return "\n".join(
+        "  ".join(value.ljust(widths[index]) for index, value in enumerate(row))
+        for row in rows
+    )
+
+
+def render_sessions_json(sessions: list[SessionInfo]) -> str:
+    return json.dumps(
+        [
+            {
+                "name": session.name,
+                "container_id": session.container_id,
+                "image": session.image,
+                "status": session.status,
+                "state": session.state,
+                "workdir": session.workdir,
+                "project_root": session.project_root,
+            }
+            for session in sessions
+        ],
+        indent=2,
+    )
+
+
+def select_session_with_fzf(sessions: list[SessionInfo]) -> str:
+    if not sessions:
+        raise ContainerShellError("no running container-shell sessions found")
+
+    lines = [
+        "\t".join(("NAME", "STATUS", "IMAGE", "WORKDIR")),
+        *[
+            "\t".join((session.name, session.status or session.state or "?", session.image or "?", session.workdir or ""))
+            for session in sessions
+        ],
+    ]
+    command = [
+        "fzf",
+        "--prompt",
+        "container-shell session> ",
+        "--delimiter",
+        "\t",
+        "--with-nth",
+        "1,2,3,4",
+        "--header-lines",
+        "1",
+    ]
+    LOGGER.debug("Running session selector command: %s", format_command(command))
+    try:
+        completed = subprocess.run(
+            command,
+            input="\n".join(lines) + "\n",
+            check=False,
+            capture_output=True,
+            text=True,
+        )
+    except OSError as exc:
+        raise ContainerShellError(f"failed to execute fzf: {exc}") from exc
+
+    if completed.returncode == 130:
+        raise KeyboardInterrupt
+    if completed.returncode != 0:
+        stderr = completed.stderr.strip()
+        raise ContainerShellError(f"fzf failed: {stderr or completed.returncode}")
+
+    selected = completed.stdout.strip()
+    if not selected:
+        raise ContainerShellError("fzf did not return a session selection")
+    return selected.split("\t", 1)[0]
+
+
 def handle_cleanup_error(function: object, path: str, excinfo: object) -> None:
     del function, excinfo
     target = Path(path)
@@ -900,6 +1450,23 @@ def add_tty_flags(command: list[str]) -> None:
         command.append("-t")
 
 
+def build_podman_exec_command(
+    session: SessionInfo,
+    *,
+    container_command: list[str],
+) -> list[str]:
+    command = ["podman", "exec"]
+    add_tty_flags(command)
+    if session.workdir:
+        command.extend(["--workdir", session.workdir])
+    command.append(session.name)
+    if container_command:
+        command.extend(["bash", str(CONTAINER_COMMAND_PATH), *container_command])
+    else:
+        command.extend(["bash", "--rcfile", str(CONTAINER_RCFILE_PATH), "-i"])
+    return command
+
+
 def build_podman_command(
     args: argparse.Namespace,
     layout: ShellLayout,
@@ -914,6 +1481,8 @@ def build_podman_command(
         "run",
         "--rm",
     ]
+    if args.session_name:
+        command.extend(["--name", validate_session_name(args.session_name)])
     add_tty_flags(command)
     command.extend(
         [
@@ -928,6 +1497,12 @@ def build_podman_command(
             identity.user_name,
             "--workdir",
             str(layout.workdir),
+            "--label",
+            f"{SESSION_LABEL_MANAGED}=1",
+            "--label",
+            f"{SESSION_LABEL_WORKDIR}={layout.workdir}",
+            "--label",
+            f"{SESSION_LABEL_PROJECT_ROOT}={layout.project_root}",
         ]
     )
 
@@ -951,8 +1526,8 @@ def normalize_returncode(returncode: int) -> int:
     return returncode
 
 
-def run(argv: list[str]) -> int:
-    args = parse_args(argv)
+def run_container(argv: list[str]) -> int:
+    args = parse_run_args(argv)
     configure_logging(args.debug)
     LOGGER.debug("Parsed CLI arguments: %s", args)
 
@@ -964,7 +1539,9 @@ def run(argv: list[str]) -> int:
     LOGGER.debug("Container PATH prefix: %s", container_path)
 
     identity = build_identity(os.getuid(), os.getgid())
+    git_identity = resolve_git_identity(layout.workdir)
     extra_mounts = collect_extra_mounts(args, layout.project_root)
+    extra_mounts.extend(collect_git_mounts(args, layout))
     auto_mount_targets = built_in_mount_targets(layout, identity).union(mount.target for mount in extra_mounts)
     host_cert_bundle_mount, default_extra_env = detect_host_cert_bundle(auto_mount_targets)
     if host_cert_bundle_mount is not None:
@@ -979,13 +1556,14 @@ def run(argv: list[str]) -> int:
 
     temp_root = Path(tempfile.mkdtemp(prefix="container-shell-"))
     try:
-        scratch = create_host_scratch(temp_root, identity, layout, extra_mounts)
+        scratch = create_host_scratch(temp_root, identity, layout, args.write_mode, extra_mounts)
+        write_synthetic_git_config(scratch, git_identity)
         scratch.init_script.write_text(build_init_script(layout), encoding="utf-8")
         scratch.rcfile.write_text(build_rcfile(), encoding="utf-8")
         scratch.command_entrypoint.write_text(build_command_entrypoint(), encoding="utf-8")
         LOGGER.debug("Wrote temporary init files under %s", temp_root)
 
-        mounts = build_mounts(layout, scratch, identity, extra_mounts)
+        mounts = build_mounts(args, layout, scratch, identity, extra_mounts)
         container_env = build_container_env(identity, container_path, default_extra_env, extra_env)
         command = build_podman_command(
             args,
@@ -1005,6 +1583,59 @@ def run(argv: list[str]) -> int:
         return normalize_returncode(completed.returncode)
     finally:
         cleanup_scratch(temp_root)
+
+
+def run_exec(argv: list[str]) -> int:
+    args = parse_exec_args(argv)
+    configure_logging(args.debug)
+    LOGGER.debug("Parsed exec arguments: %s", args)
+
+    session = inspect_session(args.session_name)
+    container_command = normalize_command(args.command)
+    command = build_podman_exec_command(session, container_command=container_command)
+    LOGGER.debug("Podman exec command: %s", format_command(command))
+
+    completed = subprocess.run(command, check=False)
+    LOGGER.debug("Podman exec exited with return code %s", completed.returncode)
+    return normalize_returncode(completed.returncode)
+
+
+def run_ls(argv: list[str]) -> int:
+    args = parse_ls_args(argv)
+    configure_logging(args.debug)
+    LOGGER.debug("Parsed ls arguments: %s", args)
+
+    sessions = list_sessions()
+    output = render_sessions_json(sessions) if args.json else render_sessions_table(sessions)
+    print(output)
+    return 0
+
+
+def run_fzf(argv: list[str]) -> int:
+    args = parse_fzf_args(argv)
+    configure_logging(args.debug)
+    LOGGER.debug("Parsed fzf arguments: %s", args)
+
+    session_name = select_session_with_fzf(list_sessions())
+    session = inspect_session(session_name)
+    container_command = normalize_command(args.command)
+    command = build_podman_exec_command(session, container_command=container_command)
+    LOGGER.debug("Podman exec command from fzf selection: %s", format_command(command))
+
+    completed = subprocess.run(command, check=False)
+    LOGGER.debug("Podman exec exited with return code %s", completed.returncode)
+    return normalize_returncode(completed.returncode)
+
+
+def run(argv: list[str]) -> int:
+    if argv:
+        if argv[0] == "exec":
+            return run_exec(argv[1:])
+        if argv[0] == "ls":
+            return run_ls(argv[1:])
+        if argv[0] == "fzf":
+            return run_fzf(argv[1:])
+    return run_container(argv)
 
 
 def main(argv: list[str] | None = None) -> int:
