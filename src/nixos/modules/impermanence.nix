@@ -9,7 +9,12 @@
 }: let
   options = with lib; {
     clj.impermanence = {
-      enable = mkEnableOption "impermanence" // {default = false;};
+      enable =
+        mkEnableOption "impermanence"
+        // {
+          # Impermanence is opt-in
+          default = false;
+        };
       persistDir = mkOption {
         type = types.str;
         default = "/persist";
@@ -29,10 +34,10 @@ in {
 
     inherit options;
 
-    config = lib.mkIf config.clj.impermanence.enable {
+    config = {
       environment.persistence.${config.clj.impermanence.persistDir} = {
         enable = config.clj.impermanence.enable;
-        hideMounts = true;
+        hideMounts = config.clj.impermanence.enable;
         directories = [
           "/var/log"
           "/var/lib/nixos"

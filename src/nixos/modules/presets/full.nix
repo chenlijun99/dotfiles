@@ -173,10 +173,6 @@ in {
 
       # Background services
       (lib.mkIf cfg.services.enable {
-        services.activitywatch = {
-          enable = true;
-        };
-
         services.syncthing = {
           enable = true;
           tray.enable = true;
