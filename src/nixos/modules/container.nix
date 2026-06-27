@@ -1,10 +1,15 @@
 # Container configuration (Podman + Distrobox)
 {...}: {
-  flake.modules.nixos.clj-container = {pkgs, ...}: {
+  flake.modules.nixos.clj-container = {
+    pkgs,
+    config,
+    ...
+  }: {
     virtualisation = {
       podman = {
         enable = true;
         dockerCompat = true;
+        # Required for containers under podman-compose to be able to talk to each other.
         defaultNetwork.settings.dns_enabled = true;
       };
     };
@@ -14,6 +19,11 @@
       jq
       bindfs
     ];
+    environment.persistence.${config.clj.impermanence.persistDir} = {
+      directories = [
+        "/var/lib/containers"
+      ];
+    };
   };
 
   flake.modules.darwin.clj-container = {pkgs, ...}: {
@@ -25,5 +35,13 @@
       # Docker CLI client
       docker
     ];
+  };
+
+  flake.modules.homeManager.clj-container = {config, ...}: {
+    home.persistence.${config.clj.impermanence.persistDir} = {
+      directories = [
+        ".local/share/containers"
+      ];
+    };
   };
 }

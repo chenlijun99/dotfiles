@@ -8,6 +8,11 @@
     options.clj.programs.tmux.enable = lib.mkEnableOption "Tmux configuration" // {default = true;};
 
     config = lib.mkIf config.clj.programs.tmux.enable {
+      home.persistence.${config.clj.impermanence.persistDir} = {
+        directories = [
+          ".local/share/tmux"
+        ];
+      };
       home = {
         packages = with pkgs; [
           tmux

@@ -35,6 +35,12 @@ in {
         };
       };
 
+      home.persistence.${config.clj.impermanence.persistDir} = {
+        directories = [
+          ".local/share/nvim"
+        ];
+      };
+
       # Persist the selected profile so Neovim reads it at startup
       home.file.".local/state/nvim/profile".text = config.clj.programs.neovim.profile;
 

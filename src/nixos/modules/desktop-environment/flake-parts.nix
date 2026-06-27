@@ -23,6 +23,14 @@
   flake.modules.homeManager.clj-desktop-environment = {
     imports = [
       inputs.plasma-manager.homeModules.plasma-manager
+      ({config, ...}: {
+        home.persistence.${config.clj.impermanence.persistDir} = {
+          files = [
+            # Display configuratino of KDE
+            ".config/kwinoutputconfig.json"
+          ];
+        };
+      })
       ./_plasma-manager.nix
     ];
   };

@@ -92,6 +92,13 @@ in {
 
       # Communication packages
       (lib.mkIf cfg.communication.enable {
+        home.persistence.${config.clj.impermanence.persistDir} = {
+          directories = [
+            ".local/share/TelegramDesktop"
+            ".thunderbird"
+            ".cache/thunderbird"
+          ];
+        };
         home.packages = with pkgs; [
           # Email
           thunderbird
@@ -123,6 +130,12 @@ in {
 
       # Personal applications
       (lib.mkIf cfg.personal-applications.enable {
+        home.persistence.${config.clj.impermanence.persistDir} = {
+          directories = [
+            ".config/pcloud"
+            ".pcloud"
+          ];
+        };
         home.packages = with pkgs; [
           kdePackages.okular
           xournalpp
