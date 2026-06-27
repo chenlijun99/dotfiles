@@ -123,6 +123,12 @@ in {
 
       # Personal applications
       (lib.mkIf cfg.personal-applications.enable {
+        home.persistence.${config.clj.impermanence.persistDir} = {
+          directories = [
+            ".config/pcloud"
+            ".pcloud"
+          ];
+        };
         home.packages = with pkgs; [
           kdePackages.okular
           xournalpp

@@ -7,21 +7,24 @@
   lib,
   ...
 }: let
-  options = with lib; {
-    clj.impermanence = {
-      enable =
-        mkEnableOption "impermanence"
-        // {
-          # Impermanence is opt-in
-          default = false;
+  mkOptions = {
+    # Impermanence is opt-in
+    defaultEnable ? false,
+  }:
+    with lib; {
+      clj.impermanence = {
+        enable =
+          mkEnableOption "impermanence"
+          // {
+            default = defaultEnable;
+          };
+        persistDir = mkOption {
+          type = types.str;
+          default = "/persist";
+          description = "Profile name.";
         };
-      persistDir = mkOption {
-        type = types.str;
-        default = "/persist";
-        description = "Profile name.";
       };
     };
-  };
 in {
   flake.modules.nixos.clj-impermanence = {
     lib,
@@ -32,16 +35,25 @@ in {
       inputs.impermanence.nixosModules.impermanence
     ];
 
-    inherit options;
+    options = mkOptions {};
 
     config = {
       environment.persistence.${config.clj.impermanence.persistDir} = {
         enable = config.clj.impermanence.enable;
         hideMounts = config.clj.impermanence.enable;
+        files = [
+          "/etc/machine-id"
+        ];
         directories = [
+          # Logs
           "/var/log"
+          # NixOS state (e.g., uid/gid mappings)
           "/var/lib/nixos"
           "/var/lib/systemd/coredump"
+          # Bluetooth pairing state
+          "/var/lib/bluetooth"
+          # Network connection state (e.g., wifi password)
+          "/etc/NetworkManager/system-connections"
         ];
       };
     };
@@ -50,8 +62,33 @@ in {
   flake.modules.homeManager.clj-impermanence = {
     config,
     lib,
+    osConfig ? null,
     ...
   }: {
-    inherit options;
+    # If impermanence enabled at system level, default to enabling it at home-manager level as well.
+    options = mkOptions {defaultEnable = osConfig.clj.impermanence.enable or false;};
+
+    config = {
+      home.persistence.${config.clj.impermanence.persistDir} = {
+        enable = config.clj.impermanence.enable;
+        files = [
+          {
+            file = ".ssh/known_hosts";
+            parentDirectory = {mode = "0700";};
+          }
+        ];
+        directories = [
+          "Data"
+          "Desktop"
+          "Downloads"
+          "Repositories"
+          ".cache/nix"
+
+          # Development stuff
+          ".cache/ccache"
+          ".cargo"
+        ];
+      };
+    };
   };
 }

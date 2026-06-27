@@ -92,6 +92,14 @@ in {
         nix-direnv.enable = true;
       };
 
+      home.persistence.${config.clj.impermanence.persistDir} = {
+        directories = [
+          ".local/share/direnv"
+          # Where zim downloads the plugins
+          ".zim/"
+        ];
+      };
+
       home = {
         packages = with pkgs; [
           zsh
