@@ -29,6 +29,7 @@
             [addon-id='leechblockng@proginosko.com'] { display: none !important; }
           '';
           settings = {
+            "browser.tabs.insertAfterCurrent" = true;
             "browser.tabs.closeWindowWithLastTab" = false;
             # Required for userContent
             "toolkit.legacyUserProfileCustomizations.stylesheets" = true;
