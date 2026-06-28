@@ -22,6 +22,11 @@
           ];
         };
       };
+      home.persistence.${config.clj.impermanence.persistDir} = {
+        directories = [
+          ".local/share/fcitx5"
+        ];
+      };
       xdg.configFile = {
         "fcitx5_config" = {
           source = config.lib.clj.linkDotfile "src/config/fcitx5/config";
