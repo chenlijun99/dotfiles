@@ -17,6 +17,7 @@
     "clj-networking"
     "clj-desktop-environment"
     "clj-firefox"
+    "clj-keepassxc"
     "clj-input-method"
     "clj-fonts"
     "clj-zotero"
@@ -140,7 +141,6 @@ in {
           kdePackages.okular
           xournalpp
           anki-bin
-          keepassxc
           pcloud
           nextcloud-client
           cryptomator

@@ -149,7 +149,11 @@
         KDE.SingleClick = false;
       };
 
-      kwalletrc.Wallet."First Use" = false;
+      # Disable KWallet
+      kwalletrc.Wallet = {
+        "Enabled" = false;
+        "First Use" = false;
+      };
       kwinrc = {
         Compositing.OpenGLIsUnsafe = false;
         Desktops = {
