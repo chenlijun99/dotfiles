@@ -1,4 +1,4 @@
-{
+{config, ...}: {
   programs.plasma = {
     enable = true;
     overrideConfig = true;
@@ -199,6 +199,16 @@
           TitlebarDoubleClickCommand = "Maximize";
         };
         Xwayland.Scale = 1;
+        Wayland = {
+          # Corresponds to setting Fcitx5 in "System Settings -> Virtual keyboard"
+          # Without this we get a warning on each login
+          # See https://github.com/nix-community/plasma-manager/issues/35
+          # for why shellExpand is needed.
+          InputMethod = {
+            value = "/etc/profiles/per-user/${config.home.username}/share/applications/org.fcitx.Fcitx5.desktop";
+            shellExpand = true;
+          };
+        };
       };
       kwinrulesrc = {
         "1" = {
