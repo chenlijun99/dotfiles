@@ -116,7 +116,6 @@ in {
         home.packages = with pkgs; [
           chromium
         ];
-        clj.programs.firefox.enable = true;
       })
 
       # GUI utilities
