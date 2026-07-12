@@ -62,11 +62,27 @@ in {
   flake.modules.homeManager.clj-impermanence = {
     config,
     lib,
-    osConfig ? null,
     ...
-  }: {
-    # If impermanence enabled at system level, default to enabling it at home-manager level as well.
-    options = mkOptions {defaultEnable = osConfig.clj.impermanence.enable or false;};
+  } @ args: let
+    homeManagerRunningInNixOS = builtins.hasAttr "osConfig" args;
+  in {
+    options =
+      mkOptions {
+        defaultEnable =
+          # If impermanence enabled at system level, default to enabling it at home-manager level as well.
+          lib.attrByPath ["osConfig" "clj" "impermanence" "enable"] false args;
+      }
+      // (
+        if !homeManagerRunningInNixOS
+        then {
+          home.persistence = lib.mkOption {
+            type = lib.types.attrsOf lib.types.attrs;
+            default = {};
+            description = "Benign stub for standalone home-manager where impermanence's home.persistence is unavailable.";
+          };
+        }
+        else {}
+      );
 
     config = {
       home.persistence.${config.clj.impermanence.persistDir} = {
