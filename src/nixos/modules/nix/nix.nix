@@ -7,8 +7,11 @@
   commonConfig = {
     lib,
     pkgs,
+    config,
     ...
-  }: {
+  } @ args: let
+    homeManagerRunningInNixOS = builtins.hasAttr "osConfig" args;
+  in {
     nix = {
       # From the docs:
       # > This option specifies the Nix package instance to use throughout the system.
@@ -22,11 +25,15 @@
       # the nix (lix) executable that installer (e.g., Lix or Determine Nix
       # installer).
       package = lib.mkForce pkgs.nixVersions.stable;
-      extraOptions = ''
-        experimental-features = nix-command flakes
-        extra-substituters = https://devenv.cachix.org
-        extra-trusted-public-keys = devenv.cachix.org-1:w1cLUi8dv3hnoSPGAuibQv+f9TZLr6cv/Hm9XgU50cw=
-      '';
+      extraOptions = lib.mkMerge [
+        ''
+          experimental-features = nix-command flakes
+        ''
+        (lib.mkIf (!homeManagerRunningInNixOS) ''
+          extra-substituters = https://devenv.cachix.org
+          extra-trusted-public-keys = devenv.cachix.org-1:w1cLUi8dv3hnoSPGAuibQv+f9TZLr6cv/Hm9XgU50cw=
+        '')
+      ];
       # Pinning Nixpkgs. See https://www.tweag.io/blog/2020-07-31-nixos-flakes/
       registry.nixpkgs.flake = inputs.nixpkgs;
     };
