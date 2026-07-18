@@ -40,7 +40,21 @@ in {
       }: let
         users = lib.filterAttrs (name: user: user.isNormalUser || name == "root") config.users.users;
       in {
-        programs.zsh.syntaxHighlighting.enable = lib.mkDefault true;
+        programs.zsh = {
+          syntaxHighlighting.enable = lib.mkDefault true;
+
+          # Minimal but usable line editing for the few times we use root.
+          interactiveShellInit = lib.mkDefault ''
+            # Use vi-style key bindings for line editing instead of Emacs
+            bindkey -v
+            # Enter normal mode via "jk"
+            bindkey -M viins 'jk' vi-cmd-mode
+            # Reduce the key timeout to 0.2 seconds (default is 0.4)
+            export KEYTIMEOUT=20
+            bindkey -M vicmd 'H' beginning-of-line
+            bindkey -M vicmd 'L' end-of-line
+          '';
+        };
         programs.fzf = {
           fuzzyCompletion = true;
           keybindings = true;
