@@ -38,6 +38,7 @@ in {
       home.persistence.${config.clj.impermanence.persistDir} = {
         directories = [
           ".local/share/nvim"
+          ".local/state/nvim"
         ];
       };
 
