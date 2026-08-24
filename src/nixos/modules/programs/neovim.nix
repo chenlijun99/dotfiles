@@ -90,7 +90,7 @@ in {
             shellcheck
           ])
           # GUI tools
-          ++ lib.optionals ((config.clj.programs.neovim.gui.enable or false) && !pkgs.stdenv.isDarwin) (with pkgs; [
+          ++ lib.optionals ((config.clj.programs.neovim.gui.enable or false) && !pkgs.stdenv.hostPlatform.isDarwin) (with pkgs; [
             xclip
             wl-clipboard
           ]);

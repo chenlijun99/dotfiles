@@ -30,7 +30,7 @@
     config = lib.mkIf config.clj.programs.performance.enable {
       home.packages =
         # CLI tools (Linux only)
-        lib.optionals (!pkgs.stdenv.isDarwin) (
+        lib.optionals (!pkgs.stdenv.hostPlatform.isDarwin) (
           with pkgs; [
             perf
             flamegraph

@@ -12,7 +12,7 @@
 
     config = lib.mkIf config.clj.programs.networking.enable {
       home.packages =
-        lib.optionals (!pkgs.stdenv.isDarwin) (
+        lib.optionals (!pkgs.stdenv.hostPlatform.isDarwin) (
           with pkgs; [
             bind.dnsutils
             traceroute

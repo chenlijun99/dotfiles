@@ -4,7 +4,7 @@
   lib,
   ...
 }: {
-  home = lib.mkIf (!pkgs.stdenv.isDarwin) {
+  home = lib.mkIf (!pkgs.stdenv.hostPlatform.isDarwin) {
     packages = let
       clj_script = script_name: extra_attrs:
         pkgs.writeShellApplication ({

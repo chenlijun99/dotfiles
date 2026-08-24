@@ -44,10 +44,10 @@
 
     config = lib.mkIf config.clj.programs.ghostty.enable {
       # Only install the package on non-Darwin (Darwin uses homebrew)
-      home.packages = lib.mkIf (!pkgs.stdenv.isDarwin) [
+      home.packages = lib.mkIf (!pkgs.stdenv.hostPlatform.isDarwin) [
         pkgs.ghostty
       ];
-      programs.ghostty = lib.mkIf (!pkgs.stdenv.isDarwin) {
+      programs.ghostty = lib.mkIf (!pkgs.stdenv.hostPlatform.isDarwin) {
         enable = true;
 
         # This enables the systemd user service (app-com.mitchellh.ghostty.service)
@@ -77,7 +77,7 @@
         };
         "ghostty_config_platform" = {
           source = config.lib.clj.linkDotfile (
-            if pkgs.stdenv.isDarwin
+            if pkgs.stdenv.hostPlatform.isDarwin
             then "src/config/ghostty/config_macos"
             else "src/config/ghostty/config_linux"
           );
