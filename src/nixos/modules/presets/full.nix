@@ -25,6 +25,7 @@
     "clj-kanata"
     "clj-ai"
     "clj-opencode"
+    "clj-codex"
     "clj-personal-scripts"
   ];
 in {
