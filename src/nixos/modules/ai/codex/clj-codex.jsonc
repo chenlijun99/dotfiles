@@ -1,0 +1,25 @@
+{
+  "extends": "codex",
+  "meta": {
+    "name": "clj-codex",
+    "version": "1.0.0",
+    "description": "Codex with Lijun's Neovim configuration and runtime state",
+  },
+  "filesystem": {
+    "allow": [
+      // ShaDa, swap files, view state, and the selected Neovim profile.
+      "$HOME/.local/state/nvim",
+      "$HOME/.cache/nvim",
+      // Persistent undo needs writes, but the rest of the data directory does
+      // not. Keeping plugins read-only prevents persistence through plugin code.
+      "$HOME/.local/share/nvim/undo",
+    ],
+    "read": [
+      // Home Manager replaces this with the resolved config source. This also
+      // works when ~/.config/nvim points into an editable dotfiles checkout.
+      "@vimConfig@",
+      // Installed plugins, Tree-sitter parsers, and other editor data.
+      "$HOME/.local/share/nvim",
+    ],
+  },
+}

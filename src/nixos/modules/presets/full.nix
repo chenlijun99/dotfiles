@@ -23,7 +23,6 @@
     "clj-zotero"
     "clj-container"
     "clj-kanata"
-    "clj-ai"
     "clj-opencode"
     "clj-codex"
     "clj-personal-scripts"
