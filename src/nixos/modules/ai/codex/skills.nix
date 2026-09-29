@@ -22,6 +22,7 @@
     mattpocockSkills = mkSkills "${mattpocockSkillsSrc}/skills" {
       grill-me = "productivity/grill-me";
       grilling = "productivity/grilling";
+      handoff = "productivity/handoff";
       setup-matt-pocock-skills = "engineering/setup-matt-pocock-skills";
       grill-with-docs = "engineering/grill-with-docs";
       domain-modeling = "engineering/domain-modeling";
