@@ -155,6 +155,16 @@
             "context-remaining"
           ];
           status_line_use_colors = lib.mkDefault true;
+          # Put the thread title in the terminal/pane title: the tmux agent
+          # popup (src/tmux/agents) reads it to name each session, since an
+          # agent's session files carry a cwd, not a pane. project-name comes
+          # first so that the thread id Codex prints for a session that has no
+          # title yet is the part that gets truncated.
+          terminal_title = lib.mkDefault [
+            "activity"
+            "project-name"
+            "thread-title"
+          ];
         };
         # The nolabs-ai/codex pack installs sandbox-diagnostic hooks, but leaves
         # this Codex feature opt-in to the user.

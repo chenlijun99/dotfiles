@@ -18,6 +18,8 @@
           tmux
           # For tmux-yank
           xsel
+          # The coding-agent popup behind `bind Space` in src/tmux.conf.
+          (pkgs.callPackage ../../../tmux/agents {})
         ];
         file = {
           ".tmux" = {
