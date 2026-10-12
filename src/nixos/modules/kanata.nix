@@ -106,6 +106,8 @@ in {
         Type = "exec";
         ExecStart = "${pkgs.kanata}/bin/kanata --cfg ${configFile}";
         Restart = "on-failure";
+        # Avoid rapid virtual-device churn if startup fails.
+        RestartSec = "5s";
       };
       Install = {WantedBy = ["default.target"];};
     };
