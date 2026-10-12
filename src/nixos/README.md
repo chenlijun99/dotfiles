@@ -59,6 +59,23 @@ Advantages:
 
 **Why not auto-import?** Due to a [limitation in NixOS/nixpkgs#340361](https://github.com/NixOS/nixpkgs/issues/340361), importing the same flake-based module multiple times causes "option already declared" errors. Having feature modules import `clj-lib` themselves would cause conflicts when using presets.
 
+## Editable Dotfiles
+
+Dotfiles use Nix store copies by default. To edit files directly in a local
+checkout, enable editable mode and set the checkout location:
+
+```nix
+clj.dotfiles = {
+  editable = true;
+  repoPath = "${config.home.homeDirectory}/Repositories/work/lijun-sonar-dev/external/dotfiles";
+};
+```
+
+`repoPath` must be an absolute string pointing to the repository root. It defaults to
+`${config.home.homeDirectory}/Repositories/personal/dotfiles`. Symlinks and shell
+startup wrappers both use this location. Moving the checkout requires updating
+this option and rebuilding the Home Manager configuration.
+
 ## Impermanence
 
 The `clj-impermanence` module provides integration with [nix-community/impermanence](https://github.com/nix-community/impermanence) for systems with ephemeral root filesystems.

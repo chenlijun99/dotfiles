@@ -26,17 +26,29 @@
           When false, dotfiles are stored in the Nix store (default, more reliable).
         '';
       };
+      dotfiles.repoPath = lib.mkOption {
+        type = lib.types.addCheck lib.types.str (lib.hasPrefix "/");
+        default = "${config.home.homeDirectory}/Repositories/personal/dotfiles";
+        defaultText = lib.literalExpression ''"''${config.home.homeDirectory}/Repositories/personal/dotfiles"'';
+        example = "/home/lijun.chen/Repositories/work/lijun-sonar-dev/external/dotfiles";
+        description = ''
+          Absolute path to the dotfiles checkout used in editable mode.
+          Use a string rather than a Nix path literal so the checkout stays
+          outside the Nix store. This is the repository root containing src/,
+          not the src/nixos flake directory.
+        '';
+      };
     };
 
     config = let
-      THIS_REPO_PATH = "${config.home.homeDirectory}/Repositories/personal/dotfiles";
+      repoPath = config.clj.dotfiles.repoPath;
       editableMode = config.clj.dotfiles.editable or false;
     in {
 
       # Helper function: returns store path or out-of-store symlink based on mode
       lib.clj.linkDotfile = relativePath:
         if editableMode
-        then config.lib.file.mkOutOfStoreSymlink (THIS_REPO_PATH + "/" + relativePath)
+        then config.lib.file.mkOutOfStoreSymlink (repoPath + "/" + relativePath)
         else ../../.. + ("/" + relativePath); # Store path relative to flake root
 
       # Helper for shell entry-point files (e.g. .bashrc, .zshrc).
@@ -50,24 +62,15 @@
           text = ''
             # Managed by Home Manager (editable dotfiles mode).
             # Sources from the dotfiles repository when present; warns otherwise.
-            if [ -d "${THIS_REPO_PATH}" ]; then
+            if [ -d ${lib.escapeShellArg repoPath} ]; then
               # shellcheck source=/dev/null
-              source "${THIS_REPO_PATH}/${relativePath}"
+              source ${lib.escapeShellArg (repoPath + "/" + relativePath)}
             else
               cat >&2 <<'DOTFILES_WARNING_EOF'
-            ╔════════════════════════════════════════════════════════════════════╗
-            ║ ⚠️  DOTFILES REPOSITORY NOT FOUND                                  ║
-            ║                                                                    ║
-            ║ Your dotfiles are configured in editable mode, but the repository ║
-            ║ has not been cloned yet. Many configuration files are broken      ║
-            ║ symlinks until you clone the repository.                          ║
-            ║                                                                    ║
-            ║ To fix this, run:                                                 ║
-            ║   git clone --recursive https://github.com/chenlijun99/dotfiles \ ║
-            ║     ~/Repositories/personal/dotfiles                              ║
-            ║                                                                    ║
-            ║ This warning will disappear once the repository exists.           ║
-            ╚════════════════════════════════════════════════════════════════════╝
+            WARNING: Dotfiles repository not found at ${repoPath}
+            Editable dotfiles symlinks will be broken until the checkout exists.
+            Set clj.dotfiles.repoPath to your existing checkout, or clone it:
+              git clone --recursive https://github.com/chenlijun99/dotfiles ${lib.escapeShellArg repoPath}
             DOTFILES_WARNING_EOF
             fi
           '';
