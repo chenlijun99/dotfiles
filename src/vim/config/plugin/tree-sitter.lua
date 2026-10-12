@@ -71,6 +71,7 @@ return {
 				"latex",
 				"hcl",
 				"sql",
+				"php",
 			}
 			ts.install(ensure_installed)
 
