@@ -50,12 +50,14 @@ end
 function M.setup(opts)
 	opts = opts or {}
 	local key = (opts.keys and opts.keys.toggle_reviewed) or "<leader>rv"
+	local all_key = (opts.keys and opts.keys.toggle_all_reviewed) or "<leader>rV"
 	vim.keymap.set("n", key, M.toggle_reviewed, { desc = "Toggle reviewed marker" })
 
 	local codediff_ok, codediff = pcall(require, "review_tracker.integrations.codediff")
 	if codediff_ok then
 		codediff.setup()
 		table.insert(M._integrations, codediff)
+		vim.keymap.set("n", all_key, codediff.toggle_all_reviewed, { desc = "Toggle all reviewed markers in CodeDiff" })
 	end
 end
 

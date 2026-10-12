@@ -29,6 +29,14 @@ fires unconditionally.
 The hook is stored as `explorer._review_tracker_hooked` on the explorer table to prevent
 double-wrapping if `CodeDiffFileSelect` fires more than once for the same session.
 
+### Bulk reviewed toggle
+
+`<leader>rV` uses the active CodeDiff explorer's status lists, with duplicate paths counted once.
+If any existing working-tree file is pending, it marks all eligible files reviewed. If all are
+reviewed, it clears their markers. Deleted paths are skipped because they have no file to edit.
+Binary files reported by CodeDiff, files with NUL bytes near the start, and symbolic links are
+skipped to avoid writing markers into them.
+
 ### commentstring detection uses a scratch buffer
 
 `prefix_for_ft` creates a scratch buffer (`buftype=nofile`), sets its filetype, and reads
@@ -47,19 +55,21 @@ was considered worse than writing a bare marker.
 
 The integration accesses these codediff internals — check them if codediff is upgraded:
 
-* `lifecycle.get_explorer(tabpage)` → returns the explorer object or `nil`.
+* `lifecycle.get_panel_name(tabpage)`: returns `"explorer"` for an explorer session.
+* `lifecycle.get_panel_view(tabpage)`: returns the explorer object or `nil` once its panel
+  has been created. Check the panel name first, since history sessions have their own view.
 * `lifecycle.get_buffers(tabpage)` → returns `(original_bufnr, modified_bufnr)` for the two diff
   panes; used by `resolve_file` to detect when the current buffer is a diff pane.
 * `explorer.tree:get_node(line_number)` → returns the node rendered at that 1-based line after
   the last `render()` call. File nodes have `node.data.path` (relative to `git_root`) and
   `node.data.type == nil`. Group/directory nodes have `node.data.type == "group"` or
   `"directory"`.
-* `explorer.current_file_path` — relative path of the file currently open in the diff panes;
+* `explorer.data.current_file_path`: relative path of the file currently open in the diff panes;
   tracked by codediff's actions module whenever a file is selected. Used by `resolve_file` to
   map a diff-pane buffer back to its working-tree file (important for the virtual/old-revision
   pane whose buffer name is a `codediff:///` URL, not a real path).
-* `explorer.git_root` — absolute path; `nil` in directory-comparison mode (no git).
-* `explorer.status_result` — `{ unstaged, staged, conflicts }` lists used by `:ReviewProgress`.
+* `explorer.data.git_root`: absolute path; `nil` in directory-comparison mode (no git).
+* `explorer.data.status_result`: `{ unstaged, staged, conflicts }` lists used by `:ReviewProgress`.
 * `explorer.tree.render` — method on the tree instance (not the metatable); safe to wrap.
 * The explorer buffer has `filetype = "codediff-explorer"`.
 * Virtual (old-revision) diff buffers have `buftype = "nowrite"` and names of the form
