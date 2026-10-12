@@ -221,6 +221,32 @@ class ScreenWindowTests(unittest.TestCase):
         self.assertEqual(len(calls), 1)
 
 
+class ProcessDiscoveryTests(unittest.TestCase):
+    def setUp(self) -> None:
+        self.rules = detect.RuleSet.load(scan.RULES_DIR)
+
+    def test_scan_finds_codex_under_secretspec(self) -> None:
+        for comm in ("codex", ".codex-wrapped"):
+            with self.subTest(comm=comm):
+                pane = scan.Pane("%7", "repo", "5", "agents", 100, "secretspec",
+                                 CODEX_SPINNER, "/tmp/repo", 0)
+                children = {100: [101], 101: [102]}
+                names = {100: "zsh", 101: "secretspec", 102: comm}
+                with unittest.mock.patch.object(scan, "list_panes", return_value=[pane]), \
+                     unittest.mock.patch.object(scan, "proc_children", side_effect=lambda pid: children.get(pid, [])), \
+                     unittest.mock.patch.object(scan, "proc_comm", side_effect=names.get), \
+                     unittest.mock.patch.object(scan, "proc_argv", side_effect=lambda pid: ["codex"] if pid == 102 else []):
+                    rows = scan.scan(self.rules)
+                self.assertEqual([(r.pane_id, r.agent) for r in rows], [("%7", "codex")])
+
+    def test_argv_executable_path_identifies_codex(self) -> None:
+        self.assertEqual(self.rules.match_argv(["/nix/store/package/bin/codex", "resume"]).name,
+                         "codex")
+
+    def test_codex_argument_does_not_identify_an_unrelated_process(self) -> None:
+        self.assertIsNone(self.rules.match_argv(["printf", "codex"]))
+
+
 class RenderingTests(unittest.TestCase):
     def row(self, **overrides) -> scan.Row:
         base = dict(

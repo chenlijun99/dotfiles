@@ -34,7 +34,7 @@ DEFAULT_ORDER = ("bt", "wt", "bs", "ws")
 
 # Processes too generic to identify an agent on their own. A pane running one
 # of these is probed via its process tree and command line before it counts.
-HOST_BINS = ("node", "npm")
+HOST_BINS = ("node", "npm", "secretspec")
 
 # How many trailing screen lines the rules are matched against, as in agenmux.
 SCREEN_TAIL_LINES = 20
@@ -191,6 +191,11 @@ class RuleSet:
         return self.by_bin.get(comm)
 
     def match_argv(self, argv: list[str]) -> AgentRules | None:
+        # Nix wrappers can change comm while preserving the agent's argv[0].
+        if argv:
+            rule = self.match_bin(Path(argv[0]).name)
+            if rule is not None:
+                return rule
         for rule in self.rules:
             for hint in rule.path_hints:
                 if any(hint in arg for arg in argv):
