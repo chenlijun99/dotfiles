@@ -26,7 +26,7 @@
   }: let
     cfg = config.clj.programs.codex;
     nonoCfg = cfg.nono;
-    agentsMdSource = config.lib.clj.linkDotfile "src/nixos/modules/ai/codex/AGENTS.md";
+    agentsMdSource = cfg.agentsMdSource;
     vimConfigSource = config.lib.clj.linkDotfile "src/vim/";
     cljCodexProfile = pkgs.replaceVars ./clj-codex.jsonc {
       vimConfig = toString vimConfigSource;
@@ -99,6 +99,11 @@
   in {
     options.clj.programs.codex = {
       enable = lib.mkEnableOption "codex CLI" // {default = true;};
+      agentsMdSource = lib.mkOption {
+        type = lib.types.path;
+        default = config.lib.clj.linkDotfile "src/nixos/modules/ai/codex/AGENTS.md";
+        description = "Global AGENTS.md installed for Codex and allowed by the nono sandbox.";
+      };
       nono = {
         enable = lib.mkEnableOption "the nono-sandboxed Codex launcher" // {default = true;};
         profile = lib.mkOption {
