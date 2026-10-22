@@ -170,6 +170,8 @@
             "project-name"
             "thread-title"
           ];
+          # Save some money...
+          auto_recap = false;
         };
         # The nolabs-ai/codex pack installs sandbox-diagnostic hooks, but leaves
         # this Codex feature opt-in to the user.
