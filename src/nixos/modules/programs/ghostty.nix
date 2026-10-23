@@ -39,14 +39,42 @@
     config,
     lib,
     ...
-  }: {
+  }: let
+    clipboardNormalizer = pkgs.writers.writePython3Bin "wayland-clipboard-normalizer" {} (
+      builtins.readFile ./ghostty-clipboard-normalizer.py
+    );
+  in {
     options.clj.programs.ghostty.enable = lib.mkEnableOption "Ghostty terminal emulator" // {default = true;};
+    options.clj.programs.ghostty.normalizeClipboard =
+      lib.mkEnableOption "republish Codex clipboard entries through Wayland" // {default = true;};
 
     config = lib.mkIf config.clj.programs.ghostty.enable {
       # Only install the package on non-Darwin (Darwin uses homebrew)
       home.packages = lib.mkIf (!pkgs.stdenv.hostPlatform.isDarwin) [
         pkgs.ghostty
       ];
+      # Work around Codex's broken Wayland clipboard target set. The full bug,
+      # workarounds, tradeoff, and upstream links are documented in
+      # ghostty-clipboard-normalizer.py.
+      systemd.user.services.wayland-clipboard-normalizer =
+        lib.mkIf
+        (!pkgs.stdenv.hostPlatform.isDarwin && config.clj.programs.ghostty.normalizeClipboard) {
+          Unit = {
+            Description = "Republish Codex text copies through Wayland";
+            After = ["graphical-session.target"];
+            ConditionEnvironment = "WAYLAND_DISPLAY";
+          };
+          Service = {
+            ExecStart = "${pkgs.wl-clipboard}/bin/wl-paste --type text/plain --watch ${clipboardNormalizer}/bin/wayland-clipboard-normalizer";
+            Environment = [
+              "WL_PASTE=${pkgs.wl-clipboard}/bin/wl-paste"
+              "WL_COPY=${pkgs.wl-clipboard}/bin/wl-copy"
+            ];
+            Restart = "always";
+            RestartSec = 2;
+          };
+          Install.WantedBy = ["graphical-session.target"];
+        };
       programs.ghostty = lib.mkIf (!pkgs.stdenv.hostPlatform.isDarwin) {
         enable = true;
 
