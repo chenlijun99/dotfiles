@@ -67,7 +67,7 @@ checkout, enable editable mode and set the checkout location:
 ```nix
 clj.dotfiles = {
   editable = true;
-  repoPath = "${config.home.homeDirectory}/Repositories/work/lijun-sonar-dev/external/dotfiles";
+  repoPath = "${config.home.homeDirectory}/path/to/my/dotfiles";
 };
 ```
 
