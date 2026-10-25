@@ -171,11 +171,16 @@
             "thread-title"
           ];
           # Save some money...
-          auto_recap = false;
+          auto_recap = lib.mkDefault false;
+          # Use terminal scrollback (makes working in tmux nicer)
+          fullscreen_transcript = lib.mkDefault false;
         };
-        # The nolabs-ai/codex pack installs sandbox-diagnostic hooks, but leaves
-        # this Codex feature opt-in to the user.
-        features.hooks = lib.mkDefault true;
+        features = {
+          # Enable hooks
+          hooks = lib.mkDefault true;
+          # Enable subagents
+          multi_agent = lib.mkDefault true;
+        };
       };
 
       # 1. Don't let home-manager symlink config.toml into the store. Keyed
