@@ -29,7 +29,10 @@
       };
       home.persistence.${config.clj.impermanence.persistDir} = {
         directories = [
-          ".local/share/opencode"
+          {
+            directory = ".local/share/opencode";
+            mode = "0700";
+          }
           ".config/opencode/package.json"
           ".config/opencode/package-lock.json"
           ".config/opencode/node_modules"

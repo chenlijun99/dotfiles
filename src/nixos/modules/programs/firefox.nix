@@ -10,9 +10,15 @@
       home.persistence.${config.clj.impermanence.persistDir} = {
         directories = [
           # Capture the core profile data, history, and extensions
-          ".config/mozilla/firefox"
+          {
+            directory = ".config/mozilla/firefox";
+            mode = "0700";
+          }
           # Capture the cache (tabs, session restoration state, etc.)
-          ".cache/mozilla"
+          {
+            directory = ".cache/mozilla";
+            mode = "0700";
+          }
         ];
       };
 

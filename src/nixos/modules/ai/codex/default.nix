@@ -125,7 +125,10 @@
       # config.toml (state) survive reboots on impermanence-based systems.
       home.persistence.${config.clj.impermanence.persistDir} = {
         directories = [
-          ".codex"
+          {
+            directory = ".codex";
+            mode = "0700";
+          }
           ".config/nono"
         ];
       };

@@ -73,11 +73,26 @@ in {
       home = {
         persistence.${config.clj.impermanence.persistDir} = {
           directories = [
-            ".local/share/TelegramDesktop"
-            ".thunderbird"
-            ".cache/thunderbird"
-            ".config/pcloud"
-            ".pcloud"
+            {
+              directory = ".local/share/TelegramDesktop";
+              mode = "0700";
+            }
+            {
+              directory = ".thunderbird";
+              mode = "0700";
+            }
+            {
+              directory = ".cache/thunderbird";
+              mode = "0700";
+            }
+            {
+              directory = ".config/pcloud";
+              mode = "0700";
+            }
+            {
+              directory = ".pcloud";
+              mode = "0700";
+            }
           ];
         };
 

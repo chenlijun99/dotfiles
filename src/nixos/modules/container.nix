@@ -40,7 +40,10 @@
   flake.modules.homeManager.clj-container = {config, ...}: {
     home.persistence.${config.clj.impermanence.persistDir} = {
       directories = [
-        ".local/share/containers"
+        {
+          directory = ".local/share/containers";
+          mode = "0700";
+        }
       ];
     };
   };

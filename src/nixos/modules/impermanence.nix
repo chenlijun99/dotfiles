@@ -102,7 +102,10 @@ in {
 
           # Development stuff
           ".cache/ccache"
-          ".cargo"
+          {
+            directory = ".cargo";
+            mode = "0700";
+          }
         ];
       };
     };

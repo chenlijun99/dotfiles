@@ -146,7 +146,10 @@ in {
 
   flake.modules.homeManager.clj-keyring = {config, ...}: {
     home.persistence.${config.clj.impermanence.persistDir}.directories = [
-      ".local/share/keyrings"
+      {
+        directory = ".local/share/keyrings";
+        mode = "0700";
+      }
     ];
   };
 }
