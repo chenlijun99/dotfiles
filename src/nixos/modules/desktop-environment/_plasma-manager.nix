@@ -105,6 +105,7 @@
       "services/firefox.desktop"._launch = "Meta+Ctrl+2";
       "services/org.kde.dolphin.desktop"._launch = ["Meta+E" "Meta+Ctrl+1"];
       "services/org.keepassxc.KeePassXC.desktop"._launch = "Meta+Ctrl+4";
+      "services/voxtype-toggle.desktop"._launch = "Meta+Shift+V";
     };
 
     panels = [
