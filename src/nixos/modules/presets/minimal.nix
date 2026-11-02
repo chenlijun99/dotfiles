@@ -8,6 +8,7 @@
     "clj-impermanence"
     # Independent
     "clj-nix"
+    "clj-users"
     "clj-shell"
     "clj-git"
     "clj-neovim"

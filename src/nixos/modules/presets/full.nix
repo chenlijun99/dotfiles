@@ -8,6 +8,7 @@
     "clj-impermanence"
     # Independent
     "clj-nix"
+    "clj-users"
     "clj-shell"
     "clj-cli-utils"
     "clj-ghostty"
@@ -18,6 +19,7 @@
     "clj-desktop-environment"
     "clj-firefox"
     "clj-keepassxc"
+    "clj-keyring"
     "clj-input-method"
     "clj-fonts"
     "clj-zotero"

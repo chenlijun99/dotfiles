@@ -1,92 +1,69 @@
-# Some unused code that records an attempt to use oo7.
+# oo7 owns org.freedesktop.secrets and the Secret desktop portal. KeePassXC
+# remains available for its SSH agent and browser integration only.
 #
-# Two issues (from Claude):
-# 
-# * Alias path lock and unlock
-# * Secret content type with charse is not supported text/plain; charset=utf8
+# PAM behavior and current nixpkgs limitations:
+#
+# * oo7 unlocks its login keyring from the account password supplied by PAM.
+# * services.oo7 enables PAM for the `login` service. SDDM uses a substack of
+#   `login`, so it inherits the integration without extra rules.
+# * This module does not enable `security.pam.services.passwd.oo7.enable`.
+#   Keep it disabled for now: nixpkgs issue #570569 reports that optional
+#   modules in the passwd password stack are skipped because pam_unix is
+#   currently `sufficient`.
+#   https://github.com/NixOS/nixpkgs/issues/570569
+# * `hashedPasswordFile` changes bypass PAM. With users.mutableUsers = false,
+#   NixOS applies the new hash during activation, but the oo7 keyring remains
+#   encrypted with the old password. Before logging out after such a change,
+#   run `oo7-cli change-secret` and enter the new account password.
+# * nixpkgs PR #544377 adds the missing passwd and display-manager integration.
+#   Revisit these local comments once it is merged.
+#   https://github.com/NixOS/nixpkgs/pull/544377
+#
+# Keyring contents are disposable. Losing or resetting the keyring is expected
+# to require re-authenticating applications; durable credentials belong in
+# KeePassXC.
 {...}: let
   mkOo7Pinned = pkgs: let
-    oo7Rev = "317cb39335d10b602a1e01b536bb49cd757f525d";
-    oo7AliasUnlockPatch = pkgs.writeText "oo7-alias-unlock.patch" ''
-      diff --git a/src/service/mod.rs b/src/service/mod.rs
-      index 8a5318b..3db1fe5 100644
-      --- a/src/service/modDEFAULT_COLLECTION_ALIAS_PATHs
-      +++ b/src/service/mod.rs
-      @@ -1107,7 +1107,11 @@ impl Service {
-               for object in objects {
-                   for (path, collection) in collections.iter() {
-                       let collection_locked = collection.is_locked().await;
-      -                if *object == *path {
-      +                let is_default_alias =
-      +                    object.as_str() == DEFAULT_COLLECTION_ALIAS_PATH.as_str()
-      +                        && collection.alias().await == oo7::dbus::Service::DEFAULT_COLLECTION;
-      +
-      +                if *object == *path || is_default_alias {
-                           if collection_locked == locked {
-                               tracing::debug!(
-                                   "Collection: {} is already {}.",
-    '';
+    # nixpkgs 0.6.0 lacks the default-alias and content-type fixes required by
+    # the secret-management decision. The 0.7.0.beta tag has a PAM bug where
+    # the login helper inherits the console login's terminal and can be killed
+    # by SIGHUP before oo7-daemon receives the password:
+    # https://github.com/linux-credentials/oo7/pull/624
+    #
+    # This revision includes that fix.
+    oo7Rev = "e55a1b10fc16c252811b4c7f7cf3603f743679e0";
     oo7Src = pkgs.fetchFromGitHub {
       owner = "linux-credentials";
       repo = "oo7";
       rev = oo7Rev;
-      hash = "sha256-HI0h+ou+iWpnNdS7MFxHMDiufwV1hMucr4BFj7qMiO0=";
+      hash = "sha256-nhkLL9xgSAIAlV+VN8R5S2kaaW326xupSviEighYGN4=";
     };
-    oo7Pinned = pkgs.rustPlatform.buildRustPackage {
-      pname = "oo7";
-      version = "0.6.0-alpha-${builtins.substring 0 7 oo7Rev}";
+    oo7CargoDeps = pkgs.rustPlatform.fetchCargoVendor {
       src = oo7Src;
-      buildAndTestSubdir = "cli";
-      cargoHash = "sha256-bjoCJnYLDHYT3c9VcP4bywsTRZOJpRlZurXJfreuOyQ=";
-      nativeBuildInputs = [pkgs.pkg-config];
-      meta = {
-        description = "James Bond went on a new mission as a Secret Service provider";
-        homepage = "https://github.com/linux-credentials/oo7";
-        changelog = "https://github.com/linux-credentials/oo7/commit/${oo7Rev}";
-        license = pkgs.lib.licenses.mit;
-        platforms = pkgs.lib.platforms.linux;
-        mainProgram = "oo7-cli";
-      };
+      name = "oo7-${oo7Rev}";
+      hash = "sha256-6jj21lbSv0SM3shReI8meih135I38UqjWGfn04kMSf4=";
     };
-    oo7ServerPinned = (pkgs.callPackage "${pkgs.path}/pkgs/by-name/oo/oo7-server/package.nix" {oo7 = oo7Pinned;}).overrideAttrs (old: {
-      patches = (old.patches or []) ++ [oo7AliasUnlockPatch];
-      postPatch = (old.postPatch or "") + ''
-        substituteInPlace ../client/src/secret.rs \
-          --replace-fail 'match s {' 'let media_type = s.split(";").next().map(str::trim).unwrap_or(""); match media_type {' \
-          --replace-fail 'e => Err(format!("Invalid content type: {e}")),' '_ => Err(format!("Invalid content type: {s}")),'
-      '';
+    oo7 = pkgs.oo7.overrideAttrs (_old: {
+      version = "0.7.0-alpha-${builtins.substring 0 7 oo7Rev}";
+      src = oo7Src;
+      cargoDeps = oo7CargoDeps;
     });
-    oo7PortalPinned = pkgs.callPackage "${pkgs.path}/pkgs/by-name/oo/oo7-portal/package.nix" {oo7 = oo7Pinned;};
-    oo7PamPinned = pkgs.rustPlatform.buildRustPackage {
-      pname = "oo7-pam";
-      version = "0.6.0-alpha-${builtins.substring 0 7 oo7Rev}";
-      src = oo7Src;
-      buildAndTestSubdir = "pam";
-      cargoBuildFlags = [
-        "-p"
-        "oo7-pam"
-      ];
-      cargoHash = "sha256-bjoCJnYLDHYT3c9VcP4bywsTRZOJpRlZurXJfreuOyQ=";
-      nativeBuildInputs = [pkgs.pkg-config];
-      installPhase = ''
-        runHook preInstall
-        so_path="$(find target -type f -name 'libpam_oo7.so' | head -n1)"
-        if [ -z "$so_path" ]; then
-          echo "libpam_oo7.so not found in build output" >&2
-          exit 1
-        fi
-        install -Dm755 "$so_path" "$out/lib/security/pam_oo7.so"
-        runHook postInstall
-      '';
-      meta = oo7Pinned.meta // {
-        description = "${oo7Pinned.meta.description} (PAM module)";
-      };
-    };
+    oo7Server = pkgs.callPackage "${pkgs.path}/pkgs/by-name/oo/oo7-server/package.nix" {inherit oo7;};
+    oo7Portal = pkgs.callPackage "${pkgs.path}/pkgs/by-name/oo/oo7-portal/package.nix" {inherit oo7;};
+    # The nixpkgs PAM derivation was written for 0.6.0. oo7 0.7 links PAM
+    # directly and expects oo7-daemon-login next to the PAM module, so the
+    # pinned PAM build needs linux-pam in buildInputs and the helper from the
+    # server package.
+    oo7Pam = (pkgs.callPackage "${pkgs.path}/pkgs/by-name/oo/oo7-pam/package.nix" {inherit oo7;}).overrideAttrs (old: {
+      buildInputs = (old.buildInputs or []) ++ [pkgs.pam];
+      postInstall =
+        (old.postInstall or "")
+        + ''
+          install -Dm755 ${oo7Server}/libexec/oo7-daemon-login $out/libexec/oo7-daemon-login
+        '';
+    });
   in {
-    oo7 = oo7Pinned;
-    oo7Server = oo7ServerPinned;
-    oo7Portal = oo7PortalPinned;
-    oo7Pam = oo7PamPinned;
+    inherit oo7 oo7Server oo7Portal oo7Pam;
   };
 in {
   flake.modules.nixos.clj-keyring = {
@@ -95,169 +72,81 @@ in {
     pkgs,
     ...
   }: let
-    hmUsers = lib.attrByPath ["home-manager" "users"] {} config;
-    enabledUsers = lib.attrNames (lib.filterAttrs (_name: hmCfg: lib.attrByPath ["clj" "keyring" "enable"] true hmCfg) hmUsers);
     kdeEnabled = config.services.desktopManager.plasma6.enable or false;
-    oo7Pinned = mkOo7Pinned pkgs;
-    oo7Pkg = oo7Pinned.oo7;
-    oo7ServerPkg = oo7Pinned.oo7Server;
-    oo7PortalPkg = oo7Pinned.oo7Portal;
-    oo7PamPkg = oo7Pinned.oo7Pam;
-    oo7PamModulePath = "${oo7PamPkg}/lib/security/pam_oo7.so";
   in {
-    config = lib.mkIf (enabledUsers != []) {
-      # oo7 provides org.freedesktop.secrets.
-      environment.systemPackages = [
-        oo7Pkg
-        oo7ServerPkg
-        oo7PortalPkg
-        oo7PamPkg
-      ];
-      systemd.packages = [
-        oo7ServerPkg
-        oo7PortalPkg
-      ];
+    # Replace the packaged oo7 components so services.oo7 uses the pinned
+    # post-beta revision throughout the daemon, PAM module, and portal.
+    nixpkgs.overlays = [
+      (_final: prev: let
+        oo7Pkgs = mkOo7Pinned prev;
+      in {
+        inherit (oo7Pkgs) oo7;
+        oo7-pam = oo7Pkgs.oo7Pam;
+        oo7-server = oo7Pkgs.oo7Server;
+        oo7-portal = oo7Pkgs.oo7Portal;
+      })
+    ];
 
-      # Expose the Secret portal backend implementation.
-      xdg.portal.extraPortals = [oo7PortalPkg];
-      xdg.portal.config.common."org.freedesktop.impl.portal.Secret" = ["oo7-portal"];
+    services.oo7.enable = true;
 
-      # Disable KDE Wallet integration when KDE is enabled.
-      environment.plasma6.excludePackages = lib.mkIf kdeEnabled (with pkgs.kdePackages; [
-        kwallet
-        kwallet-pam
-        kwalletmanager
-        signon-kwallet-extension
-      ]);
-      security.pam.services = lib.mkMerge [
-        (lib.mkIf kdeEnabled {
-          sddm.kwallet.enable = lib.mkForce false;
-          login.kwallet.enable = lib.mkForce false;
-          kde.kwallet.enable = lib.mkForce false;
-          sddm.rules.auth = {
-            unix.control = lib.mkForce "required";
-            deny.enable = lib.mkForce false;
-          };
+    # The daemon can start before the graphical session environment has been
+    # imported into the user manager. It uses this variable to select the
+    # Plasma prompter for manual unlocks.
+    # Without this, I experienced `oo7-cli unlock` getting stuck.
+    systemd.user.services.oo7-daemon.serviceConfig.Environment = lib.mkIf kdeEnabled ["XDG_CURRENT_DESKTOP=KDE"];
 
-          sddm.rules = {
-            auth.oo7 = {
-              control = "optional";
-              modulePath = oo7PamModulePath;
-              order = config.security.pam.services.sddm.rules.auth.unix.order + 10;
-            };
-            session.oo7 = {
-              control = "optional";
-              modulePath = oo7PamModulePath;
-              args = ["auto_start"];
-              order = config.security.pam.services.sddm.rules.session.unix.order + 10;
-            };
-          };
-        })
-        {
-          login.rules.auth = {
-            unix.control = lib.mkForce "required";
-            deny.enable = lib.mkForce false;
-          };
-          sshd.rules.auth = {
-            unix.control = lib.mkForce "required";
-            deny.enable = lib.mkForce false;
-          };
+    # Make sure the portal selects oo7 even though oo7-portal.portal declares
+    # UseIn=gnome. The daemon itself still provides org.freedesktop.secrets.
+    xdg.portal = {
+      enable = lib.mkDefault true;
+      config.common."org.freedesktop.impl.portal.Secret" = lib.mkForce ["oo7-portal"];
+    };
 
-          login.rules = {
-            auth.oo7 = {
-              control = "optional";
-              modulePath = oo7PamModulePath;
-              order = config.security.pam.services.login.rules.auth.unix.order + 10;
-            };
-            session.oo7 = {
-              control = "optional";
-              modulePath = oo7PamModulePath;
-              args = ["auto_start"];
-              order = config.security.pam.services.login.rules.session.unix.order + 10;
-            };
-          };
+    # KWallet is a second Secret Service provider and must not run alongside
+    # oo7. Exclude its packages and PAM hooks when Plasma is enabled.
+    environment.plasma6.excludePackages = lib.mkIf kdeEnabled (with pkgs.kdePackages; [
+      kwallet
+      kwallet-pam
+      kwalletmanager
+      signon-kwallet-extension
+    ]);
+    security.pam.services = lib.mkIf kdeEnabled {
+      login.kwallet.enable = lib.mkForce false;
+      sddm.kwallet.enable = lib.mkForce false;
+      kde.kwallet.enable = lib.mkForce false;
+    };
 
-          sshd.rules = {
-            auth.oo7 = {
-              control = "optional";
-              modulePath = oo7PamModulePath;
-              order = config.security.pam.services.sshd.rules.auth.unix.order + 10;
-            };
-            session.oo7 = {
-              control = "optional";
-              modulePath = oo7PamModulePath;
-              args = ["auto_start"];
-              order = config.security.pam.services.sshd.rules.session.unix.order + 10;
-            };
-          };
+    # Changing hashedPasswordFile under users.mutableUsers = false changes the
+    # account password without invoking PAM. Warn while the old oo7 session is
+    # still unlocked so the user can re-encrypt the keyring before logout.
+    system.activationScripts = lib.mkIf (!config.users.mutableUsers && !config.systemd.sysusers.enable && !config.services.userborn.enable) {
+      oo7PasswordChangeWarning = {
+        supportsDryActivation = true;
+        text = let
+          passwordFileUsers = lib.filterAttrs (_name: user: user.hashedPasswordFile != null) config.users.users;
+        in
+          lib.concatStringsSep "\n" (lib.mapAttrsToList (name: user: ''
+              currentHash="$(${pkgs.gawk}/bin/awk -F: -v user=${lib.escapeShellArg name} '$1 == user { print $2; exit }' /etc/shadow 2>/dev/null || true)"
+              configuredHash="$(${pkgs.coreutils}/bin/cat ${lib.escapeShellArg user.hashedPasswordFile} 2>/dev/null || true)"
 
-          passwd.rules.password.oo7 = {
-            control = "optional";
-            modulePath = oo7PamModulePath;
-            args = ["use_authtok"];
-            order = config.security.pam.services.passwd.rules.password.unix.order + 10;
-          };
-        }
-      ];
+              if [[ -n "$currentHash" && "$currentHash" != "$configuredHash" ]]; then
+                ${pkgs.coreutils}/bin/printf '%s\n' \
+                  "warning: password for user '${name}' will change during this activation." \
+                  "warning: oo7 PAM will use the new password on the next login." \
+                  "warning: if an oo7 keyring already exists, run before logging out:" \
+                  "warning:   oo7-cli change-secret" \
+                  "warning: and enter the new account password to re-encrypt the oo7 keyring." >&2
+              fi
+            '')
+            passwordFileUsers);
+      };
+      users.deps = lib.mkAfter ["oo7PasswordChangeWarning"];
     };
   };
 
-  flake.modules.homeManager.clj-keyring = {
-    config,
-    lib,
-    pkgs,
-    ...
-  }: let
-    cfg = config.clj.keyring;
-    oo7Pinned = mkOo7Pinned pkgs;
-    oo7Pkg = oo7Pinned.oo7;
-    oo7ServerPkg = oo7Pinned.oo7Server;
-    oo7PortalPkg = oo7Pinned.oo7Portal;
-    oo7Exec = "${oo7ServerPkg}/libexec/oo7-daemon --replace";
-    oo7DataHome = "${config.home.homeDirectory}/.local/share/oo7";
-  in {
-    options.clj.keyring.enable = lib.mkEnableOption "oo7 keyring backend for org.freedesktop.secrets" // {default = true;};
-
-    config = lib.mkIf cfg.enable {
-      home.packages = [
-        pkgs.libsecret
-        oo7Pkg
-        oo7ServerPkg
-        oo7PortalPkg
-      ];
-
-      xdg.configFile."kwalletrc".text = ''
-        [Wallet]
-        Enabled=false
-        First Use=false
-      '';
-
-      systemd.user.services.oo7-daemon = {
-        Unit = {
-          Description = "Secret service (oo7 implementation)";
-        };
-        Service = {
-          Environment = "XDG_DATA_HOME=${oo7DataHome}";
-          ExecStart = lib.mkForce oo7Exec;
-          Restart = "on-failure";
-          RestartSec = 2;
-        };
-        Install = {
-          WantedBy = ["default.target"];
-        };
-      };
-
-      systemd.user.services."dbus-org.freedesktop.secrets" = {
-        Unit = {
-          Description = "Secret service (oo7 implementation)";
-        };
-        Service = {
-          Environment = "XDG_DATA_HOME=${oo7DataHome}";
-          ExecStart = lib.mkForce oo7Exec;
-          Restart = "on-failure";
-          RestartSec = 2;
-        };
-      };
-    };
+  flake.modules.homeManager.clj-keyring = {config, ...}: {
+    home.persistence.${config.clj.impermanence.persistDir}.directories = [
+      ".local/share/keyrings"
+    ];
   };
 }

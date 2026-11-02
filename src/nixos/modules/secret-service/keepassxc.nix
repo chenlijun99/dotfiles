@@ -1,5 +1,5 @@
-# Some experiment code that records an attempt to use keepassxc as secret
-# service provider.
+# KeePassXC supplies the SSH agent and browser integration. It does not provide
+# org.freedesktop.secrets; oo7 owns that service.
 {...}: {
   flake.modules.nixos.clj-keepassxc = {
     config,
@@ -9,24 +9,9 @@
   }: let
     hmUsers = lib.attrByPath ["home-manager" "users"] {} config;
     enabledUsers = lib.attrNames (lib.filterAttrs (_name: hmCfg: lib.attrByPath ["clj" "keepassxc" "enable"] true hmCfg) hmUsers);
-    kdeEnabled = config.services.desktopManager.plasma6.enable or false;
   in {
     config = lib.mkIf (enabledUsers != []) {
-      # KeePassXC provides org.freedesktop.secrets and must run in user session.
       environment.systemPackages = [pkgs.keepassxc];
-
-      # Disable KDE Wallet integration when KDE is enabled.
-      environment.plasma6.excludePackages = lib.mkIf kdeEnabled (with pkgs.kdePackages; [
-        kwallet
-        kwallet-pam
-        kwalletmanager
-        signon-kwallet-extension
-      ]);
-      security.pam.services = lib.mkIf kdeEnabled {
-        sddm.kwallet.enable = lib.mkForce false;
-        login.kwallet.enable = lib.mkForce false;
-        kde.kwallet.enable = lib.mkForce false;
-      };
     };
   };
 
@@ -85,7 +70,8 @@
           # Enable browser plugin integration
           Browser.Enabled = true;
           SSHAgent.Enabled = true;
-          FdoSecrets.Enabled = true;
+          # oo7 is the only freedesktop Secret Service provider.
+          FdoSecrets.Enabled = false;
         };
       };
     };
