@@ -51,11 +51,7 @@ in {
           (systemPackages pkgs)
           ++ [
             tldr
-            # Temporarily disable doInstallCheck, which fails due to newest pandoc removing support for a flag
-            # See https://discourse.nixos.org/t/ripgrep-all-build-error-on-latest-unstable/31907/3
-            (ripgrep-all.overrideAttrs (old: {
-              doInstallCheck = false;
-            }))
+            ripgrep-all
             rclone
           ];
 

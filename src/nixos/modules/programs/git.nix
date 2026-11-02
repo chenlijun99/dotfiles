@@ -12,6 +12,7 @@
         packages = with pkgs; [
           git
           git-lfs
+          gh
         ];
         file = {
           ".gitconfig" = {
