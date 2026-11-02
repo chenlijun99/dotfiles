@@ -57,7 +57,6 @@ in {
               doInstallCheck = false;
             }))
             rclone
-            devenv
           ];
 
         file = {

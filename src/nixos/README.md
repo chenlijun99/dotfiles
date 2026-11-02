@@ -4,16 +4,11 @@ My multi-device NixOS/Darwin/Home-Manager configuration using the [Dendritic Pat
 
 ## Usage
 
-```bash
-# Build NixOS configuration
-$ sudo nixos-rebuild switch --flake .#clj-host-bosgame-m5
+This flake exports reusable NixOS, nix-darwin, and Home Manager modules. Host
+configurations live in the private homelab repository.
 
-# Build and run NixOS configuration in a VM
-$ nixos-rebuild build-vm --flake ./src/nixos-dendritic#clj-host-bosgame-m5
-$ ./result/bin/run-clj-host-bosgame-m5-vm
-```
-
-See also [`examples/incus-dev-vm/flake.nix`](./examples/incus-dev-vm/) for an example of how the modules defined here can be reused in another flake.
+See [`examples/incus-dev-vm/flake.nix`](./examples/incus-dev-vm/) for an example
+of how to consume the modules from another flake.
 
 ## Why Dendritic?
 
@@ -35,17 +30,27 @@ Advantages:
 **Separation of Concerns**:
 
 * `modules/` - Reusable modules meant also for external flakes to import
-* `hosts/` - Host-specific configurations (outputs of this flake, not for reuse)
+
+Host-specific configuration lives in the consuming repositories, not in this
+flake.
 
 ## Module Dependencies
 
 **Important**: Most Home-Manager feature modules (`clj-neovim`, `clj-shell`, `clj-git`, etc.) depend on `clj-lib` to provide the `config.lib.clj.linkDotfile` function. You have two options:
 
-1. **Use a preset** (recommended): Presets like `clj-preset-minimal` and `clj-preset-full` automatically include `clj-lib` and all necessary dependencies.
+1. **Use a preset** (recommended): Presets automatically include `clj-lib` and all necessary dependencies.
+
+   The presets compose in a chain:
+
+   * `clj-preset-minimal`: familiar shell and basic tools for servers and administrative accounts
+   * `clj-preset-development`: Minimal plus Neovim's full profile and development tooling
+   * `clj-preset-full`: Development plus GUI and personal workstation software
 
    ```nix
-   imports = [dotfiles.modules.homeManager.clj-preset-minimal];
+   imports = [dotfiles.modules.homeManager.clj-preset-development];
    ```
+
+   Import only the highest-level preset a host needs. Importing both a preset and one of its dependencies causes duplicate module imports.
 
 2. **Import `clj-lib` explicitly**: When using individual feature modules, you must import `clj-lib` first:
 

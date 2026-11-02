@@ -1,21 +1,8 @@
 # Full preset
-# Everything including GUI apps for daily driver
+# Development plus GUI and personal workstation software
 # For: Personal workstations, main desktop/laptop
 {self, ...}: let
   featureImports = self.lib.mkMultiContextImports [
-    # Used by other modules
-    "clj-lib"
-    "clj-impermanence"
-    # Independent
-    "clj-nix"
-    "clj-users"
-    "clj-shell"
-    "clj-cli-utils"
-    "clj-ghostty"
-    "clj-neovim"
-    "clj-tmux"
-    "clj-git"
-    "clj-networking"
     "clj-desktop-environment"
     "clj-firefox"
     "clj-keepassxc"
@@ -31,14 +18,14 @@
   ];
 in {
   # NixOS system-level configuration for personal preset
-  flake.modules.nixos.clj-preset-full = {
-    pkgs,
-    lib,
-    ...
-  }: {
-    imports = featureImports.nixos;
+  flake.modules.nixos.clj-preset-full = {lib, ...}: {
+    imports =
+      [self.modules.nixos.clj-preset-development]
+      ++ featureImports.nixos;
 
     config = {
+      clj.programs.ghostty.enable = lib.mkOverride 500 true;
+
       # Audio
       services.pipewire.enable = true;
 
@@ -51,12 +38,12 @@ in {
   };
 
   # Darwin system-level configuration for personal preset
-  flake.modules.darwin.clj-preset-full = {
-    pkgs,
-    lib,
-    ...
-  }: {
-    imports = featureImports.darwin;
+  flake.modules.darwin.clj-preset-full = {lib, ...}: {
+    imports =
+      [self.modules.darwin.clj-preset-development]
+      ++ featureImports.darwin;
+
+    config.clj.programs.ghostty.enable = lib.mkOverride 500 true;
   };
 
   # Home-Manager configuration for personal preset
@@ -65,45 +52,35 @@ in {
     config,
     lib,
     ...
-  }: let
-    cfg = config.clj.preset.full;
-  in {
+  }: {
     imports =
-      featureImports.homeManager;
+      [self.modules.homeManager.clj-preset-development]
+      ++ featureImports.homeManager;
 
-    options.clj.preset.full = {
-      personal-applications.enable = lib.mkEnableOption "Personal applications (LibreOffice, Anki, etc.)" // {default = true;};
-      communication.enable = lib.mkEnableOption "Communication apps (Slack, Signal, Zoom, etc.)" // {default = true;};
-      browsers.enable = lib.mkEnableOption "Web browsers (Firefox, Chromium)" // {default = true;};
-      utilities.enable = lib.mkEnableOption "GUI utilities (GParted, Calculator, etc.)" // {default = true;};
-      multimedia.enable = lib.mkEnableOption "Multimedia apps (VLC, OBS, Inkscape, etc.)" // {default = true;};
-      services.enable = lib.mkEnableOption "Background services (ActivityWatch, Syncthing)" // {default = true;};
-    };
-
-    config = lib.mkMerge [
-      # Neovim profile
-      {
-        clj.programs.neovim.profile = lib.mkDefault "full";
-      }
+    config = {
+      clj.programs = {
+        ghostty.enable = lib.mkOverride 500 true;
+        networking.gui.enable = lib.mkOverride 500 true;
+      };
 
       # Zotero config
-      {
-        clj.programs.zotero.profiles.default = {
-          id = 0;
-          isDefault = true;
-        };
-      }
+      clj.programs.zotero.profiles.default = {
+        id = 0;
+        isDefault = true;
+      };
 
-      # Communication packages
-      (lib.mkIf cfg.communication.enable {
-        home.persistence.${config.clj.impermanence.persistDir} = {
+      home = {
+        persistence.${config.clj.impermanence.persistDir} = {
           directories = [
             ".local/share/TelegramDesktop"
             ".thunderbird"
             ".cache/thunderbird"
+            ".config/pcloud"
+            ".pcloud"
           ];
         };
-        home.packages = with pkgs; [
+
+        packages = with pkgs; [
           # Email
           thunderbird
           # Messaging
@@ -111,35 +88,14 @@ in {
           signal-desktop
           telegram-desktop
           discord
-        ];
-      })
-
-      # Browsers
-      (lib.mkIf cfg.browsers.enable {
-        home.packages = with pkgs; [
+          # Browser
           chromium
-        ];
-      })
-
-      # GUI utilities
-      (lib.mkIf cfg.utilities.enable {
-        home.packages = with pkgs; [
+          # GUI utilities
           gparted
           gnome-disk-utility
           gnome-calculator
           kdePackages.filelight
-        ];
-      })
-
-      # Personal applications
-      (lib.mkIf cfg.personal-applications.enable {
-        home.persistence.${config.clj.impermanence.persistDir} = {
-          directories = [
-            ".config/pcloud"
-            ".pcloud"
-          ];
-        };
-        home.packages = with pkgs; [
+          # Personal applications
           kdePackages.okular
           xournalpp
           anki-bin
@@ -149,18 +105,7 @@ in {
           gtkterm
           zathura
           zeal
-        ];
-
-        xdg.configFile = {
-          "zathura" = {
-            source = config.lib.clj.linkDotfile "src/config/zathura";
-          };
-        };
-      })
-
-      # Multimedia apps
-      (lib.mkIf cfg.multimedia.enable {
-        home.packages = with pkgs; [
+          # Multimedia
           strawberry
           ffmpeg
           vlc
@@ -175,24 +120,24 @@ in {
           gnome-pomodoro
           safeeyes
         ];
+      };
 
-        xdg.configFile = {
-          "strawberry" = {
-            source = config.lib.clj.linkDotfile "src/config/strawberry";
-          };
-          "safeeyes" = {
-            source = config.lib.clj.linkDotfile "src/config/safeeyes";
-          };
+      xdg.configFile = {
+        "zathura" = {
+          source = config.lib.clj.linkDotfile "src/config/zathura";
         };
-      })
+        "strawberry" = {
+          source = config.lib.clj.linkDotfile "src/config/strawberry";
+        };
+        "safeeyes" = {
+          source = config.lib.clj.linkDotfile "src/config/safeeyes";
+        };
+      };
 
-      # Background services
-      (lib.mkIf cfg.services.enable {
-        services.syncthing = {
-          enable = true;
-          tray.enable = true;
-        };
-      })
-    ];
+      services.syncthing = {
+        enable = true;
+        tray.enable = true;
+      };
+    };
   };
 }

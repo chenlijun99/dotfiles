@@ -5,7 +5,7 @@ In this case the flake contains a minimal development VM for Incus/LXD.
 
 ## What this example does
 
-Creates a minimal NixOS VM with:
+Creates a development NixOS VM with:
 
 * CLI development environment (neovim, shell config, LSPs, formatters)
 * SSH server for remote access

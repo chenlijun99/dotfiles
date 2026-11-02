@@ -4,7 +4,8 @@
 # dotfiles linking (clj-neovim, clj-shell, clj-git, clj-cli-utils, clj-ghostty).
 #
 # Either:
-#   1. Use a preset (clj-preset-minimal, clj-preset-full) which includes this
+#   1. Use a preset (clj-preset-minimal, clj-preset-development,
+#      clj-preset-full) which includes this
 #   2. Import this module explicitly along with feature modules
 #
 # Why not auto-import? Due to nixpkgs#340361, flake-based modules cannot be
@@ -44,7 +45,6 @@
       repoPath = config.clj.dotfiles.repoPath;
       editableMode = config.clj.dotfiles.editable or false;
     in {
-
       # Helper function: returns store path or out-of-store symlink based on mode
       lib.clj.linkDotfile = relativePath:
         if editableMode

@@ -1,6 +1,6 @@
 # Minimal preset
-# Small shell tools and neovim
-# For: Remote servers, minimal VMs
+# Familiar shell and basic tools without development tooling
+# For: Remote servers, service VMs, administrative accounts
 {self, ...}: let
   features = [
     # Used by other modules
@@ -36,7 +36,6 @@ in {
     imports = imports.homeManager;
     config = {
       clj.programs.networking.gui.enable = lib.mkDefault false;
-      clj.programs.neovim.profile = lib.mkDefault "minimal";
       clj.programs.ghostty.enable = lib.mkDefault false;
     };
   };

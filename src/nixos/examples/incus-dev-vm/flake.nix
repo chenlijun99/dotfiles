@@ -24,17 +24,17 @@
         initialPassword = "dev";
       };
       homeManager = {
-        imports = [dotfiles.modules.homeManager.clj-preset-minimal];
+        imports = [dotfiles.modules.homeManager.clj-preset-development];
         home.stateVersion = "26.05";
       };
     };
   in {
-    # Minimal VM configuration using dendritic presets
+    # Development VM configuration using dendritic presets
     nixosConfigurations.incus-dev-vm = nixpkgs.lib.nixosSystem {
       system = "x86_64-linux";
       modules = [
         # Import a preset
-        dotfiles.modules.nixos.clj-preset-minimal
+        dotfiles.modules.nixos.clj-preset-development
 
         # Import the nixos module for the user (includes HM integration)
         user.nixosModule
@@ -48,6 +48,11 @@
           # Boot configuration for VM
           boot.loader.grub.enable = true;
           boot.loader.grub.device = "/dev/sda";
+
+          fileSystems."/" = {
+            device = "/dev/disk/by-label/nixos";
+            fsType = "ext4";
+          };
 
           # Networking
           networking.useDHCP = true;

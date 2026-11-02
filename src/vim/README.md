@@ -66,6 +66,7 @@ clj.programs.neovim.profile = "full";   # or "minimal"
 The preset modules already set sensible defaults:
 
 * `clj-preset-minimal` → `"minimal"` (default)
+* `clj-preset-development` → `"full"`
 * `clj-preset-full` → `"full"`
 
 When the profile is set via Nix, home-manager writes the value to

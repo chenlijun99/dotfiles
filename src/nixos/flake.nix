@@ -41,7 +41,7 @@
     inputs.flake-parts.lib.mkFlake {inherit inputs;} {
       imports = [
         inputs.flake-parts.flakeModules.modules
-        (inputs.import-tree [./modules ./hosts])
+        (inputs.import-tree [./modules])
       ];
 
       # Set supported systems
