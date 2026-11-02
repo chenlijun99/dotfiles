@@ -42,7 +42,10 @@ Service behavior
 Home Manager starts `wl-paste --type text/plain --watch` for this script. The
 script only acts when the clipboard offers the rich legacy target set produced
 by the Codex failure: text/html, STRING, UTF8_STRING, and TEXT. It republishes
-the exact stdin bytes with wl-copy. A five-second SHA-256 cooldown prevents the
+the text with wl-copy. When the offer also provides
+`text/plain;charset=utf-8`, the script reads that target because Wayland
+clipboard managers can expose literal `\\uXXXX` escapes through plain
+`text/plain` for non-ASCII text. A five-second SHA-256 cooldown prevents the
 republished clipboard from triggering a feedback loop. Empty content and
 sensitive clipboard states are ignored.
 
@@ -78,6 +81,7 @@ from pathlib import Path
 COOLDOWN_NS = 5_000_000_000
 STATE_FILE = "wayland-clipboard-normalizer.json"
 CODEX_LEGACY_TARGETS = frozenset({"STRING", "UTF8_STRING", "TEXT"})
+UTF8_TEXT_TARGET = "text/plain;charset=utf-8"
 
 
 def log(message: str) -> None:
@@ -99,6 +103,19 @@ def offered_types(wl_paste: str) -> set[str]:
         log(f"wl-paste --list-types failed: {result.stderr.strip()}")
         return set()
     return set(result.stdout.splitlines())
+
+
+def read_utf8_text(wl_paste: str) -> bytes | None:
+    result = subprocess.run(
+        [wl_paste, "--no-newline", "--type", UTF8_TEXT_TARGET],
+        check=False,
+        capture_output=True,
+    )
+    if result.returncode != 0:
+        stderr = result.stderr.decode(errors="replace").strip()
+        log(f"wl-paste --type {UTF8_TEXT_TARGET} failed: {stderr}")
+        return None
+    return result.stdout
 
 
 def state_path() -> Path:
@@ -138,8 +155,8 @@ def main() -> int:
     if os.environ.get("CLIPBOARD_STATE") != "data":
         return 0
 
-    content = sys.stdin.buffer.read()
-    if not content:
+    fallback_content = sys.stdin.buffer.read()
+    if not fallback_content:
         return 0
 
     wl_paste = os.environ.get("WL_PASTE", "wl-paste")
@@ -148,6 +165,12 @@ def main() -> int:
     types = offered_types(wl_paste)
     if "text/html" not in types or not CODEX_LEGACY_TARGETS.issubset(types):
         return 0
+
+    content = fallback_content
+    if UTF8_TEXT_TARGET in types:
+        utf8_content = read_utf8_text(wl_paste)
+        if utf8_content:
+            content = utf8_content
 
     content_hash = hashlib.sha256(content).hexdigest()
     if recently_republished(content_hash):
