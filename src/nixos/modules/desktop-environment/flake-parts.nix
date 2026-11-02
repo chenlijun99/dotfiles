@@ -28,6 +28,8 @@
           files = [
             # Display configuratino of KDE
             ".config/kwinoutputconfig.json"
+            # Power management settings managed through KDE System Settings
+            ".config/powerdevilrc"
           ];
         };
       })

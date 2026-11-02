@@ -2,6 +2,8 @@
   programs.plasma = {
     enable = true;
     overrideConfig = true;
+    # PowerDevil settings are managed interactively and persisted separately.
+    resetFilesExclude = ["powerdevilrc"];
     shortcuts = {
       ksmserver = {
         "Log Out" = "Alt+Shift+F4,Ctrl+Alt+Del,Log Out";
