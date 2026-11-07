@@ -1,7 +1,8 @@
 # Declarative user-level Codex skills.
 #
 # Keep third-party sources pinned here and expose only the selected skill
-# directories through Home Manager's Codex module.
+# directories through Home Manager's Codex module. Local skills follow the
+# dotfiles editable setting.
 {...}: {
   flake.modules.homeManager.clj-codex = {
     config,
@@ -30,7 +31,6 @@
       to-tickets = "engineering/to-tickets";
       tdd = "engineering/tdd";
       codebase-design = "engineering/codebase-design";
-      code-review = "engineering/code-review";
       diagnosing-bugs = "engineering/diagnosing-bugs";
       implement = "engineering/implement";
       research = "engineering/research";
@@ -39,12 +39,21 @@
       triage = "engineering/triage";
       teach = "productivity/teach";
     };
-    localSkills = {
-    };
-    skills = mattpocockSkills // localSkills;
+    codexConfigDir =
+      if config.home.preferXdgDirectories
+      then "${config.xdg.configHome}/codex"
+      else ".codex";
   in {
     config = lib.mkIf config.clj.programs.codex.enable {
-      programs.codex.skills = skills;
+      programs.codex.skills = mattpocockSkills;
+
+      # programs.codex.skills inspects sources in builds without checkout access.
+      home.file = {
+        "${codexConfigDir}/skills/clj-code-review".source =
+          config.lib.clj.linkDotfile "src/nixos/modules/ai/codex/skills/clj-code-review";
+        "${codexConfigDir}/skills/clj-implement-review-loop".source =
+          config.lib.clj.linkDotfile "src/nixos/modules/ai/codex/skills/clj-implement-review-loop";
+      };
     };
   };
 }
