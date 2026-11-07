@@ -4,6 +4,7 @@
 {self, ...}: let
   featureImports = self.lib.mkMultiContextImports [
     "clj-devenv"
+    "clj-codex"
   ];
 in {
   flake.modules.nixos.clj-preset-development = {...}: {

@@ -13,7 +13,6 @@
     "clj-container"
     "clj-kanata"
     "clj-opencode"
-    "clj-codex"
     "clj-voxtype"
     "clj-personal-scripts"
   ];
