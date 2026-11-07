@@ -158,8 +158,9 @@
       programs.codex.settings = {
         tui = {
           status_line = lib.mkDefault [
-            "current-dir"
+            "project-name"
             "model-with-reasoning"
+            "thread-title"
             "context-remaining"
           ];
           status_line_use_colors = lib.mkDefault true;
