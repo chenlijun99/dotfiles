@@ -19,6 +19,10 @@ class Error(Exception):
     """A safe, user-facing request failure."""
 
 
+class MissingSession(Error):
+    """The selected disposable workspace no longer exists."""
+
+
 def uid() -> str:
     return uuid.uuid4().hex
 
@@ -84,9 +88,15 @@ def store(folder: str, create: bool = False, readonly: bool = False) -> Generato
     path = Path(folder).expanduser().resolve()
     if create:
         path.mkdir(parents=True, exist_ok=True)
-    require(path.is_dir() and (create or (path / "session.sqlite3").is_file()), "session does not exist")
     database = path / "session.sqlite3"
-    connection = sqlite3.connect(database.as_uri() + "?mode=ro" if readonly else database, timeout=30, uri=readonly)
+    if not path.is_dir() or (not create and not database.is_file()):
+        raise MissingSession("session does not exist")
+    try:
+        connection = sqlite3.connect(database.as_uri() + "?mode=ro" if readonly else database, timeout=30, uri=readonly)
+    except sqlite3.OperationalError as error:
+        if not create and not database.is_file():
+            raise MissingSession("session does not exist") from error
+        raise
     try:
         if not readonly:
             connection.execute("PRAGMA synchronous=FULL")
@@ -194,7 +204,7 @@ def anchor_for(state: dict, args: dict) -> dict:
 def execute(folder: str, operation: str, args: dict) -> Any:
     from .targets import descriptor, same_file
     require(args.get("role", "human") in ("human", "agent"), "invalid role")
-    readonly = operation in ("view", "status", "threads", "queue", "show", "source", "context", "history", "preview") or (operation == "coverage" and not args.get("body"))
+    readonly = operation in ("load", "view", "status", "threads", "queue", "show", "source", "context", "history", "preview") or (operation == "coverage" and not args.get("body"))
     with store(folder, create=operation == "init", readonly=readonly) as state:
         if operation == "init":
             require(not state, "session already initialized")
@@ -202,6 +212,8 @@ def execute(folder: str, operation: str, args: dict) -> Any:
             state.update(version=2, repo=repo, threads={}, coverage=[], reviewed={}, publications={})
             return {"repo": repo, "session": str(Path(folder).resolve())}
         require(state.get("version") == 2, "unsupported session format (expected viewer-driven format 2)")
+        if operation == "load":
+            return {"repo": state["repo"], "session": str(Path(folder).expanduser().resolve())}
         if operation in ("view", "status"):
             pairs = view_for(state, args)
             files = []

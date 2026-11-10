@@ -21,7 +21,7 @@ For a standalone checkout, add `bin/` to PATH or `pip install .`. Neovim invokes
 :CodeDiff HEAD~2 HEAD~1
 ```
 
-Create a session once; use `ReviewSession` to reload it after restarting. Both commands accept an explicit directory. Source navigation uses normal viewer commands, including `:CodeDiff`, `:Gdiffsplit` and Fugitive `:Git` status. New viewer tabs inherit the originating tab's session; existing tabs retain their own choices. Distinct sessions in one repository remain independent.
+Create a session once; use `ReviewSession` to reload it after restarting. A requested session is selected only after read-only validation. If you delete it while Neovim is running, the next read unloads its selection and inheritance quietly; normal viewer navigation continues without repeated errors. Both commands accept an explicit directory. Source navigation uses normal viewer commands, including `:CodeDiff`, `:Gdiffsplit` and Fugitive `:Git` status. New viewer tabs inherit the originating tab's session; existing tabs retain their own choices. Distinct sessions in one repository remain independent.
 
 Navigation performs read-only queries, with no session writes, snapshot persistence or comparison enrollment. Creating a thread or explicitly marking a pair reviewed captures its actual versions. Working-tree anchors use saved disk content; save source edits first. Explicit actions also check loaded source against the saved version. If an external edit leaves an unmodified working or index buffer stale, reload it through its viewer and reselect; the plugin never saves that stale buffer over the external change. Normal source buffers use index:worktree pairs.
 
@@ -115,6 +115,7 @@ python3 -m unittest discover -s tests -v
 nvim --headless -u NONE -l tests/editor.lua
 nvim --headless -u NONE -l tests/codediff.lua
 nvim --headless -u NONE -l tests/codediff_symbolic.lua
+nvim --headless -u NONE -l tests/codediff_session.lua
 nvim --headless -u NONE -l tests/fugitive.lua
 ```
 

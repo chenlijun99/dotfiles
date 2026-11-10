@@ -2,7 +2,7 @@
 
 `review-session --session DIRECTORY [--role human|agent] COMMAND [OPTIONS]`
 
-Successful commands emit one JSON value and exit 0; runtime errors emit JSON on stderr and exit 1 (argparse usage errors exit 2). Global options precede the command. Bodies use `--body TEXT`, `--body-file FILE`, or `--body-file -` for stdin. No comparison enrollment or fixed session base/head exists.
+Successful commands emit one JSON value and exit 0; runtime errors emit JSON on stderr and exit 1 (argparse usage errors exit 2). A missing session additionally returns `"code": "missing_session"`; source/Git errors do not use this code. Global options precede the command. Bodies use `--body TEXT`, `--body-file FILE`, or `--body-file -` for stdin. No comparison enrollment or fixed session base/head exists.
 
 ## File targets
 
@@ -29,6 +29,7 @@ Programmatic source actions can include an `observations` array inside the view.
 ## Commands
 
 - `init [--repo PATH]`: create a session directory, storing a default repository hint (default cwd). Existing sessions are never overwritten; subsequent actions can target other repositories explicitly.
+- `load`: validate an existing session and return its canonical directory/repository hint, without accessing source files or changing storage.
 - `view TARGET` (alias `status`): read-only current file-pair status, exact reviewed count and total. Each `reviewed` field is `reviewed`, `another` or `pending`; another implies neither ordering nor partial coverage. Navigation never persists snapshots or session activity.
 - `mark TARGET [--value toggle|reviewed|pending]`: deliberately capture/mark only the supplied file pairs. Toggle marks all if any is not exact-reviewed; otherwise clears those exact marks. Other pairs remain marked.
 - `history [TARGET]`: list captured reviewed pairs, optionally restricted to files relevant to the target. Results retain original version references, paths, fingerprints, modes and source snapshots.

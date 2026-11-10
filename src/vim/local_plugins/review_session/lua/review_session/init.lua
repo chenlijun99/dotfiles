@@ -10,8 +10,11 @@
 ---@field cache? table Cached read-only view status and visible threads
 ---@field busy? boolean
 ---@field again? boolean
+---@field invalid? boolean Selection invalid; pending callbacks must not revive it.
+---@field loading? boolean Read-only load validation is pending.
+---@field selection? table Ownership shared only by contexts inherited from one explicit load.
 local M = {}
-local contexts, origins = {}, {}
+local contexts, origins, loads = {}, {}, {}
 local leaving
 local options = {}
 local ns = vim.api.nvim_create_namespace("review_session")
@@ -25,19 +28,46 @@ end
 ---@return ReviewSessionContext|nil
 function M.context(tab) return contexts[tab or vim.api.nvim_get_current_tabpage()] end
 
+local function owner(ctx) return ctx.selection or ctx end
+
+local function invalidate(ctx)
+	local selection = owner(ctx)
+	local first = not selection.invalid
+	selection.invalid = true
+	ctx.invalid, ctx.cache, ctx.busy = true, nil, false
+	for tab, selected in pairs(contexts) do
+		if owner(selected) == selection then selected.invalid = true; contexts[tab] = nil end
+	end
+	for tab, origin in pairs(origins) do if owner(origin) == selection then origins[tab] = nil end end
+	if leaving and owner(leaving) == selection then leaving = nil end
+	M.redraw()
+	return first
+end
+
 ---@param ctx ReviewSessionContext
 ---@param operation string
 ---@param args table
 ---@param callback fun(result: any)
----@param failed? fun()
-function M.request(ctx, operation, args, callback, failed)
+---@param failed? fun(error?: table)
+---@param quiet_missing? boolean Passive navigation unloads a deleted workspace silently.
+function M.request(ctx, operation, args, callback, failed, quiet_missing)
+	if ctx.invalid or owner(ctx).invalid then
+		if not quiet_missing then notify("select a workspace with :ReviewSession folder", vim.log.levels.WARN) end
+		if failed then failed({ code = "missing_session" }) end
+		return
+	end
 	vim.system({ options.python or "python3", options.cli or root .. "/bin/review-session", "--session", ctx.session, operation, "--request-file", "-" },
 		{ text = true, stdin = vim.json.encode(vim.tbl_extend("force", { role = "human" }, args)) }, function(result)
 			vim.schedule(function()
+				if ctx.invalid or owner(ctx).invalid then if failed then failed({ code = "missing_session" }) end; return end
 				local ok, value = pcall(vim.json.decode, result.stdout or "")
 				if result.code ~= 0 or not ok then
-					notify(result.stderr ~= "" and result.stderr or "invalid CLI response", vim.log.levels.ERROR)
-					if failed then failed() end
+					local parsed, error = pcall(vim.json.decode, result.stderr or "")
+					local failure = parsed and type(error) == "table" and error or nil
+					local missing = failure and failure.code == "missing_session"
+					local first = not missing or invalidate(ctx)
+					if first and not (missing and quiet_missing) then notify(result.stderr ~= "" and result.stderr or "invalid CLI response", vim.log.levels.ERROR) end
+					if failed then failed(failure) end
 					return
 				end
 				callback(value)
@@ -117,7 +147,7 @@ function M.view(all, report)
 			local view, err, active = viewer.resolve(all)
 			if active then
 				local tab = vim.api.nvim_get_current_tabpage()
-				if not contexts[tab] and origins[tab] then contexts[tab] = { session = origins[tab].session }; origins[tab] = nil end
+				if not contexts[tab] and origins[tab] and not origins[tab].invalid and not owner(origins[tab]).invalid and not origins[tab].loading then contexts[tab] = { session = origins[tab].session, selection = owner(origins[tab]) }; origins[tab] = nil end
 				if err and report then notify(err, vim.log.levels.WARN) end
 				if report and not saved_view(view, true) then return end
 				return view
@@ -182,17 +212,31 @@ function M.refresh(ctx)
 			ctx.cache, ctx.busy = { descriptor = view, signature = stamp, status = status, threads = threads }, false
 			if M.context() == ctx then M.redraw() end
 			if ctx.again then ctx.again = false; M.refresh(ctx) end
-		end, function() ctx.busy = false end)
-	end, function() ctx.busy = false end)
+		end, function() ctx.busy = false end, true)
+	end, function() ctx.busy = false end, true)
 end
 
 ---@param session string
 ---@param tab? integer
 function M.attach(session, tab)
 	tab = tab or vim.api.nvim_get_current_tabpage()
-	contexts[tab] = { session = vim.fn.fnamemodify(session, ":p"):gsub("/$", "") }
-	if tab == vim.api.nvim_get_current_tabpage() then M.redraw(); M.refresh() end
+	local ctx = { session = vim.fn.fnamemodify(session, ":p"):gsub("/$", ""), loading = true, selection = {} }
+	contexts[tab], origins[tab], loads[tab] = nil, nil, ctx
+	if tab == vim.api.nvim_get_current_tabpage() then M.redraw() end
+	M.request(ctx, "load", {}, function(result)
+		if loads[tab] ~= ctx or not vim.api.nvim_tabpage_is_valid(tab) then return end
+		loads[tab], contexts[tab], ctx.session, ctx.loading = nil, ctx, result.session, false
+		local current = vim.api.nvim_get_current_tabpage()
+		if tab == current then M.redraw(); M.refresh()
+		elseif origins[current] == ctx then M.refresh() end
+	end, function()
+		ctx.invalid = true
+		if loads[tab] == ctx then loads[tab] = nil end
+		for inherited, origin in pairs(origins) do if origin == ctx then origins[inherited] = nil end end
+		if leaving == ctx then leaving = nil end
+	end)
 end
+
 local function context()
 	M.view(false)
 	local ctx = M.context()
@@ -398,7 +442,7 @@ end
 function M.setup(opts)
 	options = opts or {}
 	local group = vim.api.nvim_create_augroup("review_session", { clear = true })
-	vim.api.nvim_create_autocmd("TabLeave", { group = group, callback = function() leaving = M.context() end })
+	vim.api.nvim_create_autocmd("TabLeave", { group = group, callback = function() local tab = vim.api.nvim_get_current_tabpage(); leaving = M.context() or loads[tab] or origins[tab] end })
 	vim.api.nvim_create_autocmd("TabNewEntered", { group = group, callback = function() origins[vim.api.nvim_get_current_tabpage()] = leaving end })
 	vim.api.nvim_create_autocmd({ "TabEnter", "BufEnter", "WinEnter" }, { group = group, callback = function()
 		M.redraw(); vim.schedule(function() M.refresh() end)
@@ -411,7 +455,9 @@ function M.setup(opts)
 	end })
 	vim.api.nvim_create_autocmd({ "BufWritePost", "FocusGained" }, { group = group, callback = function() M.refresh() end })
 	vim.api.nvim_create_autocmd("TabClosed", { group = group, callback = function()
-		for tab in pairs(contexts) do if not vim.api.nvim_tabpage_is_valid(tab) then contexts[tab], origins[tab] = nil, nil end end
+		for _, selected in ipairs({ contexts, origins, loads }) do
+			for tab in pairs(selected) do if not vim.api.nvim_tabpage_is_valid(tab) then selected[tab] = nil end end
+		end
 	end })
 	for _, name in ipairs({ "codediff", "fugitive" }) do local viewer = adapter(name); if viewer and viewer.setup then viewer.setup(group, function() M.refresh() end, M.redraw) end end
 	local function command(name, fn, spec) vim.api.nvim_create_user_command(name, fn, vim.tbl_extend("force", spec or {}, { force = true })) end

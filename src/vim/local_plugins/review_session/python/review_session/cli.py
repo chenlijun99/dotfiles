@@ -8,7 +8,7 @@ import sys
 from pathlib import Path
 from typing import Any
 
-from .core import Error, execute
+from .core import Error, MissingSession, execute
 
 
 def parser() -> argparse.ArgumentParser:
@@ -18,7 +18,7 @@ def parser() -> argparse.ArgumentParser:
     commands = root.add_subparsers(dest="operation", required=True)
     target = ["repo", "old", "new", "path", "old-path", "new-path", "view-file", "expected-fingerprint"]
     options = {
-        "init": ["repo"], "view": target, "status": target,
+        "init": ["repo"], "load": [], "view": target, "status": target,
         "mark": [*target, "value"], "create": [*target, "scope", "side", "start", "end", "body"],
         "threads": target, "history": target, "queue": [], "coverage": ["target", "body"],
         "show": ["thread"], "context": ["thread", "fingerprint"], "source": ["thread", "fingerprint", "side"], "reply": ["thread", "body", "ack"],
@@ -66,7 +66,10 @@ def main() -> int:
         print(json.dumps(result, ensure_ascii=True))
         return 0
     except (Error, OSError, sqlite3.Error, ValueError, KeyError, TypeError) as error:
-        print(json.dumps({"error": str(error)}), file=sys.stderr)
+        result = {"error": str(error)}
+        if isinstance(error, MissingSession):
+            result["code"] = "missing_session"
+        print(json.dumps(result), file=sys.stderr)
         return 1
 
 

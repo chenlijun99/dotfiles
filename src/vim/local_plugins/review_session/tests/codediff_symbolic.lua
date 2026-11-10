@@ -24,7 +24,7 @@ local function open(args, old, new)
 	vim.api.nvim_cmd({ cmd = "CodeDiff", args = vim.list_extend({ "--repo", repo }, args) }, {})
 	wait(function()
 		local context = opened and lc.get_git_context(opened)
-		return context and context.original_revision == old and context.modified_revision == new
+		return context and context.original_revision == old and context.modified_revision == new and review.context(opened)
 	end)
 	local panel = lc.get_panel(opened)
 	-- Stop only this fixture's watcher: the branch advance must precede a viewer refresh.

@@ -9,7 +9,9 @@ vim-fugitive. Optional picker: fzf-lua. Publication requires authenticated gh.
 
 Load a session, navigate normally with CodeDiff, Gdiffsplit or Git status,
 then explicitly create threads or mark file pairs. No comparison setup is
-required. Navigation never writes session state or persists snapshots.
+required. Navigation never writes session state or persists snapshots. A missing/deleted
+session is unloaded; further viewer navigation stays silent until another
+workspace is explicitly selected.
 
 COMMANDS                                        *review-session-commands*
 

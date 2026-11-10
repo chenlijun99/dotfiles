@@ -395,6 +395,25 @@ class SessionTest(unittest.TestCase):
         self.assertIn(self.base, records[0]["body"])
         self.assertEqual(command("show", "--thread", created["id"])["thread"]["anchor"]["start"], 2)
 
+    def test_readonly_load_does_not_depend_on_source_and_missing_error_is_distinct(self):
+        script = Path(__file__).resolve().parents[1] / "bin/review-session"
+        db = Path(self.session) / "session.sqlite3"
+        before = db.read_bytes(), db.stat().st_mtime_ns
+        self.repo.rename(self.root / "gone")
+        self.assertEqual(self.call("load")["session"], self.session)
+        self.assertEqual(before, (db.read_bytes(), db.stat().st_mtime_ns))
+        missing = str(self.root / "missing")
+        result = subprocess.run([sys.executable, str(script), "--session", missing, "load"], capture_output=True, check=False)
+        self.assertEqual(result.returncode, 1)
+        self.assertEqual(json.loads(result.stderr)["code"], "missing_session")
+        self.assertFalse(Path(missing).exists())
+        result = subprocess.run([sys.executable, str(script), "--session", self.session, "view"], capture_output=True, check=False)
+        self.assertEqual(result.returncode, 1)
+        self.assertNotIn("code", json.loads(result.stderr), "ordinary source errors must not claim the session is missing")
+        db.unlink()
+        result = subprocess.run([sys.executable, str(script), "--session", self.session, "load"], capture_output=True, check=False)
+        self.assertEqual(json.loads(result.stderr)["code"], "missing_session")
+
     def test_cli_request_and_readonly_view(self):
         script = Path(__file__).resolve().parents[1] / "bin/review-session"
         result = subprocess.run([sys.executable, str(script), "--session", self.session, "view", "--request-file", "-"], input=json.dumps({"view": self.view()}).encode(), capture_output=True, check=False)
