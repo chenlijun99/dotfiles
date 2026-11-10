@@ -1,0 +1,77 @@
+*review-session.txt*  Viewer-driven code review workspaces
+
+SETUP                                                    *review-session*
+
+    require('review_session').setup({ viewer = 'codediff', keys = true })
+
+Requires Neovim 0.10+, Python 3.10+, Git. Optional viewers: codediff.nvim,
+vim-fugitive. Optional picker: fzf-lua. Publication requires authenticated gh.
+
+Load a session, navigate normally with CodeDiff, Gdiffsplit or Git status,
+then explicitly create threads or mark file pairs. No comparison setup is
+required. Navigation never writes session state or persists snapshots.
+
+COMMANDS                                        *review-session-commands*
+
+:ReviewInit {folder} [repo]       Create a workspace (default repo cwd).
+:ReviewSession {folder}           Select/reload workspace in current tab.
+:ReviewThreads[!]                 Pick current-view threads (! whole session).
+:ReviewReviewed[!]                Inspect reviewed pairs (! whole session).
+:ReviewThread {id}                Open discussion and its original context.
+:ReviewNote                       Compose review-wide note.
+:ReviewFile                       Compose current-file note.
+:[range]ReviewComment             Compose source-range note.
+:[range]ReviewReanchor {id}        Select separate publication location.
+:ReviewToggle                     Toggle current file pair reviewed.
+:ReviewToggleAll                  Toggle current viewer change list reviewed.
+:ReviewProgress                   Report current-view pair statuses.
+
+Default mappings: <leader>rv current pair; <leader>rV current view.
+Fugitive status bulk selects only current staged/unstaged section. File notes
+work on status rows; range notes require an open diff. Save source first;
+ambiguous or three-way partners are rejected rather than guessed. External
+changes that leave unmodified working/index buffers stale require reload and
+reselection; the plugin never saves stale text over an external change.
+
+STATUS                                            *review-session-status*
+
+Reviewed: this exact old/new content, paths and modes were marked.
+Another revision reviewed: a different pair of that file was marked, with no
+ordering or partial-coverage implication. Pending: no pair of that file marked.
+Source files are never changed and existing REVIEWED text is left alone.
+
+THREADS                                          *review-session-threads*
+
+Save editable Markdown with :write. Failed/stale writes preserve the buffer.
+R reload; r reply; e edit message; s share/unshare; x resolve/reopen;
+o/O original/opposite snapshot; d select draft; p inline preview;
+P explicit PR-wide summary preview.
+
+Human threads start human-only; agents create shared threads. Sharing is a
+context filter, not secrecy. Resolved, acknowledged and published are separate.
+Choosing another pair opens the original preferred viewer (default codediff),
+with immutable snapshot fallback if original source is no longer available.
+
+CLI                                               *review-session-cli*
+
+review-session --session FOLDER --role agent queue
+review-session --session FOLDER --role agent show --thread ID
+review-session --session FOLDER --role agent reply --thread ID
+    --ack EXACT_REVISION --body-file reply.md
+review-session --session FOLDER --role agent create --repo REPO
+    --old BASE --new HEAD --path FILE --start 12 --body-file finding.md
+
+Version selectors include commits, INDEX:0 (INDEX), INDEX:1/2/3 and WORKTREE.
+Reading is not acknowledgement. Each edit has its own revision token.
+coverage records review-level evidence once. See docs/cli.md for JSON targets.
+
+PUBLICATION                                   *review-session-publication*
+
+Select a specific message revision with d, preview with p/P, then confirm.
+Inline publication validates PR head, merge base, paths and coordinates.
+Explicit reanchor retains original context; --summary/P publishes a PR-wide
+comment without pretending an incompatible intermediate location maps inline.
+Receipts and retry markers recover uncertain POST outcomes. Deleting a session
+does not undo source changes or remote comments.
+
+ vim:tw=78:ts=8:noet:ft=help:norl:

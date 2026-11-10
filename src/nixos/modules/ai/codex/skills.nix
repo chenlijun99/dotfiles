@@ -49,6 +49,10 @@
 
       # programs.codex.skills inspects sources in builds without checkout access.
       home.file = {
+        "${codexConfigDir}/skills/review-session".source =
+          config.lib.clj.linkDotfile "src/vim/local_plugins/review_session/skills/review-session";
+        "${codexConfigDir}/skills/clj-review-session".source =
+          config.lib.clj.linkDotfile "src/nixos/modules/ai/codex/skills/clj-review-session";
         "${codexConfigDir}/skills/clj-code-review".source =
           config.lib.clj.linkDotfile "src/nixos/modules/ai/codex/skills/clj-code-review";
         "${codexConfigDir}/skills/clj-implement-review-loop".source =

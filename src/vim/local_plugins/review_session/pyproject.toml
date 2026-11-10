@@ -1,0 +1,15 @@
+[build-system]
+requires = ["setuptools>=61"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "review-session"
+version = "0.1.0"
+description = "Disposable review sessions shared by humans, agents and Neovim"
+requires-python = ">=3.10"
+
+[project.scripts]
+review-session = "review_session.cli:main"
+
+[tool.setuptools.packages.find]
+where = ["python"]

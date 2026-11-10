@@ -63,6 +63,8 @@ in {
               vimAlias = true;
             })
             fzf
+            python3
+            (callPackage ../../../vim/local_plugins/review_session/default.nix {})
           ])
           # Full-profile packages: heavy dev toolchain (LSPs, formatters, linters, build tools)
           ++ lib.optionals (config.clj.programs.neovim.profile == "full") (with pkgs; [
