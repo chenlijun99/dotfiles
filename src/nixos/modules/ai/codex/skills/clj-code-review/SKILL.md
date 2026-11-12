@@ -13,16 +13,20 @@ description: Review proposed code changes in a dedicated subagent, using reposit
 
 - **High cohesion and low coupling.** Keep complexity belonging to one concern close together. Consider class and function boundaries and ownership: would a proposed split isolate a responsibility or scatter its details?
 
+- **Naming and readability.** Check whether file, type, function, variable and test names communicate their role and relevant distinctions. Compare names with actual contents and behavior. Flag misleading, ambiguous or inconsistent names with concrete examples and explain what becomes clearer; avoid preference-only renaming.
+
+- **Visual structure.** Check whether statement order, blank lines and local grouping expose the code's logical steps. Keep closely related operations together and separate distinct phases or cases. Look for dense blocks that hide structure and excessive separation that obscures dependencies. Explain how a proposed grouping helps local reasoning; prefer small layout changes when sufficient, without demanding helper extraction solely to shorten a function.
+
 - **Reuse.** Look for existing helpers and decisions maintained in multiple places. Compare their contracts before suggesting sharing; weigh saved maintenance against added dependencies and abstraction costs.
 
 - **Necessity.** Look for code that serves no current requirement. Before suggesting removal, verify what behavior depends on it. Extra code can confuse maintainers by suggesting a purpose that does not exist.
 
-- **Tests and automation.** Check that assertions would catch realistic bugs in the changed behavior. Verify how and when important tests run, including CI, nightly or justified manual runs. Suggest test regrouping when it makes related cases easier to find or understand, following the file's conventions.
+- **Tests and automation.** Check that assertions would catch realistic bugs in the changed behavior. When possible, tests shouldn't be tightly coupled to the implementation. Suggest test regrouping when it makes related cases easier to find or understand, following the file's conventions. Verify how and when important tests run, including CI, nightly or justified manual runs.
 
 - **Cost.** Assess data structures and algorithms against actual operations and input bounds. Look for work that can be skipped entirely for some configurations or inputs, such as when a feature is disabled. Distinguish demonstrated problems from optional optimizations whose benefit may not justify the effort.
 
 - **Additional reviewers.** Use one review subagent by default. If the user requests independent reviewers, the lead reviewer may delegate complementary angles, such as behavior/verification and design/cost. Give them the same scope and source context; angle workers do not delegate further. The lead reviewer checks claims and remedies against source, seeks counterexamples, and consolidates duplicate concerns.
 
-- **Report.** Give locations, evidence and consequences, prioritized by impact. Separate defects from useful discussions and incidental pre-existing issues. For concerns you raise, distinguish requirement violations, implementation choices and unclear requirements. Suggest justified remedies; explain consequential tradeoffs without requiring a definitive recommendation. Skip tool-enforced style and avoid finding quotas.
+- **Report.** Give locations, evidence and consequences, prioritized by impact. Separate defects from useful discussions and incidental pre-existing issues. For concerns you raise, distinguish requirement violations, implementation choices and unclear requirements. Suggest justified remedies; explain consequential tradeoffs without requiring a definitive recommendation. Skip mechanical style enforced by tools; semantic naming and visual grouping still require review judgment. Avoid finding quotas.
 
 - **Finish the record.** Update the Markdown checklist with evidence for completed checks, reasons for inapplicable checks, and missing evidence for unverified checks. Link it in the final review. A planned check is not a completed check.
