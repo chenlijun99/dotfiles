@@ -1,18 +1,21 @@
 # Codex CLI and nono sandbox (reusable, company-neutral home-manager module)
 #
-# Thin wrapper over the upstream `programs.codex` module. It only fixes the
-# one thing that is broken for codex: home-manager symlinks `config.toml`
-# read-only into /nix/store, but codex rewrites that file at runtime
-# (trust_level, model/effort selection, notices).
+# Thin wrapper over the upstream `programs.codex` module. It fixes the one
+# thing that is broken for codex: home-manager symlinks user config files
+# read-only into /nix/store, but codex rewrites them at runtime (trust_level,
+# model/effort selection, notices).
 # See https://github.com/nix-community/home-manager/issues/9397 and the
 # workaround pattern in https://github.com/holidayworking/core/pull/433.
+# Upstream #10000 fixed this for config.toml only. A comment on #9397 notes
+# that --profile makes Codex write to the profile config instead, and Home
+# Manager still symlinks those profile files into the store.
 #
-# Approach: disable the generated symlink for config.toml and on activation
-# merge the nix-generated (static) settings with any previous *writable* copy
-# (codex state) into a plain file. Static settings win; untouched codex state
-# (e.g. `[projects.*]` trust, notices) is carried over. Fenced blocks managed
-# by tools such as nono are kept byte-for-byte so those tools can update or
-# remove their own configuration later.
+# Approach: disable the generated symlink for config.toml and every profile
+# config, then on activation merge the nix-generated (static) settings with any
+# previous *writable* copy (codex state) into a plain file. Static settings win;
+# untouched codex state (e.g. `[projects.*]` trust, notices) is carried over.
+# Fenced blocks managed by tools such as nono are kept byte-for-byte so those
+# tools can update or remove their own configuration later.
 #
 # Codex itself remains configurable through the upstream
 # `programs.codex.{settings,plugins,hooks,mcpServers,...}` options. The local
@@ -92,6 +95,20 @@
       if lib.hasPrefix "/" configDir
       then fileKey
       else "${config.home.homeDirectory}/${fileKey}";
+    tomlFormat = pkgs.formats.toml {};
+    profileConfigs = lib.mapAttrsToList (
+      name: settings: let
+        key = "${configDir}/${name}.config.toml";
+      in {
+        inherit key;
+        static = tomlFormat.generate "codex-${name}-config" settings;
+        output =
+          if lib.hasPrefix "/" key
+          then key
+          else "${config.home.homeDirectory}/${key}";
+      }
+    ) (config.programs.codex.profiles or {});
+    hasProfiles = profileConfigs != [];
     # Only run the writable-config machinery when there is an actual static
     # config to seed; otherwise `config.home.file."${fileKey}".source` (which
     # has no default in home-manager) must not be evaluated.
@@ -143,11 +160,23 @@
       xdg.configFile."nono/profiles/clj-codex.jsonc".source = cljCodexProfile;
 
       # Ensure writable grants are not skipped by nono on a fresh machine.
-      home.file = {
-        ".local/share/nvim/undo/.keep".text = "";
-        ".local/state/nvim/.keep".text = "";
-        ".cache/nvim/.keep".text = "";
-      };
+      # Also disable the upstream symlinks for Codex's runtime-writable files,
+      # and install the global AGENTS.md.
+      home.file =
+        {
+          ".local/share/nvim/undo/.keep".text = "";
+          ".local/state/nvim/.keep".text = "";
+          ".cache/nvim/.keep".text = "";
+        }
+        // lib.optionalAttrs hasSettings {
+          ${fileKey}.enable = false;
+        }
+        // lib.listToAttrs (
+          map (profile: lib.nameValuePair profile.key {enable = false;}) profileConfigs
+        )
+        // {
+          ${agentsMdKey}.source = agentsMdSource;
+        };
 
       # Shared TUI defaults (machines can override via `lib.mkForce`-style
       # settings, or just set `settings.tui.*` themselves).
@@ -187,14 +216,6 @@
         };
       };
 
-      # 1. Don't let home-manager symlink config.toml into the store. Keyed
-      # exactly like the upstream module so both defs merge on the same entry.
-      home.file.${fileKey}.enable = lib.mkIf hasSettings false;
-
-      home.file.${agentsMdKey} = {
-        source = agentsMdSource;
-      };
-
       # 2. On activation, merge static settings with the previous writable copy.
       home.activation.codexMutableConfig = lib.mkIf hasSettings (lib.hm.dag.entryAfter [
           "linkGeneration"
@@ -203,6 +224,17 @@
             --static ${lib.escapeShellArg config.home.file.${fileKey}.source} \
             --output ${lib.escapeShellArg configFile}
         '');
+
+      home.activation.codexMutableProfiles = lib.mkIf hasProfiles (
+        lib.hm.dag.entryAfter ["linkGeneration"] (
+          lib.concatMapStringsSep "\n" (profile: ''
+            ${lib.getExe codexMutableConfig} \
+              --static ${lib.escapeShellArg profile.static} \
+              --output ${lib.escapeShellArg profile.output}
+          '')
+          profileConfigs
+        )
+      );
     };
   };
 }

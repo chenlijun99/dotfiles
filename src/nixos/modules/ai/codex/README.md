@@ -139,10 +139,11 @@ succeeds.
 
 ## Mutable Codex configuration
 
-Codex updates `~/.codex/config.toml` at runtime. The module keeps it as a
-writable file and merges declarative Home Manager settings into it during
-activation. It preserves nono's fenced plugin blocks byte-for-byte because the
-fence comments are ownership metadata used when nono updates or removes its
+Codex updates `~/.codex/config.toml` and the active profile config
+(`~/.codex/<name>.config.toml`) at runtime. The module keeps both as writable
+files and merges declarative Home Manager settings into them during activation.
+It preserves nono's fenced plugin blocks byte-for-byte because the fence
+comments are ownership metadata used when nono updates or removes its
 configuration.
 
 ## References
