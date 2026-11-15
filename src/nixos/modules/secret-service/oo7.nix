@@ -22,50 +22,7 @@
 # Keyring contents are disposable. Losing or resetting the keyring is expected
 # to require re-authenticating applications; durable credentials belong in
 # KeePassXC.
-{...}: let
-  mkOo7Pinned = pkgs: let
-    # nixpkgs 0.6.0 lacks the default-alias and content-type fixes required by
-    # the secret-management decision. The 0.7.0.beta tag has a PAM bug where
-    # the login helper inherits the console login's terminal and can be killed
-    # by SIGHUP before oo7-daemon receives the password:
-    # https://github.com/linux-credentials/oo7/pull/624
-    #
-    # This revision includes that fix.
-    oo7Rev = "e55a1b10fc16c252811b4c7f7cf3603f743679e0";
-    oo7Src = pkgs.fetchFromGitHub {
-      owner = "linux-credentials";
-      repo = "oo7";
-      rev = oo7Rev;
-      hash = "sha256-nhkLL9xgSAIAlV+VN8R5S2kaaW326xupSviEighYGN4=";
-    };
-    oo7CargoDeps = pkgs.rustPlatform.fetchCargoVendor {
-      src = oo7Src;
-      name = "oo7-${oo7Rev}";
-      hash = "sha256-6jj21lbSv0SM3shReI8meih135I38UqjWGfn04kMSf4=";
-    };
-    oo7 = pkgs.oo7.overrideAttrs (_old: {
-      version = "0.7.0-alpha-${builtins.substring 0 7 oo7Rev}";
-      src = oo7Src;
-      cargoDeps = oo7CargoDeps;
-    });
-    oo7Server = pkgs.callPackage "${pkgs.path}/pkgs/by-name/oo/oo7-server/package.nix" {inherit oo7;};
-    oo7Portal = pkgs.callPackage "${pkgs.path}/pkgs/by-name/oo/oo7-portal/package.nix" {inherit oo7;};
-    # The nixpkgs PAM derivation was written for 0.6.0. oo7 0.7 links PAM
-    # directly and expects oo7-daemon-login next to the PAM module, so the
-    # pinned PAM build needs linux-pam in buildInputs and the helper from the
-    # server package.
-    oo7Pam = (pkgs.callPackage "${pkgs.path}/pkgs/by-name/oo/oo7-pam/package.nix" {inherit oo7;}).overrideAttrs (old: {
-      buildInputs = (old.buildInputs or []) ++ [pkgs.pam];
-      postInstall =
-        (old.postInstall or "")
-        + ''
-          install -Dm755 ${oo7Server}/libexec/oo7-daemon-login $out/libexec/oo7-daemon-login
-        '';
-    });
-  in {
-    inherit oo7 oo7Server oo7Portal oo7Pam;
-  };
-in {
+{...}: {
   flake.modules.nixos.clj-keyring = {
     config,
     lib,
@@ -74,19 +31,6 @@ in {
   }: let
     kdeEnabled = config.services.desktopManager.plasma6.enable or false;
   in {
-    # Replace the packaged oo7 components so services.oo7 uses the pinned
-    # post-beta revision throughout the daemon, PAM module, and portal.
-    nixpkgs.overlays = [
-      (_final: prev: let
-        oo7Pkgs = mkOo7Pinned prev;
-      in {
-        inherit (oo7Pkgs) oo7;
-        oo7-pam = oo7Pkgs.oo7Pam;
-        oo7-server = oo7Pkgs.oo7Server;
-        oo7-portal = oo7Pkgs.oo7Portal;
-      })
-    ];
-
     services.oo7.enable = true;
 
     # The daemon can start before the graphical session environment has been
