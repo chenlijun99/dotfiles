@@ -74,6 +74,16 @@
           FdoSecrets.Enabled = false;
         };
       };
+
+      # QuickUnlock is a machine-local setting stored in keepassxc_local.ini.
+      # Merge it on activation instead of replacing the mutable local state file.
+      home.activation.keepassxcDisableQuickUnlock = lib.hm.dag.entryAfter ["writeBoundary"] ''
+        $DRY_RUN_CMD ${pkgs.coreutils}/bin/mkdir -p "$HOME/.local/state/keepassxc"
+        $DRY_RUN_CMD ${lib.getExe' pkgs.kdePackages.kconfig "kwriteconfig6"} \
+          --file "$HOME/.local/state/keepassxc/keepassxc.ini" \
+          --group Security \
+          --key QuickUnlock false
+      '';
     };
   };
 }
