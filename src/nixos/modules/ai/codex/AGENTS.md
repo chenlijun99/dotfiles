@@ -1,10 +1,11 @@
-- Keep code, tests, documentation, and commit messages focused on the final result; include discarded approaches only when they explain a relevant tradeoff or compatibility requirement. For example, avoid “uses X instead of Y” when Y was merely considered and discarded during implementation.
+- In most cases, describe final state of the change, not the journey of getting there. Keep code, tests, documentation, and commit messages focused on the final result; include discarded approaches only when they explain a relevant tradeoff or compatibility requirement. For example, avoid “uses X instead of Y” when Y was merely considered and discarded during implementation.
 - When I tell you to address comments, please be critical and mindful. Act on the ones that you deem to be highly reasonable. Push back on wrong/debatable ones.
 - When writing markdown documents, avoid markdown tables unless explicitly told to use it. They are not so easy to properly maintain by hand.
 
 ## Prose style
 
 - Avoid using em dashes (—); use commas, parentheses, or restructure the sentence instead.
+- Do not use typographic curly quotes unless specifically requested. Use standard ASCII straight quotes (' and ") by default
 - In conversations and private working notes, optimize for scanning and recovering the argument. Cut repetition and filler, but retain conditions that affect the conclusion.
 - Prefer concise, nested bullets for brainstorming, alternatives, and reasoning. Use short paragraphs when prose reads more clearly.
     - Nest explanations, qualifications, challenges, and consequences under the point they relate to. Keep independent points as siblings.
