@@ -1,12 +1,14 @@
-{...}: {
-  flake.modules.homeManager.clj-input-method = {
-    pkgs,
-    lib,
-    config,
-    ...
-  }: let
-    isLinux = pkgs.stdenv.hostPlatform.isLinux;
-  in
+{ ... }: {
+  flake.modules.homeManager.clj-input-method =
+    {
+      pkgs,
+      lib,
+      config,
+      ...
+    }:
+    let
+      isLinux = pkgs.stdenv.hostPlatform.isLinux;
+    in
     lib.mkIf isLinux {
       i18n.inputMethod = {
         type = "fcitx5";
@@ -61,7 +63,7 @@
         # See some (mildly) related discussion
         # https://github.com/nix-community/home-manager/issues/3090
         # Specificaly https://github.com/nix-community/home-manager/issues/3090#issuecomment-1835357162
-        fcitx5Configs = lib.hm.dag.entryBefore ["checkLinkTargets"] ''
+        fcitx5Configs = lib.hm.dag.entryBefore [ "checkLinkTargets" ] ''
           $DRY_RUN_CMD rm -f ~/.config/fcitx5/config
           $DRY_RUN_CMD rm -f ~/.config/fcitx5/profile
           $DRY_RUN_CMD rm -f ~/.config/fcitx5/conf/classicui.conf

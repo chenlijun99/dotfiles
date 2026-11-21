@@ -1,35 +1,39 @@
-{...}: {
-  flake.modules.homeManager.clj-tmux = {
-    config,
-    pkgs,
-    lib,
-    ...
-  }: {
-    options.clj.programs.tmux.enable = lib.mkEnableOption "Tmux configuration" // {default = true;};
-
-    config = lib.mkIf config.clj.programs.tmux.enable {
-      home.persistence.${config.clj.impermanence.persistDir} = {
-        directories = [
-          ".local/share/tmux"
-        ];
+{ ... }: {
+  flake.modules.homeManager.clj-tmux =
+    {
+      config,
+      pkgs,
+      lib,
+      ...
+    }:
+    {
+      options.clj.programs.tmux.enable = lib.mkEnableOption "Tmux configuration" // {
+        default = true;
       };
-      home = {
-        packages = with pkgs; [
-          tmux
-          # For tmux-yank
-          xsel
-          # The coding-agent popup behind `bind Space` in src/tmux.conf.
-          (pkgs.callPackage ../../../tmux/agents {})
-        ];
-        file = {
-          ".tmux" = {
-            source = config.lib.clj.linkDotfile "./src/tmux";
-          };
-          ".tmux.conf" = {
-            source = config.lib.clj.linkDotfile "./src/tmux.conf";
+
+      config = lib.mkIf config.clj.programs.tmux.enable {
+        home.persistence.${config.clj.impermanence.persistDir} = {
+          directories = [
+            ".local/share/tmux"
+          ];
+        };
+        home = {
+          packages = with pkgs; [
+            tmux
+            # For tmux-yank
+            xsel
+            # The coding-agent popup behind `bind Space` in src/tmux.conf.
+            (pkgs.callPackage ../../../tmux/agents { })
+          ];
+          file = {
+            ".tmux" = {
+              source = config.lib.clj.linkDotfile "./src/tmux";
+            };
+            ".tmux.conf" = {
+              source = config.lib.clj.linkDotfile "./src/tmux.conf";
+            };
           };
         };
       };
     };
-  };
 }

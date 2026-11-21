@@ -1,5 +1,5 @@
 # NUR (Nix User Repository) integration
-{inputs, ...}: {
+{ inputs, ... }: {
   flake.modules.nixos.clj-nur = {
     imports = [
       inputs.nur.modules.nixos.default

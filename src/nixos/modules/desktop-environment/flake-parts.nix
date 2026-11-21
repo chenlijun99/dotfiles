@@ -1,5 +1,5 @@
 # Desktop environment configuration (KDE Plasma)
-{inputs, ...}: {
+{ inputs, ... }: {
   flake.modules.nixos.clj-desktop-environment = {
     services.displayManager.sddm.enable = true;
     services.xserver.enable = true;
@@ -23,7 +23,7 @@
   flake.modules.homeManager.clj-desktop-environment = {
     imports = [
       inputs.plasma-manager.homeModules.plasma-manager
-      ({config, ...}: {
+      ({ config, ... }: {
         home.persistence.${config.clj.impermanence.persistDir} = {
           files = [
             # Display configuratino of KDE

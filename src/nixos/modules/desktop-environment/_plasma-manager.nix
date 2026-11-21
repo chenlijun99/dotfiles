@@ -1,9 +1,9 @@
-{config, ...}: {
+{ config, ... }: {
   programs.plasma = {
     enable = true;
     overrideConfig = true;
     # PowerDevil settings are managed interactively and persisted separately.
-    resetFilesExclude = ["powerdevilrc"];
+    resetFilesExclude = [ "powerdevilrc" ];
     shortcuts = {
       ksmserver = {
         "Log Out" = "Alt+Shift+F4,Ctrl+Alt+Del,Log Out";
@@ -12,7 +12,10 @@
         "Activate Window Demanding Attention" = "Ctrl+Alt+A";
         "Edit Tiles" = "Meta+T";
         Expose = "Ctrl+F9";
-        ExposeAll = ["Ctrl+F10" "Launch (C)"];
+        ExposeAll = [
+          "Ctrl+F10"
+          "Launch (C)"
+        ];
         ExposeClass = "Ctrl+F7";
         "Grid View" = "Meta+G";
         "Kill Window" = "Ctrl+Alt+Esc";
@@ -36,8 +39,14 @@
         "Switch to Desktop 5" = "Meta+Alt+5";
         "Walk Through Windows" = "Alt+Tab";
         "Walk Through Windows (Reverse)" = "Alt+Shift+Backtab";
-        "Walk Through Windows of Current Application" = ["Meta+`" "Alt+`"];
-        "Walk Through Windows of Current Application (Reverse)" = ["Meta+~" "Alt+~"];
+        "Walk Through Windows of Current Application" = [
+          "Meta+`"
+          "Alt+`"
+        ];
+        "Walk Through Windows of Current Application (Reverse)" = [
+          "Meta+~"
+          "Alt+~"
+        ];
         "Window Close" = "Alt+F4";
         "Window Fullscreen" = "F11";
         "Window Maximize" = "Meta+Shift+F";
@@ -60,7 +69,7 @@
         "Window to Next Screen" = "Meta+Ctrl+Shift+L";
         "Window to Previous Screen" = "Meta+Ctrl+Shift+H";
         disableInputCapture = "Meta+Shift+Esc";
-        view_actual_size = [];
+        view_actual_size = [ ];
         view_zoom_in = "Meta+=";
         view_zoom_out = "Meta+-";
       };
@@ -76,11 +85,17 @@
         PowerOff = "Power Off";
         Sleep = "Sleep";
         "Toggle Keyboard Backlight" = "Keyboard Light On/Off";
-        "Turn Off Screen" = [];
-        powerProfile = ["Battery" "Meta+B"];
+        "Turn Off Screen" = [ ];
+        powerProfile = [
+          "Battery"
+          "Meta+B"
+        ];
       };
       plasmashell = {
-        "activate application launcher" = ["Meta" "Alt+F1"];
+        "activate application launcher" = [
+          "Meta"
+          "Alt+F1"
+        ];
         "activate task manager entry 1" = "Meta+!";
         "activate task manager entry 10" = "Meta+)";
         "activate task manager entry 2" = "Meta+@";
@@ -103,9 +118,12 @@
       "services/clj_switch_to_dolphin.desktop"._launch = "Meta+1";
       "services/clj_switch_to_firefox.desktop"._launch = "Meta+2";
       "services/clj_switch_to_keepassxc.desktop"._launch = "Meta+4";
-      "services/com.mitchellh.ghostty.desktop"._launch = [];
+      "services/com.mitchellh.ghostty.desktop"._launch = [ ];
       "services/firefox.desktop"._launch = "Meta+Ctrl+2";
-      "services/org.kde.dolphin.desktop"._launch = ["Meta+E" "Meta+Ctrl+1"];
+      "services/org.kde.dolphin.desktop"._launch = [
+        "Meta+E"
+        "Meta+Ctrl+1"
+      ];
       "services/org.keepassxc.KeePassXC.desktop"._launch = "Meta+Ctrl+4";
       "services/voxtype-toggle.desktop"._launch = "Meta+Shift+V";
     };
@@ -125,7 +143,7 @@
           {
             iconTasks = {
               # Don't pin any program
-              launchers = [];
+              launchers = [ ];
             };
           }
           "org.kde.plasma.marginsseparator"
@@ -234,7 +252,8 @@
           ttsEngine = "flite";
         };
         Reviews = {
-          "AnnotationTools" = "<tool type=\"highlight\" id=\"1\" name=\"Keywords\"><engine color=\"#ffffff7f\" type=\"TextSelector\"><annotation color=\"#ffffff7f\" type=\"Highlight\"/></engine><shortcut>1</shortcut></tool>,<tool type=\"highlight\" id=\"2\" name=\"Important\"><engine color=\"#ffbbefff\" type=\"TextSelector\"><annotation color=\"#ffbbefff\" type=\"Highlight\"/></engine><shortcut>2</shortcut></tool>,<tool type=\"highlight\" id=\"3\" name=\"Revisit\"><engine color=\"#ffddbbff\" type=\"TextSelector\"><annotation color=\"#ffddbbff\" type=\"Highlight\"/></engine><shortcut>3</shortcut></tool>,<tool type=\"highlight\" id=\"4\" name=\"Disagree\"><engine color=\"#ffff7777\" type=\"TextSelector\"><annotation color=\"#ffff7777\" type=\"Highlight\"/></engine><shortcut>4</shortcut></tool>,<tool type=\"highlight\" id=\"5\" name=\"Ignored\"><engine color=\"#ff888888\" type=\"TextSelector\"><annotation color=\"#ff888888\" type=\"Highlight\"/></engine><shortcut>5</shortcut></tool>,<tool type=\"underline\" id=\"6\"><engine color=\"#ffff7777\" type=\"TextSelector\"><annotation color=\"#ffff7777\" type=\"Underline\"/></engine><shortcut>6</shortcut></tool>,<tool type=\"note-linked\" id=\"7\" name=\"Note\"><engine color=\"#ffffff7f\" type=\"PickPoint\" hoverIcon=\"tool-note\"><annotation icon=\"Note\" color=\"#ffffff7f\" type=\"Text\"/></engine><shortcut>7</shortcut></tool>,<tool type=\"note-inline\" id=\"8\" name=\"Inline Note\"><engine color=\"#ffffff7f\" type=\"PickPoint\" hoverIcon=\"tool-note-inline\" block=\"true\"><annotation color=\"#ffffff7f\" type=\"FreeText\" width=\"1\" font=\"Noto Sans\\,10\\,-1\\,5\\,50\\,0\\,0\\,0\\,0\\,0\\,Regular\"/></engine><shortcut>8</shortcut></tool>,<tool type=\"ink\" id=\"9\"><engine color=\"#ff000000\" type=\"SmoothLine\"><annotation color=\"#ff000000\" type=\"Ink\" width=\"1\"/></engine><shortcut>9</shortcut></tool>,<tool type=\"ink\" id=\"10\" name=\"Important Line\"><engine color=\"#ffbbefff\" type=\"SmoothLine\"><annotation color=\"#ffbbefff\" type=\"Ink\" width=\"3\"/></engine></tool>";
+          "AnnotationTools" =
+            "<tool type=\"highlight\" id=\"1\" name=\"Keywords\"><engine color=\"#ffffff7f\" type=\"TextSelector\"><annotation color=\"#ffffff7f\" type=\"Highlight\"/></engine><shortcut>1</shortcut></tool>,<tool type=\"highlight\" id=\"2\" name=\"Important\"><engine color=\"#ffbbefff\" type=\"TextSelector\"><annotation color=\"#ffbbefff\" type=\"Highlight\"/></engine><shortcut>2</shortcut></tool>,<tool type=\"highlight\" id=\"3\" name=\"Revisit\"><engine color=\"#ffddbbff\" type=\"TextSelector\"><annotation color=\"#ffddbbff\" type=\"Highlight\"/></engine><shortcut>3</shortcut></tool>,<tool type=\"highlight\" id=\"4\" name=\"Disagree\"><engine color=\"#ffff7777\" type=\"TextSelector\"><annotation color=\"#ffff7777\" type=\"Highlight\"/></engine><shortcut>4</shortcut></tool>,<tool type=\"highlight\" id=\"5\" name=\"Ignored\"><engine color=\"#ff888888\" type=\"TextSelector\"><annotation color=\"#ff888888\" type=\"Highlight\"/></engine><shortcut>5</shortcut></tool>,<tool type=\"underline\" id=\"6\"><engine color=\"#ffff7777\" type=\"TextSelector\"><annotation color=\"#ffff7777\" type=\"Underline\"/></engine><shortcut>6</shortcut></tool>,<tool type=\"note-linked\" id=\"7\" name=\"Note\"><engine color=\"#ffffff7f\" type=\"PickPoint\" hoverIcon=\"tool-note\"><annotation icon=\"Note\" color=\"#ffffff7f\" type=\"Text\"/></engine><shortcut>7</shortcut></tool>,<tool type=\"note-inline\" id=\"8\" name=\"Inline Note\"><engine color=\"#ffffff7f\" type=\"PickPoint\" hoverIcon=\"tool-note-inline\" block=\"true\"><annotation color=\"#ffffff7f\" type=\"FreeText\" width=\"1\" font=\"Noto Sans\\,10\\,-1\\,5\\,50\\,0\\,0\\,0\\,0\\,0\\,Regular\"/></engine><shortcut>8</shortcut></tool>,<tool type=\"ink\" id=\"9\"><engine color=\"#ff000000\" type=\"SmoothLine\"><annotation color=\"#ff000000\" type=\"Ink\" width=\"1\"/></engine><shortcut>9</shortcut></tool>,<tool type=\"ink\" id=\"10\" name=\"Important Line\"><engine color=\"#ffbbefff\" type=\"SmoothLine\"><annotation color=\"#ffbbefff\" type=\"Ink\" width=\"3\"/></engine></tool>";
         };
       };
     };

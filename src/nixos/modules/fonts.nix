@@ -1,11 +1,16 @@
-{...}: {
-  flake.modules.homeManager.clj-fonts = {pkgs, ...}: {
+{ ... }: {
+  flake.modules.homeManager.clj-fonts = { pkgs, ... }: {
     fonts = {
       fontconfig = {
         enable = true;
         defaultFonts = {
-          emoji = ["Noto Color Emoji"];
-          monospace = ["Hack Nerd Font" "emoji" "JuliaMono" "DejaVu Sans Mono"];
+          emoji = [ "Noto Color Emoji" ];
+          monospace = [
+            "Hack Nerd Font"
+            "emoji"
+            "JuliaMono"
+            "DejaVu Sans Mono"
+          ];
         };
       };
     };

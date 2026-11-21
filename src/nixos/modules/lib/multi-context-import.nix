@@ -25,20 +25,27 @@
   self,
   lib,
   ...
-}: {
-  config.flake.lib.mkMultiContextImports = featureNames: let
-    # For each context, collect all features that define modules for that context
-    collectForContext = context:
-      lib.filter (x: x != null) (
-        map (name:
-          if lib.hasAttr context self.modules && lib.hasAttr name self.modules.${context}
-          then self.modules.${context}.${name}
-          else null)
-        featureNames
-      );
-  in {
-    nixos = collectForContext "nixos";
-    darwin = collectForContext "darwin";
-    homeManager = collectForContext "homeManager";
-  };
+}:
+{
+  config.flake.lib.mkMultiContextImports =
+    featureNames:
+    let
+      # For each context, collect all features that define modules for that context
+      collectForContext =
+        context:
+        lib.filter (x: x != null) (
+          map (
+            name:
+            if lib.hasAttr context self.modules && lib.hasAttr name self.modules.${context} then
+              self.modules.${context}.${name}
+            else
+              null
+          ) featureNames
+        );
+    in
+    {
+      nixos = collectForContext "nixos";
+      darwin = collectForContext "darwin";
+      homeManager = collectForContext "homeManager";
+    };
 }

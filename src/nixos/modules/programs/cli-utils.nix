@@ -1,7 +1,8 @@
-{...}: let
+{ ... }:
+let
   # CLI utils that should be also available as root
-  systemPackages = pkgs:
-    with pkgs; [
+  systemPackages =
+    pkgs: with pkgs; [
       python313
       curl
       wget
@@ -21,83 +22,98 @@
     ];
 
   # Helper: Create a basic module with enable option for a context
-  mkContextModule = {
-    config,
-    lib,
-    pkgs,
-    ...
-  }: {
-    options.clj.programs.cli-utils.enable = lib.mkEnableOption "CLI utilities" // {default = true;};
+  mkContextModule =
+    {
+      config,
+      lib,
+      pkgs,
+      ...
+    }:
+    {
+      options.clj.programs.cli-utils.enable = lib.mkEnableOption "CLI utilities" // {
+        default = true;
+      };
 
-    config = lib.mkIf config.clj.programs.cli-utils.enable {
-      environment.systemPackages = systemPackages pkgs;
+      config = lib.mkIf config.clj.programs.cli-utils.enable {
+        environment.systemPackages = systemPackages pkgs;
+      };
     };
-  };
-in {
+in
+{
   flake.modules.nixos.clj-cli-utils = mkContextModule;
   flake.modules.darwin.clj-cli-utils = mkContextModule;
 
-  flake.modules.homeManager.clj-cli-utils = {
-    pkgs,
-    lib,
-    config,
-    ...
-  }: {
-    options.clj.programs.cli-utils.enable = lib.mkEnableOption "CLI utilities" // {default = true;};
+  flake.modules.homeManager.clj-cli-utils =
+    {
+      pkgs,
+      lib,
+      config,
+      ...
+    }:
+    {
+      options.clj.programs.cli-utils.enable = lib.mkEnableOption "CLI utilities" // {
+        default = true;
+      };
 
-    config = lib.mkIf config.clj.programs.cli-utils.enable {
-      home = {
-        packages = with pkgs;
-          (systemPackages pkgs)
-          ++ [
-            tldr
-            ripgrep-all
-            rclone
-          ];
+      config = lib.mkIf config.clj.programs.cli-utils.enable {
+        home = {
+          packages =
+            with pkgs;
+            (systemPackages pkgs)
+            ++ [
+              tldr
+              ripgrep-all
+              rclone
+            ];
 
-        file = {
-          ".vifm" = {
-            source = config.lib.clj.linkDotfile "src/vifm";
-          };
-          ".ctags" = {
-            source = config.lib.clj.linkDotfile "src/ctags";
-          };
-          ".detoxrc" = {
-            source = config.lib.clj.linkDotfile "src/detoxrc";
-          };
-          ".gdbinit" = {
-            source = config.lib.clj.linkDotfile "src/gdbinit";
-          };
-          ".ls_colors" = {
-            source = config.lib.clj.linkDotfile "src/ls_colors";
-          };
-          ".markdownlint.jsonc" = {
-            source = config.lib.clj.linkDotfile "src/markdownlint.jsonc";
-          };
-          ".markdownlintrc" = let
-            stripJsoncCommentsNaive = inputPath: let
-              drv = pkgs.stdenv.mkDerivation {
-                name = "jsonc-to-json" + inputPath;
-                src = inputPath;
-                dontUnpack = true;
-                buildInputs = [pkgs.jq];
-                buildPhase = ''
-                  mkdir -p $out
-                  # Use jq to validate and format the JSON
-                  sed -E 's/\/\/.*$//' $src | jq > $out/output.json
-                '';
+          file = {
+            ".vifm" = {
+              source = config.lib.clj.linkDotfile "src/vifm";
+            };
+            ".ctags" = {
+              source = config.lib.clj.linkDotfile "src/ctags";
+            };
+            ".detoxrc" = {
+              source = config.lib.clj.linkDotfile "src/detoxrc";
+            };
+            ".gdbinit" = {
+              source = config.lib.clj.linkDotfile "src/gdbinit";
+            };
+            ".ls_colors" = {
+              source = config.lib.clj.linkDotfile "src/ls_colors";
+            };
+            ".markdownlint.jsonc" = {
+              source = config.lib.clj.linkDotfile "src/markdownlint.jsonc";
+            };
+            ".markdownlintrc" =
+              let
+                stripJsoncCommentsNaive =
+                  inputPath:
+                  let
+                    drv = pkgs.stdenv.mkDerivation {
+                      name = "jsonc-to-json" + inputPath;
+                      src = inputPath;
+                      dontUnpack = true;
+                      buildInputs = [ pkgs.jq ];
+                      buildPhase = ''
+                        mkdir -p $out
+                        # Use jq to validate and format the JSON
+                        sed -E 's/\/\/.*$//' $src | jq > $out/output.json
+                      '';
+                    };
+                  in
+                  (drv + "/output.json");
+              in
+              {
+                source = stripJsoncCommentsNaive ../../../markdownlint.jsonc;
               };
-            in (drv + "/output.json");
-          in {
-            source = stripJsoncCommentsNaive ../../../markdownlint.jsonc;
-          };
-          # GNU readline config
-          # Mostly for Vim keybindings
-          ".inputrc" = {
-            source = config.lib.clj.linkDotfile "src/inputrc";
+            # GNU readline config
+            # Mostly for Vim keybindings
+            ".inputrc" = {
+              source = config.lib.clj.linkDotfile "src/inputrc";
+            };
           };
         };
       };
     };
-  };
 }

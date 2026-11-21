@@ -1,5 +1,6 @@
 # Home Manager integration for NixOS and Darwin
-{inputs, ...}: let
+{ inputs, ... }:
+let
   home-manager-config = {
     home-manager = {
       # By default packages will be installed to $HOME/.nix-profile.
@@ -14,7 +15,8 @@
       backupFileExtension = "bak";
     };
   };
-in {
+in
+{
   flake.modules.nixos.clj-home-manager = {
     imports = [
       inputs.home-manager.nixosModules.home-manager

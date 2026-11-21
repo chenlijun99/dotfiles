@@ -1,5 +1,5 @@
 # SOPS-nix secrets management
-{inputs, ...}: {
+{ inputs, ... }: {
   flake.modules.nixos.clj-sops = {
     imports = [
       inputs.sops-nix.nixosModules.sops

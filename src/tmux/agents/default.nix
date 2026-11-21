@@ -14,31 +14,34 @@ python3Packages.buildPythonApplication {
   dontBuild = true;
 
   # The CLI shells out to tmux and fzf, so they go on its PATH.
-  propagatedBuildInputs = [ tmux fzf ];
+  propagatedBuildInputs = [
+    tmux
+    fzf
+  ];
 
   installPhase = ''
-    runHook preInstall
+        runHook preInstall
 
-    mkdir -p $out/libexec/clj-agents $out/bin
-    cp -r clj_agents $out/libexec/clj-agents/
+        mkdir -p $out/libexec/clj-agents $out/bin
+        cp -r clj_agents $out/libexec/clj-agents/
 
-    # A python entry point rather than a shell wrapper, so startup stays fast.
-    cat > $out/bin/clj_agents <<ENTRY
-#!${python3Packages.python.interpreter}
-import sys
+        # A python entry point rather than a shell wrapper, so startup stays fast.
+        cat > $out/bin/clj_agents <<ENTRY
+    #!${python3Packages.python.interpreter}
+    import sys
 
-sys.path.insert(0, "$out/libexec/clj-agents")
+    sys.path.insert(0, "$out/libexec/clj-agents")
 
-from clj_agents.cli import main
+    from clj_agents.cli import main
 
-raise SystemExit(main())
-ENTRY
-    chmod +x $out/bin/clj_agents
+    raise SystemExit(main())
+    ENTRY
+        chmod +x $out/bin/clj_agents
 
-    # Whoever ran the tests in the checkout may have left bytecode behind.
-    find $out -name __pycache__ -type d -prune -exec rm -rf {} +
+        # Whoever ran the tests in the checkout may have left bytecode behind.
+        find $out -name __pycache__ -type d -prune -exec rm -rf {} +
 
-    runHook postInstall
+        runHook postInstall
   '';
 
   doCheck = true;

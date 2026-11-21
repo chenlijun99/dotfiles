@@ -1,6 +1,6 @@
 # SSH server configuration
 {
-  flake.modules.nixos.clj-ssh-server = {lib, ...}: {
+  flake.modules.nixos.clj-ssh-server = { lib, ... }: {
     services.openssh = {
       enable = true;
       settings = {
