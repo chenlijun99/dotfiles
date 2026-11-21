@@ -207,8 +207,10 @@
           features = {
             # Enable hooks
             hooks = lib.mkDefault true;
-            # Enable subagents
-            multi_agent = lib.mkDefault true;
+          };
+          # Enable subagents
+          agents = {
+            enabled = lib.mkDefault true;
           };
         };
 
