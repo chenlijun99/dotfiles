@@ -80,7 +80,7 @@ in {
             yarn
             markdownlint-cli
             # Nix
-            alejandra
+            nixfmt
             nil
             # Python
             ty

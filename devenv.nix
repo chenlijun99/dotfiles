@@ -1,4 +1,4 @@
-{pkgs, ...}: {
+{ pkgs, ... }: {
   cachix.enable = false;
   # https://devenv.sh/packages/
   packages = with pkgs; [
@@ -9,6 +9,7 @@
     sops
     ssh-to-age
     yq
+    nixfmt
     # To edit neovim config
     stylua
     lua-language-server
