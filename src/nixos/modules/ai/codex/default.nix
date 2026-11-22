@@ -207,6 +207,9 @@
           features = {
             # Enable hooks
             hooks = lib.mkDefault true;
+            # Side conversation pane UI (introduced in Codex 0.168.0)
+            # Allows having multiple /side conversation
+            tui_workspace = lib.mkDefault true;
           };
           # Enable subagents
           agents = {
