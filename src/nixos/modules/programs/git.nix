@@ -23,6 +23,14 @@
               source = config.lib.clj.linkDotfile "src/gitconfig";
             };
           };
+          # The keyring persists tokens, but gh still needs hosts.yml to know
+          # which hosts and accounts those tokens belong to.
+          persistence.${config.clj.impermanence.persistDir}.directories = [
+            {
+              directory = ".config/gh";
+              mode = "0700";
+            }
+          ];
         };
       };
     };
